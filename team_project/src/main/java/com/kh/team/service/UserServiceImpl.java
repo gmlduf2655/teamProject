@@ -21,12 +21,12 @@ public class UserServiceImpl implements UserService {
 
 	// 로그인
 	@Override
-	public boolean login(String userid, String userpw) {
+	public UserVo login(String userid, String userpw) {
 		UserVo userVo = userDao.selectUserByIdAndPwd(userid, userpw);
-		if(userVo != null) {
-			return true;
-		}
-		return false;
+//		if(userVo != null) {
+//			return true;
+//		}
+		return userVo;
 	}
 
 	// 유저 정보 수정

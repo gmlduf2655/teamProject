@@ -32,7 +32,7 @@
 	
 	<!-- 유저 정보 수정 -->
 	<update id="updateUser">
-		update tbl_user 
+		update tbl_user set
 			nickname = #{nickname},
 			address = #{address},
 			cellphone = #{cellphone}
@@ -42,7 +42,7 @@
 	<!-- 유저 삭제 -->
 	<update id="deleteUser">
 		update tbl_user 
-			set status='F'
+			set status='0'
 		where userid = #{userid}
 	</update>
 </mapper>

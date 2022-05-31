@@ -6,7 +6,7 @@ public interface UserService {
 	// 회원가입
 	public boolean signUp(UserVo userVo);
 	// 로그인
-	public boolean login(String userid, String userpw);
+	public UserVo login(String userid, String userpw);
 	// 회원 정보 수정
 	public boolean updateUser(UserVo userVo);
 	// 회원 탈퇴

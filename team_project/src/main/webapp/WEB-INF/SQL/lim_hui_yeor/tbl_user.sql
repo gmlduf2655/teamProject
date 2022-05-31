@@ -12,3 +12,12 @@ create table tbl_user(
     status char(1) default 'T' not null check(status='T' or status='F'), -- 삭제 유무
     profileimage varchar2(100)  -- 프로필 사진
 );
+
+-- 닉네임 컬럼 변경
+alter table tbl_user modify (nickname varchar2(20));
+-- 이름 컬럼 변경
+alter table tbl_user modify (username varchar2(20));
+-- 삭제유무 컬럼 변경
+alter table tbl_user modify (status char(1) default '1' check(status='1' or status='0'));
+-- check(status=='T' or status=='F') 제약조건 삭제
+alter table tbl_user drop constraint SYS_C008499;
