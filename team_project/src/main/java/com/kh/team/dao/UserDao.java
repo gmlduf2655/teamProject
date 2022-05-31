@@ -9,6 +9,8 @@ public interface UserDao {
 	public boolean insertUser(UserVo userVo);
 	// 아이디로 회원 조회
 	public UserVo selectUserById(String userid);
+	// 아이디, 비밀번호로 회원 조회
+	public UserVo selectUserByIdAndPwd(String userid, String userpw);
 	// 회원 목록 조회
 	public List<UserVo> userList();
 	// 회원 수정

@@ -1,6 +1,8 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,17 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public UserVo selectUserById(String userid) {
 		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserById", userid);
-		return null;
+		return userVo;
+	}
+	
+	// 아이디, 비밀번호로 회원 조회
+	@Override
+	public UserVo selectUserByIdAndPwd(String userid, String userpw) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("userpw", userpw);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByIdAndPwd", map);
+		return userVo;
 	}
 
 	// 회원 목록 조회
