@@ -23,19 +23,19 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- com.kh.team 패키지에 있는 @Controller, @Service, @Repository 등의 annotation이 포함된 클래스를 읽고 해당 클래스를
+	<!-- 임희열 : com.kh.team 패키지에 있는 @Controller, @Service, @Repository 등의 annotation이 포함된 클래스를 읽고 해당 클래스를
 	bean 객체로 자동 생성함 -->
-	<!-- annotation을 통해 스프링 DI를 하기 위함 -->
+	<!-- 임희열 : annotation을 통해 스프링 DI를 하기 위함 -->
 	<context:component-scan base-package="com.kh.team" />
 	
-	<!-- @Aspect가 적용된 빈을 Aspect로 사용할 수 있게함  -->
-	<!-- 스프링의 AOP기능을 사용하기 위함 -->
+	<!-- 임희열 : @Aspect가 적용된 빈을 Aspect로 사용할 수 있게함  -->
+	<!-- 임희열 : 스프링의 AOP기능을 사용하기 위함 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
-	<!-- 파일 업로드를 하기 위한  CommonsMultipartResolver bean 객체 생성 -->
+	<!-- 임희열 : 파일 업로드를 하기 위한  CommonsMultipartResolver bean 객체 생성 -->
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 				id="multipartResolver">
-		<!-- 최대 업로드 용량을 10MB로 설정함 -->
+		<!-- 임희열 : 최대 업로드 용량을 10MB로 설정함 -->
 		<beans:property name="maxUploadSize" value="10000000"></beans:property>
 	</beans:bean>
 	
