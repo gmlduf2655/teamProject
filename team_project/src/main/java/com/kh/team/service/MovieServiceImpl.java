@@ -13,5 +13,17 @@ public class MovieServiceImpl implements MovieService {
 		return null;
 	}
 
+	@Override
+	public String selectMovie() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> boxoffice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
