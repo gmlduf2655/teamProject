@@ -5,7 +5,6 @@ import java.sql.Date;
 public class EventVo {
 	
 	private int eventno;
-	private int eventgroupno;
 	private String eventitle;
 	private String eventcontent;
 	private String eventimage;
@@ -22,7 +21,6 @@ public class EventVo {
 			Date eventenddate, int eventviewcnt) {
 		super();
 		this.eventno = eventno;
-		this.eventgroupno = eventgroupno;
 		this.eventitle = eventitle;
 		this.eventcontent = eventcontent;
 		this.eventimage = eventimage;
@@ -44,14 +42,6 @@ public class EventVo {
 
 	public void setEventno(int eventno) {
 		this.eventno = eventno;
-	}
-
-	public int getEventgroupno() {
-		return eventgroupno;
-	}
-
-	public void setEventgroupno(int eventgroupno) {
-		this.eventgroupno = eventgroupno;
 	}
 
 	public String getEventitle() {
@@ -96,9 +86,9 @@ public class EventVo {
 
 	@Override
 	public String toString() {
-		return "EventVo [eventno=" + eventno + ", eventgroupno=" + eventgroupno + ", eventitle=" + eventitle
-				+ ", eventcontent=" + eventcontent + ", eventimage=" + eventimage + ", eventenddate=" + eventenddate
-				+ ", eventviewcnt=" + eventviewcnt + "]";
+		return "EventVo [eventno=" + eventno + ", eventitle=" + eventitle + ", eventcontent=" + eventcontent
+				+ ", eventimage=" + eventimage + ", eventenddate=" + eventenddate + ", eventviewcnt=" + eventviewcnt
+				+ "]";
 	}
-	
+
 }
