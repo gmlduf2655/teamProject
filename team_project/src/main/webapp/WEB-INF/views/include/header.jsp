@@ -28,6 +28,7 @@
     
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    
 </head>
 
 <body>
@@ -51,8 +52,16 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">홈</a></li>
-                                <li>
+                                <li class="active" <%-- 조재호 : c:if 조건 입력 후  class 제거 --%>
+                                	<c:if test="">
+                                		class="active"
+                                	</c:if>
+                                ><a href="./index.html">홈</a></li>
+                                <li
+                                	<c:if test="">
+                                		class="active"
+                                	</c:if>
+                                >
                                 	<a href="./categories.html">예매</a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">영화별</a></li>
@@ -60,14 +69,22 @@
                                         <li><a href="./anime-watching.html">영화관별</a></li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li
+                                	<c:if test="">
+                                		class="active"
+                                	</c:if>
+                                >
 									<a href="./categories.html">영화정보</a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">현재 상영작</a></li>
                                         <li><a href="./anime-details.html">상영 예정작</a></li>
                                     </ul>
 								</li>
-                                <li>
+                                <li
+                                	<c:if test="">
+                                		class="active"
+                                	</c:if>
+                                >
 									<a href="./categories.html">이벤트</a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">현재 진행중</a></li>
