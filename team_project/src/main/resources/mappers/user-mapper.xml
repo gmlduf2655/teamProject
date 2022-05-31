@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.user">
+	<insert id="insertUser">
+		insert into tbl_user
+			(userid, userpw, nickname, username, email, address, cellphone)
+		values
+			(#{userid}, #{userpw}, #{nickname}, #{username}, #{email}, #{address}, #{cellphone})
+	</insert>
+	
+	<select id="selectUserById" resultType="UserVo">
+		select * from tbl_user
+		where userid= #{userid}
+	</select>
+	
+	<select id="userList" resultType="UserVo">
+		select * from tbl_user
+		order by regdate desc 
+	</select>
+	
+	<update id="updateUser">
+		update tbl_user 
+			nickname = #{nickname},
+			address = #{address},
+			cellphone = #{cellphone}
+		where userid = #{userid}
+	</update>
+	
+	<update id="deleteUser">
+		update tbl_user 
+			set status='F'
+		where userid = #{userid}
+	</update>
+</mapper>
