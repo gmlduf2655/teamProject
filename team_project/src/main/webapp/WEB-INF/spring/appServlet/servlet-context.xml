@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -21,8 +23,20 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 임희열 : com.kh.team 패키지에 있는 @Controller, @Service, @Repository 등의 annotation이 포함된 클래스를 읽고 해당 클래스를
+	bean 객체로 자동 생성함 -->
+	<!-- 임희열 : annotation을 통해 스프링 DI를 하기 위함 -->
 	<context:component-scan base-package="com.kh.team" />
 	
+	<!-- 임희열 : @Aspect가 적용된 빈을 Aspect로 사용할 수 있게함  -->
+	<!-- 임희열 : 스프링의 AOP기능을 사용하기 위함 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
+	<!-- 임희열 : 파일 업로드를 하기 위한  CommonsMultipartResolver bean 객체 생성 -->
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+				id="multipartResolver">
+		<!-- 임희열 : 최대 업로드 용량을 10MB로 설정함 -->
+		<beans:property name="maxUploadSize" value="10000000"></beans:property>
+	</beans:bean>
 	
 </beans:beans>
