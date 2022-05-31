@@ -10,7 +10,9 @@
 	Hello world!  
 	Hello world!  
 </h1>
+branch 'master' of https://github.com/gmlduf2655/teamProject.git
 
-<P>  The time on the server is ${serverTime}. </P>
+<head>
+
 </body>
 </html>
