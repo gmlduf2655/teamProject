@@ -25,36 +25,36 @@
 <script type="text/javascript">
 	//내일 날짜 구하기
 	
-	//한 달 전 날짜 구하기
-	var nowDate = new Date();
-	var monthDate = nowDate.getTime() + (30*24*60*60*1000);
-	nowDate.setTime(monthDate);
+	var now = new Date();
+	var yesterDate = new Date(now.setDate(now.getDate()-1));
 	
-	var monthYear = nowDate.getFullYear();
-	var monthMonth = nowDate.getMonth() +1;
-	var monthDay = nowDate.getDate();
 	
-	if(monthMonth < 10){ monthMonth = "0"+ monthMonth; }
-	if(monthDay < 10){ monthDay = "0" + monthDay; }
+	var prevYear = now.getFullYear();
+	var prevMonth = now.getMonth() +1;
+	var yesterDay = now.getDate();
 	
-	var monthDate = monthYear + "" + monthMonth + "" + monthDay;
-	monthDate = monthDate.trim();
-	//alert(monthDate);
+	if(prevMonth < 10){ prevMonth = "0"+ prevMonth; }
+	if(yesterDay < 10){ yesterDay = "0" + yesterDay; } 
+	
+	var yesterDate = prevYear + "" + prevMonth + "" + yesterDay;
+	yesterDate = yesterDate.trim();
+	
 	
 	$.ajax({
 		type: "GET",
 		url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json",
 		data: {
 			key: "6a124949cf23e078e5c9d213db2cf916",
-			openStartDt: "20211201",
-			openEndDt: "20220530"
+			targetDt: yesterDate
 		},
 		success: function(data) {
-			//var a = data.movieListResult.movieList[0].movieNm;
 			console.log(data);
-			//$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i, m) {
-			//	$('#Rank_'+i+' a').html("<h3>"+(i+1)+". "+m.movieNm+"</h3>");
-			//});
+			console.log(yesterDate);
+			/* $.each(data.boxOfficeResult.dailyBoxOfficeList, function(i, m) {
+				$('Rank_'+i+ 'a').append("<img alt=\""+m.rnum+"위\" src=\"./resources/images/home/boxoffice/numeric-"
+						+ m.rnum + ".png\"><span class=\"office_cell\">"+m.movieNm + "</span>");
+				
+			}); */
 		}
 	});
 </script>
