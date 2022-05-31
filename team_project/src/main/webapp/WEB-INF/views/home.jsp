@@ -2,7 +2,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false"%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8">
@@ -764,3 +770,7 @@
 </div>
 
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+<head>
+
+</body>
+</html>
