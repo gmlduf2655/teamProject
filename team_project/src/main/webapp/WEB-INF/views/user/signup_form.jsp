@@ -56,8 +56,8 @@
                                         <li><a href="./anime-details.html">Anime Details</a></li>
                                         <li><a href="./anime-watching.html">Anime Watching</a></li>
                                         <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="/user/signup">Sign Up</a></li>
-                                        <li><a href="/user/login">Login</a></li>
+                                        <li><a href="/user/signup_form">Sign Up</a></li>
+                                        <li><a href="/user/login_form">Login</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="./blog.html">Our Blog</a></li>
@@ -100,41 +100,41 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>회원가입</h3>
-                        <form action="#">
+                        <form action="/user/signup_run" method="post">
                             <div class="input__item">
-                                <input type="text" placeholder="아이디">
+                                <input type="text" placeholder="아이디" name="userid" required>
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="비밀번호">
+                                <input type="text" placeholder="비밀번호" name="userpw" required>
                                 <span class="icon_lock"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="이름">
+                                <input type="text" placeholder="이름" name="username" required>
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="닉네임">
+                                <input type="text" placeholder="닉네임" name="nickname" required>
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="이메일">
+                                <input type="text" placeholder="이메일" name="email" required>
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="휴대전화번호">
+                                <input type="text" placeholder="휴대전화번호" name="cellphone" required>
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="주소">
+                                <input type="text" placeholder="주소" name="address" required>
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="프로필이미지">
+                                <input type="text" placeholder="프로필이미지" name="profileimage">
                                 <span class="icon_mail"></span>
                             </div>
 
-                            <button type="submit" class="site-btn">로그인</button>
+                            <button type="submit" class="site-btn">회원가입</button>
                         </form>
                         <h5>이미 계정이 있으신가요? <a href="#">로그인하기</a></h5>
                     </div>

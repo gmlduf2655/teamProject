@@ -34,12 +34,21 @@
      
     <script>
     	$(document).ready(function(){
-			const naverLogin = new naver.LoginWithNaverId(
+    		var signup_result = "${signup_result}";
+    		if(signup_result == "true"){
+    			alert("회원가입 성공");	
+    		}else if(signup_result == "false"){
+    			alert("회원가입 실패");	
+    		}
+    		
+    		// 네이버 간편 로그인 버튼을 눌렀을때 필요한 clientId, callbackUrl 설정
+			var naverLogin = new naver.LoginWithNaverId(
 					{
 						clientId: "VjgDvLJM29qpp3O__mxp",
 						callbackUrl: "http://localhost:80/user/naver_login"
 					}
 				);
+    		// 네이버 간편 로그인 버튼을 누르면 네이버 로그인 페이지로 이동하게함
 			naverLogin.init();
     	});
     </script>
@@ -73,8 +82,8 @@
                                         <li><a href="./anime-details.html">Anime Details</a></li>
                                         <li><a href="./anime-watching.html">Anime Watching</a></li>
                                         <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="/user/signup">Sign Up</a></li>
-                                        <li><a href="/user/login">Login</a></li>
+                                        <li><a href="/user/signup_form">Sign Up</a></li>
+                                        <li><a href="/user/login_form">Login</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="./blog.html">Our Blog</a></li>
@@ -117,13 +126,13 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>로그인</h3>
-                        <form action="#">
+                        <form action="/user/login_run" method="post">
                             <div class="input__item">
-                                <input type="text" placeholder="아이디">
+                                <input type="text" placeholder="아이디" name="userid" required>
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="비밀번호">
+                                <input type="text" placeholder="비밀번호" name="userpw" required>
                                 <span class="icon_lock"></span>
                             </div>
                             <button type="submit" class="site-btn">로그인</button>
