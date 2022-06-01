@@ -41,7 +41,7 @@
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="./index.html">
-                            <img src="/resources/img/logo.png" alt="">
+                            <img src="/resources/images/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -79,13 +79,13 @@
     <!-- Header End -->
 
     <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>Sign Up</h2>
-                        <p>Welcome to the official Anime blog.</p>
+                        <h2>회원가입</h2>
+<!--                         <p>Welcome to the official Anime blog.</p> -->
                     </div>
                 </div>
             </div>
@@ -99,34 +99,60 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>Sign Up</h3>
+                        <h3>회원가입</h3>
                         <form action="#">
                             <div class="input__item">
-                                <input type="text" placeholder="Email address">
+                                <input type="text" placeholder="아이디">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Your Name">
+                                <input type="text" placeholder="비밀번호">
+                                <span class="icon_lock"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="text" placeholder="이름">
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Password">
-                                <span class="icon_lock"></span>
+                                <input type="text" placeholder="닉네임">
+                                <span class="icon_profile"></span>
                             </div>
-                            <button type="submit" class="site-btn">Login Now</button>
+                            <div class="input__item">
+                                <input type="text" placeholder="이메일">
+                                <span class="icon_mail"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="text" placeholder="휴대전화번호">
+                                <span class="icon_mail"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="text" placeholder="주소">
+                                <span class="icon_mail"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="text" placeholder="프로필이미지">
+                                <span class="icon_mail"></span>
+                            </div>
+
+                            <button type="submit" class="site-btn">로그인</button>
                         </form>
-                        <h5>Already have an account? <a href="#">Log In!</a></h5>
+                        <h5>이미 계정이 있으신가요? <a href="#">로그인하기</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login__social__links">
                         <h3>Login With:</h3>
                         <ul>
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
-                            </li>
-                            <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
-                        </ul>
+<!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
+<!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->
+                        	<li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li>
+                        	<li>
+                                <a id="naverIdLogin_loginButton" href="javascript:void(0)" class="twitter" style="background:#03C75A;"> <!-- #2DB400 -->
+                                	<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;">
+                                	네이버로 로그인하기
+                                </a>
+                       		</li>
+                       </ul>
                     </div>
                 </div>
             </div>
@@ -143,7 +169,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="footer__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="/resources/images/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">

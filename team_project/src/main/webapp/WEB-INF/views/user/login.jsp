@@ -26,6 +26,23 @@
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+
+	<!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>      
+    <!-- Naver Login API script -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+     
+    <script>
+    	$(document).ready(function(){
+			const naverLogin = new naver.LoginWithNaverId(
+					{
+						clientId: "VjgDvLJM29qpp3O__mxp",
+						callbackUrl: "http://localhost:80/user/naver_login"
+					}
+				);
+			naverLogin.init();
+    	});
+    </script>
 </head>
 
 <body>
@@ -41,7 +58,7 @@
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="./index.html">
-                            <img src="/resources/img/logo.png" alt="">
+                            <img src="/resources/images/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -49,7 +66,7 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li><a href="./index.html">Homepage</a></li>
+                                <li><a href="/">Homepage</a></li>
                                 <li><a href="./categories.html">Categories <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">Categories</a></li>
@@ -79,7 +96,7 @@
     <!-- Header End -->
 
     <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -99,25 +116,25 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>Login</h3>
+                        <h3>로그인</h3>
                         <form action="#">
                             <div class="input__item">
-                                <input type="text" placeholder="Email address">
+                                <input type="text" placeholder="아이디">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Password">
+                                <input type="text" placeholder="비밀번호">
                                 <span class="icon_lock"></span>
                             </div>
-                            <button type="submit" class="site-btn">Login Now</button>
+                            <button type="submit" class="site-btn">로그인</button>
                         </form>
-                        <a href="#" class="forget_pass">Forgot Your Password?</a>
+                        <a href="#" class="forget_pass">비밀번호를 잊어버리셨나요?</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login__register">
-                        <h3>Dont’t Have An Account?</h3>
-                        <a href="#" class="primary-btn">Register Now</a>
+                        <h3>계정이 없으신가요?</h3>
+                        <a href="#" class="primary-btn">회원가입하기</a>
                     </div>
                 </div>
             </div>
@@ -125,12 +142,16 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6">
                         <div class="login__social__links">
-                            <span>or</span>
+                            <span>간편로그인</span>
                             <ul>
-                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
-                                Facebook</a></li>
-                                <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a>
+<!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
+<!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->
+                                <li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li>
+                                <li>
+                                	<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="twitter" style="background:#03C75A;"> <!-- #2DB400 -->
+                                			<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;">
+                                			네이버로 로그인하기
+                                	</a>
                                 </li>
                             </ul>
                         </div>
@@ -150,13 +171,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="footer__logo">
-                        <a href="./index.html"><img src="/resources/img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="/resources/images/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="footer__nav">
                         <ul>
-                            <li class="active"><a href="./index.html">Homepage</a></li>
+                            <li class="active"><a href="/">Homepage</a></li>
                             <li><a href="./categories.html">Categories</a></li>
                             <li><a href="./blog.html">Our Blog</a></li>
                             <li><a href="#">Contacts</a></li>

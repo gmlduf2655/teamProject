@@ -14,13 +14,21 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	// 로그인 페이지 이동
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "user/login";
 	}
 	
+	// 회원가입 페이지 이동
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup() {
 		return "user/signup";
+	}
+	
+	// 네이버 로그인 페이지 이동
+	@RequestMapping(value="/naver_login", method=RequestMethod.GET)
+	public String naverLogin() {
+		return "redirect:/";
 	}
 }
