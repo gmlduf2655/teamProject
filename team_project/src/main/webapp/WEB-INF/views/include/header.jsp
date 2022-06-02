@@ -17,18 +17,23 @@
     rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
     
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+	<!-- 임희열 : JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>      
     
+    <!-- 임희열 : Naver Login API script -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
 </head>
 
 <body>
@@ -43,8 +48,8 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html">
-                            <img src="resources/images/logo.png" alt="">
+                        <a href="/">
+                            <img src="/resources/images/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -98,7 +103,7 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <a href="#" class="search-switch"><i class="bi bi-search"></i></a>
-                        <a href="./login.html"><i class="bi bi-person-fill"></i></a>
+                        <a href="/user/login_form"><i class="bi bi-person-fill"></i></a>
                     </div>
                 </div>
             </div>
