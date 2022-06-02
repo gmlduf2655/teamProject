@@ -19,4 +19,9 @@ public class MovieController {
 		System.out.println("boxoffice");
 		return "movie/boxoffice";
 	}
+	@RequestMapping(value="/movieList", method = RequestMethod.GET)
+	public String movieList() {
+		System.out.println("movieList");
+		return "movie/movieList";
+	}
 }
