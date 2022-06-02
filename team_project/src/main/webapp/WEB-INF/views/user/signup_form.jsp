@@ -33,6 +33,32 @@
 			$("#userid_dupl_check_result").show();
 		});
 		
+		// 닉네임 중복 여부 체크
+		$("#nickname_dupl_check").click(function(){
+			var nickname = $("#nickname").val();
+			console.log(nickname == "");
+			if(nickname == ""){
+				$("#nickname_dupl_check_result").text("닉네임을 입력해주세요");
+			}else{
+				$.ajax({
+					type : "post",
+					async : "true",
+					url : "/user/nickname_dupl_check",
+					data : { nickname : nickname },
+					success : function(rData){
+						console.log(rData);
+						if(rData == "true"){
+							$("#nickname_dupl_check_result").text("이미 존재하는 닉네임입니다");
+						}else if(rData == "false"){
+							$("#nickname_dupl_check_result").text("사용할 수 있는 닉네임 입니다");
+						}
+						
+					}
+				});
+			}
+			$("#nickname_dupl_check_result").show();
+		});
+		
 		// 프로필 사진 미리보기
 		$("#profileimage").change(function(e){
 			console.log(e.target.files[0]);
@@ -88,31 +114,31 @@
 	                            <p style="color:white;display:none;" id="userid_dupl_check_result"></p>
                             </div>
                             <div class="input__item">
-                                <input type="password" placeholder="비밀번호" name="userpw" required>
+                                <input type="password" placeholder="비밀번호" name="userpw" id="userpw" required>
                                 <span class="icon_lock"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="이름" name="username" required>
+                                <input type="text" placeholder="이름" name="username" id="username" required>
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="닉네임" name="nickname" required>
+                                <input type="text" placeholder="닉네임" name="nickname" id="nickname" required>
                                 <span class="icon_profile"></span>
                                 <button type="button" class="site-btn" id="nickname_dupl_check">닉네임 중복확인</button>
                                 <p style="color:white;display:none;" id="nickname_dupl_check_result"></p>
                             </div>
                             <div class="input__item">
-                                <input type="email" placeholder="이메일" name="email" required>
+                                <input type="email" placeholder="이메일" name="email" id="email" required>
                                 <span class="icon_mail"></span>
                                 <button type="submit" class="site-btn">이메일 인증</button>
                             </div>
                             <h4 class="mb-4" style="color:white;">선택 입력사항</h4>
                             <div class="input__item">
-                                <input type="number" placeholder="휴대전화번호" name="cellphone" >
+                                <input type="number" placeholder="휴대전화번호" name="cellphone" id="cellphone">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="주소" name="address" >
+                                <input type="text" placeholder="주소" name="address" id="address">
                                 <span class="icon_mail"></span>
                             </div>
                             <h4 class="mb-4" style="color:white;">프로필 사진</h4>
