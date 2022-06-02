@@ -19,9 +19,9 @@
 			#{cinema_name},
 			#{cinema_address},
 			#{cinema_seat_count},
-			#{cinema_status, jdbcType=varchar},
-			#{cinema_begin_date, jdbcType=varchar},
-			#{cinema_finish_date, jdbcType=varchar}
+			#{cinema_status, jdbcType=VARCHAR},
+			#{cinema_begin_date, jdbcType=VARCHAR},
+			#{cinema_finish_date, jdbcType=VARCHAR}
 			)
 	</insert>
 	
