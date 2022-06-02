@@ -20,7 +20,7 @@ public class UserDaoTest {
 	// 회원추가 테스트
 	@Test
 	public void testInsertUser() {
-		UserVo userVo = new UserVo("user01", "1234", "유저 1별명", "유저", "user01@naver.com", "한국", "01012345678", 
+		UserVo userVo = new UserVo("andy", "1234", "andy", "andy", "andy@naver.com", "한국", "01012341234", 
 									0, null, "1", null);
 		System.out.println("userVo : " + userVo);
 		boolean result = userDao.insertUser(userVo);

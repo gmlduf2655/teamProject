@@ -79,7 +79,7 @@
                                 		class="active"
                                 	</c:if>
                                 >
-									<a href="./categories.html">영화정보</a>
+									<a href="/movie/movieList">영화정보</a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">현재 상영작</a></li>
                                         <li><a href="./anime-details.html">상영 예정작</a></li>
