@@ -12,9 +12,9 @@
 	
 	<insert id="insert">
 		insert into tbl_event
-			(eventno, eventitle, eventcontent, eventenddate)
+			(eventno, eventitle, eventcontent)
 		values
-			(seq_event_eventno.nextval, #{eventitle}, #{eventcontent}, #{eventenddate})
+			(seq_event_eventno.nextval, #{eventitle}, #{eventcontent})
 	</insert>
 
 </mapper>

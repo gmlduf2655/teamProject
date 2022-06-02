@@ -32,8 +32,6 @@ public class EventVo {
 		super();
 		this.eventitle = eventitle;
 		this.eventcontent = eventcontent;
-		this.eventimage = eventimage;
-		this.eventenddate = eventenddate;
 	}
 
 	public int getEventno() {
