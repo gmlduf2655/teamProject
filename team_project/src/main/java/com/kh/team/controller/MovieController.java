@@ -38,4 +38,12 @@ public class MovieController {
 		
 		return "movie/movieInfo";
 	}
+	 
+	@RequestMapping(value="/movieListDB", method = RequestMethod.GET)
+	public String movieListDB() {
+		System.out.println("movieListDB");
+		
+		return "movie/movieListDB";
+	}
+	
 }
