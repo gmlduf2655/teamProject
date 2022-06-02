@@ -24,6 +24,27 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testSignup, result : " + result);
 	}
 	
+	// 회원 정보 조회 테스트
+	@Test
+	public void testGetUserInfo() {
+		UserVo userVo = userService.getUserInfo("user01");
+		System.out.println("UserServiceTest, testGetUserInfo, userVo : " + userVo);
+	}
+	
+	// 아이디 중복체크 테스트
+	@Test
+	public void testUseridDuplCheck() {
+		boolean result = userService.useridDuplCheck("user01");
+		System.out.println("UserServiceTest, testUseridDuplCheck, result : " + result);
+	}
+	
+	// 닉네임 중복체크 테스트
+	@Test
+	public void testNicknameDuplCheck() {
+		boolean result = userService.nicknameDuplCheck("누구인가");
+		System.out.println("UserServiceTest, testNicknameDuplCheck, result : " + result);
+	}
+	
 	// 로그인 테스트
 	@Test
 	public void testLogin() {

@@ -9,6 +9,8 @@ public interface UserService {
 	public UserVo getUserInfo(String userid);
 	// 아이디 중복 체크
 	public boolean useridDuplCheck(String userid);
+	// 닉네임 중복체크
+	public boolean nicknameDuplCheck(String nickname);
 	// 로그인
 	public UserVo login(String userid, String userpw);
 	// 회원 정보 수정

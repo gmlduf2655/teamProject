@@ -1,5 +1,7 @@
 package com.kh.team.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.UserService;
+import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.UserVo;
 
 @Controller
@@ -43,8 +47,14 @@ public class UserController {
 	
 	// 회원가입
 	@RequestMapping(value="/signup_run", method=RequestMethod.POST)
-	public String signupRun(UserVo userVo, RedirectAttributes redirectAttributes) {
-		System.out.println(userVo);
+	public String signupRun(UserVo userVo, RedirectAttributes redirectAttributes, MultipartFile file) throws IOException {
+		String filename = file.getOriginalFilename();
+		byte[] fileData = file.getBytes();
+		System.out.println("filename : " + filename);
+		if(filename != null) {
+			String profileimage = MyFileUploader.fileUpload("moverattach", file.getOriginalFilename(), fileData);
+			userVo.setProfileimage(profileimage);
+		}
 		boolean result = userService.signUp(userVo);
 		redirectAttributes.addFlashAttribute("signup_result", result + "");
 		return "redirect:/user/login_form";

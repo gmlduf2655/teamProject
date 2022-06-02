@@ -7,9 +7,9 @@
 	<!-- 회원 추가 -->
 	<insert id="insertUser">
 		insert into tbl_user
-			(userid, userpw, nickname, username, email, address, cellphone)
+			(userid, userpw, nickname, username, email, address, cellphone, profileimage)
 		values
-			(#{userid}, #{userpw}, #{nickname}, #{username}, #{email}, #{address}, #{cellphone})
+			(#{userid}, #{userpw}, #{nickname}, #{username}, #{email}, #{address}, #{cellphone}, #{profileimage})
 	</insert>
 	
 	<!-- 아이디로 회원 조회 -->
@@ -23,6 +23,12 @@
 		select * from tbl_user
 		where userid= #{userid} and userpw = #{userpw}
 	</select>
+	
+	<!-- 닉네임으로 회원 조회 -->
+	<select id="selectUserByNickname" resultType="UserVo">
+		select * from tbl_user
+		where nickname= #{nickname}
+	</select>	
 	
 	<!-- 유저 목록 조회 -->
 	<select id="userList" resultType="UserVo">
@@ -42,7 +48,7 @@
 	<!-- 유저 삭제 -->
 	<update id="deleteUser">
 		update tbl_user 
-			set status='0'
+			set userstatus='0'
 		where userid = #{userid}
 	</update>
 </mapper>
