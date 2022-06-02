@@ -14,7 +14,18 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>	
-		
+		<!-- 임희열 : javax.mail -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.5.3</version>
+		</dependency>	
+		<!-- 임희열 : javax.mail-api -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.5.4</version>
+		</dependency>			
 		<!-- commons-fileupload -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
