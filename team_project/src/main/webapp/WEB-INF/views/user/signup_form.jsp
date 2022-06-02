@@ -5,6 +5,23 @@
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+<script>
+	$(document).ready(function(){
+		$("#userid_dupl_check").click(function(){
+			console.log("클릭은 됐지?");
+			$.ajax({
+				type : "post",
+				async : "true",
+				url : "/user/userid_dupl_check",
+				data : { userid : $("#userid").val() },
+				success : function(rData){
+					console.log(rData);
+				}
+			});
+		});
+	});
+</script>
+
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
@@ -28,9 +45,11 @@
                     <div class="login__form">
                         <h3>회원가입</h3>
                         <form action="/user/signup_run" method="post">
+                        	<h4 class="mb-4" style="color:white;">필수 입력사항</h4>
                             <div class="input__item">
-                                <input type="text" placeholder="아이디" name="userid" required>
+                                <input type="text" placeholder="아이디" name="userid" id="userid" required>
                                 <span class="icon_mail"></span>
+	                            <button type="button" class="site-btn" id="userid_dupl_check">아이디 중복확인</button>
                             </div>
                             <div class="input__item">
                                 <input type="text" placeholder="비밀번호" name="userpw" required>
@@ -45,19 +64,22 @@
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="이메일" name="email" required>
+                                <input type="email" placeholder="이메일" name="email" required>
+                                <span class="icon_mail"></span>
+                                <button type="submit" class="site-btn">이메일 인증</button>
+                            </div>
+                            <h4 class="mb-4" style="color:white;">선택 입력사항</h4>
+                            <div class="input__item">
+                                <input type="number" placeholder="휴대전화번호" name="cellphone" >
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="휴대전화번호" name="cellphone" required>
+                                <input type="text" placeholder="주소" name="address" >
                                 <span class="icon_mail"></span>
                             </div>
+                            <h4 class="mb-4" style="color:white;">프로필 사진</h4>
                             <div class="input__item">
-                                <input type="text" placeholder="주소" name="address" required>
-                                <span class="icon_mail"></span>
-                            </div>
-                            <div class="input__item">
-                                <input type="text" placeholder="프로필이미지" name="profileimage">
+                                <input type="file" placeholder="프로필이미지" name="profileimage">
                                 <span class="icon_mail"></span>
                             </div>
 

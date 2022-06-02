@@ -19,6 +19,23 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	// 회원정보 조회
+	@Override
+	public UserVo getUserInfo(String userid) {
+		UserVo userVo = userDao.selectUserById(userid);
+		return userVo;
+	}	
+
+	// 아이디 중복체크
+	@Override
+	public boolean useridDuplCheck(String userid) {
+		UserVo userVo = userDao.selectUserById(userid);
+		if(userVo != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	// 로그인
 	@Override
 	public UserVo login(String userid, String userpw) {
