@@ -29,32 +29,32 @@
 	
 	
 	
-	<update id="updateCinemaInfo">
+<!-- 	<update id="updateCinemaInfo"> -->
 	
-	</update>
-	
-	
-	
-	
-	
-	<select id="getCinemaList">
-	
-	</select>
+<!-- 	</update> -->
 	
 	
 	
 	
 	
-	<select id="getCinemaInfo">
+<!-- 	<select id="getCinemaList"> -->
 	
-	</select>
-	
-	
+<!-- 	</select> -->
 	
 	
 	
-	<update id="updateCinemaStatus">
 	
-	</update>
+	
+<!-- 	<select id="getCinemaInfo"> -->
+	
+<!-- 	</select> -->
+	
+	
+	
+	
+	
+<!-- 	<update id="updateCinemaStatus"> -->
+	
+<!-- 	</update> -->
 
 </mapper>
