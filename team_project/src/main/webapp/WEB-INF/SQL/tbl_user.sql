@@ -21,11 +21,3 @@ alter table tbl_user modify (username varchar2(20));
 alter table tbl_user modify (status char(1) default '1' check(status='1' or status='0'));
 -- check(status=='T' or status=='F') 제약조건 삭제
 alter table tbl_user drop constraint SYS_C008499;
--- cellphone 컬럼 not null 제약 조건 삭제
-alter table tbl_user drop constraint SYS_C008495;
--- address 컬럼 not null 제약조건 삭제
-alter table tbl_user drop constraint SYS_C008496;
--- 삭제 유무 컬럼 이름 변경
-alter table tbl_user rename column status to userstatus;
--- 닉네임 컬럼 unique 제약조건 추가
-alter table tbl_user modify (nickname varchar2(20) unique);

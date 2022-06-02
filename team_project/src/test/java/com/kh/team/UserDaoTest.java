@@ -41,6 +41,13 @@ public class UserDaoTest {
 		System.out.println("UserDaoTest, testSelectUserByIdAndPwd, userVo : " + userVo);
 	}	
 	
+	// 닉네임으로 회원 조회하기 테스트
+	@Test 
+	public void testSelectUserByNickname() {
+		UserVo userVo = userDao.selectUserByNickname("누구인가");
+		System.out.println("UserDaoTest, testSelectUserByNickname, userVo : " + userVo);
+	}
+	
 	// 회원 목록 조회 테스트
 	@Test
 	public void testUserList() {
@@ -53,7 +60,7 @@ public class UserDaoTest {
 	// 유저 정보 수정 테스트
 	@Test
 	public void testUpdateUser() {
-		UserVo userVo = new UserVo("user01", "1234", "유저 1별명2", "유저", "user01@naver.com", "한국 어딘가", "01087654321", 
+		UserVo userVo = new UserVo("user01", "1234", "유저1 별명", "유저1", "user01@naver.com", "한국 어딘가", "01012345678", 
 									0, null, "1", null);
 		boolean result = userDao.updateUser(userVo);
 		System.out.println("UserDaoTest, testUpdateUser, result : " + result);		
@@ -62,7 +69,8 @@ public class UserDaoTest {
 	// 유저 정보 삭제 테스트
 	@Test
 	public void testDeleteUser() {
-		boolean result = userDao.deleteUser("user01");
+		boolean result = userDao.deleteUser("a");
 		System.out.println("UserDaoTest, testDeleteUser, result : " + result);		
 	}
+	
 }
