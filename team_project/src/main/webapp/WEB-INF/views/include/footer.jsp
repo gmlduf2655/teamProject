@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="footer__logo">
-                    <a href="./index.html"><img src="/resources/images/img/logo.png" alt=""></a>
+                    <a href="/"><img src="/resources/images/logo.png" alt="logo image"></a>
                 </div>
             </div>
             <div class="col-lg-6">

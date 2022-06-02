@@ -20,7 +20,7 @@ public class EventDaoTest {
 	
 	@Test
 	public void testInsert() {
-		EventVo eventVo = new EventVo("제목-3", "내용-3", null, null);
+		EventVo eventVo = new EventVo("제목-5", "내용-5", null, null);
 		boolean result = eventDao.insert(eventVo);
 		System.out.println("result: "+ result);
 	} 
