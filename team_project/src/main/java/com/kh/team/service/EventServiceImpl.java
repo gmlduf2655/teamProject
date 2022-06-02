@@ -27,7 +27,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public boolean update(EventVo eventVo) {
+	public boolean modify(EventVo eventVo) {
 		// TODO Auto-generated method stub
 		return false;
 	}

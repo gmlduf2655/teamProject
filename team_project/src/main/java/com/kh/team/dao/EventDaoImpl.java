@@ -17,7 +17,7 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public List<EventVo> list() {
-		sqlSession.selectList(NAMESPACE + "list");
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -31,7 +31,7 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	@Override
-	public boolean update(EventVo eventVo) {
+	public boolean modify(EventVo eventVo) {
 		// TODO Auto-generated method stub
 		return false;
 	}

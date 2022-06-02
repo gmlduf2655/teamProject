@@ -4,17 +4,11 @@
 
 <mapper namespace="com.kh.team.mappers.evevt">
 
-	<select id="list" resultType="EventVo">
-		select * from tbl_event
-		where eventno = #{eventno}
-		order by eventno desc
-	</select>
-	
 	<insert id="insert">
 		insert into tbl_event
-			(eventno, eventitle, eventcontent)
+			(event_no, event_title, event_content, event_image, event_end_date)
 		values
-			(seq_event_eventno.nextval, #{eventitle}, #{eventcontent})
+			(seq_event_eventno.nextval, #{event_title}, #{event_content}, #{event_image, jdbcType=VARCHAR}, #{event_end_date, jdbcType=DATE})
 	</insert>
 
 </mapper>

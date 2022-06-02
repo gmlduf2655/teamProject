@@ -4,89 +4,90 @@ import java.sql.Date;
 
 public class EventVo {
 	
-	private int eventno;
-	private String eventitle;
-	private String eventcontent;
-	private String eventimage;
-	private Date eventenddate;
-	private int eventviewcnt;
-	
+	private int event_no;
+	private String event_title;
+	private String event_content;
+	private String event_image;
+	private int event_count;
+	private Date event_end_date;
 	
 	public EventVo() {
 		super();
 		
 	}
-
-	public EventVo(int eventno, int eventgroupno, String eventitle, String eventcontent, String eventimage,
-			Date eventenddate, int eventviewcnt) {
+	
+	public EventVo(String event_title, String event_content, String event_image, Date event_end_date) {
 		super();
-		this.eventno = eventno;
-		this.eventitle = eventitle;
-		this.eventcontent = eventcontent;
-		this.eventimage = eventimage;
-		this.eventenddate = eventenddate;
-		this.eventviewcnt = eventviewcnt;
+		this.event_title = event_title;
+		this.event_content = event_content;
+		this.event_image = event_image;
+		this.event_end_date = event_end_date;
 	}
 
-	public EventVo(String eventitle, String eventcontent, String eventimage, Date eventenddate) {
+	public EventVo(int event_no, String event_title, String event_content, String event_image, int event_count,
+			Date event_end_date) {
 		super();
-		this.eventitle = eventitle;
-		this.eventcontent = eventcontent;
+		this.event_no = event_no;
+		this.event_title = event_title;
+		this.event_content = event_content;
+		this.event_image = event_image;
+		this.event_count = event_count;
+		this.event_end_date = event_end_date;
 	}
 
-	public int getEventno() {
-		return eventno;
+	public int getEvent_no() {
+		return event_no;
 	}
 
-	public void setEventno(int eventno) {
-		this.eventno = eventno;
+	public void setEvent_no(int event_no) {
+		this.event_no = event_no;
 	}
 
-	public String getEventitle() {
-		return eventitle;
+	public String getEvent_title() {
+		return event_title;
 	}
 
-	public void setEventitle(String eventitle) {
-		this.eventitle = eventitle;
+	public void setEvent_title(String event_title) {
+		this.event_title = event_title;
 	}
 
-	public String getEventcontent() {
-		return eventcontent;
+	public String getEvent_content() {
+		return event_content;
 	}
 
-	public void setEventcontent(String eventcontent) {
-		this.eventcontent = eventcontent;
+	public void setEvent_content(String event_content) {
+		this.event_content = event_content;
 	}
 
-	public String getEventimage() {
-		return eventimage;
+	public String getEvent_image() {
+		return event_image;
 	}
 
-	public void setEventimage(String eventimage) {
-		this.eventimage = eventimage;
+	public void setEvent_image(String event_image) {
+		this.event_image = event_image;
 	}
 
-	public Date getEventenddate() {
-		return eventenddate;
+	public int getEvent_count() {
+		return event_count;
 	}
 
-	public void setEventenddate(Date eventenddate) {
-		this.eventenddate = eventenddate;
+	public void setEvent_count(int event_count) {
+		this.event_count = event_count;
 	}
 
-	public int getEventviewcnt() {
-		return eventviewcnt;
+	public Date getEvent_end_date() {
+		return event_end_date;
 	}
 
-	public void setEventviewcnt(int eventviewcnt) {
-		this.eventviewcnt = eventviewcnt;
+	public void setEvent_end_date(Date event_end_date) {
+		this.event_end_date = event_end_date;
 	}
 
 	@Override
 	public String toString() {
-		return "EventVo [eventno=" + eventno + ", eventitle=" + eventitle + ", eventcontent=" + eventcontent
-				+ ", eventimage=" + eventimage + ", eventenddate=" + eventenddate + ", eventviewcnt=" + eventviewcnt
+		return "EventVo [event_no=" + event_no + ", event_title=" + event_title + ", event_content=" + event_content
+				+ ", event_image=" + event_image + ", event_count=" + event_count + ", event_end_date=" + event_end_date
 				+ "]";
 	}
-
+	
 }
