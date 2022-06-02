@@ -61,7 +61,7 @@ public class UserController {
 	}	
 	
 	// 네이버 로그인 페이지 이동
-	@RequestMapping(value="/naver_login", method=RequestMethod.POST)
+	@RequestMapping(value="/naver_login", method=RequestMethod.GET)
 	public String naverLogin() {
 		return "redirect:/";
 	}
@@ -74,4 +74,11 @@ public class UserController {
 		return result + "";
 	}
 	
+	// 회원가입시 닉네임 중복 체크
+	@RequestMapping(value="/nickname_dupl_check", method=RequestMethod.POST)
+	@ResponseBody
+	public String nicknameDuplCheck(String nickname){
+		boolean result = userService.nicknameDuplCheck(nickname);
+		return result + "";
+	}
 }

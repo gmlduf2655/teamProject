@@ -16,8 +16,8 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<EventVo> list() {
-		
-		return null;
+		List<EventVo> eventList = eventDao.list();
+		return eventList;
 	}
 
 	@Override
