@@ -18,23 +18,23 @@
 			</div>
 			<form role="form" action="/event/write_run" method="post" id="frmCreate">
 				<div class="form-group">
-					<label for="title"> 제목 </label> 
-					<input type="text" class="form-control" id="title" />
+					<label for="event_title"> 제목 </label> 
+					<input type="text" class="form-control" id="event_title" name="event_title"/>
 				</div>
 				
 				<div class="form-group">
-					<label for="content"> 내용 </label> 
-					<textarea class="form-control" id="content" name="content"></textarea>
+					<label for="event_content"> 내용 </label> 
+					<textarea class="form-control" id="event_content" name="event_content"></textarea>
 				</div>
 				
 				<div class="form-group">
 					<label for="event_end_date"> 이벤트 종료일 </label> 
-					<input type="date">
+					<input type="date" id="event_end_date" name="event_end_date">
 				</div>
 				
 				<div class="form-group">
-					<label for="exampleInputFile"> 이미지 업로드 </label> 
-					<input type="file" class="form-control-file" id="exampleInputFile" />
+					<label for="event_image"> 이미지 업로드 </label> 
+					<input type="file" class="form-control-file" id="event_image" name="event_image" />
 				</div>
 				
 				<button type="submit" class="btn btn-primary">저장</button>

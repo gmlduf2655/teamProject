@@ -36,6 +36,8 @@ public class EventController {
 	@RequestMapping(value = "/write_run", method = RequestMethod.POST)
 	public String writeRun(EventVo eventVo) {
 		System.out.println("eventController, writeRun, eventVo:"+ eventVo);
+		boolean result = eventService.insert(eventVo);
+		System.out.println("result:"+result);
 		return "redirect:/event/event_list";
 	}
 
