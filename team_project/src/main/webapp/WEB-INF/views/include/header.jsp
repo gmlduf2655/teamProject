@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -61,7 +62,7 @@
                                 	<c:if test="">
                                 		class="active"
                                 	</c:if>
-                                ><a href="/">홈</a></li>
+                                ><a href="./index.html">홈</a></li>
                                 <li
                                 	<c:if test="">
                                 		class="active"
@@ -79,7 +80,7 @@
                                 		class="active"
                                 	</c:if>
                                 >
-									<a href="./categories.html">영화정보</a>
+									<a href="/movie/movieList">영화정보</a>
                                     <ul class="dropdown">
                                         <li><a href="./categories.html">현재 상영작</a></li>
                                         <li><a href="./anime-details.html">상영 예정작</a></li>
@@ -93,7 +94,7 @@
 									<a href="/event/event_list">이벤트</a>
                                     <ul class="dropdown">
                                         <li><a href="/event/event_list">현재 진행중</a></li>
-                                        <li><a href="./anime-details.html">당첨자 발표</a></li>
+                                        <li><a href="/event/winner_info">당첨자 발표</a></li>
                                     </ul>
 								</li>
                             </ul>
@@ -114,3 +115,4 @@
     
     <!-- Product Section Begin -->
     <section class="product spad">
+
