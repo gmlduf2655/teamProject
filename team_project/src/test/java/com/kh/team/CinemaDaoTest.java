@@ -21,21 +21,8 @@ public class CinemaDaoTest {
 	@Test
 	public void cinemaDaoTest() {
 		
-		CinemaVo cinemaVo;
-
-		String cinema_name = "영화관 제목";
-		String cinema_address = "영화관 주소";
-		int cinema_seat_count = 0;
-		String cinema_status = null;
-		Date cinema_begin_date = null;
-		Date cinema_finish_date = null;
-		
-		boolean result = false;
-		
-		for (int i = 1; i <= 100; i++) {
-			cinemaVo = new CinemaVo(cinema_name + i, cinema_address + i, cinema_seat_count, cinema_status, cinema_begin_date, cinema_finish_date);
-			result = cinemaDao.insertCinema(cinemaVo);
-		}
+		CinemaVo cinemaVo = new CinemaVo("영화관이름", "영화관주소", 50, "1", null, null);
+		boolean result = cinemaDao.insertCinema(cinemaVo);
 		
 		System.out.println("insertCinema result : " + result);
 		
