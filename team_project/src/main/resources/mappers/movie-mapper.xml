@@ -4,13 +4,12 @@
 
 
 <mapper namespace="com.kh.team.mappers.movie">
-
-	<insert id=""></insert>
 	
-	<select id="movieList">
-	
+	<select id="movieList" resultType="com.kh.team.vo.MovieVo">
+		select * from tbl_movie
 	</select>
-
+	
+	
 
 
 

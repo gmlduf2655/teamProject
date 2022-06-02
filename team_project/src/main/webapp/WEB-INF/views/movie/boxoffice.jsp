@@ -14,7 +14,7 @@
 	<div id="releaseCont">
 		<ol class="releaseRank">
 			<c:forEach begin="0" end="9" var="i">
-				<li class="active" id="Rank_${i}">
+				<li class="active" id="rank${i}">
 					<a href="#"></a>
 				</li>
 			</c:forEach>
@@ -23,12 +23,9 @@
 
 
 <script type="text/javascript">
-	//내일 날짜 구하기
-	
+	//내일 날짜
 	var now = new Date();
 	var yesterDate = new Date(now.setDate(now.getDate()-1));
-	
-	
 	var prevYear = now.getFullYear();
 	var prevMonth = now.getMonth() +1;
 	var yesterDay = now.getDate();
@@ -42,19 +39,21 @@
 	
 	$.ajax({
 		type: "GET",
-		url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json",
+		url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
 		data: {
 			key: "6a124949cf23e078e5c9d213db2cf916",
 			targetDt: yesterDate
 		},
 		success: function(data) {
 			console.log(data);
-			console.log(yesterDate);
-			/* $.each(data.boxOfficeResult.dailyBoxOfficeList, function(i, m) {
-				$('Rank_'+i+ 'a').append("<img alt=\""+m.rnum+"위\" src=\"./resources/images/home/boxoffice/numeric-"
-						+ m.rnum + ".png\"><span class=\"office_cell\">"+m.movieNm + "</span>");
-				
-			}); */
+			$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
+				$('#rank'+i).append("<span class=\"boxoffice_rank\">" +j.movieNm+"</span>");
+				$('#rank'+i).append("<span class=\"boxoffice_rank right rk_inten\" id=\"rk_inten"+ i +"\">"+j.rankInten+"</span>");
+				//old 일경우 이미지 new 일 경우 이미지
+				$('#rank'+i).append("<span class=\"boxoffice_rank right "+ j.rankOldAndNew +"\">"+j.rankOldAndNew +"</span>");
+			});
+			
+			
 		}
 	});
 </script>

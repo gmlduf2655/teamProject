@@ -17,8 +17,8 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public List<EventVo> list() {
-		sqlSession.selectList(NAMESPACE + "list");
-		return null;
+		List<EventVo> eventList = sqlSession.selectList(NAMESPACE + "list");
+		return eventList;
 	}
 
 	@Override
@@ -31,14 +31,20 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	@Override
-	public boolean update(EventVo eventVo) {
-		// TODO Auto-generated method stub
+	public boolean modify(EventVo eventVo) {
+		int count = sqlSession.update(NAMESPACE + "modify", eventVo);
+		if (count > 0) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
-	public boolean delete(int eventno) {
-		// TODO Auto-generated method stub
+	public boolean delete(int event_no) {
+		int count = sqlSession.delete(NAMESPACE + "delete", event_no);
+		if (count > 0) {
+			return true;
+		}
 		return false;
 	}
 
