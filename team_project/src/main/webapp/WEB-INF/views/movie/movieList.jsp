@@ -7,25 +7,23 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 			<div class="row">
 
-				<c:forEach items="${eventList}" var="eventVo">
+				<c:forEach items="${list}" var="movieVo">
 					<div class="col-md-3">
 						<div class="product__item">
 							<div class="product__item__pic set-bg"
 								data-setbg="/resources/images/no_image.jpg">
-								<div class="ep">18 / 18</div>
+								<div class="ep">개봉일 ${movieVo.opening_date}</div>
 								<div class="view">
-									<i class="fa fa-eye"></i> ${eventVo.event_count}
+									<i class="fa fa-eye"></i>누적관객 ${movieVo.opening_date}
 								</div>
 							</div>
 							<div class="product__item__text">
 								<h5>
-									<a href="#">${eventVo.event_title}</a>
-								</h5>
-								<h5>
-									<a href="#">${eventVo.event_end_date}</a>
+									<a href="#">${movieVo.movie_name}</a>
 								</h5>
 							</div>
 						</div>
@@ -34,6 +32,7 @@
 
 			</div>
 		</div>
+		<div class="col-md-2"></div>
 	</div>
 		<div class="float-right">
 			<p>
