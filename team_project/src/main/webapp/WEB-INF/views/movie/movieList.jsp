@@ -34,7 +34,7 @@
 	if(yesterDay < 10){ yesterDay = "0" + yesterDay; } 
 	
 	var yesterDate = prevYear + "" + prevMonth + "" + yesterDay;
-	yesterDate = yesterDate.trim();
+	yesterDate = yesterDate.trim();   
 	
 	
 	$.ajax({
