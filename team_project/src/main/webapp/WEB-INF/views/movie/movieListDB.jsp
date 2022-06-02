@@ -13,7 +13,7 @@
 <form action="/crawling/dbSave" method="get">
 	<div id="releaseCont">
 		<ol class="releaseList">
-			<c:forEach begin="0" end="300" var="i">
+			<c:forEach begin="0" end="99" var="i">
 				<li class="active" id="list${i}">
 					<a href="#"></a>
 				</li>
@@ -38,17 +38,24 @@
 		success: function(data) {
 			console.log(data);
 			$.each(data.movieListResult.movieList, function(i,j){
-				$('#list'+i).append("<span class=\'movieList\' name='movie_code'>영화코드:" +j.movieCd+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='movie_name'>영화제목:" +j.movieNmEn+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='movie_name_en'>영화원제:" +j.prdYear+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='opening_date'>제작년도:" +j.openDt+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='runningtime'>러닝타임:" +j.typeNm+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='make_year'>제작국가:" +j.nationAlt+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='runningtime'>영화장르:" +j.genreAlt+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='made_country'>제작국가:" +j.repNationNm+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='movie_genre'>대표장르:" +j.repGenreNm+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='movie_director'>영화감독:" +j.directors+"</span>");
-				$('#list'+i).append("<span class=\'movieList\' name='made_company'>제작사 :" +j.companys+"</span>");
+				$('#list'+i).append("<span class=\'movieList\' name='movie_code'>영화코드:" +j.movieCd+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='movie_name'>영화제목:" +j.movieNm+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='movie_name'>영화원제:" +j.movieNmEn+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='movie_name_en'>제작년도:" +j.prdtYear+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='opening_date'>개봉일:" +j.openDt+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='runningtime'>영화종류:" +j.typeNm+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='make_year'>제작국가:" +j.nationAlt+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='runningtime'>영화장르:" +j.genreAlt+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='made_country'>제작국가:" +j.repNationNm+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='movie_genre'>대표장르:" +j.repGenreNm+"</span><br>");
+				$('#list'+i).append("<span class=\'movieList\' name='movie_director'>영화감독:" +j.directors[0].peopleNm+"</span><br>");
+				/* $('#list'+i).append("<span class=\'movieList\' name='made_company'>제작사 :" + 
+						if(j.companys[0].lenth == null){
+							"없음";
+						} else {
+							j.companys[0].companyNm
+						}
+						+"</span><br>"); */
 			});
 			
 		}
