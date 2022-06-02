@@ -28,9 +28,9 @@ public class UserController {
 	@RequestMapping(value="/login_run", method=RequestMethod.POST)
 	public String loginRun(String userid, String userpw, HttpSession session) {
 		UserVo loginUserVo = userService.login(userid, userpw);
-		if(loginUserVo != null) {
-			session.setAttribute("loginUserVo", loginUserVo);
-		}
+//		if(loginUserVo != null) {
+//			session.setAttribute("loginUserVo", loginUserVo);
+//		}
 		return "redirect:/";
 	}
 	
