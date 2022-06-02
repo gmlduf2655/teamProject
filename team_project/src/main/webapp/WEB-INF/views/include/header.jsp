@@ -62,7 +62,7 @@
                                 	<c:if test="">
                                 		class="active"
                                 	</c:if>
-                                ><a href="./index.html">홈</a></li>
+                                ><a href="/">홈</a></li>
                                 <li
                                 	<c:if test="">
                                 		class="active"

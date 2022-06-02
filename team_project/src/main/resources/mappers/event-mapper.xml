@@ -28,5 +28,10 @@
 		select * from tbl_event
 		order by event_no
 	</select>
+	
+	<select id="readContent" resultType="EventVo">
+		select * from tbl_event
+		where event_no = #{event_no}
+	</select>
 
 </mapper>

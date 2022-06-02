@@ -48,4 +48,10 @@ public class EventDaoImpl implements EventDao {
 		return false;
 	}
 
+	@Override
+	public EventVo readContent(int event_no) {
+		EventVo eventVo = sqlSession.selectOne(NAMESPACE + "readContent", event_no);
+		return eventVo;
+	}
+
 }

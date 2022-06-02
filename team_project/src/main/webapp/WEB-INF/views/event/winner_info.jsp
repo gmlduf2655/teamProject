@@ -5,7 +5,7 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-<title>Movier | 당첨자 발표</title>
+
 
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

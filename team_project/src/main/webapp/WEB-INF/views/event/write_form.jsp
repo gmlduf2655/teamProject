@@ -8,7 +8,13 @@
 
 
 <div class="container-fluid" style="background-color: white">
+
+
+		
 	<div class="row">
+	
+	
+	
 		<div class="col-md-12">
 			<div class="jumbotron">
 				<h2>이벤트 등록 폼</h2>
@@ -38,9 +44,12 @@
 				</div>
 				
 				<button type="submit" class="btn btn-primary">저장</button>
+				
 			</form>
 		</div>
+		
 	</div>
+	
 </div>
 
 
