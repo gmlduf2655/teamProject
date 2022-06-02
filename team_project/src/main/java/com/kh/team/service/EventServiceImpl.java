@@ -2,32 +2,40 @@ package com.kh.team.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kh.team.dao.EventDao;
 import com.kh.team.vo.EventVo;
 
+@Service
 public class EventServiceImpl implements EventService {
+	
+	@Autowired
+	private EventDao eventDao;
 
 	@Override
 	public List<EventVo> list() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean insert(EventVo eventVo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = eventDao.insert(eventVo);
+		return result;
 	}
 
 	@Override
-	public boolean update(EventVo eventVo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean modify(EventVo eventVo) {
+		boolean result = eventDao.modify(eventVo);
+		return result;
 	}
 
 	@Override
-	public boolean delete(int eventno) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(int event_no) {
+		boolean result = eventDao.delete(event_no);
+		return result;
 	}
 
 }
