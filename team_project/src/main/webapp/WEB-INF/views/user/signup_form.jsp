@@ -76,6 +76,19 @@
  			}
 		});
 		
+		// 이메일 인증 버튼
+		$("#email_auth_btn").click(function(){
+			$.ajax({
+				type : "post",
+				async : "true",
+				url : "/mail/send",
+				success : function(rData){
+					console.log(rData);
+					$("#email_auth_form").show();
+				}
+			});
+		});
+		
 		// 회원 가입 버튼 클릭
 		$("#signup_btn").click(function(){
 			$("#signup_form").submit();
@@ -130,7 +143,11 @@
                             <div class="input__item">
                                 <input type="email" placeholder="이메일" name="email" id="email" required>
                                 <span class="icon_mail"></span>
-                                <button type="submit" class="site-btn">이메일 인증</button>
+                                <button type="button" class="site-btn" id="email_auth_btn">이메일 인증</button>
+                                <form id="email_auth_form" method="post" action="#" style="display:none;">
+                                	<input type="number" placeholder="인증코드 6자리 입력" >
+                                	<button id="email_auth_comfirm_btn">전송</button>
+                                </form>
                             </div>
                             <h4 class="mb-4" style="color:white;">선택 입력사항</h4>
                             <div class="input__item">
