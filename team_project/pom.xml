@@ -14,6 +14,24 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>	
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>4.1.7.RELEASE</version>
+</dependency>
+		<!-- 임희열 : 이메일 인증 기능을 위해 아래 3개의 dependency를 추가함 -->
+		<!-- 임희열 : mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		<!-- 임희열 : spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>4.1.7.RELEASE</version>
+		</dependency>
 		<!-- 임희열 : javax.mail -->
 		<dependency>
 		    <groupId>com.sun.mail</groupId>
