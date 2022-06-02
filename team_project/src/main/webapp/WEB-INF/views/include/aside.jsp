@@ -1,10 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="col-lg-4 col-md-6 col-sm-8">
+<div class="col-lg-4 col-md-4">
 	<div class="product__sidebar">
+		<!-- 마이페이지 시작 -->
+		<div class="product__sidebar__comment">
+			<div class="section-title">
+				<h5>마이페이지</h5>
+			</div>
+			<div class="product__sidebar__comment__item">
+				<div class="product__sidebar__comment__item__pic">
+					<img src="resources/images/img/sidebar/comment-1.jpg" alt="">
+				</div>
+				<div class="product__sidebar__comment__item__text">
+					<ul>
+						<li>Active</li>
+						<li>Movie</li>
+					</ul>
+					<h5>
+						<a href="#">유저네임</a>
+					</h5>
+				</div>
+			</div>
+		</div>
+		<!-- // 마이페이지 끝 -->
+		
+		<!-- 박스 오피스 시작 -->
 		<div class="product__sidebar__view">
 			<div class="section-title">
-				<h5>Top Views</h5>
+				<h5>박스 오피스</h5>
 			</div>
 			<ul class="filter__controls">
 				<li class="active" data-filter="*">Day</li>
@@ -65,70 +88,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="product__sidebar__comment">
-			<div class="section-title">
-				<h5>New Comment</h5>
-			</div>
-			<div class="product__sidebar__comment__item">
-				<div class="product__sidebar__comment__item__pic">
-					<img src="resources/images/img/sidebar/comment-1.jpg" alt="">
-				</div>
-				<div class="product__sidebar__comment__item__text">
-					<ul>
-						<li>Active</li>
-						<li>Movie</li>
-					</ul>
-					<h5>
-						<a href="#">The Seven Deadly Sins: Wrath of the Gods</a>
-					</h5>
-					<span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-				</div>
-			</div>
-			<div class="product__sidebar__comment__item">
-				<div class="product__sidebar__comment__item__pic">
-					<img src="resources/images/img/sidebar/comment-2.jpg" alt="">
-				</div>
-				<div class="product__sidebar__comment__item__text">
-					<ul>
-						<li>Active</li>
-						<li>Movie</li>
-					</ul>
-					<h5>
-						<a href="#">Shirogane Tamashii hen Kouhan sen</a>
-					</h5>
-					<span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-				</div>
-			</div>
-			<div class="product__sidebar__comment__item">
-				<div class="product__sidebar__comment__item__pic">
-					<img src="resources/images/img/sidebar/comment-3.jpg" alt="">
-				</div>
-				<div class="product__sidebar__comment__item__text">
-					<ul>
-						<li>Active</li>
-						<li>Movie</li>
-					</ul>
-					<h5>
-						<a href="#">Kizumonogatari III: Reiket su-hen</a>
-					</h5>
-					<span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-				</div>
-			</div>
-			<div class="product__sidebar__comment__item">
-				<div class="product__sidebar__comment__item__pic">
-					<img src="resources/images/img/sidebar/comment-4.jpg" alt="">
-				</div>
-				<div class="product__sidebar__comment__item__text">
-					<ul>
-						<li>Active</li>
-						<li>Movie</li>
-					</ul>
-					<h5>
-						<a href="#">Monogatari Series: Second Season</a>
-					</h5>
-					<span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-				</div>
-			</div>
-		</div>
+		<!-- // 박스 오피스 끝 -->
 	</div>
 </div>
