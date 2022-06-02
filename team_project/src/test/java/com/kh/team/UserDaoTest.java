@@ -53,7 +53,7 @@ public class UserDaoTest {
 	// 유저 정보 수정 테스트
 	@Test
 	public void testUpdateUser() {
-		UserVo userVo = new UserVo("user01", "1234", "유저 1별명2", "유저", "user01@naver.com", "한국 어딘가", "01087654321", 
+		UserVo userVo = new UserVo("user01", "1234", "유저1 별명", "유저1", "user01@naver.com", "한국 어딘가", "01012345678", 
 									0, null, "1", null);
 		boolean result = userDao.updateUser(userVo);
 		System.out.println("UserDaoTest, testUpdateUser, result : " + result);		
