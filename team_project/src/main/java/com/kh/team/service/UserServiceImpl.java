@@ -36,13 +36,20 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 	
+	// 닉네임 중복체크
+	@Override
+	public boolean nicknameDuplCheck(String nickname) {
+		UserVo userVo = userDao.selectUserByNickname(nickname);
+		if(userVo != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	// 로그인
 	@Override
 	public UserVo login(String userid, String userpw) {
 		UserVo userVo = userDao.selectUserByIdAndPwd(userid, userpw);
-//		if(userVo != null) {
-//			return true;
-//		}
 		return userVo;
 	}
 

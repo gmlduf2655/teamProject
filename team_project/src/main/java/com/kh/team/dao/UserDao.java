@@ -11,6 +11,8 @@ public interface UserDao {
 	public UserVo selectUserById(String userid);
 	// 아이디, 비밀번호로 회원 조회
 	public UserVo selectUserByIdAndPwd(String userid, String userpw);
+	// 닉네임으로 회원 조회
+	public UserVo selectUserByNickname(String nickname);
 	// 회원 목록 조회
 	public List<UserVo> userList();
 	// 회원 수정
