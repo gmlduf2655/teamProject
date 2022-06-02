@@ -10,6 +10,8 @@ public class CinemaVo {
 	private String cinema_status;
 	private Date cinema_begin_date;
 	private Date cinema_finish_date;
+	private Date regdate;
+	private Date chgdate;
 
 	public CinemaVo() {
 		super();
@@ -17,7 +19,7 @@ public class CinemaVo {
 	}
 
 	public CinemaVo(String cinema_name, String cinema_address, int cinema_seat_count, String cinema_status,
-			Date cinema_begin_date, Date cinema_finish_date) {
+			Date cinema_begin_date, Date cinema_finish_date, Date chgdate) {
 		super();
 		this.cinema_name = cinema_name;
 		this.cinema_address = cinema_address;
@@ -25,6 +27,34 @@ public class CinemaVo {
 		this.cinema_status = cinema_status;
 		this.cinema_begin_date = cinema_begin_date;
 		this.cinema_finish_date = cinema_finish_date;
+		this.chgdate = chgdate;
+	}
+
+	public CinemaVo(String cinema_name, String cinema_address, int cinema_seat_count, String cinema_status,
+			Date cinema_begin_date, Date cinema_finish_date, Date regdate, Date chgdate) {
+		super();
+		this.cinema_name = cinema_name;
+		this.cinema_address = cinema_address;
+		this.cinema_seat_count = cinema_seat_count;
+		this.cinema_status = cinema_status;
+		this.cinema_begin_date = cinema_begin_date;
+		this.cinema_finish_date = cinema_finish_date;
+		this.regdate = regdate;
+		this.chgdate = chgdate;
+	}
+
+	public CinemaVo(int cinema_no, String cinema_name, String cinema_address, int cinema_seat_count,
+			String cinema_status, Date cinema_begin_date, Date cinema_finish_date, Date regdate, Date chgdate) {
+		super();
+		this.cinema_no = cinema_no;
+		this.cinema_name = cinema_name;
+		this.cinema_address = cinema_address;
+		this.cinema_seat_count = cinema_seat_count;
+		this.cinema_status = cinema_status;
+		this.cinema_begin_date = cinema_begin_date;
+		this.cinema_finish_date = cinema_finish_date;
+		this.regdate = regdate;
+		this.chgdate = chgdate;
 	}
 
 	public int getCinema_no() {
@@ -83,11 +113,28 @@ public class CinemaVo {
 		this.cinema_finish_date = cinema_finish_date;
 	}
 
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public Date getChgdate() {
+		return chgdate;
+	}
+
+	public void setChgdate(Date chgdate) {
+		this.chgdate = chgdate;
+	}
+
 	@Override
 	public String toString() {
 		return "CinemaVo [cinema_no=" + cinema_no + ", cinema_name=" + cinema_name + ", cinema_address="
 				+ cinema_address + ", cinema_seat_count=" + cinema_seat_count + ", cinema_status=" + cinema_status
-				+ ", cinema_begin_date=" + cinema_begin_date + ", cinema_finish_date=" + cinema_finish_date + "]";
+				+ ", cinema_begin_date=" + cinema_begin_date + ", cinema_finish_date=" + cinema_finish_date
+				+ ", regdate=" + regdate + ", chgdate=" + chgdate + "]";
 	}
 
 }

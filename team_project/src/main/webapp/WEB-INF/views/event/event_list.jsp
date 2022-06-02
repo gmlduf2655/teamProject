@@ -14,7 +14,7 @@
 					<div class="col-md-3">
 						<div class="product__item">
 							<div class="product__item__pic set-bg"
-								data-setbg="resources/images/no_image.jpg">
+								data-setbg="/resources/images/no_image.jpg">
 								<div class="ep">18 / 18</div>
 								<div class="view">
 									<i class="fa fa-eye"></i> ${eventVo.event_count}
@@ -25,7 +25,7 @@
 									<a href="#">${eventVo.event_title}</a>
 								</h5>
 								<h5>
-									<a href="#">${eventVo.event_end_date}</a>
+									<a href="#">이벤트 종료일: ${eventVo.event_end_date}</a>
 								</h5>
 							</div>
 						</div>
