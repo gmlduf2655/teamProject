@@ -16,7 +16,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<EventVo> list() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -28,14 +28,14 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public boolean modify(EventVo eventVo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = eventDao.modify(eventVo);
+		return result;
 	}
 
 	@Override
-	public boolean delete(int eventno) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(int event_no) {
+		boolean result = eventDao.delete(event_no);
+		return result;
 	}
 
 }
