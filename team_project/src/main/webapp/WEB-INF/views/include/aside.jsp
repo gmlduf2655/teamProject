@@ -17,9 +17,11 @@
 						<li>Movie</li>
 					</ul>
 					<h5>
+					
 						<!-- 임희열 : 로그인 되어있는 상태를 확인하기 위해 임시로 작성 -->
 						<a href="#">아이디 : ${loginUserVo.userid}</a><br>
-						<a href="#">유저네임 : ${loginUserVo.username}</a>
+						<a href="#">유저네임 : ${loginUserVo.username}</a><br>
+						<a href="#">포인트 : ${loginUserVo.point}</a>
 					</h5>
 				</div>
 			</div>

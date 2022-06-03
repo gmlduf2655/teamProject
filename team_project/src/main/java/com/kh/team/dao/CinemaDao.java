@@ -10,15 +10,15 @@ public interface CinemaDao {
 	public boolean insertCinema(CinemaVo cinemaVo);
 
 	// 영화관 정보 수정
-	public boolean updateCinemaInfo(int cinema_no, CinemaVo cinemaVo);
+	public boolean updateCinemaInfo(CinemaVo cinemaVo);
 
 	// 영화관 리스트 조회
-	public List<CinemaVo> getCinemaList();
+	public List<CinemaVo> getCinemaList(String column, String orderType);
 
 	// 영화관 정보 조회
 	public CinemaVo getCinemaInfo(int cinema_no);
 
 	// 영화관 상태 변경(오픈 / 폐업 / 오픈예정)
-	public boolean updateCinemaStatus(int cinema_no, int cinema_status);
+	public boolean updateCinemaStatus(int cinema_no, String cinema_status);
 
 }

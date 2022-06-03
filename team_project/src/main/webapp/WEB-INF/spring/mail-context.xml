@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 구글 계정으로 smtp를 통해 다른 유저에게 메일을 보내는 것 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="gmlduf2655@gmail.com"/>
+		<property name="password" value="esvmnrljsbxmllbq"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 수신자에게 메일을 정기적으로 보낼 때 사용 -->
+	<bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="to" value="수신메일주소" />
+		<property name="from" value="gmlduf2655@gmail.com" />
+		<property name="subject" value="테스트 메일" />
+	</bean>
+</beans>

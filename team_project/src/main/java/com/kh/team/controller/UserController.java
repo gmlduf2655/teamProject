@@ -51,9 +51,10 @@ public class UserController {
 		String filename = file.getOriginalFilename();
 		byte[] fileData = file.getBytes();
 		System.out.println("filename : " + filename);
-		if(filename != null) {
+		System.out.println(!(filename.equals("")));
+		if(filename != null && !(filename.equals("")) ) {
 			String profileimage = MyFileUploader.fileUpload("moverattach", file.getOriginalFilename(), fileData);
-			userVo.setProfileimage(profileimage);
+			userVo.setProfile_image(profileimage);
 		}
 		boolean result = userService.signUp(userVo);
 		redirectAttributes.addFlashAttribute("signup_result", result + "");
@@ -63,7 +64,7 @@ public class UserController {
 	// 네이버 로그인 페이지 이동
 	@RequestMapping(value="/naver_login", method=RequestMethod.GET)
 	public String naverLogin() {
-		return "redirect:/";
+		return "user/naver_login";
 	}
 	
 	// 회원가입시 아이디 중복 체크
