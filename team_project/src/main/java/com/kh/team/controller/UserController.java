@@ -34,9 +34,16 @@ public class UserController {
 	@RequestMapping(value="/login_run", method=RequestMethod.POST)
 	public String loginRun(String userid, String userpw, HttpSession session) {
 		UserVo loginUserVo = userService.login(userid, userpw);
-//		if(loginUserVo != null) {
-//			session.setAttribute("loginUserVo", loginUserVo);
-//		}
+		if(loginUserVo != null) {
+			session.setAttribute("loginUserVo", loginUserVo);
+		}
+		return "redirect:/";
+	}
+	
+	// 로그아웃
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginUserVo");
 		return "redirect:/";
 	}
 	
@@ -82,5 +89,17 @@ public class UserController {
 	public String nicknameDuplCheck(String nickname){
 		boolean result = userService.nicknameDuplCheck(nickname);
 		return result + "";
+	}
+	
+	// 마이페이지 화면이동
+	@RequestMapping(value="/mypage", method=RequestMethod.GET)
+	public String mypage() {
+		return "user/mypage";
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping(value="/find_password", method=RequestMethod.GET)
+	public String findPassword() {
+		return "user/find_password";
 	}
 }

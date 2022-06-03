@@ -66,4 +66,11 @@ public class UserServiceTest {
 		boolean result = userService.unregister("user03");
 		System.out.println("UserServiceTest, testUnregister, result : " + result);
 	}
+	
+	// 임시 비밀번호로 비밀번호 변경 테스트
+	@Test
+	public void testUpdateUserpwToTempPwd() {
+		boolean result = userService.updateUserpwToTempPwd("user01@naver.com", "1234");
+		System.out.println("UserServiceTest, testUpdateUserpwToTempPwd, result : " + result);
+	}
 }

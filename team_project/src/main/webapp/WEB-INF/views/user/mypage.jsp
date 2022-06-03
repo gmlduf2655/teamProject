@@ -52,12 +52,12 @@
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="password" placeholder="비밀번호" name="userpw" required>
+                                <input type="text" placeholder="비밀번호" name="userpw" required>
                                 <span class="icon_lock"></span>
                             </div>
                             <button type="submit" class="site-btn">로그인</button>
                         </form>
-                        <a href="/user/find_password" class="forget_pass">비밀번호를 잊어버리셨나요?</a>
+                        <a href="#" class="forget_pass">비밀번호를 잊어버리셨나요?</a>
                     </div>
                 </div>
                 <div class="col-lg-6">

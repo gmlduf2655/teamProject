@@ -2,6 +2,7 @@ package com.kh.team.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.UserDao;
 import com.kh.team.vo.UserVo;
@@ -66,5 +67,15 @@ public class UserServiceImpl implements UserService {
 		boolean result = userDao.deleteUser(userid);
 		return result;
 	}
+
+	// 임시 비밀번호 만들기
+	@Override
+	@Transactional
+	public boolean updateUserpwToTempPwd(String email, String tempPwd) {
+		UserVo userVo = userDao.selectUserByEmail(email);
+		boolean result = userDao.updateUserpw(userVo.getUserid(), tempPwd);
+		return result;
+	}
+	
 
 }

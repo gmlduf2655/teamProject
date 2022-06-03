@@ -19,9 +19,9 @@
 					<h5>
 					
 						<!-- 임희열 : 로그인 되어있는 상태를 확인하기 위해 임시로 작성 -->
-						<a href="#">아이디 : ${loginUserVo.userid}</a><br>
-						<a href="#">유저네임 : ${loginUserVo.username}</a><br>
-						<a href="#">포인트 : ${loginUserVo.point}</a>
+						<a href="#">${loginUserVo.userid}(${loginUserVo.nickname})님</a><br>
+						<a href="#">환영합니다</a><br>
+						<a href="#">포인트 : ${loginUserVo.point}점</a>
 					</h5>
 				</div>
 			</div>

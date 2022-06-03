@@ -52,6 +52,13 @@ public class UserDaoTest {
 		System.out.println("UserDaoTest, testSelectUserByNickname, userVo : " + userVo);
 	}
 	
+	// 이메일로 회원 조회하기 테스트
+	@Test 
+	public void selectUserByEmail() {
+		UserVo userVo = userDao.selectUserByEmail("user01@naver.com");
+		System.out.println("UserDaoTest, testSelectUserByNickname, userVo : " + userVo);
+	}
+	
 	// 회원 목록 조회 테스트
 	@Test
 	public void testUserList() {
@@ -69,6 +76,13 @@ public class UserDaoTest {
 		UserVo userVo = new UserVo("user03", "1234", "유저03 별명2", "유저03", "user03@naver.com");
 		boolean result = userDao.updateUser(userVo);
 		System.out.println("UserDaoTest, testUpdateUser, result : " + result);		
+	}
+	
+	@Test
+	// 유저 비밀번호 수정 테스트
+	public void testUpdateUserpw() {
+		boolean result = userDao.updateUserpw("user01", "1234");
+		System.out.println("UserDaoTest, testUpdateUserpw, result : " + result);
 	}
 	
 	// 유저 정보 삭제 테스트
