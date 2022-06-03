@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.team.service.UserService;
 import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.UserVo;

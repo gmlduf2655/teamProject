@@ -4,7 +4,7 @@ public class MovieVo {
 	private String movie_code;
 	private String movie_name;
 	private String movie_name_en;
-	private int opening_date;
+	private String opening_date;
 	private int runningtime;
 	private int make_year;
 	private String made_country;
@@ -23,8 +23,50 @@ public class MovieVo {
 		this.movie_name = movie_name;
 		this.movie_name_en = movie_name_en;
 	}
+	
+	
 
-	public MovieVo(String movie_code, String movie_name, String movie_name_en, int opening_date, int runningtime,
+	public MovieVo(String movie_code, String movie_name, String movie_name_en, String opening_date, int make_year,
+			String made_country, String movie_genre) {
+		super();
+		this.movie_code = movie_code;
+		this.movie_name = movie_name;
+		this.movie_name_en = movie_name_en;
+		this.opening_date = opening_date;
+		this.make_year = make_year;
+		this.made_country = made_country;
+		this.movie_genre = movie_genre;
+	}
+
+	public MovieVo(String movie_code, String movie_name, String movie_name_en, String opening_date, int runningtime,
+			int make_year, String made_country, String movie_genre) {
+		super();
+		this.movie_code = movie_code;
+		this.movie_name = movie_name;
+		this.movie_name_en = movie_name_en;
+		this.opening_date = opening_date;
+		this.runningtime = runningtime;
+		this.make_year = make_year;
+		this.made_country = made_country;
+		this.movie_genre = movie_genre;
+	}
+
+	public MovieVo(String movie_code, String movie_name, String movie_name_en, String opening_date, int runningtime,
+			int make_year, String made_country, String movie_genre, String movie_director, String made_company) {
+		super();
+		this.movie_code = movie_code;
+		this.movie_name = movie_name;
+		this.movie_name_en = movie_name_en;
+		this.opening_date = opening_date;
+		this.runningtime = runningtime;
+		this.make_year = make_year;
+		this.made_country = made_country;
+		this.movie_genre = movie_genre;
+		this.movie_director = movie_director;
+		this.made_company = made_company;
+	}
+
+	public MovieVo(String movie_code, String movie_name, String movie_name_en, String opening_date, int runningtime,
 			int make_year, String made_country, String movie_genre, String movie_director, String made_company,
 			String movie_image_name) {
 		super();
@@ -65,11 +107,11 @@ public class MovieVo {
 		this.movie_name_en = movie_name_en;
 	}
 
-	public int getOpening_date() {
+	public String getOpening_date() {
 		return opening_date;
 	}
 
-	public void setOpening_date(int opening_date) {
+	public void setOpening_date(String opening_date) {
 		this.opening_date = opening_date;
 	}
 
@@ -136,6 +178,7 @@ public class MovieVo {
 				+ ", made_country=" + made_country + ", movie_genre=" + movie_genre + ", movie_director="
 				+ movie_director + ", made_company=" + made_company + ", movie_image_name=" + movie_image_name + "]";
 	}
+
 	
 	
 }
