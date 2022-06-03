@@ -11,6 +11,5 @@ public interface WinnerService {
 	public boolean modify(WinnerVo winnerVo); //게시글 수정
 	public boolean delete(int winner_no); //게시글 삭제
 	public WinnerVo readContent(int winner_no); // 게시글 읽기
-	public void viewConuntUpdate(int winner_no); // 조회수 증가
 	
 }
