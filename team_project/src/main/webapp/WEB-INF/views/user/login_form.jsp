@@ -15,12 +15,10 @@
     		}
     		
     		// 네이버 간편 로그인 버튼을 눌렀을때 필요한 clientId, callbackUrl 설정
-			var naverLogin = new naver.LoginWithNaverId(
-					{
-						clientId: "VjgDvLJM29qpp3O__mxp",
-						callbackUrl: "http://localhost:80/user/naver_login"
-					}
-				);
+			var naverLogin = new naver.LoginWithNaverId({
+				clientId: "VjgDvLJM29qpp3O__mxp",
+				callbackUrl: "http://localhost:80/user/naver_login"
+			});
     		// 네이버 간편 로그인 버튼을 누르면 네이버 로그인 페이지로 이동하게함
 			naverLogin.init();
     	});

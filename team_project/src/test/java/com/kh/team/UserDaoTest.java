@@ -21,8 +21,11 @@ public class UserDaoTest {
 	// 회원추가 테스트
 	@Test
 	public void testInsertUser() {
-		UserVo userVo = new UserVo("andy", "1234", "andy", "andy", "andy@naver.com", "한국", "01012341234", 
-									0, null, "1", null);
+//		UserVo userVo = new UserVo("andy", "1234", "andy", "andy", "andy@naver.com", "한국", "01012341234", 
+//									0, null, "1", null, null, null, null, null);
+//		UserVo userVo = new UserVo("user01", "1234", "유저01 별명", "유저01", "user01@naver.com", "한국", "01012341234", 
+//									0, null, "1", null, null, null, null, null);
+		UserVo userVo = new UserVo("user03", "1234", "유저03 별명", "유저03", "user03@naver.com");
 		System.out.println("userVo : " + userVo);
 		boolean result = userDao.insertUser(userVo);
 		System.out.println("UserDaoTest, testInsetUser, result : " + result);
@@ -61,8 +64,9 @@ public class UserDaoTest {
 	// 유저 정보 수정 테스트
 	@Test
 	public void testUpdateUser() {
-		UserVo userVo = new UserVo("user01", "1234", "유저1 별명", "유저1", "user01@naver.com", "한국 어딘가", "01012345678", 
-									0, null, "1", null);
+//		UserVo userVo = new UserVo("user01", "1234", "유저1 별명", "유저1", "user01@naver.com", "한국 어딘가", "01012345678", 
+//									0, null, "1", null, null, null, null, null);
+		UserVo userVo = new UserVo("user03", "1234", "유저03 별명2", "유저03", "user03@naver.com");
 		boolean result = userDao.updateUser(userVo);
 		System.out.println("UserDaoTest, testUpdateUser, result : " + result);		
 	}
@@ -70,7 +74,7 @@ public class UserDaoTest {
 	// 유저 정보 삭제 테스트
 	@Test
 	public void testDeleteUser() {
-		boolean result = userDao.deleteUser("a");
+		boolean result = userDao.deleteUser("user03");
 		System.out.println("UserDaoTest, testDeleteUser, result : " + result);		
 	}
 	

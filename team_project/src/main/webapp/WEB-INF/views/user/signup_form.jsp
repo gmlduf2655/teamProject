@@ -5,6 +5,19 @@
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+<style>
+	input::-webkit-inner-spin-button{
+		-webkit-appearance:none;
+	}
+	#profile{
+		width:370px;
+		height:50px;
+		background-color:white;
+		color:black;
+		line-height:50px;
+	}
+</style>
+
 <script>
 	$(document).ready(function(){
 		// 아이디 중복 여부 체크
@@ -84,7 +97,9 @@
 				url : "/mail/send",
 				success : function(rData){
 					console.log(rData);
-					$("#email_auth_form").show();
+					$("#email_auth_code").show();
+					$("#email_auth_code_btn").show();
+					$("#email_auth_code_btn").attr("data-code", rData);
 				}
 			});
 		});
@@ -143,11 +158,9 @@
                             <div class="input__item">
                                 <input type="email" placeholder="이메일" name="email" id="email" required>
                                 <span class="icon_mail"></span>
-                                <button type="button" class="site-btn" id="email_auth_btn">이메일 인증</button>
-                                <form id="email_auth_form" method="post" action="#" style="display:none;">
-                                	<input type="number" placeholder="인증코드 6자리 입력" >
-                                	<button id="email_auth_comfirm_btn">전송</button>
-                                </form>
+                                <button type="button" class="site-btn mb-4" id="email_auth_btn">이메일 인증</button>
+                                <input type="number" placeholder="인증코드 6자리 입력" id="email_auth_code" style="display:none;">
+                                <button type="button" class="site-btn" id="email_auth_code_btn" style="display:none;">전송</button>
                             </div>
                             <h4 class="mb-4" style="color:white;">선택 입력사항</h4>
                             <div class="input__item">
@@ -159,9 +172,9 @@
                                 <span class="icon_mail"></span>
                             </div>
                             <h4 class="mb-4" style="color:white;">프로필 사진</h4>
-                            <div class="input__item">
-                                <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profileimage">
-                                <span class="icon_mail"></span>
+                            <div>
+                            	<label id="profile" for="profileimage">파일 선택</label>
+                                <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profileimage" style="display:none;">
                                 <img style="display:none;" src="/resources/images/logo.png" id="preview" width="370px">
                             </div>
 

@@ -27,7 +27,7 @@ public class MailController {
 	@ResponseBody
 	public String send(HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=utf-8");
-		int authCode = (int)(Math.random()*(900000)) + 1000000;
+		int authCode = (int)(Math.random()*(900000)) + 100000;
 		mailService.sendMail("gmlduf2655@naver.com", "테스트 메일", "인증 번호 코드는 " + authCode + "입니다");
 		return authCode + "";
 	}
