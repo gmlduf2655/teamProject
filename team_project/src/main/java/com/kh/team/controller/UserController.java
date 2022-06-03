@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.team.service.UserService;
 import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.UserVo;
@@ -51,7 +52,8 @@ public class UserController {
 		String filename = file.getOriginalFilename();
 		byte[] fileData = file.getBytes();
 		System.out.println("filename : " + filename);
-		if(filename != null) {
+		System.out.println(!(filename.equals("")));
+		if(filename != null && !(filename.equals("")) ) {
 			String profileimage = MyFileUploader.fileUpload("moverattach", file.getOriginalFilename(), fileData);
 			userVo.setProfile_image(profileimage);
 		}

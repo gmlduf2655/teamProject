@@ -49,3 +49,5 @@ alter table tbl_user add (sns_type varchar2(10));
 alter table tbl_user add (sns_connect_date date);
 -- userno sequence 생성
 create sequence seq_user_userno;
+-- 휴대폰 번호 컬럼 변경
+alter table tbl_user modify (cellphone char(13));
