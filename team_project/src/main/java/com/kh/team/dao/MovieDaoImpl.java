@@ -21,4 +21,31 @@ public class MovieDaoImpl implements MovieDao {
 		return list;
 	}
 
+	@Override
+	public boolean insertMovie(MovieVo movieVo) {
+		int count = sqlSession.insert(NAMESPACE + "insertMovie", movieVo);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateMovie(MovieVo movieVo) {
+		int count = sqlSession.update(NAMESPACE + "updateMovie", movieVo);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean existMovie(String movie_code) {
+		int count = sqlSession.selectOne(NAMESPACE + "existMovie", movie_code);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

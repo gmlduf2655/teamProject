@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 	
+<%@ include file="/WEB-INF/views/include/daycount.jsp"%>
 </head>
 <body>
 
@@ -23,18 +24,6 @@
 
 
 <script type="text/javascript">
-	//내일 날짜
-	var now = new Date();
-	var yesterDate = new Date(now.setDate(now.getDate()-1));
-	var prevYear = now.getFullYear();
-	var prevMonth = now.getMonth() +1;
-	var yesterDay = now.getDate();
-	
-	if(prevMonth < 10){ prevMonth = "0"+ prevMonth; }
-	if(yesterDay < 10){ yesterDay = "0" + yesterDay; } 
-	
-	var yesterDate = prevYear + "" + prevMonth + "" + yesterDay;
-	yesterDate = yesterDate.trim();
 	
 	
 	$.ajax({
