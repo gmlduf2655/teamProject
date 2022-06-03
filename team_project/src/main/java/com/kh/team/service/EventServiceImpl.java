@@ -40,6 +40,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public EventVo readContent(int event_no) {
+		eventDao.viewConuntUpdate(event_no);
 		EventVo eventVo = eventDao.readContent(event_no);
 		return eventVo;
 	}

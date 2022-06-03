@@ -4,6 +4,7 @@
 
 <mapper namespace="com.kh.team.mappers.event">
 
+	<!-- 글 등록 -->
 	<insert id="insert">
 		insert into tbl_event
 			(event_no, event_title, event_content, event_image, event_end_date)
@@ -11,6 +12,7 @@
 			(seq_event_eventno.nextval, #{event_title}, #{event_content}, #{event_image, jdbcType=VARCHAR}, #{event_end_date, jdbcType=DATE})
 	</insert>
 	
+	<!-- 글 수정 -->
 	<update id="modify">
 		update tbl_event set
 			event_title = #{event_title},
@@ -20,19 +22,29 @@
 		where event_no = #{event_no}
 	</update>
 	
+	<!-- 글 삭제 -->
 	<delete id="delete">
 		delete from tbl_event
 		where event_no = #{event_no}
 	</delete>
 	
+	<!-- 글 목록 -->
 	<select id="list" resultType="EventVo">
 		select * from tbl_event
 		order by event_no desc
 	</select>
 	
+	<!-- 글 읽기 -->
 	<select id="readContent" resultType="EventVo">
 		select * from tbl_event
 		where event_no = #{event_no}
 	</select>
+	
+	<!-- 조회수 증가 -->
+		<update id="viewConuntUpdate">
+			update tbl_event set
+				event_count = event_count + 1
+			where event_no = #{event_no}
+		</update>
 
 </mapper>

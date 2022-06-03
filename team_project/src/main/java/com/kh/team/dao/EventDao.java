@@ -10,5 +10,6 @@ public interface EventDao {
 	public boolean modify(EventVo eventVo); //게시글 수정
 	public boolean delete(int event_no); //게시글 삭제
 	public EventVo readContent(int event_no); // 게시글 읽기
+	public void viewConuntUpdate(int event_no); // 조회수 증가
 
 }

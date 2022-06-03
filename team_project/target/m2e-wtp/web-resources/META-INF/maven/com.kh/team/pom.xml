@@ -19,7 +19,7 @@
     <artifactId>spring-context-support</artifactId>
     <version>4.1.7.RELEASE</version>
 </dependency>
-		<!-- 임희열 : 이메일 인증 기능을 위해 아래 3개의 dependency를 추가함 -->
+		<!-- 임희열 : 이메일 인증 기능을 위해 아래 4개의 dependency를 추가함 -->
 		<!-- 임희열 : mail -->
 		<dependency>
 		    <groupId>javax.mail</groupId>

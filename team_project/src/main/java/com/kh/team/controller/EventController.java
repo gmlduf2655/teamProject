@@ -1,7 +1,9 @@
 package com.kh.team.controller;
 
+import java.io.FileInputStream;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +51,7 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		if(originalFilename != null) {
-			String event_image = EventFileUploader.uploadFile("//192.168.0.77/moverattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.77/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
@@ -83,5 +85,21 @@ public class EventController {
 		rttr.addFlashAttribute("delete_result", result);
 		return "redirect:/event/event_list";
 	}
-
+	
+	// 이미지 보여주기
+	@RequestMapping(value = "/displayImage", method = RequestMethod.GET)
+	@ResponseBody
+	public byte[] displayImage(String filename) throws Exception {
+		FileInputStream fis;
+		fis = new FileInputStream(filename);
+		byte[] data = IOUtils.toByteArray(fis);
+		fis.close();
+		return data;
+	}
+	
+	// 당첨자 발표 게시판 목록
+	@RequestMapping(value = "/winner_info", method = RequestMethod.GET)
+	public String winnerInfo() {
+		return "/event/winner_info";
+	}
 }

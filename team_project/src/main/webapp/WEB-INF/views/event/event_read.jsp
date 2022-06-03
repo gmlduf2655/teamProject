@@ -53,6 +53,12 @@ $(document).ready(function(){
 							<input type="text" class="form-control" id="event_title" name="event_title"
 								value="${eventVo.event_title}" readonly />
 						</div>
+						
+						<div>
+						 <img src="/event/displayImage?filename=${eventVo.event_image}">
+						</div>
+						
+						
 						<div class="form-group">
 							<label for="event_content"> 내용 </label>
 							<textarea class="form-control" id="event_content"

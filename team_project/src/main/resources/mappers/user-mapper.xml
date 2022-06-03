@@ -7,9 +7,17 @@
 	<!-- 회원 추가 -->
 	<insert id="insertUser">
 		insert into tbl_user
-			(userid, userpw, nickname, username, email, address, cellphone, profileimage)
+			(userno, userid, userpw, nickname, username, email, address, cellphone, profile_image)
 		values
-			(#{userid}, #{userpw}, #{nickname}, #{username}, #{email}, #{address}, #{cellphone}, #{profileimage})
+			(seq_user_userno.nextval, 
+			#{userid}, 
+			#{userpw}, 
+			#{nickname}, 
+			#{username}, 
+			#{email, jdbcType=VARCHAR}, 
+			#{address, jdbcType=VARCHAR}, 
+			#{cellphone, jdbcType=VARCHAR}, 
+			#{profile_image, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 아이디로 회원 조회 -->
@@ -33,22 +41,22 @@
 	<!-- 유저 목록 조회 -->
 	<select id="userList" resultType="UserVo">
 		select * from tbl_user
-		order by regdate desc 
+		order by reg_date desc 
 	</select>
 	
 	<!-- 유저 정보 수정 -->
 	<update id="updateUser">
 		update tbl_user set
 			nickname = #{nickname},
-			address = #{address},
-			cellphone = #{cellphone}
+			address = #{address, jdbcType=VARCHAR},
+			cellphone = #{cellphone, jdbcType=VARCHAR}
 		where userid = #{userid}
 	</update>
 	
 	<!-- 유저 삭제 -->
 	<update id="deleteUser">
 		update tbl_user 
-			set userstatus='0'
+			set user_status='0'
 		where userid = #{userid}
 	</update>
 </mapper>
