@@ -6,14 +6,15 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 
+<script>
+
+</script>
+
 
 <div class="container-fluid" style="background-color: white">
 
-
 		
 	<div class="row">
-	
-	
 	
 		<div class="col-md-12">
 			<div class="jumbotron">
@@ -22,7 +23,7 @@
 					<a class="btn btn-primary btn-large" href="/event/event_list">이벤트 목록으로</a>
 				</p>
 			</div>
-			<form role="form" action="/event/write_run" method="post" id="frmCreate">
+			<form role="writeForm" action="/event/write_run" method="post" id="frmCreate" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="event_title"> 제목 </label> 
 					<input type="text" class="form-control" id="event_title" name="event_title"/>
@@ -38,18 +39,15 @@
 					<input type="date" id="event_end_date" name="event_end_date">
 				</div>
 				
-				<div class="form-group">
-					<label for="event_image"> 이미지 업로드 </label> 
-					<input type="file" class="form-control-file" id="event_image" name="event_image" />
-				</div>
+					<div class="form-group">
+						<label for="event_image"> 이미지 업로드 </label> 
+						<input type="file" class="form-control-file" id="file" name="file" />
+					</div>
 				
 				<button type="submit" class="btn btn-primary">저장</button>
-				
-			</form>
+				</form>
 		</div>
-		
 	</div>
-	
 </div>
 
 

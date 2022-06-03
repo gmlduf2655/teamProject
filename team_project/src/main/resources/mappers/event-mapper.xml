@@ -17,6 +17,7 @@
 			event_content = #{event_content},
 			event_image = #{event_image, jdbcType=VARCHAR},
 			event_end_date = #{event_end_date, jdbcType=DATE}
+		where event_no = #{event_no}
 	</update>
 	
 	<delete id="delete">
@@ -26,7 +27,7 @@
 	
 	<select id="list" resultType="EventVo">
 		select * from tbl_event
-		order by event_no
+		order by event_no desc
 	</select>
 	
 	<select id="readContent" resultType="EventVo">
