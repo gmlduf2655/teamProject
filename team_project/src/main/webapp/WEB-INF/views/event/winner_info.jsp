@@ -6,59 +6,60 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 
-<div class="container-fluid">
+
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>당첨자 발표</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+
+<div class="container-fluid" style="background-color: white">
 	<div class="row">
-		<div class="col-md-12">
-			<div class="jumbotron">
-				<h2>당첨자 발표</h2>
-				<p>
-					<a class="btn btn-primary btn-large" href="#">이벤트 게시판으로</a>
-				</p>
-			</div>
+	<div class="col-md-2"></div>
+		<div class="col-md-8">
+<!-- 			<div class="jumbotron"> -->
+<!-- 				<h2>당첨자 발표</h2> -->
+<!-- 				<p> -->
+<!-- 					<a class="btn btn-primary btn-large" href="/event/event_list">이벤트 게시판으로 </a> -->
+<!-- 				</p> -->
+<!-- 			</div> -->
 			<table class="table">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>Product</th>
-						<th>Payment Taken</th>
-						<th>Status</th>
+						<th>글 번호</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${winnerList}" var="winnerVo">
 					<tr>
-						<td>1</td>
-						<td>TB - Monthly</td>
-						<td>01/04/2012</td>
-						<td>Default</td>
+						<td>${winnerVo.winner_no}</td>
+						<td><a href="/event/winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
+						<td>${winnerVo.winner_sysdate}</td>
+						<td>${winnerVo.winner_count}</td>
 					</tr>
-					<tr class="table-active">
-						<td>1</td>
-						<td>TB - Monthly</td>
-						<td>01/04/2012</td>
-						<td>Approved</td>
-					</tr>
-					<tr class="table-success">
-						<td>2</td>
-						<td>TB - Monthly</td>
-						<td>02/04/2012</td>
-						<td>Declined</td>
-					</tr>
-					<tr class="table-warning">
-						<td>3</td>
-						<td>TB - Monthly</td>
-						<td>03/04/2012</td>
-						<td>Pending</td>
-					</tr>
-					<tr class="table-danger">
-						<td>4</td>
-						<td>TB - Monthly</td>
-						<td>04/04/2012</td>
-						<td>Call in to confirm</td>
-					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>
+		<div class="col-md-2"></div>
 	</div>
+	</div>
+	<div class="float-right">
+			<p>
+				<a class="btn btn-primary btn-large" href="/event/winner_write">게시글 쓰기</a>
+			</p>
 </div>
 
 

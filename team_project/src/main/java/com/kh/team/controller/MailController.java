@@ -25,10 +25,11 @@ public class MailController {
 	// 메일 보내기
 	@RequestMapping(value="/send", method=RequestMethod.POST)
 	@ResponseBody
-	public String send(HttpServletResponse response) throws IOException {
+	public String send(HttpServletResponse response, String email) throws IOException {
+		System.out.println("보낸 이메일 : " + email);
 		response.setContentType("text/html; charset=utf-8");
 		int authCode = (int)(Math.random()*(900000)) + 100000;
-		mailService.sendMail("gmlduf2655@naver.com", "테스트 메일", "인증 번호 코드는 " + authCode + "입니다");
+		mailService.sendMail(email, "[Mover]인증 코드", "인증 번호 코드는<br><h1>" + authCode + "</h1>입니다");
 		return authCode + "";
 	}
 }

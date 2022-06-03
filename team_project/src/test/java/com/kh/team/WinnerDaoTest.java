@@ -21,7 +21,7 @@ public class WinnerDaoTest {
 	
 	@Test
 	public void testInsert() {
-		WinnerVo winnerVo = new WinnerVo("제목-3", "내용-3", null);
+		WinnerVo winnerVo = new WinnerVo("제목-4", "내용-4", null);
 		boolean result = winnerDao.insert(winnerVo);
 		System.out.println("result: "+ result);
 	}
@@ -29,6 +29,7 @@ public class WinnerDaoTest {
 	@Test
 	public void testModify() {
 		WinnerVo winnerVo = new WinnerVo("제목-수정", "내용-수정", null);
+		winnerVo.setWinner_no(2);
 		boolean result = winnerDao.modify(winnerVo);
 		System.out.println("result: "+ result);
 	}

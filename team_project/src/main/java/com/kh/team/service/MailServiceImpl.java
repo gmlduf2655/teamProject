@@ -26,7 +26,7 @@ public class MailServiceImpl implements MailService {
 			messageHelper.setFrom("gmlduf2655@gmail.com", "임희열");
 			messageHelper.setSubject(subject);
 			messageHelper.setTo(to);
-			messageHelper.setText(body);
+			messageHelper.setText(body,true);
 			mailSender.send(message);
 		} catch (Exception e) {
 			e.printStackTrace();

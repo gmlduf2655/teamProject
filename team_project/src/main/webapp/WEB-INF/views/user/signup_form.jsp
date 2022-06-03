@@ -9,7 +9,7 @@
 	input::-webkit-inner-spin-button{
 		-webkit-appearance:none;
 	}
-	#profile{
+	#profile_image_label{
 		width:370px;
 		height:50px;
 		background-color:white;
@@ -20,6 +20,9 @@
 
 <script>
 	$(document).ready(function(){
+		var userid_dupl = true;
+		var nickname_dupl = true;
+		
 		// 아이디 중복 여부 체크
 		$("#userid_dupl_check").click(function(){
 			var userid = $("#userid").val();
@@ -36,8 +39,10 @@
 						console.log(rData);
 						if(rData == "true"){
 							$("#userid_dupl_check_result").text("이미 존재하는 아이디 입니다");
+							userid_dupl = true;
 						}else if(rData == "false"){
 							$("#userid_dupl_check_result").text("사용할 수 있는 아이디 입니다");
+							userid_dupl = false;
 						}
 						
 					}
@@ -62,8 +67,10 @@
 						console.log(rData);
 						if(rData == "true"){
 							$("#nickname_dupl_check_result").text("이미 존재하는 닉네임입니다");
+							nickname_dupl = true;
 						}else if(rData == "false"){
 							$("#nickname_dupl_check_result").text("사용할 수 있는 닉네임 입니다");
+							nickname_dupl = false;
 						}
 						
 					}
@@ -73,7 +80,7 @@
 		});
 		
 		// 프로필 사진 미리보기
-		$("#profileimage").change(function(e){
+		$("#profile_image").change(function(e){
 			console.log(e.target.files[0]);
 			var file = e.target.files[0];
  			if(file != null && file != ""){
@@ -81,20 +88,25 @@
  				fileReader.onload = function(e){
  					$("#preview").attr("src", e.target.result);
  					$("#preview").show();
+					$("#profile_image_label").text(file.name)
  				}
  				fileReader.readAsDataURL(file);
  			}else{
  				$("#preview").attr("src", "");
 				$("#preview").hide();
+				$("#profile_image_label").text("파일선택")
  			}
 		});
 		
 		// 이메일 인증 버튼
 		$("#email_auth_btn").click(function(){
+			var email = $("#email").val();
+			console.log(email);
 			$.ajax({
 				type : "post",
 				async : "true",
 				url : "/mail/send",
+				data : {email : email},
 				success : function(rData){
 					console.log(rData);
 					$("#email_auth_code").show();
@@ -104,9 +116,24 @@
 			});
 		});
 		
+		// 프로필 이미지 삭제
+		$("#image_delete").click(function(){
+			console.log($("#profile_image").val());
+			$("#profile_image").val("");
+			$("#preview").attr("src", "");
+			$("#preview").hide();
+			$("#profile_image_label").text("파일선택")
+		});
+		
 		// 회원 가입 버튼 클릭
 		$("#signup_btn").click(function(){
-			$("#signup_form").submit();
+			if(userid_dupl){
+				alert("아이디를 다시한번 확인해 주세요");
+			}else if(nickname_dupl){
+				alert("닉네임을 다시한번 확인해 주세요");
+			}else{
+				$("#signup_form").submit();
+			}
 		});
 	});
 </script>
@@ -173,9 +200,10 @@
                             </div>
                             <h4 class="mb-4" style="color:white;">프로필 사진</h4>
                             <div>
-                            	<label id="profile" for="profileimage">파일 선택</label>
-                                <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profileimage" style="display:none;">
-                                <img style="display:none;" src="/resources/images/logo.png" id="preview" width="370px">
+                            	<label id="profile_image_label" for="profile_image" >파일 선택</label>
+                                <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;">
+                                <img style="display:none;" src="/resources/images/logo.png" id="preview" width="370px"><br>
+                                <a id="image_delete" style="color:white;font-size:20px;">사진 삭제 <b style="color:red;font-size:30px;">&times;</b></a>
                             </div>
 
                             <button type="button" class="site-btn" id="signup_btn">회원가입</button>

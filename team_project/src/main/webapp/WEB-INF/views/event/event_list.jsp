@@ -20,8 +20,21 @@ $(document).ready(function(){
 });
 </script>
 
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>현재 진행중</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding: 50px">
 	<div class="row">
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -48,7 +61,7 @@ $(document).ready(function(){
 							</div>
 							<div class="product__item__text">
 								<h5>
-									<a href="http://localhost/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
+									<a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
 								</h5>
 									<label style="color:white">이벤트 종료일: ${eventVo.event_end_date}</label>
 							</div>
