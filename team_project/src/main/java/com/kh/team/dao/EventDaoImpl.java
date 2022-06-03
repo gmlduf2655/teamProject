@@ -54,4 +54,10 @@ public class EventDaoImpl implements EventDao {
 		return eventVo;
 	}
 
+	@Override
+	public void viewConuntUpdate(int event_no) {
+		sqlSession.update(NAMESPACE + "viewConuntUpdate", event_no);
+		
+	}
+
 }

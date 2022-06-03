@@ -31,7 +31,16 @@ $(document).ready(function(){
 					<div class="col-md-3">
 						<div class="product__item">
 							<div class="product__item__pic set-bg"
-								data-setbg="/resources/images/no_image.jpg">
+								<c:choose>
+								<c:when test="${empty eventVo.event_image}"> 
+									data-setbg="/resources/images/no_image.jpg" 
+								</c:when>
+								<c:otherwise>
+									data-setbg="/event/displayImage?filename=${eventVo.event_image}"
+								</c:otherwise>
+								</c:choose>
+							>
+								
 								<div class="ep">18 / 18</div>
 								<div class="view">
 									<i class="fa fa-eye"></i> ${eventVo.event_count}
