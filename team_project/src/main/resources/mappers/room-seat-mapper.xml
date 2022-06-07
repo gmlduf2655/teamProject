@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.room-seat">
+	
+	<!-- 좌석 만들기 -->
+	<insert id="insertRoomSeat">
+		insert into tbl_room_seat (
+			seat_no,
+			room_no,
+			seat_x,
+			seat_y,
+			seat_status,
+			user_no
+		) values (
+			seq_seat_no.nextval,
+			#{room_no},
+			#{seat_x},
+			#{seat_y},
+			#{seat_status},
+			#{user_no, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 상영관 좌석 리스트 조회 -->
+	<select id="selectRoomSeatList" resultType="RoomSeatVo">
+		select * from tbl_room_seat
+		where room_no = #{room_no}
+		order by seat_y asc, seat_x asc
+	</select>
+	
+	<!-- 좌석 정보 조회 -->
+	<select id="selectRoomSeat" resultType="RoomSeatVo">
+		select * from tbl_room_seat
+		where seat_no = #{seat_no}
+	</select>
+	
+	<!-- 좌석 정보 수정 -->
+	<update id="updateRoomSeatInfo">
+		update tbl_room_seat set
+			seat_x = #{seat_x},
+			seat_y = #{seat_y},
+			seat_status = #{seat_status}
+		where seat_no = #{seat_no}
+	</update>
+	
+	<!-- 좌석 예약 상태 변경 -->
+	<update id="updateRoomSeatTicket">
+		update tbl_ticket set
+			ticket_no = #{ticket_no}
+		where seat_no = #{seat_no}
+	</update>
+</mapper>

@@ -20,6 +20,21 @@
 			#{profile_image, jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- 간편로그인 회원 추가 -->
+	<insert id="insertSnsUser">
+		insert into tbl_user
+			(userno, nickname, username, cellphone, profile_image, sns_id, sns_type, sns_connect_date)
+		values
+			(seq_user_userno.nextval, 
+			#{nickname}, 
+			#{username}, 
+			#{cellphone}, 
+			#{profile_image, jdbcType=VARCHAR},
+			#{sns_id},
+			#{sns_type},
+			sysdate)
+	</insert>
+	
 	<!-- 아이디로 회원 조회 -->
 	<select id="selectUserById" resultType="UserVo">
 		select * from tbl_user
@@ -37,7 +52,19 @@
 		select * from tbl_user
 		where nickname= #{nickname}
 	</select>	
+		
+	<!-- 이메일로 회원 조회 -->
+	<select id="selectUserByEmail" resultType="UserVo">
+		select * from tbl_user
+		where email= #{email}
+	</select>
 	
+	<!-- 간편로그인 아이디와 종류로 회원 조회 -->
+	<select id="selectUserBySnsIdAndType" resultType="UserVo">
+		select * from tbl_user
+		where sns_id = #{sns_id} and sns_type = #{sns_type}
+	</select>
+		
 	<!-- 유저 목록 조회 -->
 	<select id="userList" resultType="UserVo">
 		select * from tbl_user
@@ -51,6 +78,13 @@
 			address = #{address, jdbcType=VARCHAR},
 			cellphone = #{cellphone, jdbcType=VARCHAR}
 		where userid = #{userid}
+	</update>
+	
+	<!-- 유저 비밀번호 수정 -->
+	<update id="updateUserpw">
+		update tbl_user set
+			userpw = #{userpw}
+		where userid= #{userid}
 	</update>
 	
 	<!-- 유저 삭제 -->

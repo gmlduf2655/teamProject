@@ -145,7 +145,7 @@
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
                         <h2>회원가입</h2>
-<!--                         <p>Welcome to the official Anime blog.</p> -->
+<!--                         <p>Welcome to the official Anime blog.</p> -->
                     </div>
                 </div>
             </div>
