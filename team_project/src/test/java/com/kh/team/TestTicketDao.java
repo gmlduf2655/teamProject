@@ -12,10 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kh.team.dao.TicketDao;
 import com.kh.team.vo.TicketVo;
 
-/**
- * @author KH302
- *
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
 public class TestTicketDao {
@@ -46,7 +42,7 @@ public class TestTicketDao {
 		String search_column	= "room_no";
 		String search_data		= "1";
 		String order_column		= "ticket_regdate";
-		String order_type		= "asc";
+		String order_type		= "desc";
 		
 		List<Map<String, Object>> ticketList = ticketDao.selectTicketList(search_column, search_data, order_column, order_type);
 		for (Map<String, Object> map : ticketList) {

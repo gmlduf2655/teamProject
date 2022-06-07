@@ -162,10 +162,4 @@ public class CinemaServiceImpl implements CinemaService {
 		return result;
 	}
 
-	@Override
-	public boolean modifyRoomSeatTicket(int seat_no, String ticket_no) {
-		boolean result = roomSeatDao.updateRoomSeatTicket(seat_no, ticket_no);
-		return result;
-	}
-
 }

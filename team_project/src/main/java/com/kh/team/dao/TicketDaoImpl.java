@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,9 +45,19 @@ public class TicketDaoImpl implements TicketDao {
 		parameter.put("search_data", search_data);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
-		List<Map<String, Object>> ticketList = sqlSession.selectList(NAMESPACE + "selectTicketList", parameter);
-		for (Map<String, Object> map : ticketList) {
-//			map.keySet()
+		// 값을 조회해서 임시로 받아놓음
+		List<Map<String, Object>> tempList = sqlSession.selectList(NAMESPACE + "selectTicketList", parameter);
+		// column 값을 소문자로 바꿔서 다시 넣을 ArrayList객체 생성
+		List<Map<String, Object>> ticketList = new ArrayList<>();
+		// key, value 값을 다 꺼내서 key값은 소문자로 변경 후 다시 리스트로 담기
+		for (Map<String, Object> map : tempList) {
+			Map<String, Object> addList = new HashMap<>();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String keys = entry.getKey().toLowerCase();
+				Object values = entry.getValue();
+				addList.put(keys, values);
+			}
+			ticketList.add(addList);
 		}
 		return ticketList;
 	}
@@ -54,10 +65,12 @@ public class TicketDaoImpl implements TicketDao {
 	// 티켓 정보 조회
 	@Override
 	public Map<String, Object> selectTicket(String ticket_no) {
-		ObjectMapper objectMapper = new ObjectMapper();
-		@SuppressWarnings("unchecked")
-		Map<String, Object> ticketInfo = objectMapper
-				.convertValue(sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no), Map.class);
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		@SuppressWarnings("unchecked")
+//		Map<String, Object> ticketInfo = objectMapper.convertValue(sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no), Map.class);
+//		return ticketInfo;
+
+		Map<String, Object> ticketInfo = sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no);
 		return ticketInfo;
 	}
 

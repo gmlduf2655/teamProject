@@ -94,7 +94,5 @@ public interface CinemaService {
 	// 좌석 정보 수정
 	public boolean modifyRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status);
 	
-	// 좌석 예약 정보 변경
-	public boolean modifyRoomSeatTicket(int seat_no, String ticket_no);
 
 }
