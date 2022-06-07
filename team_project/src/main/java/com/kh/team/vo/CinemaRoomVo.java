@@ -6,10 +6,11 @@ public class CinemaRoomVo {
 	private int room_no;
 	private int cinema_no;
 	private String room_name;
-	private int room_seat_count;
-	private String movie_code;
-	private Date begin_date;
-	private Date finish_date;
+	private String room_floor;
+	private String room_begin_time;
+	private String room_finish_time;
+	private Date room_regdate;
+	private Date room_chgdate;
 	private boolean room_status;
 
 	public CinemaRoomVo() {
@@ -17,16 +18,14 @@ public class CinemaRoomVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CinemaRoomVo(int room_no, int cinema_no, String room_name, int room_seat_count, String movie_code,
-			Date begin_date, Date finish_date, boolean room_status) {
+	public CinemaRoomVo(int cinema_no, String room_name, String room_floor, String room_begin_time,
+			String room_finish_time, boolean room_status) {
 		super();
-		this.room_no = room_no;
 		this.cinema_no = cinema_no;
 		this.room_name = room_name;
-		this.room_seat_count = room_seat_count;
-		this.movie_code = movie_code;
-		this.begin_date = begin_date;
-		this.finish_date = finish_date;
+		this.room_floor = room_floor;
+		this.room_begin_time = room_begin_time;
+		this.room_finish_time = room_finish_time;
 		this.room_status = room_status;
 	}
 
@@ -54,36 +53,44 @@ public class CinemaRoomVo {
 		this.room_name = room_name;
 	}
 
-	public int getRoom_seat_count() {
-		return room_seat_count;
+	public String getRoom_floor() {
+		return room_floor;
 	}
 
-	public void setRoom_seat_count(int room_seat_count) {
-		this.room_seat_count = room_seat_count;
+	public void setRoom_floor(String room_floor) {
+		this.room_floor = room_floor;
 	}
 
-	public String getMovie_code() {
-		return movie_code;
+	public String getRoom_begin_time() {
+		return room_begin_time;
 	}
 
-	public void setMovie_code(String movie_code) {
-		this.movie_code = movie_code;
+	public void setRoom_begin_time(String room_begin_time) {
+		this.room_begin_time = room_begin_time;
 	}
 
-	public Date getBegin_date() {
-		return begin_date;
+	public String getRoom_finish_time() {
+		return room_finish_time;
 	}
 
-	public void setBegin_date(Date begin_date) {
-		this.begin_date = begin_date;
+	public void setRoom_finish_time(String room_finish_time) {
+		this.room_finish_time = room_finish_time;
 	}
 
-	public Date getFinish_date() {
-		return finish_date;
+	public Date getRoom_regdate() {
+		return room_regdate;
 	}
 
-	public void setFinish_date(Date finish_date) {
-		this.finish_date = finish_date;
+	public void setRoom_regdate(Date room_regdate) {
+		this.room_regdate = room_regdate;
+	}
+
+	public Date getRoom_chgdate() {
+		return room_chgdate;
+	}
+
+	public void setRoom_chgdate(Date room_chgdate) {
+		this.room_chgdate = room_chgdate;
 	}
 
 	public boolean isRoom_status() {
@@ -97,8 +104,9 @@ public class CinemaRoomVo {
 	@Override
 	public String toString() {
 		return "CinemaRoomVo [room_no=" + room_no + ", cinema_no=" + cinema_no + ", room_name=" + room_name
-				+ ", room_seat_count=" + room_seat_count + ", movie_code=" + movie_code + ", begin_date=" + begin_date
-				+ ", finish_date=" + finish_date + ", room_status=" + room_status + "]";
+				+ ", room_floor=" + room_floor + ", room_begin_time=" + room_begin_time + ", room_finish_time="
+				+ room_finish_time + ", room_regdate=" + room_regdate + ", room_chgdate=" + room_chgdate
+				+ ", room_status=" + room_status + "]";
 	}
 
 }
