@@ -18,7 +18,7 @@ public interface UserService {
 	// 로그인
 	public UserVo login(String userid, String userpw);
 	// 회원 정보 수정
-	public boolean updateUser(UserVo userVo);
+	public boolean modifyUser(UserVo userVo);
 	// 회원 탈퇴
 	public boolean unregister(String userid);
 	// 임시 비밀번호로 비밀번호 변경

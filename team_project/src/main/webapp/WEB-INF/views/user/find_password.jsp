@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="login__social__links">
-                        <h3>Login With:</h3>
+                        <h3>간편로그인</h3>
                         <ul>
 <!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
 <!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->

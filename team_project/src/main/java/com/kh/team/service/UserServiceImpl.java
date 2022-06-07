@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
 	// 유저 정보 수정
 	@Override
-	public boolean updateUser(UserVo userVo) {
+	public boolean modifyUser(UserVo userVo) {
 		boolean result = userDao.updateUser(userVo);
 		return result;
 	}

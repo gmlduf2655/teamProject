@@ -74,9 +74,9 @@ public class UserServiceTest {
 	
 	// 유저정보 수정 테스트
 	@Test
-	public void testUpdateUser() {
+	public void testModifyUser() {
 		UserVo userVo = new UserVo("user03", "1234", "유저 3별명2", "유저", "user02@naver.com");
-		boolean result = userService.updateUser(userVo);
+		boolean result = userService.modifyUser(userVo);
 		System.out.println("UserServiceTest, testUpdate, result : " + result);
 	}	
 	// 회원 탈퇴 테스트
