@@ -13,10 +13,14 @@ public interface UserDao {
 	public UserVo selectUserByIdAndPwd(String userid, String userpw);
 	// 닉네임으로 회원 조회
 	public UserVo selectUserByNickname(String nickname);
+	// 이메일로 회원 조회
+	public UserVo selectUserByEmail(String email);
 	// 회원 목록 조회
 	public List<UserVo> userList();
 	// 회원 수정
 	public boolean updateUser(UserVo userVo);
+	// 유저 비밀번호 수정
+	public boolean updateUserpw(String userid, String userpw);
 	// 회원 삭제
 	public boolean deleteUser(String userid);
 }

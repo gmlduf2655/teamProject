@@ -50,6 +50,13 @@ public class UserDaoImpl implements UserDao {
 		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByNickname", nickname);
 		return userVo;
 	}
+	
+	// 이메일로 회원 조회
+	@Override
+	public UserVo selectUserByEmail(String email) {
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByEmail", email);
+		return userVo;
+	}
 
 	// 회원 목록 조회
 	@Override
@@ -58,10 +65,23 @@ public class UserDaoImpl implements UserDao {
 		return userList;
 	}
 
-	// 회원 수정
+	// 회원 정보 수정
 	@Override
 	public boolean updateUser(UserVo userVo) {
 		int count = sqlSession.update(NAMESPACE + "updateUser", userVo);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 회원 비밀번호 수정
+	@Override
+	public boolean updateUserpw(String userid, String userpw) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("userpw", userpw);
+		int count = sqlSession.update(NAMESPACE + "updateUserpw", map);
 		if(count > 0) {
 			return true;
 		}

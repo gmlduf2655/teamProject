@@ -4,7 +4,42 @@
 
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+<%@ include file="/WEB-INF/views/include/daycount.jsp"%>
+<script>
+var db_update_result = "${db_update_result}";
+var db_save_result = "${db_save_result}";
+if(db_update_result == "true"){
+	alert("db 수정 완료");
+} else if (db_update_result == "false"){
+	alert("db 수정 실패");
+}
+if(db_save_result == "true"){
+	alert("db 저장 완료");
+} else if (db_save_result == "false"){
+	alert("db 저장 실패");
+}
 
+var audiAcc = null; 
+$.ajax({
+	type: "GET",
+	url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+	data: {
+		key: "6a124949cf23e078e5c9d213db2cf916",
+		targetDt: yesterDate
+	},
+	success: function(data) {
+		console.log(data);
+		$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
+			console.log("i",i);
+			console.log("j",j);
+			/* audiAcc = j.audiAcc;
+			$("#audiAcc").val(audiAcc); */
+		});r4
+		
+		
+	}
+});
+</script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2"></div>
@@ -15,10 +50,10 @@
 					<div class="col-md-3">
 						<div class="product__item">
 							<div class="product__item__pic set-bg"
-								data-setbg="/resources/images/no_image.jpg">
+								data-setbg="${movieVo.movie_image_name}.jpg">
 								<div class="ep">개봉일 ${movieVo.opening_date}</div>
 								<div class="view">
-									<i class="fa fa-eye"></i>누적관객 ${movieVo.opening_date}
+									<i class="fa fa-eye"></i><div id="audiAcc"></div>
 								</div>
 							</div>
 							<div class="product__item__text">
@@ -34,11 +69,7 @@
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-		<div class="float-right">
-			<p>
-				<a class="btn btn-primary btn-large" href="/event/write_form">게시글 쓰기</a>
-			</p>
-		</div>
+		
 </div>
 
 

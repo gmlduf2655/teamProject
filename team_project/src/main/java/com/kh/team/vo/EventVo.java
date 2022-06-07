@@ -16,6 +16,14 @@ public class EventVo {
 		
 	}
 	
+	
+	public EventVo(String event_title, String event_content, Date event_end_date) {
+		super();
+		this.event_title = event_title;
+		this.event_content = event_content;
+		this.event_end_date = event_end_date;
+	}
+
 	public EventVo(String event_title, String event_content, String event_image, Date event_end_date) {
 		super();
 		this.event_title = event_title;

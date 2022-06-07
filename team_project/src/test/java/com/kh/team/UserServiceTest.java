@@ -18,8 +18,9 @@ public class UserServiceTest {
 	// 회원가입 테스트
 	@Test
 	public void testSignup() {
-		UserVo userVo = new UserVo("user02", "1234", "유저 2별명", "유저", "user02@naver.com", "한국", "01012345678", 
-				0, null, "1", null);
+		UserVo userVo = new UserVo("user02", "1234", "유저 2별명", "유저2", "user02@naver.com");
+		userVo.setAddress("한국");
+		userVo.setCellphone("01012345678");
 		boolean result = userService.signUp(userVo);
 		System.out.println("UserServiceTest, testSignup, result : " + result);
 	}
@@ -55,15 +56,21 @@ public class UserServiceTest {
 	// 유저정보 수정 테스트
 	@Test
 	public void testUpdateUser() {
-		UserVo userVo = new UserVo("user02", "1234", "유저 2별명", "유저", "user02@naver.com", "한국", "01012345678", 
-				0, null, "1", null);
+		UserVo userVo = new UserVo("user03", "1234", "유저 3별명2", "유저", "user02@naver.com");
 		boolean result = userService.updateUser(userVo);
 		System.out.println("UserServiceTest, testUpdate, result : " + result);
 	}	
 	// 회원 탈퇴 테스트
 	@Test
 	public void testUnregister() {
-		boolean result = userService.unregister("user02");
+		boolean result = userService.unregister("user03");
 		System.out.println("UserServiceTest, testUnregister, result : " + result);
+	}
+	
+	// 임시 비밀번호로 비밀번호 변경 테스트
+	@Test
+	public void testUpdateUserpwToTempPwd() {
+		boolean result = userService.updateUserpwToTempPwd("user01@naver.com", "1234");
+		System.out.println("UserServiceTest, testUpdateUserpwToTempPwd, result : " + result);
 	}
 }

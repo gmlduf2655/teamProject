@@ -17,4 +17,6 @@ public interface UserService {
 	public boolean updateUser(UserVo userVo);
 	// 회원 탈퇴
 	public boolean unregister(String userid);
+	// 임시 비밀번호로 비밀번호 변경
+	public boolean updateUserpwToTempPwd(String email, String tempPwd);
 }

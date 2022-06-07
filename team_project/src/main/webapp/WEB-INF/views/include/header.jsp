@@ -1,6 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -35,6 +35,13 @@
     
     <!-- 임희열 : Naver Login API script -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
+
+	<!-- 임희열 : 우측 상단부분 css 조금 바꿨습니다 -->    
+    <style>
+    	.header__right>a{
+    		margin-right:15px;
+    	}
+    </style>
 </head>
 
 <body>
@@ -62,7 +69,7 @@
                                 	<c:if test="">
                                 		class="active"
                                 	</c:if>
-                                ><a href="./index.html">홈</a></li>
+                                ><a href="/">홈</a></li>
                                 <li
                                 	<c:if test="">
                                 		class="active"
@@ -82,7 +89,7 @@
                                 >
 									<a href="/movie/movieList">영화정보</a>
                                     <ul class="dropdown">
-                                        <li><a href="./categories.html">현재 상영작</a></li>
+                                        <li><a href="/movie/movieList">현재 상영작</a></li>
                                         <li><a href="./anime-details.html">상영 예정작</a></li>
                                     </ul>
 								</li>
@@ -102,9 +109,18 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
+                	<!-- 우측 상단 부분에 로그인버튼이랑 로그아웃 버튼 추가했습니다 -->
                     <div class="header__right">
                         <a href="#" class="search-switch"><i class="bi bi-search"></i></a>
-                        <a href="/user/login_form"><i class="bi bi-person-fill"></i></a>
+                        <a href="/user/mypage"><i class="bi bi-person-fill"></i></a>
+                        <c:choose>
+                        	<c:when test="${empty loginUserVo}">
+                        		<a href="/user/login_form">로그인</a>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<a href="/user/logout">로그아웃</a>
+                        	</c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

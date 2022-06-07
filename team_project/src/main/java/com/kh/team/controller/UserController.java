@@ -33,9 +33,16 @@ public class UserController {
 	@RequestMapping(value="/login_run", method=RequestMethod.POST)
 	public String loginRun(String userid, String userpw, HttpSession session) {
 		UserVo loginUserVo = userService.login(userid, userpw);
-//		if(loginUserVo != null) {
-//			session.setAttribute("loginUserVo", loginUserVo);
-//		}
+		if(loginUserVo != null) {
+			session.setAttribute("loginUserVo", loginUserVo);
+		}
+		return "redirect:/";
+	}
+	
+	// 로그아웃
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginUserVo");
 		return "redirect:/";
 	}
 	
@@ -51,9 +58,10 @@ public class UserController {
 		String filename = file.getOriginalFilename();
 		byte[] fileData = file.getBytes();
 		System.out.println("filename : " + filename);
-		if(filename != null) {
+		System.out.println(!(filename.equals("")));
+		if(filename != null && !(filename.equals("")) ) {
 			String profileimage = MyFileUploader.fileUpload("moverattach", file.getOriginalFilename(), fileData);
-			userVo.setProfileimage(profileimage);
+			userVo.setProfile_image(profileimage);
 		}
 		boolean result = userService.signUp(userVo);
 		redirectAttributes.addFlashAttribute("signup_result", result + "");
@@ -63,7 +71,7 @@ public class UserController {
 	// 네이버 로그인 페이지 이동
 	@RequestMapping(value="/naver_login", method=RequestMethod.GET)
 	public String naverLogin() {
-		return "redirect:/";
+		return "user/naver_login";
 	}
 	
 	// 회원가입시 아이디 중복 체크
@@ -80,5 +88,17 @@ public class UserController {
 	public String nicknameDuplCheck(String nickname){
 		boolean result = userService.nicknameDuplCheck(nickname);
 		return result + "";
+	}
+	
+	// 마이페이지 화면이동
+	@RequestMapping(value="/mypage", method=RequestMethod.GET)
+	public String mypage() {
+		return "user/mypage";
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping(value="/find_password", method=RequestMethod.GET)
+	public String findPassword() {
+		return "user/find_password";
 	}
 }

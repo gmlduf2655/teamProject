@@ -7,10 +7,37 @@
 	
 	<select id="movieList" resultType="com.kh.team.vo.MovieVo">
 		select * from tbl_movie
+		order by opening_date desc
 	</select>
 	
-	
+	<insert id="insertMovie">
+		insert into tbl_movie (movie_no,movie_code, movie_name,
+			movie_name_en,opening_date,
+			make_year,runningtime, made_country,made_company,
+			movie_genre, movie_director)
+		values(seq_MOVIE.nextval, #{movie_code}, #{movie_name},
+			#{movie_name_en},#{opening_date},
+			#{make_year},#{runningtime}, #{made_country},#{made_company},
+			#{movie_genre}, #{movie_director})
+	</insert>
+	<update id="updateMovie">
+		update tbl_movie set
+			movie_name = #{movie_name},
+			movie_name_en = #{movie_name_en},
+			opening_date = #{opening_date},
+			make_year = #{make_year},
+			runningtime = #{runningtime},
+			made_country = #{made_country},
+			made_company = #{made_company},
+			movie_genre = #{movie_genre},
+			movie_director = #{movie_director}
+		where movie_code = #{movie_code}
+	</update>
 
+	<select id="existMovie" resultType="int">
+		select count(*) from tbl_movie
+		where movie_code = #{movie_code}
+	</select>
 
 
 </mapper>
