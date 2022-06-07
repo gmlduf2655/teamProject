@@ -27,6 +27,16 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 	
+	// 간편로그인 회원 추가
+	@Override
+	public boolean insertSnsUser(UserVo userVo) {
+		int count = sqlSession.insert(NAMESPACE + "insertSnsUser", userVo);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	// 아이디로 회원 조회
 	@Override
 	public UserVo selectUserById(String userid) {

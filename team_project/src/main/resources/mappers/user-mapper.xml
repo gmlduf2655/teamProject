@@ -20,6 +20,21 @@
 			#{profile_image, jdbcType=VARCHAR})
 	</insert>
 	
+	<!-- 간편로그인 회원 추가 -->
+	<insert id="insertSnsUser">
+		insert into tbl_user
+			(userno, nickname, username, cellphone, profile_image, sns_id, sns_type, sns_connect_date)
+		values
+			(seq_user_userno.nextval, 
+			#{nickname}, 
+			#{username}, 
+			#{cellphone}, 
+			#{profile_image, jdbcType=VARCHAR},
+			#{sns_id},
+			#{sns_type},
+			sysdate)
+	</insert>
+	
 	<!-- 아이디로 회원 조회 -->
 	<select id="selectUserById" resultType="UserVo">
 		select * from tbl_user

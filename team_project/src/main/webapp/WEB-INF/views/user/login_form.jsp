@@ -6,22 +6,22 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
     <script>
-    	$(document).ready(function(){
-    		var signup_result = "${signup_result}";
-    		if(signup_result == "true"){
-    			alert("회원가입 성공");	
-    		}else if(signup_result == "false"){
-    			alert("회원가입 실패");	
-    		}
+//     	$(document).ready(function(){
+//     		var signup_result = "${signup_result}";
+//     		if(signup_result == "true"){
+//     			alert("회원가입 성공");	
+//     		}else if(signup_result == "false"){
+//     			alert("회원가입 실패");	
+//     		}
     		
-    		// 네이버 간편 로그인 버튼을 눌렀을때 필요한 clientId, callbackUrl 설정
-			var naverLogin = new naver.LoginWithNaverId({
-				clientId: "VjgDvLJM29qpp3O__mxp",
-				callbackUrl: "http://localhost:80/user/naver_login"
-			});
-    		// 네이버 간편 로그인 버튼을 누르면 네이버 로그인 페이지로 이동하게함
-			naverLogin.init();
-    	});
+//     		// 네이버 간편 로그인 버튼을 눌렀을때 필요한 clientId, callbackUrl 설정
+// 			var naverLogin = new naver.LoginWithNaverId({
+// 				clientId: "VjgDvLJM29qpp3O__mxp",
+// 				callbackUrl: "http://localhost:80/user/naver_login"
+// 			});
+//     		// 네이버 간편 로그인 버튼을 누르면 네이버 로그인 페이지로 이동하게함
+// 			naverLogin.init();
+//     	});
     </script>
     
     <!-- Normal Breadcrumb Begin -->
@@ -77,7 +77,7 @@
 <!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->
                                 <li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li>
                                 <li>
-                                	<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="twitter" style="background:#03C75A;"> <!-- #2DB400 -->
+                                	<a id="naverIdLogin_loginButton" href="${naverLoginUrl}" class="twitter" style="background:#03C75A;"> <!-- #2DB400 -->
                                 			<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;">
                                 			네이버로 로그인하기
                                 	</a>
