@@ -16,6 +16,7 @@ public class TestRoomSeatDao {
 	@Autowired
 	private RoomSeatDao roomSeatDao;
 	
+	// 좌석 만들기
 	@Test
 	public void insertRoomSeatTest() {
 		
@@ -38,5 +39,11 @@ public class TestRoomSeatDao {
 		boolean result = roomSeatDao.insertRoomSeat(roomSeatVo);
 		System.out.println(result);
 	}
+	
+//	// 상영관 좌석 리스트 조회
+//	@Test
+//	public void selectRoomSeatListTest() {
+//		roomSeatDao.selectRoomSeatList(room_no);
+//	}
 
 }
