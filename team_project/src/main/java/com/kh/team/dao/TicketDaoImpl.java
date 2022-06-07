@@ -3,31 +3,31 @@ package com.kh.team.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.team.vo.TicketVo;
 
 @Repository
 public class TicketDaoImpl implements TicketDao {
 	private final String NAMESPACE = "com.kh.team.mappers.ticket.";
-	
+
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	// 티켓 예약 번호 얻기
 	public String getTicketUUID() {
 		String uuid = sqlSession.selectOne(NAMESPACE + "getTicketUUID");
 		return uuid;
 	}
-	
+
 	// 티켓 예약하기
 	@Override
-	public boolean insertTicket(
-				TicketVo ticketVo
-			) {
+	public boolean insertTicket(TicketVo ticketVo) {
 		int count = sqlSession.insert(NAMESPACE + "insertTicket", ticketVo);
 		if (count > 0) {
 			return true;
@@ -37,26 +37,28 @@ public class TicketDaoImpl implements TicketDao {
 
 	// 발급된 (유저별, 상영관 스케줄 별) 티켓 리스트 조회
 	@Override
-	public List<Map<String, Object>> selectTicketList(
-				String search_column, 
-				Object search_data, 
-				String order_column,
-				String order_type
-			) {
+	public List<Map<String, Object>> selectTicketList(String search_column, Object search_data, String order_column,
+			String order_type) {
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put("search_column", search_column);
 		parameter.put("search_data", search_data);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
 		List<Map<String, Object>> ticketList = sqlSession.selectList(NAMESPACE + "selectTicketList", parameter);
+		for (Map<String, Object> map : ticketList) {
+//			map.keySet()
+		}
 		return ticketList;
 	}
 
 	// 티켓 정보 조회
 	@Override
-	public TicketVo selectTicket(String ticket_no) {
-		TicketVo ticketVo = sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no);
-		return ticketVo;
+	public Map<String, Object> selectTicket(String ticket_no) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		@SuppressWarnings("unchecked")
+		Map<String, Object> ticketInfo = objectMapper
+				.convertValue(sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no), Map.class);
+		return ticketInfo;
 	}
 
 	// 티켓 예약 수정

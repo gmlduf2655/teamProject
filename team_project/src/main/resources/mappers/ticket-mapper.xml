@@ -50,9 +50,11 @@
 	</select>
 	
 	<!-- 티켓 정보 조회 -->
-	<select id="selectTicket" resultType="TicketVo">
-		select * from tbl_ticket
-		where ticket_no = #{ticket_no}
+	<select id="selectTicket" resultType="map">
+		select * from tbl_ticket ticket
+		left outer join tbl_room_timeline timeline
+		on ticket.timeline_no = timeline.timeline_no
+		where ticket.ticket_no = #{ticket_no}
 	</select>
 	
 	<!-- 티켓 예약 수정 -->

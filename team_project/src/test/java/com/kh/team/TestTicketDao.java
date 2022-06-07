@@ -57,9 +57,9 @@ public class TestTicketDao {
 	// 티켓 정보 조회
 	@Test
 	public void selectTicketTest() {
-		String ticket_no = "1234";
-		TicketVo ticketVo = ticketDao.selectTicket(ticket_no);
-		System.out.println(ticketVo);
+		String ticket_no = "19A584CE82DB4F5C82792D4F07D154B7";
+		Map<String, Object> ticketInfo = ticketDao.selectTicket(ticket_no);
+		System.out.println(ticketInfo);
 	}
 	
 	// 티켓 예약 수정
