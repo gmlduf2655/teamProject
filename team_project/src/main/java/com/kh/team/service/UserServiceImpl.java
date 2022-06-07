@@ -20,6 +20,13 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	// 간편로그인 회원추가
+	@Override
+	public boolean addSnsUser(UserVo userVo) {
+		boolean result = userDao.insertSnsUser(userVo);
+		return result;
+	}
+	
 	// 회원정보 조회
 	@Override
 	public UserVo getUserInfo(String userid) {
@@ -41,6 +48,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean nicknameDuplCheck(String nickname) {
 		UserVo userVo = userDao.selectUserByNickname(nickname);
+		if(userVo != null) {
+			return true;
+		}
+		return false;
+	}
+
+	// 간편로그인 회원 중복체크
+	@Override
+	public boolean snsUserDuplCheck(String sns_id, String sns_type) {
+		UserVo userVo = userDao.selectUserBySnsIdAndType(sns_id, sns_type);
 		if(userVo != null) {
 			return true;
 		}
@@ -76,6 +93,5 @@ public class UserServiceImpl implements UserService {
 		boolean result = userDao.updateUserpw(userVo.getUserid(), tempPwd);
 		return result;
 	}
-	
 
 }

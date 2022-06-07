@@ -68,6 +68,16 @@ public class UserDaoImpl implements UserDao {
 		return userVo;
 	}
 
+	// 간편로그인 아이디와 종류로 회원 조회
+	@Override
+	public UserVo selectUserBySnsIdAndType(String sns_id, String sns_type) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("sns_id", sns_id);
+		map.put("sns_type", sns_type);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserBySnsIdAndType", map);
+		return userVo;
+	}
+	
 	// 회원 목록 조회
 	@Override
 	public List<UserVo> userList() {

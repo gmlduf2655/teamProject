@@ -63,9 +63,16 @@ public class UserDaoTest {
 	
 	// 이메일로 회원 조회하기 테스트
 	@Test 
-	public void selectUserByEmail() {
+	public void testSelectUserByEmail() {
 		UserVo userVo = userDao.selectUserByEmail("user01@naver.com");
-		System.out.println("UserDaoTest, testSelectUserByNickname, userVo : " + userVo);
+		System.out.println("UserDaoTest, testSelectUserByEmail, userVo : " + userVo);
+	}
+	
+	// 간편로그인 아이디와 종류로 회원 조회 테스트
+	@Test
+	public void testSelectUserBySnsIdAndType() {
+		UserVo userVo = userDao.selectUserBySnsIdAndType("user03", "naver");
+		System.out.println("UserDaoTest, testSelectUserBySnsIdAndType, userVo : " + userVo);
 	}
 	
 	// 회원 목록 조회 테스트

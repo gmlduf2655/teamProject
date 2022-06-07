@@ -89,10 +89,24 @@ public class UserController {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject)jsonParser.parse(apiResult);
 		JSONObject result = (JSONObject)jsonObject.get("response");
+		
 		System.out.println(result);
-		System.out.println(result.get("email"));
-		System.out.println(result.get("mobile_e164"));
-		System.out.println(result.get("profile_image"));
+		String email = (String)result.get("email");
+		int index = email.indexOf("@");
+		String sns_id = email.substring(0, index);
+		String cellphone = (String)result.get("mobile_e164");
+		cellphone = "0" + cellphone.substring(3);
+		String profile_image = (String)result.get("profile_image");
+		String sns_type = "naver";
+		String username = (String)result.get("name");
+		String nickname = (String)result.get("nickname");
+		UserVo userVo = new UserVo(nickname, username, cellphone, profile_image, sns_id, sns_type);
+		
+		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
+			userService.addSnsUser(userVo);
+		}
+		session.setAttribute("loginUserVo", userVo);
+		
 		return "redirect:/";
 	}
 	

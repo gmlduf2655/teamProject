@@ -17,6 +17,8 @@ public interface UserDao {
 	public UserVo selectUserByNickname(String nickname);
 	// 이메일로 회원 조회
 	public UserVo selectUserByEmail(String email);
+	// 간편로그인 아이디와 종류로 회원 조회
+	public UserVo selectUserBySnsIdAndType(String sns_id, String sns_type);
 	// 회원 목록 조회
 	public List<UserVo> userList();
 	// 회원 수정

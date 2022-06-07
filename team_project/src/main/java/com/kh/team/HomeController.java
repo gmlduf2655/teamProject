@@ -38,10 +38,10 @@ public class HomeController {
 //		
 //		model.addAttribute("serverTime", formattedDate );
 		
-		UserVo loginUserVo = userService.login("user01", "1234");
-		if(loginUserVo != null) {
-			session.setAttribute("loginUserVo", loginUserVo);
-		}
+//		UserVo loginUserVo = userService.login("user01", "1234");
+//		if(loginUserVo != null) {
+//			session.setAttribute("loginUserVo", loginUserVo);
+//		}
 		
 		return "home";
 	}
