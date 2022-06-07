@@ -22,9 +22,9 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public String selectMovie() {
-		// TODO Auto-generated method stub
-		return null;
+	public MovieVo movieInfoByMovieCode(String movie_code) {
+		MovieVo movieVo = movieDao.movieInfoByMovieCode(movie_code);
+		return movieVo;
 	}
 
 	@Override
@@ -50,6 +50,12 @@ public class MovieServiceImpl implements MovieService {
 		}
 		
 		System.out.println("updateMovie, result : " + result);
+		return result;
+	}
+
+	@Override
+	public boolean deleteMovie(String movie_code) {
+		boolean result = movieDao.deleteMovie(movie_code);
 		return result;
 	}
 

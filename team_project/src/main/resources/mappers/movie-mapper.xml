@@ -5,7 +5,7 @@
 
 <mapper namespace="com.kh.team.mappers.movie">
 	
-	<select id="movieList" resultType="com.kh.team.vo.MovieVo">
+	<select id="movieList" resultType="MovieVo">
 		select * from tbl_movie
 		order by opening_date desc
 	</select>
@@ -14,11 +14,13 @@
 		insert into tbl_movie (movie_no,movie_code, movie_name,
 			movie_name_en,opening_date,
 			make_year,runningtime, made_country,made_company,
-			movie_genre, movie_director)
+			movie_genre, movie_director ,movie_image_name ,movie_actors,
+			movie_audits,movie_synopsis)
 		values(seq_MOVIE.nextval, #{movie_code}, #{movie_name},
 			#{movie_name_en},#{opening_date},
 			#{make_year},#{runningtime}, #{made_country},#{made_company},
-			#{movie_genre}, #{movie_director})
+			#{movie_genre}, #{movie_director} ,#{movie_image_name},#{movie_actors},
+			#{movie_audits}, #{movie_synopsis})
 	</insert>
 	<update id="updateMovie">
 		update tbl_movie set
@@ -30,7 +32,11 @@
 			made_country = #{made_country},
 			made_company = #{made_company},
 			movie_genre = #{movie_genre},
-			movie_director = #{movie_director}
+			movie_director = #{movie_director},
+			movie_image_name = #{movie_image_name},
+			movie_actors = #{movie_actors},
+			movie_audits = #{movie_audits},
+			movie_synopsis = #{movie_synopsis}
 		where movie_code = #{movie_code}
 	</update>
 
@@ -39,5 +45,14 @@
 		where movie_code = #{movie_code}
 	</select>
 
+	<delete id="deleteMovie">
+		delete tbl_movie
+		where movie_code = #{movie_code}
+	</delete>
 
+	<select id="movieInfoByMovieCode" resultType="MovieVo">
+		select * from tbl_movie
+		where movie_code = #{movie_code}
+	</select>
+	
 </mapper>

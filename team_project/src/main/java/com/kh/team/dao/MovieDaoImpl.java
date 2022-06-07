@@ -48,4 +48,19 @@ public class MovieDaoImpl implements MovieDao {
 		return false;
 	}
 
+	@Override
+	public boolean deleteMovie(String movie_code) {
+		int count = sqlSession.delete(NAMESPACE + "deleteMovie", movie_code); 
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public MovieVo movieInfoByMovieCode(String movie_code) {
+		MovieVo movieVo = sqlSession.selectOne(NAMESPACE + "movieInfoByMovieCode", movie_code);
+		return movieVo;
+	}
+
 }

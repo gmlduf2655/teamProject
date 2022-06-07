@@ -12,6 +12,10 @@ public class MovieVo {
 	private String movie_director;
 	private String made_company;
 	private String movie_image_name;
+	private String movie_actors;
+	private String movie_audits;
+	private String movie_synopsis;
+	
 	
 	public MovieVo() {
 		super();
@@ -66,9 +70,12 @@ public class MovieVo {
 		this.made_company = made_company;
 	}
 
+	
+
+	
 	public MovieVo(String movie_code, String movie_name, String movie_name_en, String opening_date, int runningtime,
 			int make_year, String made_country, String movie_genre, String movie_director, String made_company,
-			String movie_image_name) {
+			String movie_image_name, String movie_actors, String movie_audits, String movie_synopsis) {
 		super();
 		this.movie_code = movie_code;
 		this.movie_name = movie_name;
@@ -81,6 +88,9 @@ public class MovieVo {
 		this.movie_director = movie_director;
 		this.made_company = made_company;
 		this.movie_image_name = movie_image_name;
+		this.movie_actors = movie_actors;
+		this.movie_audits = movie_audits;
+		this.movie_synopsis = movie_synopsis;
 	}
 
 	public String getMovie_code() {
@@ -171,14 +181,41 @@ public class MovieVo {
 		this.movie_image_name = movie_image_name;
 	}
 
+	public String getMovie_actors() {
+		return movie_actors;
+	}
+
+	public void setMovie_actors(String movie_actors) {
+		this.movie_actors = movie_actors;
+	}
+
+	public String getMovie_audits() {
+		return movie_audits;
+	}
+
+	public void setMovie_audits(String movie_audits) {
+		this.movie_audits = movie_audits;
+	}
+
+	public String getMovie_synopsis() {
+		return movie_synopsis;
+	}
+
+	public void setMovie_synopsis(String movie_synopsis) {
+		this.movie_synopsis = movie_synopsis;
+	}
+
 	@Override
 	public String toString() {
 		return "MovieVo [movie_code=" + movie_code + ", movie_name=" + movie_name + ", movie_name_en=" + movie_name_en
 				+ ", opening_date=" + opening_date + ", runningtime=" + runningtime + ", make_year=" + make_year
 				+ ", made_country=" + made_country + ", movie_genre=" + movie_genre + ", movie_director="
-				+ movie_director + ", made_company=" + made_company + ", movie_image_name=" + movie_image_name + "]";
+				+ movie_director + ", made_company=" + made_company + ", movie_image_name=" + movie_image_name
+				+ ", movie_actors=" + movie_actors + ", movie_audits=" + movie_audits + ", movie_synopsis="
+				+ movie_synopsis + "]";
 	}
 
+	
 	
 	
 }
