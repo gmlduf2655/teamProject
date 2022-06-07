@@ -6,6 +6,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <title>Movier | 리뷰</title>
+리뷰 리스트
 
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

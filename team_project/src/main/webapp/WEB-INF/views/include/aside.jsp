@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-lg-4 col-md-4">
 	<div class="product__sidebar">
 		<!-- 마이페이지 시작 -->
@@ -9,7 +10,21 @@
 			</div>
 			<div class="product__sidebar__comment__item">
 				<div class="product__sidebar__comment__item__pic">
-					<img src="resources/images/img/sidebar/comment-1.jpg" alt="">
+					<c:choose>
+                        <c:when test="${empty loginUserVo.profile_image}" >
+                        	<img src="/resources/images/no_image.jpg" alt="프로필 사진" style="width:90px; height:130px;">
+                        </c:when>
+                        <c:otherwise>
+                        	<c:choose>
+		                        <c:when test="${empty loginUserVo.sns_type}">
+		                        	<img src="/user/get_profile_image?filename=${loginUserVo.profile_image}" alt="프로필 사진" style="width:90px; height:130px;">
+		                        </c:when>
+		                        <c:otherwise>
+		                        	<img src="${loginUserVo.profile_image}" alt="프로필 사진" style="width:90px; height:130px;">
+		                        </c:otherwise>
+		                	</c:choose>
+                        </c:otherwise>
+                    </c:choose>
 				</div>
 				<div class="product__sidebar__comment__item__text">
 					<ul>
@@ -17,11 +32,17 @@
 						<li>Movie</li>
 					</ul>
 					<h5>
-					
+						<c:choose>
+							<c:when test="${empty loginUserVo}">
+								<a href="#">비회원님 환영합니다</a><br>
+							</c:when>
+							<c:otherwise>
+								<a href="#">${loginUserVo.userid}(${loginUserVo.nickname})님</a><br>
+								<a href="#">환영합니다</a><br>
+								<a href="#">포인트 : ${loginUserVo.point}점</a>
+							</c:otherwise>
+						</c:choose>
 						<!-- 임희열 : 로그인 되어있는 상태를 확인하기 위해 임시로 작성 -->
-						<a href="#">아이디 : ${loginUserVo.userid}</a><br>
-						<a href="#">유저네임 : ${loginUserVo.username}</a><br>
-						<a href="#">포인트 : ${loginUserVo.point}</a>
 					</h5>
 				</div>
 			</div>

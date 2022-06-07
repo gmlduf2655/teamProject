@@ -24,4 +24,9 @@ public class MyFileUploader {
 		}
 		return uploadFileName;
 	}
+	
+	// 임희열 : 업로드한 파일 가져오기
+	public static void getFile(String filename) {
+		
+	}
 }

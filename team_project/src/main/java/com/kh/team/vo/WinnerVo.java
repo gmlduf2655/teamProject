@@ -31,6 +31,7 @@ public class WinnerVo {
 		this.winner_title = winner_title;
 		this.winner_content = winner_content;
 		this.winner_image = winner_image;
+		
 	}
 
 	public int getWinner_no() {

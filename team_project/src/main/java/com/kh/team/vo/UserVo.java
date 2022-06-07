@@ -58,13 +58,24 @@ public class UserVo {
 		this.email = email;
 	}
 	
+	// 간편로그인 추가용 필드 생성자
+	public UserVo(String nickname, String username, String cellphone, String profile_image, String sns_id,
+			String sns_type) {
+		super();
+		this.nickname = nickname;
+		this.username = username;
+		this.cellphone = cellphone;
+		this.profile_image = profile_image;
+		this.sns_id = sns_id;
+		this.sns_type = sns_type;
+	}	
 	
 	// Getters & Setters (Accessor)
 	
 	public String getUserno() {
 		return userno;
 	}
-	
+
 	public void setUserno(String userno) {
 		this.userno = userno;
 	}

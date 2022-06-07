@@ -1,99 +1,64 @@
 package com.kh.team.vo;
 
-import java.sql.Date;
-
 public class TicketVo {
-	private int ticket_no;
-	private String user_id;
-	private int cinema_no;
-	private int room_no;
-	private String movie_code;
-	private Date regdate;
-	private String seat_x_code;
-	private int seat_y_code;
-	private boolean ticket_status;
+	String ticket_no;
+	int user_no;
+	int timeline_no;
+	int seat_no;
+	String ticket_regdate;
+	boolean ticket_status;
 
 	public TicketVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TicketVo(int ticket_no, String user_id, int cinema_no, int room_no, String movie_code, Date regdate,
-			String seat_x_code, int seat_y_code, boolean ticket_status) {
+	public TicketVo(int user_no, int timeline_no, int seat_no, boolean ticket_status) {
 		super();
-		this.ticket_no = ticket_no;
-		this.user_id = user_id;
-		this.cinema_no = cinema_no;
-		this.room_no = room_no;
-		this.movie_code = movie_code;
-		this.regdate = regdate;
-		this.seat_x_code = seat_x_code;
-		this.seat_y_code = seat_y_code;
+		this.user_no = user_no;
+		this.timeline_no = timeline_no;
+		this.seat_no = seat_no;
 		this.ticket_status = ticket_status;
 	}
 
-	public int getTicket_no() {
+	public String getTicket_no() {
 		return ticket_no;
 	}
 
-	public void setTicket_no(int ticket_no) {
+	public void setTicket_no(String ticket_no) {
 		this.ticket_no = ticket_no;
 	}
 
-	public String getUser_id() {
-		return user_id;
+	public int getUser_no() {
+		return user_no;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
 	}
 
-	public int getCinema_no() {
-		return cinema_no;
+	public int getTimeline_no() {
+		return timeline_no;
 	}
 
-	public void setCinema_no(int cinema_no) {
-		this.cinema_no = cinema_no;
+	public void setTimeline_no(int timeline_no) {
+		this.timeline_no = timeline_no;
 	}
 
-	public int getRoom_no() {
-		return room_no;
+	public int getSeat_no() {
+		return seat_no;
 	}
 
-	public void setRoom_no(int room_no) {
-		this.room_no = room_no;
+	public void setSeat_no(int seat_no) {
+		this.seat_no = seat_no;
 	}
 
-	public String getMovie_code() {
-		return movie_code;
+	public String getTicket_regdate() {
+		return ticket_regdate;
 	}
 
-	public void setMovie_code(String movie_code) {
-		this.movie_code = movie_code;
-	}
-
-	public Date getRegdate() {
-		return regdate;
-	}
-
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
-
-	public String getSeat_x_code() {
-		return seat_x_code;
-	}
-
-	public void setSeat_x_code(String seat_x_code) {
-		this.seat_x_code = seat_x_code;
-	}
-
-	public int getSeat_y_code() {
-		return seat_y_code;
-	}
-
-	public void setSeat_y_code(int seat_y_code) {
-		this.seat_y_code = seat_y_code;
+	public void setTicket_regdate(String ticket_regdate) {
+		this.ticket_regdate = ticket_regdate;
 	}
 
 	public boolean isTicket_status() {
@@ -106,9 +71,9 @@ public class TicketVo {
 
 	@Override
 	public String toString() {
-		return "TicketVo [ticket_no=" + ticket_no + ", user_id=" + user_id + ", cinema_no=" + cinema_no + ", room_no="
-				+ room_no + ", movie_code=" + movie_code + ", regdate=" + regdate + ", seat_x_code=" + seat_x_code
-				+ ", seat_y_code=" + seat_y_code + ", ticket_status=" + ticket_status + "]";
+		return "TicketVo [ticket_no=" + ticket_no + ", user_no=" + user_no + ", timeline_no=" + timeline_no
+				+ ", seat_no=" + seat_no + ", ticket_regdate=" + ticket_regdate + ", ticket_status=" + ticket_status
+				+ "]";
 	}
 
 }

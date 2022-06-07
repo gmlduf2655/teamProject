@@ -3,69 +3,77 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kh.team.mappers.cinema">
-
+	
+	<!-- 영화관 생성 -->
 	<insert id="insertCinema">
 		insert into tbl_cinema(
 			cinema_no,
 			cinema_name,
 			cinema_address,
-			cinema_seat_count,
-			cinema_status,
-			cinema_begin_date,
-			cinema_finish_date
-			)
-		values(
+			cinema_regdate,
+			cinema_chgdate,
+			cinema_status
+		) values (
 			seq_cinema_no.nextval,
 			#{cinema_name},
 			#{cinema_address},
-			#{cinema_seat_count},
-			#{cinema_status, jdbcType=VARCHAR},
-			#{cinema_begin_date, jdbcType=VARCHAR},
-			#{cinema_finish_date, jdbcType=VARCHAR}
-			)
+			sysdate,
+			sysdate,
+			#{cinema_status, jdbcType=VARCHAR}
+		)
 	</insert>
 	
+	<!-- 영화관 리스트 조회 (지역별, 영화별) -->
+	<select id="selectCinemaList" resultType="CinemaVo">
+		select * from tbl_cinema
+		<choose>
+			<when test="search_column == 'movie_code'">
+				where cinema_no in (
+					select cinema_no from tbl_cinema_room
+					where room_no in (
+						select room_no from tbl_room_timeline
+						where ${search_column} = #{search_data}
+					)
+				)
+				and 
+			</when>
+			<when test="search_column == 'cinema_address'">
+				where ${search_column} like '${search_data}%'
+				and 
+			</when>
+			<when test="search_column == null">
+				where
+			</when>
+			<otherwise>
+				where ${search_column} like '%${search_data}%'
+				and 
+			</otherwise>
+		</choose>
+		cinema_status = 1
+		order by ${order_column} ${order_type}
+	</select>
 	
+	<!-- 영화관 정보 조회 -->
+	<select id="selectCinema" resultType="CinemaVo">
+		select * from tbl_cinema
+		where cinema_no = #{cinema_no}
+	</select>
 	
-	
-	
+	<!-- 영화관 정보 수정 -->
 	<update id="updateCinemaInfo">
 		update tbl_cinema set
-			cinema_name			= #{cinema_name}, 
-			cinema_address		= #{cinema_address},
-			cinema_seat_count	= #{cinema_seat_count}, 
-			cinema_status		= #{cinema_status, jdbcType=VARCHAR}, 
-			cinema_begin_date	= #{cinema_begin_date, jdbcType=VARCHAR}, 
-			cinema_finish_date	= #{cinema_finish_date, jdbcType=VARCHAR}
-		where cinema_no = #{cinema_no} 
+			cinema_name		= #{cinema_name},
+			cinema_address	= #{cinema_address},
+			cinema_chgdate	= sysdate,
+			cinema_status	= #{cinema_status, jdbcType=VARCHAR}
+		where cinema_no 	= #{cinema_no}
 	</update>
 	
-	
-	
-	
-	
-	<select id="getCinemaList" resultType="CinemaVo">
-		select * from tbl_cinema
-		order by ${column} ${orderType}
-	</select>
-	
-	
-	
-	
-	
-	<select id="getCinemaInfo" resultType="CinemaVo">
-		select * from tbl_cinema
-		where cinema_no = #{cinema_no}
-	</select>
-	
-	
-	
-	
-	
+	<!-- 영화관 상태 변경 -->
 	<update id="updateCinemaStatus">
 		update tbl_cinema set
-			cinema_status = #{cinema_status}
-		where cinema_no = #{cinema_no}
+			cinema_chgdate	= sysdate,
+			cinema_status	= #{cinema_status, jdbcType=VARCHAR}
+		where cinema_no		= #{cinema_no}
 	</update>
-
 </mapper>

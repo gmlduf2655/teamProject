@@ -25,6 +25,19 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testSignup, result : " + result);
 	}
 	
+	// 간편로그인 회원추가 테스트
+	@Test
+	public void testAddSnsUser() {
+		UserVo userVo = new UserVo(null, null, "유저03 별명", "유저03", null);
+		userVo.setCellphone("01012345678");
+		userVo.setSns_id("user03");
+		userVo.setSns_type("naver");
+		
+		System.out.println("userVo : " + userVo);
+		boolean result = userService.addSnsUser(userVo);
+		System.out.println("UserDaoTest, testInsetSnsUser, result : " + result);		
+	}
+	
 	// 회원 정보 조회 테스트
 	@Test
 	public void testGetUserInfo() {
@@ -45,6 +58,12 @@ public class UserServiceTest {
 		boolean result = userService.nicknameDuplCheck("누구인가");
 		System.out.println("UserServiceTest, testNicknameDuplCheck, result : " + result);
 	}
+	// 간편로그인 회원 중복체크
+	@Test
+	public void testSnsUserDuplCheck() {
+		boolean result = userService.snsUserDuplCheck("user03", "naver");
+		System.out.println("UserServiceTest, testSnsUserDuplCheck, result : " + result);
+	}
 	
 	// 로그인 테스트
 	@Test
@@ -55,9 +74,9 @@ public class UserServiceTest {
 	
 	// 유저정보 수정 테스트
 	@Test
-	public void testUpdateUser() {
+	public void testModifyUser() {
 		UserVo userVo = new UserVo("user03", "1234", "유저 3별명2", "유저", "user02@naver.com");
-		boolean result = userService.updateUser(userVo);
+		boolean result = userService.modifyUser(userVo);
 		System.out.println("UserServiceTest, testUpdate, result : " + result);
 	}	
 	// 회원 탈퇴 테스트
@@ -65,5 +84,12 @@ public class UserServiceTest {
 	public void testUnregister() {
 		boolean result = userService.unregister("user03");
 		System.out.println("UserServiceTest, testUnregister, result : " + result);
+	}
+	
+	// 임시 비밀번호로 비밀번호 변경 테스트
+	@Test
+	public void testUpdateUserpwToTempPwd() {
+		boolean result = userService.updateUserpwToTempPwd("user01@naver.com", "1234");
+		System.out.println("UserServiceTest, testUpdateUserpwToTempPwd, result : " + result);
 	}
 }
