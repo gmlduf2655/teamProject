@@ -147,4 +147,24 @@ public class UserController {
 		fis.close();
 		return data;
 	}
+	
+	// 회원정보 수정
+	@RequestMapping(value="/modify_user", method=RequestMethod.POST)
+	public String modifyUserInfo(UserVo userVo, RedirectAttributes redirectAttributes, MultipartFile file, HttpSession session) throws IOException {
+		String filename = file.getOriginalFilename();
+		byte[] fileData = file.getBytes();
+		if(filename != null && !filename.equals("")) {
+			String profile_image = MyFileUploader.fileUpload("moverattach", filename, fileData);
+			userVo.setProfile_image(profile_image);
+		}
+		boolean result = userService.modifyUser(userVo);
+		if(result) {
+			UserVo loginVo = (UserVo)session.getAttribute("loginUserVo");
+			UserVo loginUserVo = userService.login(loginVo.getUserid(), loginVo.getUserpw());
+			session.removeAttribute("loginUserVo");
+			session.setAttribute("loginUserVo", loginUserVo);
+		}
+		redirectAttributes.addFlashAttribute("modify_result", result);
+		return "redirect:/user/mypage";
+	}
 }
