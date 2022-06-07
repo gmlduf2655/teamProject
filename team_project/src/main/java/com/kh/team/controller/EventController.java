@@ -57,7 +57,7 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		if(originalFilename != null) {
-			String event_image = EventFileUploader.uploadFile("//192.168.0.77/boardattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.60/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
@@ -141,6 +141,12 @@ public class EventController {
 		boolean result = winnerService.delete(winner_no);
 		rttr.addFlashAttribute("delete_result", result);
 		return "redirect:/event/winner_info";
+	}
+	
+	// 당첨자 게시판 수정하기 폼
+	@RequestMapping(value = "/winner_updateForm", method = RequestMethod.GET)
+	public String winnerModifyForm() {
+		return "/event/winner_updateForm";
 	}
 	
 	// 당첨자 게시판 글 수정하기

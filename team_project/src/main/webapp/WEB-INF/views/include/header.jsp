@@ -97,6 +97,9 @@
                                         <li><a href="/event/winner_info">당첨자 발표</a></li>
                                     </ul>
 								</li>
+								<li>
+									<a href="/review/review_list">평점/리뷰</a>
+								</li>
                             </ul>
                         </nav>
                     </div>

@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<div class="normal__breadcrumb__text">
-					<h2>당첨자 발표 작성</h2>
+					<h2>당첨자 발표 수정</h2>
 				</div>
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 <body>
 <div class="container" style="background-color: white">
 
-<form role="writeForm" action="/event/winner_writeRun" method="post" id="frmCreate" enctype="multipart/form-data">
+<form role="writeForm" action="/event/winner_modify" method="post" id="frmCreate" enctype="multipart/form-data">
 	<label for="winner_title"> 제목 </label> 
 	<input type="text" class="form-control" id="winner_title" name="winner_title"/>
 
