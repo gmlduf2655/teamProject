@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.ticket">
+	
+	<!-- 티켓 예약하기 -->
+	<insert id="insertTicket">
+		insert into tbl_ticket(
+			ticket_no,
+			user_no,
+			timeline_no,
+			seat_no,
+			ticket_regdate,
+			ticket_status
+		) values (
+			SYS_GUID(),
+			#{user_no},
+			#{timeline_no},
+			#{seat_no},
+			sysdate,
+			#{ticket_status}
+		)
+	</insert>
+	
+	<!-- 발급된 (유저별, 상영관 스케줄 별) 티켓 리스트 조회 -->
+	<select id="selectTicketList" resultType="map">
+		select * from tbl_ticket ticket
+		<choose>
+			<when test="search_column == 'room_no'">
+				left outer join tbl_room_timeline timeline
+				on ticket.timeline_no = timeline.timeline_no
+				where timeline.timeline_no in (
+					select timeline_no from tbl_room_timeline
+					where ${search_column} = #{search_data}
+				)
+			</when>
+			<otherwise>
+			 	left outer join tbl_room_seat seat
+				on ticket.seat_no = seat.seat_no 
+				where ticket.${search_column} = #{search_data}
+			</otherwise>
+		</choose>
+		order by ${order_column} ${order_type}
+	</select>
+	
+	<!-- 티켓 정보 조회 -->
+	<select id="selectTicket" resultType="TicketVo">
+		select * from tbl_ticket
+		where ticket_no = #{ticket_no}
+	</select>
+	
+	<!-- 티켓 예약 수정 -->
+	<update id="updateTicketStatus">
+		update tbl_ticket set
+			ticket_status = #{ticket_status}
+		where ticket_no = #{ticket_no}
+	</update>
+	
+</mapper>
