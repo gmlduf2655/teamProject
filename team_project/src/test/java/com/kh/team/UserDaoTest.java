@@ -21,21 +21,30 @@ public class UserDaoTest {
 	// 회원추가 테스트
 	@Test
 	public void testInsertUser() {
-//		UserVo userVo = new UserVo("andy", "1234", "andy", "andy", "andy@naver.com", "한국", "01012341234", 
-//									0, null, "1", null, null, null, null, null);
-//		UserVo userVo = new UserVo("user01", "1234", "유저01 별명", "유저01", "user01@naver.com", "한국", "01012341234", 
-//									0, null, "1", null, null, null, null, null);
 		UserVo userVo = new UserVo("user03", "1234", "유저03 별명", "유저03", "user03@naver.com");
 		System.out.println("userVo : " + userVo);
 		boolean result = userDao.insertUser(userVo);
 		System.out.println("UserDaoTest, testInsetUser, result : " + result);
 	}
 	
+	// 간편로그인 회원추가 테스트
+	@Test
+	public void testInsertSnsUser() {
+		UserVo userVo = new UserVo(null, null, "유저03 별명", "유저03", null);
+		userVo.setCellphone("01012345678");
+		userVo.setSns_id("user03");
+		userVo.setSns_type("naver");
+		
+		System.out.println("userVo : " + userVo);
+		boolean result = userDao.insertSnsUser(userVo);
+		System.out.println("UserDaoTest, testInsetSnsUser, result : " + result);
+	}
+	
 	// 아이디로 회원 조회하기 테스트
 	@Test
 	public void testSelectUserById() {
 		UserVo userVo = userDao.selectUserById("user01");
-		System.out.println("UserDaoTest, testSelectUserById, userVo : " + userVo);
+		System.out.println("UserDaoTest, testSelectUserById, userVo : " + true);
 	}
 	
 	// 아이디, 비밀번호로 회원 조회하기 테스트

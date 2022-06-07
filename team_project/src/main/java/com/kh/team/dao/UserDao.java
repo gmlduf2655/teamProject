@@ -7,6 +7,8 @@ import com.kh.team.vo.UserVo;
 public interface UserDao {
 	// 회원 추가
 	public boolean insertUser(UserVo userVo);
+	// 간편로그인 회원추가
+	public boolean insertSnsUser(UserVo userVo);
 	// 아이디로 회원 조회
 	public UserVo selectUserById(String userid);
 	// 아이디, 비밀번호로 회원 조회

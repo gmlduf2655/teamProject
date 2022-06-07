@@ -35,6 +35,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="jardb/kobis-opcl-rest-v1.0.jar"/>
+=======
+>>>>>>> branch 'master' of https://github.com/gmlduf2655/teamProject.git
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
