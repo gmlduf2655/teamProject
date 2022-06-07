@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.cinema-room">
+	
+	<!-- 상영관 생성 -->
+	<insert id="insertCinemaRoom">
+		insert into tbl_cinema_room(
+			room_no,
+			cinema_no,
+			room_name,
+			room_floor,
+			room_begin_time,
+			room_finish_time,
+			room_regdate,
+			room_chgdate,
+			room_status
+		) values (
+			seq_room_no.nextval,
+			#{cinema_no},
+			#{room_name},
+			#{room_floor},
+			to_timestamp(#{room_begin_time},'HH24:MI:SS'),
+			to_timestamp(#{room_finish_time},'HH24:MI:SS'),
+			sysdate,
+			sysdate,
+			#{room_status}
+		)
+	</insert>
+	
+	<!-- 영화관 내 상영관 리스트 조회 / 해당 영화 상영중인 상영관 리스트, 상영관 이름 / 위치로 상영관 리스트 조회 -->
+	<select id="selectCinemaRoomList" resultType="CinemaRoomVo">
+		select * from tbl_cinema_room
+		where cinema_no = #{cinema_no}
+		<choose>
+			<when test="search_column == null"></when>
+			<when test="search_column == 'movie_code'">
+				and room_no in (
+					select room_no from tbl_room_timeline
+					where ${search_column} = #{search_data}
+					and cinema_no = #{cinema_no}
+				)
+			</when>
+			<otherwise>
+				and ${search_column} like '%${search_data}%'
+			</otherwise>
+		</choose>
+		and room_status = 1
+		order by ${order_column} ${order_type}
+	</select>
+	
+	<!-- 상영관 정보 조회 -->
+	<select id="selectCinemaRoom
+	" resultType="CinemaRoomVo">
+		select * from tbl_cinema_room
+		where room_no = #{room_no}
+	</select>
+	
+	<!-- 상영관 정보 수정 -->
+	<update id="updateCinemaRoomInfo">
+		update tbl_cinema_room set
+			room_name			= #{room_name},
+			room_floor			= #{room_floor},
+			room_begin_time		= to_timestamp(#{room_begin_time},'HH24:MI:SS'),
+			room_finish_time	= to_timestamp(#{room_finish_time},'HH24:MI:SS'),
+			room_chgdate		= sysdate,
+			room_status			= #{room_status}
+		where room_no = #{room_no}
+	</update>
+	
+	<!-- 상영관 상태 변경 -->
+	<update id="updateCinemaRoomStatus">
+		update tbl_cinema_room set
+			room_chgdate = sysdate,
+			room_status = #{room_status}
+		where room_no = #{room_no}
+	</update>
+	
+</mapper>
