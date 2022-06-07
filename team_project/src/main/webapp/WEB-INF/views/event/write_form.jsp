@@ -9,20 +9,32 @@
 <script>
 
 </script>
-
+<!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>현재 진행중 작성</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
 
 <div class="container-fluid" style="background-color: white">
 
 		
 	<div class="row">
-	
-		<div class="col-md-12">
-			<div class="jumbotron">
-				<h2>이벤트 등록 폼</h2>
-				<p>
-					<a class="btn btn-primary btn-large" href="/event/event_list">이벤트 목록으로</a>
-				</p>
-			</div>
+	<div class="col-md-2"></div>
+		<div class="col-md-8">
+<!-- 			<div class="jumbotron"> -->
+<!-- 				<h2>이벤트 등록 폼</h2> -->
+<!-- 				<p> -->
+<!-- 					<a class="btn btn-primary btn-large" href="/event/event_list">이벤트 목록으로</a> -->
+<!-- 				</p> -->
+<!-- 			</div> -->
 			<form role="writeForm" action="/event/write_run" method="post" id="frmCreate" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="event_title"> 제목 </label> 
@@ -47,6 +59,7 @@
 				<button type="submit" class="btn btn-primary">저장</button>
 				</form>
 		</div>
+		<div class="col-md-2"></div>
 	</div>
 </div>
 

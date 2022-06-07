@@ -58,6 +58,12 @@
 		select * from tbl_user
 		where email= #{email}
 	</select>
+	
+	<!-- 간편로그인 아이디와 종류로 회원 조회 -->
+	<select id="selectUserBySnsIdAndType" resultType="UserVo">
+		select * from tbl_user
+		where sns_id = #{sns_id} and sns_type = #{sns_type}
+	</select>
 		
 	<!-- 유저 목록 조회 -->
 	<select id="userList" resultType="UserVo">

@@ -40,14 +40,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="login__form">
+                    <div>
                         <h3>프로필 사진</h3>
                         <c:choose>
                         	<c:when test="${empty loginUserVo.profile_image}">
                         		<img src="/resources/images/no_image.jpg" alt="프로필 사진">
                         	</c:when>
                         	<c:otherwise>
-                        		<img src="/user/get_profile_image?filename=${loginUserVo.profile_image}" alt="프로필 사진">
+                        		<c:choose>
+		                        	<c:when test="${empty loginUserVo.sns_type}">
+		                        		<img src="/user/get_profile_image?filename=${loginUserVo.profile_image}" alt="프로필 사진">
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<img src="${loginUserVo.profile_image}" alt="프로필 사진">
+		                        	</c:otherwise>
+		                        </c:choose>
                         	</c:otherwise>
                         </c:choose>
                     </div>

@@ -5,7 +5,6 @@ import java.util.List;
 import com.kh.team.vo.WinnerVo;
 
 public interface WinnerDao {
-	
 	public List<WinnerVo> list(); // 게시글 리스트
 	public boolean insert(WinnerVo winnerVo); //게시글 작성
 	public boolean modify(WinnerVo winnerVo); //게시글 수정
