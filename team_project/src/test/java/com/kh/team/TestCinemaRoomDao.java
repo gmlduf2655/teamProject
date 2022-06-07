@@ -21,9 +21,9 @@ public class TestCinemaRoomDao {
 	@Test
 	public void insertCinemaRoomTest() {
 		
-		int cinema_no			= 1;
-		String room_name		= "상영관 1";
-		String room_floor		= "1층";
+		int cinema_no			= 4;
+		String room_name		= "상영관 4";
+		String room_floor		= "5층";
 		String room_begin_time	= "00:00";
 		String room_finish_time	= "12:50";
 		boolean room_status		= false;
@@ -39,7 +39,7 @@ public class TestCinemaRoomDao {
 		
 		int cinema_no			= 1;
 		String search_column	= "movie_code";
-		String search_data		= "1234";
+		String search_data		= "20204548";
 		String order_column		= "room_no";
 		String order_type		= "asc";
 		
@@ -82,8 +82,8 @@ public class TestCinemaRoomDao {
 	@Test
 	public void updateCinemaRoomStatusTest() {
 		
-		int room_no			= 1;
-		boolean room_status	= false;
+		int room_no			= 4;
+		boolean room_status	= true;
 		
 		boolean result = cinemaRoomDao.updateCinemaRoomStatus(room_no, room_status);
 		System.out.println(result);

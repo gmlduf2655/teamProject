@@ -6,6 +6,9 @@ import java.util.Map;
 import com.kh.team.vo.TicketVo;
 
 public interface TicketDao {
+
+	// 티켓 예약 번호 얻어내기
+	public String getTicketUUID();
 	
 	// 티켓 예약 하기
 	public boolean insertTicket(TicketVo ticketVo);

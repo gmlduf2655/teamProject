@@ -17,6 +17,12 @@ public class TicketDaoImpl implements TicketDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// 티켓 예약 번호 얻기
+	public String getTicketUUID() {
+		String uuid = sqlSession.selectOne(NAMESPACE + "getTicketUUID");
+		return uuid;
+	}
+	
 	// 티켓 예약하기
 	@Override
 	public boolean insertTicket(

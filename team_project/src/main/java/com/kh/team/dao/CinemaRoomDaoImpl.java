@@ -59,8 +59,8 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		parameter.put("search_data", search_data);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
-		sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
-		return null;
+		List<CinemaRoomVo> cinemaRoomList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
+		return cinemaRoomList;
 	}
 
 	// 상영관 정보 조회

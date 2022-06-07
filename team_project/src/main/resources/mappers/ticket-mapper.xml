@@ -4,6 +4,11 @@
 
 <mapper namespace="com.kh.team.mappers.ticket">
 	
+	<!-- 티켓 예약번호 얻기 -->
+	<select id="getTicketUUID" resultType="string">
+		select SYS_GUID() from dual
+	</select>
+	
 	<!-- 티켓 예약하기 -->
 	<insert id="insertTicket">
 		insert into tbl_ticket(
@@ -14,7 +19,7 @@
 			ticket_regdate,
 			ticket_status
 		) values (
-			SYS_GUID(),
+			#{ticket_no},
 			#{user_no},
 			#{timeline_no},
 			#{seat_no},

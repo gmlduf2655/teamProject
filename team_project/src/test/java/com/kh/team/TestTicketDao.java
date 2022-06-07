@@ -27,12 +27,13 @@ public class TestTicketDao {
 	@Test
 	public void insertTicketTest() {
 		
+		String ticket_no		= ticketDao.getTicketUUID();
 		int user_no				= 1;
-		int timeline_no			= 1;
+		int timeline_no			= 2;
 		int seat_no				= 1;
 		boolean ticket_status	= false;
 		
-		TicketVo ticketVo = new TicketVo(user_no, timeline_no, seat_no, ticket_status);
+		TicketVo ticketVo = new TicketVo(ticket_no, user_no, timeline_no, seat_no, ticket_status);
 		
 		boolean result = ticketDao.insertTicket(ticketVo);
 		System.out.println("insertTicketTest, result : " + result);
