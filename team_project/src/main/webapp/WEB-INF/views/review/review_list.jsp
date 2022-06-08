@@ -37,7 +37,8 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>글 번호</th>
+						<th>번호</th>
+						<th>작성자</th>
 						<th>제목</th>
 						<th>평점</th>
 						<th>작성일</th>
@@ -48,6 +49,7 @@
 					<c:forEach items="${reviewList}" var="reviewVo">
 						<tr>
 							<td>${reviewVo.review_no}</td>
+							<th>${reviewVo.review_writer}</th>
 							<td><a
 								href="/writer/writer_read?winner_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
 							
@@ -93,7 +95,7 @@
 							<span class="fa fa-star"></span>
 							<span class="fa fa-star"></span>
 							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>\
+							<span class="fa fa-star"></span>
 							</c:when>
 							</c:choose>
 							</th>

@@ -1,8 +1,8 @@
 package com.kh.team.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.ReviewVo;
@@ -37,34 +38,13 @@ public class ReviewController {
 		
 	// 게시글 작성 
 		@RequestMapping(value = "/review_writeRun", method = RequestMethod.POST)
-		@ResponseBody
-		public String writerWriteRun(
-				@RequestParam(value = "review_title") String review_title,
-				@RequestParam(value = "review_content") String review_content,
-				@RequestParam(value = "userScoreNum") int write_star) throws Exception 
-		{
-/*			String dform = URLDecoder.decode(form, "UTF-8");
-			System.out.println("dform: "+dform);
-			System.out.println("write_star: "+write_star);
-			String[] arrFormData = new String[2]; 
-			String[] formData = dform.split("&");
-			for (String data : formData) {
-				String[] arrData = data.split("=");
-				if (arrData.equals("review_title")) {
-					String adata = arrData[1];
-				}
-			} */
-			
-			ReviewVo reviewVo = new ReviewVo();
-			reviewVo.setReview_title(review_title);
-			reviewVo.setReview_content(review_title);
-			reviewVo.setReview_star(write_star);
-			
+		public String writerWriteRun(ReviewVo reviewVo){
 			System.out.println("reviewVo:"+reviewVo);
-			
 			boolean result = reviewService.insert(reviewVo);
 			System.out.println("ReviewController, writeRun, result:"+ result);
-//			rttr.addFlashAttribute("insert_result", result);
 			return "redirect:/review/review_list";
 		}
+		
+	// 게시글 읽기
+		
 }
