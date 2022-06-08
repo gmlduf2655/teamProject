@@ -105,6 +105,7 @@
         <div class="container">
             <form method="post" action="/user/modify_user" encType="multipart/form-data">
             	<input type="hidden" id="userid" name="userid" value="${loginUserVo.userid}">
+            	<input type="hidden" id="userid" name="profile_image" value="${loginUserVo.profile_image}">
             	<div class="row">
 	                <div class="col-lg-6" style="text-align:center;">
 	                    <div>

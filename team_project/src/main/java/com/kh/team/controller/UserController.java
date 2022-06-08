@@ -3,25 +3,41 @@ package com.kh.team.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.ibatis.builder.annotation.MapperAnnotationBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrategyBase;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.team.service.NaverLoginService;
 import com.kh.team.service.UserService;
+import com.kh.team.util.GoogleOAuthRequest;
+import com.kh.team.util.GoogleOAuthResponse;
 import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.UserVo;
 
@@ -70,12 +86,11 @@ public class UserController {
 	public String signupRun(UserVo userVo, RedirectAttributes redirectAttributes, MultipartFile file) throws IOException {
 		String filename = file.getOriginalFilename();
 		byte[] fileData = file.getBytes();
-		System.out.println("filename : " + filename);
-		System.out.println(!(filename.equals("")));
 		if(filename != null && !(filename.equals("")) ) {
 			String profileimage = MyFileUploader.fileUpload("moverattach", file.getOriginalFilename(), fileData);
 			userVo.setProfile_image(profileimage);
 		}
+		System.out.println("userVo : " + userVo);
 		boolean result = userService.signUp(userVo);
 		redirectAttributes.addFlashAttribute("signup_result", result + "");
 		return "redirect:/user/login_form";
@@ -105,7 +120,8 @@ public class UserController {
 		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
 			userService.addSnsUser(userVo);
 		}
-		session.setAttribute("loginUserVo", userVo);
+		UserVo loginUserVo = userService.getUserBySnsIdAndType(sns_id, sns_type);
+		session.setAttribute("loginUserVo", loginUserVo);
 		
 		return "redirect:/";
 	}
@@ -166,5 +182,61 @@ public class UserController {
 		}
 		redirectAttributes.addFlashAttribute("modify_result", result);
 		return "redirect:/user/mypage";
+	}
+	
+//	// 주소 팝업페이지 이동
+//	@RequestMapping(value="/juso_popup", method=RequestMethod.GET)
+//	public String jusoPopup(HttpServletRequest request) {
+//		System.out.println("queryString : " + request.getQueryString());
+//		return"user/juso_popup";
+//	}
+	
+	// 구글 로그인 후 인증
+	@RequestMapping(value="/google_auth", method=RequestMethod.GET)
+	public String googleAuth(Model model, String code, HttpServletRequest request, HttpSession session) throws JsonParseException, JsonMappingException, IOException {
+		RestTemplate restTemplate = new RestTemplate();
+		
+		GoogleOAuthRequest googleRequestParam = new GoogleOAuthRequest();
+		googleRequestParam.setClientId("914062629252-76nqhv6vvk62khoee53f23kngfm9ec9u.apps.googleusercontent.com");
+		googleRequestParam.setClientSecret("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");
+		googleRequestParam.setCode(code);
+		googleRequestParam.setRedirectUri("http://localhost:80/user/google_auth");
+		googleRequestParam.setGrantType("authorization_code");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+		objectMapper.setSerializationInclusion(Include.NON_NULL);
+		
+		ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token", 
+																		googleRequestParam, String.class);
+		GoogleOAuthResponse result = objectMapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {
+		});
+		String jwtToken = result.getIdToken();
+		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
+							.queryParam("id_token", jwtToken).toUriString();
+		String resultJson = restTemplate.getForObject(requestUrl, String.class);
+		
+		Map<String, String> userInfo = objectMapper.readValue(resultJson, new TypeReference<Map<String,String>>() {
+		});
+		System.out.println(userInfo);
+		System.out.println(userInfo.get("email"));
+		System.out.println(userInfo.get("name"));
+		System.out.println(userInfo.get("picture"));
+		String email = userInfo.get("email");
+		int index = email.indexOf("@");
+		String sns_id = email.substring(0,index);
+		String sns_type = "google";
+		String username = userInfo.get("name");
+		String profile_image = userInfo.get("picture");
+		UserVo userVo = new UserVo(null, username, null, profile_image, sns_id, sns_type);
+		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
+			boolean addResult = userService.addSnsUser(userVo);
+		}
+		
+//		model.addAllAttributes(userInfo);
+//		model.addAttribute("token", result.getAccessToken());
+		UserVo loginUserVo = userService.getUserBySnsIdAndType(sns_id, sns_type);
+		session.setAttribute("loginUserVo", loginUserVo);		
+		return "redirect:/";
 	}
 }

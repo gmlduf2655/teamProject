@@ -37,7 +37,16 @@
 								<a href="#">비회원님 환영합니다</a><br>
 							</c:when>
 							<c:otherwise>
-								<a href="#">${loginUserVo.userid}(${loginUserVo.nickname})님</a><br>
+								<a href="#">
+								<c:choose>
+									<c:when test="${empty loginUserVo}">
+									</c:when>
+									<c:otherwise>
+									</c:otherwise>
+								</c:choose>
+								${loginUserVo.userid}(${loginUserVo.nickname})님
+								
+								</a><br>
 								<a href="#">환영합니다</a><br>
 								<a href="#">포인트 : ${loginUserVo.point}점</a>
 							</c:otherwise>

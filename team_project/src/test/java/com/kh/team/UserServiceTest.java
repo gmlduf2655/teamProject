@@ -65,6 +65,13 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testSnsUserDuplCheck, result : " + result);
 	}
 	
+	// 간편로그인 아이디와 타입으로 회원 정보 조회
+	@Test
+	public void testGetUserBySnsIdAndType() {
+		UserVo userVo = userService.getUserBySnsIdAndType("gmlduf2655", "naver");
+		System.out.println("UserServiceTest, testGetUserBySnsIdAndType, userVo : " + userVo);
+	}
+	
 	// 로그인 테스트
 	@Test
 	public void testLogin() {
@@ -79,6 +86,7 @@ public class UserServiceTest {
 		boolean result = userService.modifyUser(userVo);
 		System.out.println("UserServiceTest, testUpdate, result : " + result);
 	}	
+	
 	// 회원 탈퇴 테스트
 	@Test
 	public void testUnregister() {

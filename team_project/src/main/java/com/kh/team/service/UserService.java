@@ -15,6 +15,8 @@ public interface UserService {
 	public boolean nicknameDuplCheck(String nickname);
 	// 간편로그인 회원 중복체크
 	public boolean snsUserDuplCheck(String sns_id, String sns_type);
+	// 간편로그인 아이디와 타입으로 회원 정보 조회
+	public UserVo getUserBySnsIdAndType(String sns_id, String sns_type);
 	// 로그인
 	public UserVo login(String userid, String userpw);
 	// 회원 정보 수정

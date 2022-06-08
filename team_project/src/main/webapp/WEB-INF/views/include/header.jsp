@@ -112,10 +112,22 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                	<!-- 우측 상단 부분에 로그인버튼이랑 로그아웃 버튼 추가했습니다 -->
+                	<!-- 임희열 : 우측 상단 부분에 로그인버튼이랑 로그아웃 버튼 추가했습니다 -->
                     <div class="header__right">
                         <a href="#" class="search-switch"><i class="bi bi-search"></i></a>
-                        <a href="/user/mypage"><i class="bi bi-person-fill"></i></a>
+                        <!-- 임희열 : 로그인 되어있지 않을 때는 마이페이지를 누르면 로그인페이지로 이동하게함 -->
+                        <a 
+                        <c:choose>
+                        	<c:when test="${empty loginUserVo}">
+                        		 href="/user/login_form"
+                        	</c:when>
+                        	<c:otherwise>
+                        		href="/user/mypage"
+                        	</c:otherwise>
+                        </c:choose>
+                        
+                        ><i class="bi bi-person-fill"></i></a>
+                        <!-- 임희열 : 로그인 되어있지 않을 떄는 로그인 버튼을 로그인 되어있을 때는 로그아웃버튼을 보여줌 -->
                         <c:choose>
                         	<c:when test="${empty loginUserVo}">
                         		<a href="/user/login_form">로그인</a>

@@ -108,6 +108,19 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 
+	// 유저 포인트 수정
+	@Override
+	public boolean updateUserPoint(int point, int userno) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("point", point);
+		map.put("userno", userno);
+		int count = sqlSession.update(NAMESPACE + "updateUserPoint", map);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	// 회원 삭제
 	@Override
 	public boolean deleteUser(String userid) {
