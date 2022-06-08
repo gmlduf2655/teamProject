@@ -101,10 +101,56 @@ $(document).ready(function(){
 	<a href="/review/review_modifyForm?review_no=${reviewVo.review_no}" class="btn btn-sm btn-warning">수정</a>
 	<a href="${reviewVo.review_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
 </form>
+
+
+
+
+	</div>
+<div class="row">
+<div class="col-md-2"></div>
+
+		<div class="col-md-8">
+			<div class="anime__details__review">
+				<div class="section-title">
+					<h5>댓글</h5>
+				</div>
+				<div class="anime__review__item">
+					<div class="anime__review__item__pic">
+						<img src="img/anime/review-1.jpg" alt="">
+					</div>
+					<div class="anime__review__item__text">
+							<h6>
+								Chris Curry - <span>1 Hour ago</span>
+							</h6>
+							<p>whachikan Just noticed that someone categorized this as
+								belonging to the genre "demons" LOL</p>
+						</div>
+					</div>
+					
+					<div class="anime__review__item">
+						<div class="anime__review__item__pic">
+							<img src="img/anime/review-6.jpg" alt="">
+						</div>
+						<div class="anime__review__item__text">
+							<h6>
+								Louis Tyler - <span>20 Hour ago</span>
+							</h6>
+							<p>Where is the episode 15 ? Slow update! Tch</p>
+						</div>
+					</div>
+				</div>
+				<div class="anime__details__form">
+					<div class="section-title">
+						<h5>댓글 달기</h5>
+					</div>
+					<form action="/reviewComment/insertComment" method="post">
+						<textarea name="comment_content" placeholder="댓글을 입력해 주세요"></textarea>
+						<button type="submit"><i class="fa fa-location-arrow"></i> 저장 </button>
+					</form>
+				</div>
+			</div>
+<div class="col-md-2"></div>
 </div>
-
-	
-
 </body>
 
 
