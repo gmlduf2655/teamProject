@@ -26,9 +26,9 @@
 			(userno, nickname, username, cellphone, profile_image, sns_id, sns_type, sns_connect_date)
 		values
 			(seq_user_userno.nextval, 
-			#{nickname}, 
+			#{nickname, jdbcType=VARCHAR}, 
 			#{username}, 
-			#{cellphone}, 
+			#{cellphone, jdbcType=VARCHAR}, 
 			#{profile_image, jdbcType=VARCHAR},
 			#{sns_id},
 			#{sns_type},
