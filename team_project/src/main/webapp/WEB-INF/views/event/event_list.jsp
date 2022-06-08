@@ -54,7 +54,6 @@ $(document).ready(function(){
 								</c:choose>
 							>
 								
-								<div class="ep">18 / 18</div>
 								<div class="view">
 									<i class="fa fa-eye"></i> ${eventVo.event_count}
 								</div>
