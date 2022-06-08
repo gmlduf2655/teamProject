@@ -22,9 +22,9 @@ public class TestCinemaDao {
 	@Test 
 	public void insertCinemaTest() {
 		
-		String cinema_name		= "현대문화예술회관 영화관";
-		String cinema_address	= "울산광역시 동구 화정동";
-		String cinema_status	= null;
+		String cinema_name		= "CGV 울산 진장동";
+		String cinema_address	= "울산광역시 북구 진장동";
+		String cinema_status	= "0";
 		
 		CinemaVo cinemaVo = new CinemaVo(cinema_name, cinema_address, cinema_status);
 		
@@ -36,25 +36,25 @@ public class TestCinemaDao {
 	@Test
 	public void selectCinemaListTest() {
 		
-//		String search_column	= "cinema_address";
-//		String search_data		= "울산%동구";
-//		String order_column		= "cinema_no";
-//		String order_type		= "asc";
+		String search_column	= "cinema_address";
+		String search_data		= "울산%남구";
+		String order_column		= "cinema_no";
+		String order_type		= "asc";
 		
 //		String search_column	= "cinema_name";
 //		String search_data		= "롯대";
 //		String order_column		= "cinema_no";
 //		String order_type		= "asc";
 		
-		String order_column		= "cinema_no";
-		String order_type		= "asc";
+//		String order_column		= "cinema_no";
+//		String order_type		= "asc";
 		
 //		String search_column	= "movie_code";
 //		String search_data		= "1564564";
 //		String order_column		= "cinema_no";
 //		String order_type		= "asc";
 		
-		List<CinemaVo> cinemaList = cinemaDao.selectCinemaList(/*search_column, search_data,*/ order_column, order_type);
+		List<CinemaVo> cinemaList = cinemaDao.selectCinemaList(search_column, search_data, order_column, order_type);
 		for (CinemaVo vo : cinemaList) {
 			System.out.println("cinemaList : " + vo);
 		}

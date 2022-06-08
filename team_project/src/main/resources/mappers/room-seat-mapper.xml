@@ -12,14 +12,14 @@
 			seat_x,
 			seat_y,
 			seat_status,
-			user_no
+			ticket_no
 		) values (
 			seq_seat_no.nextval,
 			#{room_no},
 			#{seat_x},
 			#{seat_y},
 			#{seat_status},
-			#{user_no, jdbcType=VARCHAR}
+			#{ticket_no, jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -48,7 +48,7 @@
 	<!-- 좌석 예약 상태 변경 -->
 	<update id="updateRoomSeatTicket">
 		update tbl_ticket set
-			ticket_no = #{ticket_no}
+			ticket_no = #{ticket_no, jdbcType=VARCHAR}
 		where seat_no = #{seat_no}
 	</update>
 </mapper>

@@ -26,9 +26,9 @@
 			(userno, nickname, username, cellphone, profile_image, sns_id, sns_type, sns_connect_date)
 		values
 			(seq_user_userno.nextval, 
-			#{nickname}, 
+			#{nickname, jdbcType=VARCHAR}, 
 			#{username}, 
-			#{cellphone}, 
+			#{cellphone, jdbcType=VARCHAR}, 
 			#{profile_image, jdbcType=VARCHAR},
 			#{sns_id},
 			#{sns_type},
@@ -75,15 +75,19 @@
 	<update id="updateUser">
 		update tbl_user set
 			nickname = #{nickname},
+			email = #{email},
 			address = #{address, jdbcType=VARCHAR},
-			cellphone = #{cellphone, jdbcType=VARCHAR}
+			cellphone = #{cellphone, jdbcType=VARCHAR},
+			profile_image = #{profile_image, jdbcType=VARCHAR},
+			mod_date = sysdate
 		where userid = #{userid}
 	</update>
 	
 	<!-- 유저 비밀번호 수정 -->
 	<update id="updateUserpw">
 		update tbl_user set
-			userpw = #{userpw}
+			userpw = #{userpw},
+			mod_date = sysdate
 		where userid= #{userid}
 	</update>
 	

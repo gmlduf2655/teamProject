@@ -16,9 +16,9 @@ public interface RoomSeatDao {
 	public RoomSeatVo selectRoomSeat(int seat_no);
 	
 	// 좌석 정보 수정
-	public boolean updateRoomSeatInfo(int seat_no, int seat_x, String seat_y, String seat_status);
+	public boolean updateRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status);
 	
 	// 좌석 예약 상태 변경
-	public boolean updateRoomSeatTiket(int seat_no, String ticket_no);
+	public boolean updateRoomSeatTicket(int seat_no, String ticket_no);
 	
 }

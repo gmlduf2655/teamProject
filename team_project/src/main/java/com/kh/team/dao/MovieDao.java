@@ -9,4 +9,6 @@ public interface MovieDao {
 	public boolean insertMovie(MovieVo movieVo);
 	public boolean updateMovie(MovieVo movieVo);
 	public boolean existMovie(String movie_code);
+	public boolean deleteMovie(String movie_code);
+	public MovieVo movieInfoByMovieCode(String movie_code);
 }

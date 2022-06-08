@@ -49,7 +49,7 @@ public class RoomSeatDaoImpl implements RoomSeatDao {
 				int seat_no, 
 				int seat_x, 
 				String seat_y, 
-				String seat_status
+				boolean seat_status
 			) {
 		
 		Map<String, Object> parameter = new HashMap<>();
@@ -62,14 +62,14 @@ public class RoomSeatDaoImpl implements RoomSeatDao {
 	};
 	
 	// 좌석 예약 상태 변경
-	public boolean updateRoomSeatTiket(
+	public boolean updateRoomSeatTicket(
 				int seat_no, 
 				String ticket_no
 			) {
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put("seat_no", seat_no);
 		parameter.put("ticket_no", ticket_no);
-		int count = sqlSession.update(NAMESPACE + "updateRoomSeatTiket", parameter);
+		int count = sqlSession.update(NAMESPACE + "updateRoomSeatTicket", parameter);
 		if (count > 0) {
 			return true;
 		}

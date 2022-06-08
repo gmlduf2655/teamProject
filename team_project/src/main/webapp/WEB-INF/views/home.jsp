@@ -1,3 +1,6 @@
+<%@page import="com.kh.team.dao.TicketDaoImpl"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 

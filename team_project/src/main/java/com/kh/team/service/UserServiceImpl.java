@@ -64,6 +64,13 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 	
+	// 간편로그인 아이디와 타입으로 회원 정보 조회
+	@Override
+	public UserVo getUserBySnsIdAndType(String sns_id, String sns_type) {
+		UserVo userVo = userDao.selectUserBySnsIdAndType(sns_id, sns_type);
+		return userVo;
+	}
+	
 	// 로그인
 	@Override
 	public UserVo login(String userid, String userpw) {
@@ -73,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
 	// 유저 정보 수정
 	@Override
-	public boolean updateUser(UserVo userVo) {
+	public boolean modifyUser(UserVo userVo) {
 		boolean result = userDao.updateUser(userVo);
 		return result;
 	}
