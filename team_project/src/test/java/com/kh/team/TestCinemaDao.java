@@ -32,6 +32,14 @@ public class TestCinemaDao {
 		System.out.println("TestCinemaDao, insertCinema, result : " + result);
 	}
 	
+	// 영화관 코드 번호 얻어내기 테스트
+	@Test
+	public void selectCinemaCodeTest() {
+		int cinema_no = 2;
+		String cinema_code = cinemaDao.selectCinemaCode(cinema_no);
+		System.out.println(cinema_code);
+	}
+	
 	// 영화관 리스트 조회 (지역별, 영화별, 영화관 이름별)
 	@Test
 	public void selectCinemaListTest() {

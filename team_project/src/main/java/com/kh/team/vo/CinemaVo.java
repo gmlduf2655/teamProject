@@ -9,6 +9,7 @@ public class CinemaVo {
 	private Date cinema_regdate;
 	private Date cinema_chgdate;
 	private String cinema_status;
+	private String cinema_code;
 
 	public CinemaVo() {
 		super();
@@ -70,11 +71,19 @@ public class CinemaVo {
 		this.cinema_status = cinema_status;
 	}
 
+	public String getCinema_code() {
+		return cinema_code;
+	}
+
+	public void setCinema_code(String cinema_code) {
+		this.cinema_code = cinema_code;
+	}
+
 	@Override
 	public String toString() {
 		return "CinemaVo [cinema_no=" + cinema_no + ", cinema_name=" + cinema_name + ", cinema_address="
 				+ cinema_address + ", cinema_regdate=" + cinema_regdate + ", cinema_chgdate=" + cinema_chgdate
-				+ ", cinema_status=" + cinema_status + "]";
+				+ ", cinema_status=" + cinema_status + ", cinema_code=" + cinema_code + "]";
 	}
 
 }

@@ -30,8 +30,9 @@
 	</insert>
 	
 	<!-- 영화관 내 상영관 리스트 조회 / 해당 영화 상영중인 상영관 리스트, 상영관 이름 / 위치로 상영관 리스트 조회 -->
-	<select id="selectCinemaRoomList" resultType="CinemaRoomVo">
-		select * from tbl_cinema_room
+	<select id="selectCinemaRoomList" resultType="map">
+		select * from tbl_cinema_room room left outer join tbl_room_type type
+		on room.room_type_no = type.room_type_no
 		where cinema_no = #{cinema_no}
 		<choose>
 			<when test="search_column == null"></when>
@@ -51,8 +52,9 @@
 	</select>
 	
 	<!-- 상영관 정보 조회 -->
-	<select id="selectCinemaRoom" resultType="CinemaRoomVo">
-		select * from tbl_cinema_room
+	<select id="selectCinemaRoom" resultType="map">
+		select * from tbl_cinema_room room left outer join tbl_room_type type
+		on room.room_type_no = type.room_type_no
 		where room_no = #{room_no}
 	</select>
 	
