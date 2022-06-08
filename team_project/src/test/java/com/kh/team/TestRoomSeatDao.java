@@ -24,8 +24,8 @@ public class TestRoomSeatDao {
 		
 		int seat_no			= 1;
 		int room_no			= 1;
-		int seat_x			= 1;
-		String seat_y		= "A";
+		int seat_x			= 2;
+		String seat_y		= "B";
 		boolean seat_status	= true;
 		String ticket_no		= null;
 		
@@ -47,7 +47,9 @@ public class TestRoomSeatDao {
 	public void selectRoomSeatListTest() {
 		int room_no = 1;
 		List<RoomSeatVo> roomSeatList = roomSeatDao.selectRoomSeatList(room_no);
-		System.out.println("roomSeatList :" + roomSeatList);
+		for (RoomSeatVo vo : roomSeatList) {
+			System.out.println("roomSeatList :" + vo);
+		}
 	}
 	
 	// 좌석 정보 조회

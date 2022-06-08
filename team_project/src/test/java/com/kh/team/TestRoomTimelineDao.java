@@ -23,8 +23,8 @@ public class TestRoomTimelineDao {
 	public void insertRoomTimelineTest() {
 		
 		int cinema_no				= 1;
-		int room_no					= 1;
-		String movie_code			= "20225365";
+		int room_no					= 3;
+		String movie_code			= "20204548";
 		String movie_begin_date		= "12:20";
 		String movie_finish_date	= "13:50";
 		boolean movie_status		= true;

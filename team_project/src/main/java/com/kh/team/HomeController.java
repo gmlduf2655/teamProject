@@ -1,8 +1,8 @@
 package com.kh.team;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.team.dao.TicketDao;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.UserVo;
 
@@ -24,6 +25,8 @@ public class HomeController {
 	// 임희열 : 로그인 세션 임시로 넣기 위해서 사용
 	@Autowired
 	private UserService userService;
+	@Autowired
+	TicketDao ticketDao;
 
 	// 메인페이지로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -42,7 +45,6 @@ public class HomeController {
 		if(loginUserVo != null) {
 			session.setAttribute("loginUserVo", loginUserVo);
 		}
-		
 		return "home";
 	}
 	

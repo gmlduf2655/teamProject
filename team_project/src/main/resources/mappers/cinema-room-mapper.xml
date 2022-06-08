@@ -51,8 +51,7 @@
 	</select>
 	
 	<!-- 상영관 정보 조회 -->
-	<select id="selectCinemaRoom
-	" resultType="CinemaRoomVo">
+	<select id="selectCinemaRoom" resultType="CinemaRoomVo">
 		select * from tbl_cinema_room
 		where room_no = #{room_no}
 	</select>

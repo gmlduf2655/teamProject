@@ -4,6 +4,11 @@
 
 <mapper namespace="com.kh.team.mappers.ticket">
 	
+	<!-- 티켓 예약번호 얻기 -->
+	<select id="getTicketUUID" resultType="string">
+		select SYS_GUID() from dual
+	</select>
+	
 	<!-- 티켓 예약하기 -->
 	<insert id="insertTicket">
 		insert into tbl_ticket(
@@ -14,7 +19,7 @@
 			ticket_regdate,
 			ticket_status
 		) values (
-			SYS_GUID(),
+			#{ticket_no},
 			#{user_no},
 			#{timeline_no},
 			#{seat_no},
@@ -26,18 +31,18 @@
 	<!-- 발급된 (유저별, 상영관 스케줄 별) 티켓 리스트 조회 -->
 	<select id="selectTicketList" resultType="map">
 		select * from tbl_ticket ticket
+		left outer join tbl_room_timeline timeline
+		on ticket.timeline_no = timeline.timeline_no
+		left outer join tbl_room_seat seat
+		on ticket.seat_no = seat.seat_no
 		<choose>
 			<when test="search_column == 'room_no'">
-				left outer join tbl_room_timeline timeline
-				on ticket.timeline_no = timeline.timeline_no
 				where timeline.timeline_no in (
 					select timeline_no from tbl_room_timeline
 					where ${search_column} = #{search_data}
 				)
 			</when>
 			<otherwise>
-			 	left outer join tbl_room_seat seat
-				on ticket.seat_no = seat.seat_no 
 				where ticket.${search_column} = #{search_data}
 			</otherwise>
 		</choose>
@@ -45,9 +50,13 @@
 	</select>
 	
 	<!-- 티켓 정보 조회 -->
-	<select id="selectTicket" resultType="TicketVo">
-		select * from tbl_ticket
-		where ticket_no = #{ticket_no}
+	<select id="selectTicket" resultType="map">
+		select * from tbl_ticket ticket
+		left outer join tbl_room_timeline timeline
+		on ticket.timeline_no = timeline.timeline_no
+		left outer join tbl_room_seat seat
+		on ticket.seat_no = seat.seat_no
+		where ticket.ticket_no = #{ticket_no}
 	</select>
 	
 	<!-- 티켓 예약 수정 -->

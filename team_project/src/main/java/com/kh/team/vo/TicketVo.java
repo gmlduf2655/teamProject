@@ -13,8 +13,9 @@ public class TicketVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TicketVo(int user_no, int timeline_no, int seat_no, boolean ticket_status) {
+	public TicketVo(String ticket_no, int user_no, int timeline_no, int seat_no, boolean ticket_status) {
 		super();
+		this.ticket_no = ticket_no;
 		this.user_no = user_no;
 		this.timeline_no = timeline_no;
 		this.seat_no = seat_no;
