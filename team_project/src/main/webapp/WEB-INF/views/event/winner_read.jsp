@@ -62,7 +62,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="float-right"> <!--  -->
+		<div class="float-right">
 			<a href="/event/winner_updateForm?winner_no=${winnerVo.winner_no}" class="btn btn-sm btn-warning">수정</a>
 			<a href="${winnerVo.winner_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
 		</div>

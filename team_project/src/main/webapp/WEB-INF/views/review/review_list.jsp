@@ -51,7 +51,7 @@
 							<td>${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
 							<td><a
-								href="/writer/writer_read?winner_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
+								href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
 							
 							<th>
 							<c:choose>
