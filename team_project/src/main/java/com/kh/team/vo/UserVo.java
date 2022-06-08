@@ -4,7 +4,7 @@ import java.sql.Date;
 
 // 유저 Vo
 public class UserVo {
-	private String userno; // 유저 번호
+	private int userno; // 유저 번호
 	private String userid; // 아이디
 	private String userpw; // 비밀번호
 	private String nickname; // 닉네임
@@ -27,10 +27,11 @@ public class UserVo {
 	}
 
 	// 필드 생성자
-	public UserVo(String userid, String userpw, String nickname, String username, String email, String address,
-			String cellphone, int point, Date reg_date, String user_status, String profile_image, Date mod_date,
-			String sns_id, String sns_type, Date sns_connect_date) {
+	public UserVo(int userno, String userid, String userpw, String nickname, String username, String email,
+			String address, String cellphone, int point, Date reg_date, String user_status, String profile_image,
+			Date mod_date, String sns_id, String sns_type, Date sns_connect_date) {
 		super();
+		this.userno = userno;
 		this.userid = userid;
 		this.userpw = userpw;
 		this.nickname = nickname;
@@ -58,6 +59,7 @@ public class UserVo {
 		this.email = email;
 	}
 	
+
 	// 간편로그인 추가용 필드 생성자
 	public UserVo(String nickname, String username, String cellphone, String profile_image, String sns_id,
 			String sns_type) {
@@ -72,11 +74,11 @@ public class UserVo {
 	
 	// Getters & Setters (Accessor)
 	
-	public String getUserno() {
+	public int getUserno() {
 		return userno;
 	}
 
-	public void setUserno(String userno) {
+	public void setUserno(int userno) {
 		this.userno = userno;
 	}
 	public String getUserid() {

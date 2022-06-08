@@ -25,6 +25,8 @@ public interface UserDao {
 	public boolean updateUser(UserVo userVo);
 	// 유저 비밀번호 수정
 	public boolean updateUserpw(String userid, String userpw);
+	// 유저 포인트 수정
+	public boolean updateUserPoint(int point, int userno);
 	// 회원 삭제
 	public boolean deleteUser(String userid);
 }
