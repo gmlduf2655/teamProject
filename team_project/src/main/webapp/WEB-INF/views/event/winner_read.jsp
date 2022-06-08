@@ -34,7 +34,6 @@ $(document).ready(function(){
 
 
 <div class="container-fluid" style="background-color: white">
-	<form class="role" action="/event/winner_modifyForm" method="get">
 		<input type="hidden" name="winner_no" value="${winnerVo.winner_no}">
 		<div class="row">
 			<div class="col-md-12">
@@ -53,8 +52,8 @@ $(document).ready(function(){
 						
 						
 						<div class="form-group">
-							<label for="winner_content"> 내용 </label>
-							${winnerVo.winner_content}
+							<label for="winner_content"> 내용 </label><br>
+							<p>${winnerVo.winner_content}</p>
 						</div>
 						
 						<a href="/event/winner_info" class="btn btn-primary">게시글 목록으로</a>
@@ -63,9 +62,8 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		</form>
-		<div class="float-right"> <!-- ?winner_no=${winnerVo.winner_no} -->
-			<a href="/event/winner_updateForm" class="btn btn-sm btn-warning">수정</a>
+		<div class="float-right"> <!--  -->
+			<a href="/event/winner_updateForm?winner_no=${winnerVo.winner_no}" class="btn btn-sm btn-warning">수정</a>
 			<a href="${winnerVo.winner_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
 		</div>
 	

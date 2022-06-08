@@ -23,7 +23,6 @@
 
 <html lang="ko">
 <head>
-  <title>SummerNoteExample</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -42,13 +41,15 @@
 <div class="container" style="background-color: white">
 
 <form role="writeForm" action="/event/winner_modify" method="post" id="frmCreate" enctype="multipart/form-data">
+	<input type="hidden" name="winner_no" value="${winnerVo.winner_no}">
+	
 	<label for="winner_title"> 제목 </label> 
-	<input type="text" class="form-control" id="winner_title" name="winner_title"/>
+	<input type="text" class="form-control" id="winner_title" name="winner_title" value="${winnerVo.winner_title}"/>
 
 	<label>내용</label>
-	<textarea class="summernote" id="winner_content" name="winner_content"></textarea>
+	<textarea class="summernote" id="winner_content" name="winner_content">${winnerVo.winner_content}</textarea>
 	
-	<button type="submit" class="btn btn-primary">저장</button>
+	<button type="submit" class="btn btn-primary"> 수정 완료 </button>
 </form>
 </div>
 <script>

@@ -24,14 +24,9 @@
 
 <div class="container-fluid" style="background-color: white">
 	<div class="row">
-	<div class="col-md-2"></div>
+		<div class="col-md-2"></div>
 		<div class="col-md-8">
-<!-- 			<div class="jumbotron"> -->
-<!-- 				<h2>당첨자 발표</h2> -->
-<!-- 				<p> -->
-<!-- 					<a class="btn btn-primary btn-large" href="/event/event_list">이벤트 게시판으로 </a> -->
-<!-- 				</p> -->
-<!-- 			</div> -->
+
 			<table class="table">
 				<thead>
 					<tr>
@@ -42,24 +37,25 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${winnerList}" var="winnerVo">
-					<tr>
-						<td>${winnerVo.winner_no}</td>
-						<td><a href="/event/winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
-						<td>${winnerVo.winner_sysdate}</td>
-						<td>${winnerVo.winner_count}</td>
-					</tr>
-				</c:forEach>
+					<c:forEach items="${winnerList}" var="winnerVo">
+						<tr>
+							<td>${winnerVo.winner_no}</td>
+							<td><a
+								href="/event/winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
+							<td>${winnerVo.winner_sysdate}</td>
+							<td>${winnerVo.winner_count}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-	</div>
-	<div class="float-right">
-			<p>
-				<a class="btn btn-primary btn-large" href="/event/winner_write">게시글 쓰기</a>
-			</p>
+</div>
+<div class="float-right">
+	<p>
+		<a class="btn btn-primary btn-large" href="/event/winner_write">게시글 쓰기</a>
+	</p>
 </div>
 
 

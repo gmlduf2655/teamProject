@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.review">
+
+	<!-- 글 등록 -->
+	<insert id="insert">
+		insert into tbl_review
+			(review_no, review_title, review_content, review_star)
+		values
+			(seq_review_winnerno.nextval, #{review_title}, #{review_content}, #{review_star})
+	</insert>
+	
+	<!-- 글 수정 -->
+	<update id="modify">
+		update tbl_review set
+			review_title = #{review_title},
+			review_content = #{review_content},
+			review_star = #{review_star}
+		where review_no = #{review_no}
+	</update>
+
+	<!-- 글 삭제 -->
+	<delete id="delete">
+		delete from tbl_review
+		where review_no = #{review_no}
+	</delete>
+	
+	<!-- 글 목록 -->
+	<select id="list" resultType="ReviewVo">
+		select * from tbl_review
+		order by review_no desc
+	</select>
+	
+	<!-- 글 읽기 -->
+	<select id="readContent" resultType="ReviewVo">
+		select * from tbl_review
+		where review_no = #{review_no}
+	</select>
+	
+	<!-- 조회수 증가 -->
+		<update id="viewConuntUpdate">
+			update tbl_review set
+				review_count = review_count + 1
+			where review_no = #{review_no}
+		</update>
+
+</mapper>

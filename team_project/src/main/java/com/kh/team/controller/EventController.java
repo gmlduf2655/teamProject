@@ -145,7 +145,9 @@ public class EventController {
 	
 	// 당첨자 게시판 수정하기 폼
 	@RequestMapping(value = "/winner_updateForm", method = RequestMethod.GET)
-	public String winnerModifyForm() {
+	public String winnerModifyForm(int winner_no, Model model) {
+		WinnerVo winnerVo = winnerService.readContent(winner_no);
+		model.addAttribute("winnerVo", winnerVo);
 		return "/event/winner_updateForm";
 	}
 	
