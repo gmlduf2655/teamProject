@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- header -->
+<%-- <%@ include file="/WEB-INF/views/include/header.jsp"%> --%>
+<title>영화정보 입력 관리자 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 	
 </head>
 <body>
@@ -33,29 +31,40 @@ $(function(){
 	});
 });
 </script>
-<a target="_blank" href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do">영화코드 검색</a>
-<br>
-<hr>
-<input type="text" name="moviecode" id="moviecode">
-<button type="submit" id="dbSearch">영화검색</button>
-	<form action="" enctype="multipart/form-data">
-		<div id="releaseCont">
-			<hr>
-			<c:forEach begin="0" end="1" var="i">
-				<div class="active" id="list${i}">
-					<a href="#"></a>
-				</div>
-			</c:forEach>
+	<a target="_blank"
+		href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do">영화코드
+		검색</a>
+	<br>
+	<hr>
+	<div class="row">
+	<div class="col-md-12">
+		<input type="text" name="moviecode" id="moviecode">
+		<button type="submit" class="btn btn-outline btn-success"
+			id="dbSearch">영화검색</button>
+	</div>
+	</div>
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<form action="" enctype="multipart/form-data">
+			<div id="releaseCont">
+				<hr>
+				<c:forEach begin="0" end="1" var="i">
+					<div class="active" id="list${i}">
+						<a href="#"></a>
+					</div>
+				</c:forEach>
 
-		</div>
-			
-		<hr>
-		<br>
-		<br>
-		<button type="submit" id="dbSave">db저장</button>
-		<button type="submit" id="dbUpdate">db수정</button>
-		<button type="submit" id="dbDelete">db삭제</button>
-	</form>
+			</div>
+
+			<hr>
+			<br> <br>
+			<button type="submit" id="dbSave">db저장</button>
+			<button type="submit" id="dbUpdate">db수정</button>
+			<button type="submit" id="dbDelete">db삭제</button>
+		</form>
+	</div>
+	<div class="col-md-2"></div>
+
 
 	<script type="text/javascript">
 
@@ -109,5 +118,5 @@ $(function(){
 		});
 	});
 </script>
-</body>
-</html>
+<!-- footer -->
+<%-- <%@ include file="/WEB-INF/views/include/footer.jsp"%> --%>

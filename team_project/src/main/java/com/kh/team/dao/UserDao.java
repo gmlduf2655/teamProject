@@ -21,6 +21,10 @@ public interface UserDao {
 	public UserVo selectUserBySnsIdAndType(String sns_id, String sns_type);
 	// 회원 목록 조회
 	public List<UserVo> userList();
+	// 기존회원 목록 조회
+	public List<UserVo> originUserList();
+	// 간편로그인 회원 목록 조회
+	public List<UserVo> snsUserList();
 	// 회원 수정
 	public boolean updateUser(UserVo userVo);
 	// 유저 비밀번호 수정

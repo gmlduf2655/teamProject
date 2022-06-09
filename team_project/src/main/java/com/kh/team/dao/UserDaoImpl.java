@@ -84,7 +84,20 @@ public class UserDaoImpl implements UserDao {
 		List<UserVo> userList = sqlSession.selectList(NAMESPACE + "userList");
 		return userList;
 	}
+	
+	// 기존 회원 목록 조회
+	@Override
+	public List<UserVo> originUserList() {
+		List<UserVo> originUserList = sqlSession.selectList(NAMESPACE + "originUserList");
+		return originUserList;
+	}
 
+	// 간편로그인 회원 목록 조회
+	@Override
+	public List<UserVo> snsUserList() {
+		List<UserVo> snsUserList = sqlSession.selectList(NAMESPACE + "snsUserList");
+		return snsUserList;
+	}
 	// 회원 정보 수정
 	@Override
 	public boolean updateUser(UserVo userVo) {

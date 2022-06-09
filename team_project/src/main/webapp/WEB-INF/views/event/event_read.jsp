@@ -41,7 +41,6 @@ $(document).ready(function(){
 
 
 <div class="container-fluid" style="background-color: white">
-	<form class="role" action="/event/event_modify" method="post">
 		<input type="hidden" name="event_no" value="${eventVo.event_no}">
 		<div class="row">
 			<div class="col-md-12">
@@ -54,21 +53,21 @@ $(document).ready(function(){
 								value="${eventVo.event_title}" readonly />
 						</div>
 						
+						<div class="form-group">
+							<label for="event_end_date"> 이벤트 종료일 </label><br>
+							<input type="date" id="event_end_date" name="event_end_date" value="${eventVo.event_end_date}" readonly>
+						</div>
+						
 						<div>
 						 <img src="/event/displayImage?filename=${eventVo.event_image}">
 						</div>
 						
-						
 						<div class="form-group">
 							<label for="event_content"> 내용 </label>
-							<textarea class="form-control" id="event_content"
-								name="event_content" readonly>${eventVo.event_content}</textarea>
+							${eventVo.event_content}
 						</div>
 						
-						<div class="form-group">
-							<label for="event_end_date"> 이벤트 종료일 </label><br>
-							<input type="date" id="event_end_date" name="event_end_date" readonly>
-						</div>
+						
 						
 						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a>
 					</div>
@@ -77,12 +76,9 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<div class="float-right">
-			<button type="button" class="btn btn-sm btn-warning" id="btnUpdate">수정</button>
-			<button type="submit" class="btn btn-sm btn-success"
-				id="btnUpdateRun" style="display: none">수정완료</button>
+			<a href="/event/event_modifyForm?event_no=${eventVo.event_no}" class="btn btn-sm btn-warning" id="btnUpdate">수정</a>
 			<a href="${eventVo.event_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
 		</div>
-	</form>
 </div>
 
 <!-- footer -->
