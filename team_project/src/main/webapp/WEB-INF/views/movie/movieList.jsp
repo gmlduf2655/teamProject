@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <%@ include file="/WEB-INF/views/include/daycount.jsp"%>
@@ -24,27 +23,32 @@ if(db_save_result == "true"){
 	alert("db 삭제 실패");
 }
 
-var audiAcc = null; 
-$.ajax({
-	type: "GET",
-	url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
-	data: {
-		key: "6a124949cf23e078e5c9d213db2cf916",
-		targetDt: yesterDate
-	},
-	success: function(data) {
-		console.log(data);
-		$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
-			console.log("i",i);
-			console.log("j",j);
-			/* audiAcc = j.audiAcc;
-			$("#audiAcc").val(audiAcc); */
-		});
-		
-		
-	}
+
+$(function(){
+
+	//박스오피스
+	var audiAcc = null; 
+	$.ajax({
+		type: "GET",
+		url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+		data: {
+			key: "6a124949cf23e078e5c9d213db2cf916",
+			targetDt: yesterDate
+		},
+		success: function(data) {
+			/* console.log(data); */
+			$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
+				/* console.log("i",i);
+				console.log("j",j); */
+				/* audiAcc = j.audiAcc;
+				$("#audiAcc").val(audiAcc); */
+			});
+		}
+	}); //박스오피스
+	
 });
 </script>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2"></div>
@@ -65,7 +69,8 @@ $.ajax({
 								</c:otherwise>
 								</c:choose>
 								>
-								<div class="ep">개봉일 ${movieVo.opening_date}</div>
+								<!-- <div class="ep"><span id="date">개봉날짜:</span></div> -->
+								<div class="ep">${movieVo.opening_date}</div>
 								<div class="view">
 									<i class="fa fa-eye"></i><div id="audiAcc"></div>
 								</div>

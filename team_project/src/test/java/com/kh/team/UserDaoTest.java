@@ -84,6 +84,24 @@ public class UserDaoTest {
 		}
 	}
 	
+	// 기존회원 목록 조회 테스트
+	@Test
+	public void testOriginUserList() {
+		List<UserVo> originUserList = userDao.originUserList();
+		for(UserVo userVo : originUserList) {
+			System.out.println("UserDaoTest, originUserList, userVo : " + userVo);
+		}
+	}
+	
+	// 간편로그인회원 목록 조회 테스트
+	@Test
+	public void testSnsUserList() {
+		List<UserVo> snsUserList = userDao.snsUserList();
+		for(UserVo userVo : snsUserList) {
+			System.out.println("UserDaoTest, snsUserList, userVo : " + userVo);
+		}
+	}
+	
 	// 유저 정보 수정 테스트
 	@Test
 	public void testUpdateUser() {

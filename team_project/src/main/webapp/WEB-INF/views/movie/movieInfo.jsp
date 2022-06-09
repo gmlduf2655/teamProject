@@ -7,6 +7,7 @@
 
 <title>영화정보</title>
 <script>
+
 var date = new Date("${movieVo.opening_date}");
 var year = date.getFullYear();
 var month = date.getMonth()+1;
@@ -39,18 +40,23 @@ $(function(){
 	});
 	
 	//댓글 수정하기
-	$("#commentTable").on("click", ".commentUpdate" ,function(){
-		var tr = $(this).parent().parent();
+	$("#comment_list").on("click", ".commentUpdate" ,function(){
+		/* var tr = $(this).parent().parent();
 		var td = tr.children(); 
 		td.eq(1).find(".commentInput").removeAttr("disabled");
 		td.eq(3).find(".commentUpdate").hide();
-		td.eq(3).find(".commentUpdateSubmit").show();
+		td.eq(3).find(".commentUpdateSubmit").show(); */
+		var div = $(this).prev(); //input상자
+		div.removeAttr("style").removeAttr("disabled");
+		div.next().hide();
+		div.next().next().show();
 	});
 	//수정댓글 저장하기
-	$("#commentTable").on("click", ".commentUpdateSubmit" ,function(){
-		var tr = $(this).parent().parent();
-		var td = tr.children();
-		var movie_comment = td.eq(1).find(".commentInput").val();
+	$("#comment_list").on("click", ".commentUpdateSubmit" ,function(){
+		/* var tr = $(this).parent().parent();
+		var td = tr.children(); */
+		var div = $(this).prev().prev(); //input상자
+		var movie_comment = div.val();
 		var cno = $(this).attr("data-cno");
 		var url = "/moviecomment/commentUpdate";
 		var sData = {
@@ -64,7 +70,8 @@ $(function(){
 		});
 	});
 	//댓글 삭제 
-	$("#commentTable").on("click", ".commentDelete" ,function(){
+	$("#comment_list").on("click", ".commentDelete" ,function(){
+		console.log("click, commentDelete");
 		var cno = $(this).attr("data-cno");
 		var url = "/moviecomment/commentDelete";
 		var sData = {
@@ -113,31 +120,34 @@ $(function(){
 		};
 		 $.get(url, sData, function(rData){
 			 console.log(rData);
-			 /* $("#commentTable tr:gt(0)").remove(); */
-			 /* $(".details__review div::gt(0)").remove(); */
+			 $("#comment_list").children().remove();
 			 $.each(rData, function(){
-				/* var tr = $("#cloneTable tr").clone(); */
-				var div = $(".review__item__text_clone").clone();
+				var div = $("#clone").children().clone();
+				var img = div.find("img");
 				var h6 = div.find("h6");
-				var p = div.find("p");
+				/* var input = div.find("input"); */
+				var textarea = div.find("textarea");
+				/* var p = div.find("p"); */
 				var span = div.find("span");
-				/* var tds = tr.find("td");
-				tds.eq(0).text(this.userid);
-				tds.eq(1).find(".commentInput").val(this.movie_comment);
-				tds.eq(2).text(this.regdate); */
-				h6.eq(0).text(this.userid);
-				span.eq(0).text(this.regdate);
-				p.eq(0).text(this.movie_comment);
-				/* tds.find(".commentDelete").attr("data-cno",this.cno);
-				tds.find(".commentUpdateSubmit").attr("data-cno",this.cno); 
+				if(this.profile_image != null){
+					img.attr("src" , "/user/get_profile_image?filename=" + this.profile_image);
+				}
+				h6.text(this.userid);
+				span.text(this.regdate).css("color", "white");
+				/* input.val(this.movie_comment); */
+				textarea.val(this.movie_comment);
+				/* p.text(this.movie_comment); */
+				div.find(".commentDelete").attr("data-cno",this.cno);
+				div.find(".commentUpdateSubmit").attr("data-cno",this.cno); 
 				if("${loginUserVo.userid}" == this.userid){
-					tds.eq(3).show();
-					tds.eq(4).show();
+					div.find(".commentUpdate").show();
+					div.find(".commentDelete").show();
 				} else {
-					tds.eq(3).hide();
-					tds.eq(4).hide();
-				} */
-				$(".details__review").append(div);
+					div.find(".commentUpdate").hide();
+					div.find(".commentDelete").hide();
+				} 
+				$("#comment_list").append(div);
+				
 			});
 			 
 		});
@@ -146,8 +156,7 @@ $(function(){
 	
 });
 </script>
-${loginUserVo}
-<section class="anime-details spad">
+<!-- <section class="anime-details spad"> -->
         <div class="container">
             <div class="anime__details__content">
                 <div class="row">
@@ -207,33 +216,61 @@ ${loginUserVo}
                 <!-- 댓글입력 -->
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
-                        <div class="details__review">
+                    
+                     <div class="anime__details__form">
                             <div class="section-title">
+                                <h5>댓글 달기</h5>
+                            </div>
+                            <form action="#">
+                                <textarea placeholder="댓글을 입력하세요" id="movie_comment"></textarea>
+                                <button type="button" id="commentSubmit"><i class="fa fa-location-arrow"></i> 입력</button>
+                            </form>
+                        </div>
+                    
+                        <div class="details__review">
+                            <div class="section-title" id="section-title">
+                            <br>
                                 <h5>댓글</h5>
                             </div>
+                           
+                            
                             
                             <!-- try -->
                             <div class="review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-1.jpg" alt="">
-                                </div>
-                                <div class="review__item__text">
-                                    <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                    <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                    "demons" LOL</p>
-                                </div>
-                            </div>
-                            
-                             <div class="review__item_clone" style="display: none;">
-                                <div class="review__item__pic_clone">
-                                    <img src="img/anime/review-1.jpg" alt="">
-                                </div>
-                                <div class="review__item__text_clone">
-                                    <h6><span></span></h6>
-                                    <p></p>
-                                </div>
-                            </div>
-                            <!-- try -->
+	                           <div class="anime__review__item" id="comment_list">
+									<div class="anime__review__item__pic">
+										<img src="img/anime/review-1.jpg">
+									</div>
+									<div class="anime__review__item__text">
+										<h6>name -</h6>
+										<span> reg date</span>
+										<p>content</p>
+									</div>
+								</div>
+								</div>
+								
+								<div class="anime__review__item" style="display: none;" id="clone">
+									<div class="anime__review__item__pic">
+										<img src="/resources/images/usernoimage.JPG" id="userprofile">
+									</div>
+									<div class="anime__review__item__text">
+										<h6 id="usercom" ></h6>
+										<span id="userreg" style="float: right;"></span>
+										<!-- <p></p> -->
+										<!-- <input type="text" disabled style="background-color: rgba(255,255,255,0); 
+																	color: white; border: none;">  -->
+										<textarea disabled style="background-color: rgba(255,255,255,0); 
+																	color: white; border: none; width:100%; resize: none;"></textarea> 
+										<button type="button" class="btn btn-sm btn-danger commentUpdate"
+												style="margin-bottom: 10px; ">수정</button>
+										<button type="button" class="btn btn-sm btn-warning commentUpdateSubmit" 
+												style="display: none; margin-bottom: 10px;">완료</button>
+										<button type="button" class="btn btn-sm btn-primary commentDelete"
+												style="margin-bottom: 10px;">삭제</button>
+									</div>
+									<br>
+								</div>
+								<!-- try -->
                             
                             
                             <!-- 기존 테이블 댓글
@@ -265,30 +302,20 @@ ${loginUserVo}
                              -->
                              
                         </div>
-                        <div class="anime__details__form">
-                            <div class="section-title">
-                                <h5>댓글 달기</h5>
-                            </div>
-                            <form action="#">
-                                <textarea placeholder="댓글을 입력하세요" id="movie_comment"></textarea>
-                                <button type="button" id="commentSubmit"><i class="fa fa-location-arrow"></i> 입력</button>
-                            </form>
-                        </div>
+                        
                     </div>
                     
-                    <div class="col-lg-4 col-md-4">
+                   <div class="col-lg-4 col-md-4">
                         <div class="anime__details__sidebar">
                             <div class="section-title">
                                 <h5>박스 오피스</h5>
                             </div>
                             <%@ include file="/WEB-INF/views/movie/boxoffice.jsp"%>
                             
-                           
-                            
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div> <!-- 컨테이너 -->
+       <!--  </section> -->
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

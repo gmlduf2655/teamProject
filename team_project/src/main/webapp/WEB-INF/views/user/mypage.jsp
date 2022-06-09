@@ -85,22 +85,21 @@
 		});
     </script>
     
-    <!-- Normal Breadcrumb Begin -->
+    <!-- 제목 부분 -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
                         <h2>마이페이지</h2>
-<!--                         <p>Welcome to the official Anime blog.</p> -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Normal Breadcrumb End -->
+    <!-- 제목 부분 -->
 
-    <!-- Login Section Begin -->
+    <!-- 마이페이지 부분 -->
     <section class="login spad">
         <div class="container">
             <form method="post" action="/user/modify_user" encType="multipart/form-data">
@@ -132,8 +131,11 @@
 		                        </c:choose>
 	                        <br>
                             <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
-                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;">
-<!--                             <a id="image_delete" style="color:white;font-size:20px;">사진 삭제 <b style="color:red;font-size:30px;">&times;</b></a> -->
+                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;"><br>
+	                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
+	                    	<span style="color:white;font-size:30px;margin-right:15px;">${follower}</span>
+	                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
+	                    	<span style="color:white;font-size:30px;margin-right:15px;">${follow}</span>
 	                    </div>
 	                </div>
 	                <div class="col-lg-6">
@@ -198,7 +200,7 @@
             </div>
         </div>
     </section>
-    <!-- Login Section End -->
+    <!-- 마이페이지 부분 -->
 
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
