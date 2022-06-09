@@ -40,13 +40,13 @@ public class TestCinemaRoomDao {
 	public void selectCinemaRoomListTest() {
 		
 		int cinema_no			= 1;
-		String search_column	= "movie_code";
-		String search_data		= "20204548";
+//		String search_column	= "movie_code";
+//		String search_data		= "20204548";
 		String order_column		= "room_no";
 		String order_type		= "asc";
 		
-//		List<CinemaRoomVo> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, order_column, order_type);
-		List<Map<String, Object>> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, search_column, search_data, order_column, order_type);
+		List<Map<String, Object>> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, order_column, order_type);
+//		List<Map<String, Object>> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, search_column, search_data, order_column, order_type);
 		
 //		for (CinemaRoomVo vo : cinemaRoomList) {
 //			System.out.println("cinemaList : " + vo);

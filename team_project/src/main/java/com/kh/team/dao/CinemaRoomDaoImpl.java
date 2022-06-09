@@ -41,7 +41,17 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		parameter.put("cinema_no", cinema_no);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
-		List<Map<String, Object>> cinemaRoomList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
+		List<Map<String, Object>> tempList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
+		List<Map<String, Object>> cinemaRoomList = new ArrayList<>();
+		for (Map<String, Object> map : tempList) {
+			Map<String, Object> cinemaRoomMap = new HashMap<>();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String keys = entry.getKey().toLowerCase();
+				Object values = entry.getValue();
+				cinemaRoomMap.put(keys, values);
+			}
+			cinemaRoomList.add(cinemaRoomMap);
+		}
 		return cinemaRoomList;
 	}
 
