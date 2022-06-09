@@ -49,9 +49,13 @@
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
 
 	<!-- 임희열 : 우측 상단부분 css 조금 바꿨습니다 -->    
+	<!-- 임희열 : 헤더부분 메뉴 가져다 대면 색상 변할 수 있게 바꿨습니다 -->
     <style>
     	.header__right>a{
     		margin-right:15px;
+    	}
+    	.header__menu li:hover{
+    		background:#e53637;
     	}
     </style>
 </head>

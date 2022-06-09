@@ -1,5 +1,7 @@
 package com.kh.team.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,26 @@ public class UserServiceImpl implements UserService {
 		return userVo;
 	}	
 
+	// 회원목록 조회
+	@Override
+	public List<UserVo> getUserList() {
+		List<UserVo> userList = userDao.userList();
+		return userList;
+	}
+	
+	// 기존회원 목록 조회
+	@Override
+	public List<UserVo> getOriginUserList() {
+		List<UserVo> originUserList = userDao.originUserList();
+		return originUserList;
+	}
+
+	// 간편로그인회원 목록 조회
+	@Override
+	public List<UserVo> getSnsUserList() {
+		List<UserVo> snsUserList = userDao.snsUserList();
+		return snsUserList;
+	}
 	// 아이디 중복체크
 	@Override
 	public boolean useridDuplCheck(String userid) {

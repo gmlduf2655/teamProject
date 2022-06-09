@@ -3,6 +3,7 @@ package com.kh.team.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrategyBase;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.kh.team.service.FollowService;
 import com.kh.team.service.NaverLoginService;
 import com.kh.team.service.UserService;
 import com.kh.team.util.GoogleOAuthRequest;
@@ -49,6 +52,8 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	NaverLoginService naverLoginService;
+	@Autowired
+	FollowService followService;
 	
 	// 로그인 페이지 이동
 	@RequestMapping(value="/login_form", method=RequestMethod.GET)
@@ -64,8 +69,16 @@ public class UserController {
 		UserVo loginUserVo = userService.login(userid, userpw);
 		if(loginUserVo != null) {
 			session.setAttribute("loginUserVo", loginUserVo);
+			String locationTarget = (String)session.getAttribute("locationTarget");
+			if(locationTarget != null && !locationTarget.equals("")) {
+				session.removeAttribute("locationTarget");
+				return "redirect:" + locationTarget;
+			}else {
+				return "redirect:/";
+			}
+		}else {
+			return "redirect:/user/login_form";
 		}
-		return "redirect:/";
 	}
 	
 	// 로그아웃
@@ -144,7 +157,13 @@ public class UserController {
 	
 	// 마이페이지 화면이동
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
-	public String mypage() {
+	public String mypage(HttpSession session, Model model) {
+		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
+		int userno = loginUserVo.getUserno();
+		int follower = followService.selectFollowerNumber(userno);
+		int follow = followService.selectFollowNumber(userno);
+		model.addAttribute("follower", follower);
+		model.addAttribute("follow", follow);
 		return "user/mypage";
 	}
 	
@@ -238,5 +257,15 @@ public class UserController {
 		UserVo loginUserVo = userService.getUserBySnsIdAndType(sns_id, sns_type);
 		session.setAttribute("loginUserVo", loginUserVo);		
 		return "redirect:/";
+	}
+	
+	// 유저 목록 페이지 이동 (관리자용)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String userList(HttpSession session) {
+		List<UserVo> originUserList = userService.getOriginUserList();
+		List<UserVo> snsUserList = userService.getSnsUserList();
+		session.setAttribute("originUserList", originUserList);
+		session.setAttribute("snsUserList", snsUserList);
+		return "user/list";
 	}
 }
