@@ -85,19 +85,19 @@ $(document).ready(function(){
 		var url = "/reviewComment/commentList/" + review_no;
 		$.get(url, function(rData){
 			console.log("rData:", rData);
-// 			$("#comment_list").childen().remove();
+			$("#comment_list").childen().remove();
 			
-//  			$.each(rData, function(){
-//  				var clone = $("#clone").children().clone();
-//  				var name = clone.find("h6");
-//  				var regDate = clone.find("span");
-//  				var content = clone.find("p");
-//  				name.eq(0).text(this.review_no);
-//  				regDate.eq(0).text(this.comment_reg_date);
-//  				content.eq(0).text(this.comment_content);
+ 			$.each(rData, function(){
+ 				var clone = $("#clone").children().clone();
+ 				var name = clone.find("h6");
+ 				var regDate = clone.find("span");
+ 				var content = clone.find("p");
+ 				name.eq(0).text(this.review_no);
+ 				regDate.eq(0).text(this.comment_reg_date);
+ 				content.eq(0).text(this.comment_content);
  				
-//  				$("#comment_list").append(clone);
-//			});
+ 				$("#comment_list").append(clone);
+			});
 		});
 	}
 
