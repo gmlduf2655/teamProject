@@ -49,6 +49,8 @@ alter table tbl_user rename column regdate to reg_date;
 alter table tbl_user modify (nickname varchar2(20) unique);
 -- userid 컬럼 unique 제약조건 추가
 alter table tbl_user modify (userid varchar2(20) unique);
+-- 프로필 이미지 컬럼 unique 제약조건 추가
+alter table tbl_user modify (profile_image varchar2(100) unique);
 
 --컬럼추가-------------------------------------------
 -- 회원정보 수정일 컬럼 추가
