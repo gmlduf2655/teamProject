@@ -31,7 +31,7 @@ public class MovieCommentController {
 	@ResponseBody
 	public List<MovieCommentVo> commentList(String movie_code) {
 		List<MovieCommentVo> movieCommentList = commentService.commentList(movie_code);
-		System.out.println("MovieCommentController, result" + movieCommentList);
+		//System.out.println("MovieCommentController, result" + movieCommentList);
 		return movieCommentList;
 	}
 	

@@ -6,9 +6,6 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <title>영화정보</title>
-<style>
-
-</style>
 <script>
 
 var date = new Date("${movieVo.opening_date}");
@@ -128,15 +125,17 @@ $(function(){
 				var div = $("#clone").children().clone();
 				var img = div.find("img");
 				var h6 = div.find("h6");
-				var input = div.find("input");
+				/* var input = div.find("input"); */
+				var textarea = div.find("textarea");
 				/* var p = div.find("p"); */
 				var span = div.find("span");
-				/*	img.attr("src" , "/user/get_profile_image?filename=" + this.profile_image); */
-				img.attr("src" , "//192.168.0.60/" + this.profile_image);
-				console.log("src" , this.profile_image);
+				if(this.profile_image != null){
+					img.attr("src" , "/user/get_profile_image?filename=" + this.profile_image);
+				}
 				h6.text(this.userid);
 				span.text(this.regdate).css("color", "white");
-				input.val(this.movie_comment);
+				/* input.val(this.movie_comment); */
+				textarea.val(this.movie_comment);
 				/* p.text(this.movie_comment); */
 				div.find(".commentDelete").attr("data-cno",this.cno);
 				div.find(".commentUpdateSubmit").attr("data-cno",this.cno); 
@@ -157,7 +156,6 @@ $(function(){
 	
 });
 </script>
-${loginUserVo}
 <!-- <section class="anime-details spad"> -->
         <div class="container">
             <div class="anime__details__content">
@@ -253,16 +251,18 @@ ${loginUserVo}
 								
 								<div class="anime__review__item" style="display: none;" id="clone">
 									<div class="anime__review__item__pic">
-										<img src="img/anime/review-1.jpg" id="userprofile">
+										<img src="/resources/images/usernoimage.JPG" id="userprofile">
 									</div>
 									<div class="anime__review__item__text">
 										<h6 id="usercom" ></h6>
 										<span id="userreg" style="float: right;"></span>
 										<!-- <p></p> -->
-										<input type="text" disabled style="background-color: rgba(255,255,255,0); 
-																	color: white; border: none;"> 
+										<!-- <input type="text" disabled style="background-color: rgba(255,255,255,0); 
+																	color: white; border: none;">  -->
+										<textarea disabled style="background-color: rgba(255,255,255,0); 
+																	color: white; border: none; width:100%; resize: none;"></textarea> 
 										<button type="button" class="btn btn-sm btn-danger commentUpdate"
-												style="margin-bottom: 10px;">수정</button>
+												style="margin-bottom: 10px; ">수정</button>
 										<button type="button" class="btn btn-sm btn-warning commentUpdateSubmit" 
 												style="display: none; margin-bottom: 10px;">완료</button>
 										<button type="button" class="btn btn-sm btn-primary commentDelete"

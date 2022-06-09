@@ -30,7 +30,7 @@ public class MovieController {
 	@RequestMapping(value="/movieList", method = RequestMethod.GET)
 	public String movieList(Model model) {
 		List<MovieVo> list = movieService.movieList();
-//		System.out.println("movieList : " + list);
+		System.out.println("movieList : " + list);
 		
 		model.addAttribute("list", list);
 		
