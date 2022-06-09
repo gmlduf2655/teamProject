@@ -16,6 +16,7 @@ import com.kh.team.vo.ReviewCommentVo;
 @RequestMapping("/reviewComment")
 public class ReviewCommentController {
 	
+	
 	@Autowired
 	private ReviewCommentService commentService;
 	
