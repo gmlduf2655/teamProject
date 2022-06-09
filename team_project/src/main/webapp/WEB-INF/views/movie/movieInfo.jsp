@@ -138,6 +138,7 @@ $(function(){
 					tds.eq(4).hide();
 				} */
 				$(".details__review").append(div);
+				
 			});
 			 
 		});
