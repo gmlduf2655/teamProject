@@ -1,5 +1,7 @@
 package com.kh.team;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,33 @@ public class UserServiceTest {
 	public void testGetUserInfo() {
 		UserVo userVo = userService.getUserInfo("user01");
 		System.out.println("UserServiceTest, testGetUserInfo, userVo : " + userVo);
+	}
+	
+	// 회원 목록 조회 테스트
+	@Test
+	public void testGetUserList() {
+		List<UserVo> userList = userService.getUserList();
+		for(UserVo userVo : userList) {
+			System.out.println("userServiceTest, testGetUserTest, userVo : " + userVo);
+		}
+	}
+	
+	// 기존회원 목록 조회 테스트
+	@Test
+	public void testGetOriginUserList() {
+		List<UserVo> userList = userService.getOriginUserList();
+		for(UserVo userVo : userList) {
+			System.out.println("userServiceTest, testGetOriginUserTest, userVo : " + userVo);
+		}
+	}
+	
+	// 간편로그인회원 목록 조회 테스트
+	@Test
+	public void testGetSnsUserList() {
+		List<UserVo> userList = userService.getSnsUserList();
+		for(UserVo userVo : userList) {
+			System.out.println("userServiceTest, testGetSnsUserTest, userVo : " + userVo);
+		}
 	}
 	
 	// 아이디 중복체크 테스트

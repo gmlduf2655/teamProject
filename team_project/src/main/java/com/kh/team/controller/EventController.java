@@ -34,13 +34,13 @@ public class EventController {
 	public String eventList(Model model) {
 		List<EventVo> eventList = eventService.list();
 		model.addAttribute("eventList", eventList);
-		return "/event/event_list";
+		return "event/event_list";
 	}
 	
 	// 이벤트 게시글 폼
 	@RequestMapping(value = "/write_form", method = RequestMethod.GET)
 	public String writeForm() {
-		return "/event/write_form";
+		return "event/write_form";
 	}
 	
 	// 이벤트 게시글 작성
@@ -71,7 +71,7 @@ public class EventController {
 	public String eventRead(int event_no, Model model) {
 		EventVo eventVo = eventService.readContent(event_no);
 		model.addAttribute("eventVo", eventVo);
-		return "/event/event_read";
+		return "event/event_read";
 	}
 	
 	// 이벤트 게시글 수정
@@ -107,7 +107,7 @@ public class EventController {
 	public String winnerInfo(Model model) {
 		List<WinnerVo> winnerList = winnerService.list();
 		model.addAttribute("winnerList", winnerList);
-		return "/event/winner_info";
+		return "event/winner_info";
 	}
 	
 	// 당첨자 게시판 읽기
@@ -115,13 +115,13 @@ public class EventController {
 	public String winnerRead(int winner_no, Model model) {
 		WinnerVo winnerVo = winnerService.readContent(winner_no);
 		model.addAttribute("winnerVo", winnerVo);
-		return "/event/winner_read";
+		return "event/winner_read";
 	}
 	
 	// 당첨자 게시판 글쓰기 폼 
 	@RequestMapping(value = "/winner_write", method = RequestMethod.GET)
 	public String winnerWrite() {
-		return "/event/winner_writeForm";
+		return "event/winner_writeForm";
 	}
 	
 	// 당첨자 게시판 글쓰기
@@ -147,7 +147,7 @@ public class EventController {
 	public String winnerModifyForm(int winner_no, Model model) {
 		WinnerVo winnerVo = winnerService.readContent(winner_no);
 		model.addAttribute("winnerVo", winnerVo);
-		return "/event/winner_updateForm";
+		return "event/winner_updateForm";
 	}
 	
 	// 당첨자 게시판 글 수정하기

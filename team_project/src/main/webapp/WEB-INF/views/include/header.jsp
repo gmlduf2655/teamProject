@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+	String uri = request.getRequestURI();
+	int index1 = uri.indexOf("/", "/WEB-INF/views/".length()-1);
+	int index2 = uri.indexOf("/", "/WEB-INF/views/".length());
+	if(index2 == -1){
+		index2 = index1 + 1;
+	}
+	String path = uri.substring(index1, index2);
+	request.setAttribute("path", path);
+ %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -38,9 +49,13 @@
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
 
 	<!-- 임희열 : 우측 상단부분 css 조금 바꿨습니다 -->    
+	<!-- 임희열 : 헤더부분 메뉴 가져다 대면 색상 변할 수 있게 바꿨습니다 -->
     <style>
     	.header__right>a{
     		margin-right:15px;
+    	}
+    	.header__menu li:hover{
+    		background:#e53637;
     	}
     </style>
 </head>
@@ -66,13 +81,13 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active" <%-- 조재호 : c:if 조건 입력 후  class 제거 --%>
-                                	<c:if test="">
+                                <li  <%-- 조재호 : c:if 조건 입력 후  class 제거 --%>
+                                	<c:if test="${path == '/'}">
                                 		class="active"
                                 	</c:if>
                                 ><a href="/">홈</a></li>
                                 <li
-                                	<c:if test="">
+                                	<c:if test="${path}">
                                 		class="active"
                                 	</c:if>
                                 >
@@ -84,7 +99,7 @@
                                     </ul>
                                 </li>
                                 <li
-                                	<c:if test="">
+                                	<c:if test="${path == '/movie'}">
                                 		class="active"
                                 	</c:if>
                                 >
@@ -95,7 +110,7 @@
                                     </ul>
 								</li>
                                 <li
-                                	<c:if test="">
+                                	<c:if test="${path == '/event'}">
                                 		class="active"
                                 	</c:if>
                                 >
@@ -105,7 +120,11 @@
                                         <li><a href="/event/winner_info">당첨자 발표</a></li>
                                     </ul>
 								</li>
-								<li>
+								<li
+                                	<c:if test="${path == '/review'}">
+                                		class="active"
+                                	</c:if>								
+								>
 									<a href="/review/review_list">평점/리뷰</a>
 								</li>
                             </ul>

@@ -34,5 +34,19 @@ public class ReviewCommentController {
 		List<ReviewCommentVo> commentList = commentService.commentList(review_no);
 		return commentList;
 	}
+	
+	@RequestMapping(value = "/deleteComment/{comment_no}", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteComment(@PathVariable("comment_no") int comment_no){
+		boolean result = commentService.deleteComment(comment_no);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/updateComment", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateComment(ReviewCommentVo commentVo){
+		boolean result = commentService.updateComment(commentVo);
+		return String.valueOf(result);
+	}
 
 }
