@@ -25,12 +25,12 @@ public class ReviewController {
 		public String eventList(Model model) {
 			List<ReviewVo> reviewList = reviewService.list();
 			model.addAttribute("reviewList", reviewList);
-			return "/review/review_list";
+			return "review/review_list";
 		}
 	// 게시글 작성 폼
 		@RequestMapping(value = "/review_form", method = RequestMethod.GET)
 		public String writeForm() {
-			return "/review/review_form";
+			return "review/review_form";
 		}
 		
 	// 게시글 작성 
@@ -47,7 +47,7 @@ public class ReviewController {
 		public String eventRead(int review_no, Model model) {
 			ReviewVo reviewVo = reviewService.readContent(review_no);
 			model.addAttribute("reviewVo", reviewVo);
-			return "/review/review_read";
+			return "review/review_read";
 		}
 		
 	// 게시글 수정 폼
@@ -55,7 +55,7 @@ public class ReviewController {
 		public String reviewModifyForm(int review_no, Model model) {
 			ReviewVo reviewVo = reviewService.readContent(review_no);
 			model.addAttribute("reviewVo", reviewVo);
-			return "/review/review_modifyForm";
+			return "review/review_modifyForm";
 		}
 	
 	// 게시글 수정 실행
