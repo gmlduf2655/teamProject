@@ -75,10 +75,11 @@ $(document).ready(function(){
 			console.log(rData);
 			if (rData == "true") {
 				getCommentList();
+				$("#comment_content").val("");
 			}
 		});
 	});
- 	
+	
 	
  	
 	// 댓글 리스트

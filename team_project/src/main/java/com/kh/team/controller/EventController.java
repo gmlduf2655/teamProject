@@ -1,14 +1,27 @@
 package com.kh.team.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -66,6 +79,20 @@ public class EventController {
 		return "redirect:/event/event_list";
 	}
 	
+	// 썸머노트 이미지 업로드
+	@RequestMapping(value = "/uploadSummernoteImageFile", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+		
+		String uploadPath = "//192.168.0.60/boardattach";
+		String originalFilename = multipartFile.getOriginalFilename();
+		
+		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
+		System.out.println("uploadSummernoteImageFile, file:" + file);
+		return file;
+	}
+	
+	
 	// 이벤트 게시글 읽기
 	@RequestMapping(value = "/event_read", method = RequestMethod.GET)
 	public String eventRead(int event_no, Model model) {
@@ -74,16 +101,24 @@ public class EventController {
 		return "event/event_read";
 	}
 	
+	// 이벤트 게시글 수정 폼
+	@RequestMapping(value = "/event_modifyForm", method = RequestMethod.GET)
+	public String eventModifyForm(int event_no, Model model) {
+		EventVo eventVo = eventService.readContent(event_no);
+		model.addAttribute("eventVo", eventVo);
+		return "event/event_modifyForm";
+	}
+	
 	// 이벤트 게시글 수정
 	@RequestMapping(value = "/event_modify", method = RequestMethod.POST)
 	public String eventModify(EventVo eventVo, int event_no, RedirectAttributes rttr) {
 		System.out.println("EventController, eventModify, eventVo:" + eventVo);
 		boolean result = eventService.modify(eventVo);
 		rttr.addFlashAttribute("modify_result", result);
-		return "redirect:/event/event_read?event_no=" + event_no;
+		return "redirect:/event_read?event_no=" + event_no;
 	}
 	
-	// 이벤트 게시글 삭제
+	// 이벤트 게시글 삭제 
 	@RequestMapping(value = "/event_delete", method = RequestMethod.GET)
 	public String delete(int event_no, RedirectAttributes rttr) {
 		boolean result = eventService.delete(event_no);

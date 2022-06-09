@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<div class="normal__breadcrumb__text">
-					<h2>당첨자 발표 작성</h2>
+					<h2>현재 진행중</h2>
 				</div>
 			</div>
 		</div>
@@ -42,15 +42,29 @@
 <body>
 	<div class="container" style="background-color: white">
 
-		<form role="writeForm" action="/event/winner_writeRun" method="post"
+		<form role="modifyForm" action="/event/event_modify" method="post"
 			id="frmCreate" enctype="multipart/form-data">
+		<input type="hidden" name="event_no" value="${winnerVo.event_no}">
 			
-			<label for="winner_title"> 제목 </label> 
-			<input type="text" class="form-control" id="winner_title" name="winner_title" /> 
-			
-			<label>내용</label>
-			<textarea class="summernote" id="winner_content"
-				name="winner_content"></textarea>
+			<div class="form-group">
+				<label for="event_title"> 제목 </label> <input type="text"
+					class="form-control" id="event_title" name="event_title" value="${eventVo.event_title}" />
+			</div>
+
+			<div class="form-group">
+				<label for="event_end_date"> 이벤트 종료일 </label> <br>
+				<input type="date" id="event_end_date" name="event_end_date" value="${eventVo.event_end_date}">
+			</div>
+
+			<div class="form-group">
+				<label for="event_content"> 내용 </label>
+				<textarea class="summernote" id="event_content" name="event_content">${eventVo.event_content}</textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="event_image"> 이미지 업로드 </label> 
+				<input type="file" class="form-control-file" id="file" name="file" value="${eventVo.event_image}"/>
+			</div>
 
 			<button type="submit" class="btn btn-primary">저장</button>
 		</form>
