@@ -7,8 +7,10 @@
 	<!-- 댓글 등록 -->
 	
 	<insert id="insertComment">
-		insert into tbl_review_comment(comment_no, review_no, userid, comment_content)
-		values (seq_review_comment_reviewno.nextval, #{review_no}, #{userid, jdbcType=VARCHAR}, #{comment_content})
+		insert into tbl_review_comment
+			(comment_no, review_no, userid, comment_content)
+		values
+			(seq_review_comment_reviewno.nextval, #{review_no}, #{userid}, #{comment_content})
 	</insert>
 	
 	<!-- 댓글 목록 -->

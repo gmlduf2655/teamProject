@@ -27,7 +27,7 @@
 // 평점 별
 $(function(){
 		var starNum = $(".rating").data("rate");
-		console.log("starNum:", starNum);
+//		console.log("starNum:", starNum);
 		$(".make_star i").css("color", "black");
 		$(".make_star i:nth-child(-n" + starNum + ")").css("color", "orange");
 });
@@ -57,8 +57,51 @@ $(document).ready(function(){
 		frmPaging.attr("method", "get");
 		frmPaging.submit();
 	});
-});
+ 	
+ 	// Comment save
+	$("#btnCommentInsert").click(function(){
+		var comment_content = $("#comment_content").val();
+//		console.log(comment_content);
+		var userid = $("#userid").val();
+		var review_no = "${reviewVo.review_no}";
+		var sData = {
+				"comment_content" : comment_content,
+				"review_no"       : review_no,
+				"userid"          : userid
+		}
+		console.log("sData:", sData);
+		
+		var url = "/reviewComment/insertComment";
+		$.post(url, sData, function(rData) {
+			console.log(rData);
+			if (rData == "true") {
+				getCommentList();
+			}
+		});
+	});
+ 	
+	function getCommentList(){
+		var review_no = "${reviewVo.review_no}";
+		var url = "/reviewComment/commentList/" + review_no;
+		$.get(url, function(rData){
+			console.log("rData:", rData);
+// 			$("#comment_list").childen().remove();
+			
+//  			$.each(rData, function(){
+//  				var clone = $("#clone").children().clone();
+//  				var name = clone.find("h6");
+//  				var regDate = clone.find("span");
+//  				var content = clone.find("p");
+//  				name.eq(0).text(this.review_no);
+//  				regDate.eq(0).text(this.comment_reg_date);
+//  				content.eq(0).text(this.comment_content);
+ 				
+//  				$("#comment_list").append(clone);
+//			});
+		});
+	}
 
+});
 </script>
 
 <form id="frmPaging">
@@ -95,6 +138,7 @@ $(document).ready(function(){
 	
 	<br><label>내용</label>
 		<div>${reviewVo.review_content}</div>
+		
 	
 	
 	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
@@ -106,6 +150,9 @@ $(document).ready(function(){
 
 
 	</div>
+	
+<!-- 댓글 -->	
+	
 <div class="row">
 <div class="col-md-2"></div>
 
@@ -114,38 +161,45 @@ $(document).ready(function(){
 				<div class="section-title">
 					<h5>댓글</h5>
 				</div>
-				<div class="anime__review__item">
+				
+				
+				<div class="anime__review__item" style="display:none;" id="clone">
 					<div class="anime__review__item__pic">
-						<img src="img/anime/review-1.jpg" alt="">
+						<img src="img/anime/review-1.jpg">
 					</div>
 					<div class="anime__review__item__text">
-							<h6>
-								Chris Curry - <span>1 Hour ago</span>
-							</h6>
-							<p>whachikan Just noticed that someone categorized this as
-								belonging to the genre "demons" LOL</p>
-						</div>
+						<h6>
+							<span> </span>
+						</h6>
+							<p></p>
 					</div>
+				</div>
+				
+				
+				
+				<div class="anime__review__item" id="comment_list">
+					<div class="anime__review__item__pic">
+						<img src="img/anime/review-1.jpg">
+					</div>
+					<div class="anime__review__item__text">
+						<h6>
+							name -<span> reg date</span>
+						</h6>
+							<p>content</p>
+					</div>
+				</div>
 					
-					<div class="anime__review__item">
-						<div class="anime__review__item__pic">
-							<img src="img/anime/review-6.jpg" alt="">
-						</div>
-						<div class="anime__review__item__text">
-							<h6>
-								Louis Tyler - <span>20 Hour ago</span>
-							</h6>
-							<p>Where is the episode 15 ? Slow update! Tch</p>
-						</div>
-					</div>
+					
 				</div>
 				<div class="anime__details__form">
 					<div class="section-title">
 						<h5>댓글 달기</h5>
 					</div>
-					<form action="/reviewComment/insertComment" method="post">
-						<textarea name="comment_content" placeholder="댓글을 입력해 주세요"></textarea>
-						<button type="submit"><i class="fa fa-location-arrow"></i> 저장 </button>
+					<form>
+						<input type="text" id="userid" name="userid">
+						<textarea name="comment_content" id="comment_content" placeholder="댓글을 입력해 주세요"></textarea>
+						<button type="button" class="btn btn-sm btn-primary" id="btnCommentInsert">
+							<i class="fa fa-location-arrow"></i> 저장 </button>
 					</form>
 				</div>
 			</div>
