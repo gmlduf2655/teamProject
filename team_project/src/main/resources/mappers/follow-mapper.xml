@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.follow">
+	
+	<!-- 팔로우 내역 추가 -->
+	<insert id="insertFollow">
+		insert into tbl_follow
+			(followno, follower, follow)
+		values
+			(seq_follow_followno.nextval, #{follower}, #{follow})
+	</insert>
+	
+	<!-- 팔로워 수 조회 -->
+	<select id="selectFollowerNumber" resultType="Integer">
+		select count(*) from tbl_follow
+		where follower = #{follower}
+	</select>
+
+	<!-- 팔로우 수 조회 --> 
+	<select id="selectFollowNumber" resultType="Integer">
+		select count(*) from tbl_follow
+		where follow = #{follow}
+	</select>
+	
+	<!-- 팔로우 내역 삭제 -->
+	<delete id="deleteFollow">
+		delete from tbl_follow 
+		where follower = #{follower} and follow = #{follow}
+	</delete>
+	
+</mapper>

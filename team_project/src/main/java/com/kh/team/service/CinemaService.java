@@ -1,6 +1,7 @@
 package com.kh.team.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
@@ -37,16 +38,16 @@ public interface CinemaService {
 	public boolean createCinemaRoom(CinemaRoomVo cinemaRoomVo);
 	
 	// 영화관 내 상영관 리스트 조회
-	public List<CinemaRoomVo> getCinemaRoomList(int cinema_no, String order_column, String order_type); 
+	public List<Map<String, Object>> getCinemaRoomList(int cinema_no, String order_column, String order_type); 
 	
 	// 해당 영화 상영중인 상영관 리스트 / 상영관 이름, 위치로 상영관 리스트 조회
-	public List<CinemaRoomVo> getCinemaRoomList(int cinema_no, String search_column, String search_data, String order_column, String order_type); 
+	public List<Map<String, Object>> getCinemaRoomList(int cinema_no, String search_column, String search_data, String order_column, String order_type); 
 	
 	// 상영관 정보 조회
-	public CinemaRoomVo getCinemaRoom(int room_no);
+	public Map<String, Object> getCinemaRoom(int room_no);
 	
 	// 상영관 정보 수정
-	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status);
+	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status, String room_type_code);
 	
 	// 상영관 상태 변경
 	public boolean modifyCinemaRoomStatus(int room_no, boolean room_status);

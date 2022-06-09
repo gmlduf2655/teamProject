@@ -4,11 +4,6 @@
 
 <mapper namespace="com.kh.team.mappers.ticket">
 	
-	<!-- 티켓 예약번호 얻기 -->
-	<select id="getTicketUUID" resultType="string">
-		select SYS_GUID() from dual
-	</select>
-	
 	<!-- 티켓 예약하기 -->
 	<insert id="insertTicket">
 		insert into tbl_ticket(
@@ -19,7 +14,21 @@
 			ticket_regdate,
 			ticket_status
 		) values (
-			#{ticket_no},
+			<!-- 영화관 코드 -->
+			(
+				select cinema_code from tbl_cinema
+				where cinema_no in (
+					select cinema_no from tbl_room_timeline
+					where timeline_no = #{timeline_no}
+				)
+			) || '-' ||
+			<!-- 상영관 스케줄 코드 -->
+			(
+				select timeline_code from tbl_room_timeline
+				where timeline_no = #{timeline_no}
+			) || '-' ||
+			<!-- 티켓 고유 코드 -->
+			(select substr(SYS_GUID(),0,16) from dual),
 			#{user_no},
 			#{timeline_no},
 			#{seat_no},

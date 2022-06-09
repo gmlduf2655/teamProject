@@ -9,9 +9,16 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 	
 <%@ include file="/WEB-INF/views/include/daycount.jsp"%>
+<style>
+.boxoffice_rank {
+	color : white;
+}
+.active {
+	color : white;
+}
+</style>
 </head>
 <body>
-
 	<div id="releaseCont">
 		<ol class="releaseRank">
 			<c:forEach begin="0" end="9" var="i">
@@ -25,7 +32,6 @@
 
 <script type="text/javascript">
 	
-	
 	$.ajax({
 		type: "GET",
 		url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
@@ -37,14 +43,14 @@
 			console.log(data);
 			$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
 				$('#rank'+i).append("<span class=\"boxoffice_rank\">" +j.movieNm+"</span>");
-				$('#rank'+i).append("<span class=\"boxoffice_rank right rk_inten\" id=\"rk_inten"+ i +"\">"+j.rankInten+"</span>");
+				//$('#rank'+i).append("<span class=\"boxoffice_rank right rk_inten\" id=\"rk_inten"+ i +"\">"+j.rankInten+"</span>");
 				//old 일경우 이미지 new 일 경우 이미지
-				$('#rank'+i).append("<span class=\"boxoffice_rank right "+ j.rankOldAndNew +"\">"+j.rankOldAndNew +"</span>");
+				//$('#rank'+i).append("<span class=\"boxoffice_rank right "+ j.rankOldAndNew +"\">"+j.rankOldAndNew +"</span>");
 			});
-			
-			
 		}
 	});
+
 </script>
+
 </body>
 </html>

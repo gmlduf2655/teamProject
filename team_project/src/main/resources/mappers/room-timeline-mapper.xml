@@ -4,6 +4,12 @@
 
 <mapper namespace="com.kh.team.mappers.room-timeline">
 	
+	<!-- 상영관 코드 얻어내기 -->
+	<select id="selectRoomTimelineCode" resultType="String">
+		select timeline_code from tbl_room_timeline
+		where room_no = #{room_no}
+	</select>
+	
 	<!-- 상영관 별 스케줄 생성 -->
 	<insert id="insertRoomTimeline">
 		insert into tbl_room_timeline(

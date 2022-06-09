@@ -13,30 +13,44 @@ create table tbl_user(
     profileimage varchar2(100)  -- 프로필 사진
 );
 
+
+--컬럼변경--------------------------------------------
 -- 닉네임 컬럼 변경
 alter table tbl_user modify (nickname varchar2(20));
 -- 이름 컬럼 변경
 alter table tbl_user modify (username varchar2(20));
 -- 삭제유무 컬럼 변경
 alter table tbl_user modify (status char(1) default '1' check(status='1' or status='0'));
+-- 휴대폰 번호 컬럼 변경
+alter table tbl_user modify (cellphone char(13));
+
+--제약조건 삭제-----------------------------------------
 -- check(status=='T' or status=='F') 제약조건 삭제
 alter table tbl_user drop constraint SYS_C008499;
 -- cellphone 컬럼 not null 제약 조건 삭제
 alter table tbl_user drop constraint SYS_C008495;
 -- address 컬럼 not null 제약조건 삭제
 alter table tbl_user drop constraint SYS_C008496;
+-- userid 컬럼 primarykey 제약조건 삭제
+alter table tbl_user drop constraint SYS_C008500;
+-- userpw 컬럼 not null 제약조건 삭제
+-- nickname 컬럼 not null 제약조건 삭제
+
+--컬럼이름변경--------------------------------------------
 -- 삭제 유무 컬럼 이름 변경
 alter table tbl_user rename column status to user_status;
 -- 프로필 이미지 컬럼 이름 변경
 alter table tbl_user rename column profileimage to profile_image;
 -- 등록일 컬럼 이름 변경
 alter table tbl_user rename column regdate to reg_date;
+
+--제약조건추가---------------------------------------
 -- 닉네임 컬럼 unique 제약조건 추가
 alter table tbl_user modify (nickname varchar2(20) unique);
--- userid 컬럼 primarykey 제약조건 삭제
-alter table tbl_user drop constraint SYS_C008500;
 -- userid 컬럼 unique 제약조건 추가
 alter table tbl_user modify (userid varchar2(20) unique);
+
+--컬럼추가-------------------------------------------
 -- 회원정보 수정일 컬럼 추가
 alter table add (mod_date date);
 -- 유저 넘버 컬럼 추가
@@ -49,5 +63,3 @@ alter table tbl_user add (sns_type varchar2(10));
 alter table tbl_user add (sns_connect_date date);
 -- userno sequence 생성
 create sequence seq_user_userno;
--- 휴대폰 번호 컬럼 변경
-alter table tbl_user modify (cellphone char(13));

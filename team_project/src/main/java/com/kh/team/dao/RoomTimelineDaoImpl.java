@@ -17,6 +17,12 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// 상영관 코드 얻어내기
+	public String selectRoomTimelineCode(int room_no) {
+		String timeline_code = sqlSession.selectOne(NAMESPACE + "selectRoomTimelineCode", room_no);
+		return timeline_code;
+	};
+	
 	// 상영관 별 스케줄 생성
 	@Override
 	public boolean insertRoomTimeline(

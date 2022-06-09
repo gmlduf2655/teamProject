@@ -18,6 +18,13 @@ public class TestRoomTimelineDao {
 	@Autowired
 	private RoomTimelineDao roomTimelineDao;
 	
+	// 상영관 코드 얻어내기 테스트
+	@Test
+	public void selectRoomTimelineCodeTest() {
+		String timeline_code = roomTimelineDao.selectRoomTimelineCode(1);
+		System.out.println(timeline_code);
+	}
+	
 	// 상영관 스케줄 생성
 	@Test
 	public void insertRoomTimelineTest() {

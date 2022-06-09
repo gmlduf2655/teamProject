@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 
 	// 영화관 내 상영관 리스트 조회
 	@Override
-	public List<CinemaRoomVo> selectCinemaRoomList(
+	public List<Map<String, Object>> selectCinemaRoomList(
 				int cinema_no,
 				String order_column,
 				String order_type
@@ -40,13 +41,13 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		parameter.put("cinema_no", cinema_no);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
-		List<CinemaRoomVo> cinemaRoomList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
+		List<Map<String, Object>> cinemaRoomList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
 		return cinemaRoomList;
 	}
 
 	// 해당 영화 상영중인 상영관 리스트 / 상영관 이름, 위치로 상영관 리스트 조회
 	@Override
-	public List<CinemaRoomVo> selectCinemaRoomList(
+	public List<Map<String, Object>> selectCinemaRoomList(
 				int cinema_no, 
 				String search_column, 
 				String search_data,
@@ -59,14 +60,30 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		parameter.put("search_data", search_data);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
-		List<CinemaRoomVo> cinemaRoomList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
+		List<Map<String, Object>> tempList = sqlSession.selectList(NAMESPACE + "selectCinemaRoomList", parameter);
+		List<Map<String, Object>> cinemaRoomList = new ArrayList<>();
+		for (Map<String, Object> map : tempList) {
+			Map<String, Object> cinemaRoomMap = new HashMap<>();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String keys = entry.getKey().toLowerCase();
+				Object values = entry.getValue();
+				cinemaRoomMap.put(keys, values);
+			}
+			cinemaRoomList.add(cinemaRoomMap);
+		}
 		return cinemaRoomList;
 	}
 
 	// 상영관 정보 조회
 	@Override
-	public CinemaRoomVo selectCinemaRoom(int room_no) {
-		CinemaRoomVo cinemaRoomVo = sqlSession.selectOne(NAMESPACE + "selectCinemaRoom", room_no);
+	public Map<String, Object> selectCinemaRoom(int room_no) {
+		Map<String, Object> tempVo = sqlSession.selectOne(NAMESPACE + "selectCinemaRoom", room_no);
+		Map<String, Object> cinemaRoomVo = new HashMap<>();
+		for (Map.Entry<String, Object> entry : tempVo.entrySet()) {
+			String keys = entry.getKey().toLowerCase();
+			Object values = entry.getValue();
+			cinemaRoomVo.put(keys, values);
+		}
 		return cinemaRoomVo;
 	}
 
@@ -74,6 +91,7 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 	@Override
 	public boolean updateCinemaRoomInfo(
 				int room_no,
+				String room_type_code,
 				String room_name,
 				String room_floor,
 				String room_begin_time,
@@ -87,6 +105,7 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		parameter.put("room_begin_time", room_begin_time);
 		parameter.put("room_finish_time", room_finish_time);
 		parameter.put("room_status", room_status);
+		parameter.put("room_type_code", room_type_code);
 		int count = sqlSession.update(NAMESPACE + "updateCinemaRoomInfo", parameter);
 		if (count > 0) {
 			return true;

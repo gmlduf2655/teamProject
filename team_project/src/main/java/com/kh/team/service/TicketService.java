@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.team.vo.TicketVo;
 
 public interface TicketService {
-
+	
 	// 예매하기
 	public boolean createTicket(TicketVo ticketVo);
 	

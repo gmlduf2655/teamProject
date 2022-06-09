@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kh.team.dao.CinemaDao;
+import com.kh.team.dao.RoomTimelineDao;
 import com.kh.team.dao.TicketDao;
 import com.kh.team.vo.TicketVo;
 
@@ -19,17 +21,22 @@ public class TestTicketDao {
 	@Autowired
 	private TicketDao ticketDao;
 	
+	@Test
+	public void selectTicketCode() {
+		String ticketCode = ticketDao.selectTicketCode();
+		System.out.println(ticketCode);
+	}
+	
 	// 티켓 예약하기 테스트
 	@Test
 	public void insertTicketTest() {
 		
-		String ticket_no		= ticketDao.getTicketUUID();
 		int user_no				= 1;
 		int timeline_no			= 2;
 		int seat_no				= 1;
 		boolean ticket_status	= false;
 		
-		TicketVo ticketVo = new TicketVo(ticket_no, user_no, timeline_no, seat_no, ticket_status);
+		TicketVo ticketVo = new TicketVo(user_no, timeline_no, seat_no, ticket_status);
 		
 		boolean result = ticketDao.insertTicket(ticketVo);
 		System.out.println("insertTicketTest, result : " + result);
@@ -62,8 +69,8 @@ public class TestTicketDao {
 	@Test
 	public void updateTicketStatusTest() {
 		
-		String ticket_no		= "1234";
-		boolean ticket_status	= false;
+		String ticket_no		= "19A584CE82DB4F5C82792D4F07D154B7";
+		boolean ticket_status	= true;
 		
 		boolean result = ticketDao.updateTicketStatus(ticket_no, ticket_status);
 		System.out.println(result);

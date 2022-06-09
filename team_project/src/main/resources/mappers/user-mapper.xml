@@ -88,13 +88,20 @@
 		update tbl_user set
 			userpw = #{userpw},
 			mod_date = sysdate
-		where userid= #{userid}
+		where userid = #{userid}
 	</update>
 	
+	<!-- 유저 포인트 수정 -->
+	<update id="updateUserPoint">
+		update tbl_user set
+			point = point + #{point}
+		where userno = #{userno}
+	</update>
+		
 	<!-- 유저 삭제 -->
 	<update id="deleteUser">
 		update tbl_user 
 			set user_status='0'
-		where userid = #{userid}
+		where userno = #{userno}
 	</update>
 </mapper>

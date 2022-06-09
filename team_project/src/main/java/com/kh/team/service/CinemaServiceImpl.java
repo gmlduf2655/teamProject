@@ -1,6 +1,7 @@
 package com.kh.team.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,26 +74,26 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
-	public List<CinemaRoomVo> getCinemaRoomList(int cinema_no, String order_column, String order_type) {
-		List<CinemaRoomVo> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, order_column, order_type);
+	public List<Map<String, Object>> getCinemaRoomList(int cinema_no, String order_column, String order_type) {
+		List<Map<String, Object>> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, order_column, order_type);
 		return cinemaRoomList;
 	}
 
 	@Override
-	public List<CinemaRoomVo> getCinemaRoomList(int cinema_no, String search_column, String search_data, String order_column, String order_type) {
-		List<CinemaRoomVo> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, search_column, search_data, order_column, order_type);
+	public List<Map<String, Object>> getCinemaRoomList(int cinema_no, String search_column, String search_data, String order_column, String order_type) {
+		List<Map<String, Object>> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, search_column, search_data, order_column, order_type);
 		return cinemaRoomList;
 	}
 
 	@Override
-	public CinemaRoomVo getCinemaRoom(int room_no) {
-		CinemaRoomVo cinemaRoomVo = cinemaRoomDao.selectCinemaRoom(room_no);
+	public Map<String, Object> getCinemaRoom(int room_no) {
+		Map<String, Object> cinemaRoomVo = cinemaRoomDao.selectCinemaRoom(room_no);
 		return cinemaRoomVo;
 	}
 
 	@Override
-	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status) {
-		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_name, room_floor, room_begin_time, room_finish_time, room_status);
+	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status, String room_type_code) {
+		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_type_code, room_name, room_floor, room_begin_time, room_finish_time, room_status);
 		return result;
 	}
 

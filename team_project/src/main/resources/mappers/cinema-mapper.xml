@@ -23,6 +23,13 @@
 		)
 	</insert>
 	
+	<!-- 영화관 코드 얻어내기 -->
+	<select id="selectCinemaCode" resultType="String">
+		select cinema_code from tbl_cinema
+		where cinema_no = #{cinema_no}
+	</select>
+	
+	
 	<!-- 영화관 리스트 조회 (지역별, 영화별) -->
 	<select id="selectCinemaList" resultType="CinemaVo">
 		select * from tbl_cinema

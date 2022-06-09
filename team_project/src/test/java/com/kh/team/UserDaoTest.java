@@ -94,11 +94,19 @@ public class UserDaoTest {
 		System.out.println("UserDaoTest, testUpdateUser, result : " + result);		
 	}
 	
-	@Test
 	// 유저 비밀번호 수정 테스트
+	@Test
 	public void testUpdateUserpw() {
 		boolean result = userDao.updateUserpw("user01", "1234");
 		System.out.println("UserDaoTest, testUpdateUserpw, result : " + result);
+	}
+	
+	// 유저 포인트 수정 테스트	
+	@Test
+	public void testUpdateUserPoint() {
+		UserVo userVo = userDao.selectUserById("user01");
+		boolean result = userDao.updateUserPoint(10, userVo.getUserno());
+		System.out.println("UserDaoTest, testUpdateUserPoint, result : " + result);		
 	}
 	
 	// 유저 정보 삭제 테스트
