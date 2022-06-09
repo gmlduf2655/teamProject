@@ -10,17 +10,19 @@
 			</div>
 			<div class="product__sidebar__comment__item">
 				<div class="product__sidebar__comment__item__pic">
+					<!-- 임희열 : 로그인을 하지않았을 때 빈 프로필 사진을 보여줌 -->
+                    <!-- 임희열 : 로그인을 했을 때  기존회원이면 C:/에서 프로필 사진을 가져오고 간편로그인 회원이면 Url을 통해서 프로필 사진을 가져옴-->
 					<c:choose>
                         <c:when test="${empty loginUserVo.profile_image}" >
-                        	<img src="/resources/images/no_image.jpg" alt="프로필 사진" style="width:90px; height:130px;">
+                        	<img src="/resources/images/no_image.jpg" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
                         </c:when>
                         <c:otherwise>
                         	<c:choose>
 		                        <c:when test="${empty loginUserVo.sns_type}">
-		                        	<img src="/user/get_profile_image?filename=${loginUserVo.profile_image}" alt="프로필 사진" style="width:90px; height:130px;">
+		                        	<img src="/user/get_profile_image?filename=${loginUserVo.profile_image}" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
 		                        </c:when>
 		                        <c:otherwise>
-		                        	<img src="${loginUserVo.profile_image}" alt="프로필 사진" style="width:90px; height:130px;">
+		                        	<img src="${loginUserVo.profile_image}" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
 		                        </c:otherwise>
 		                	</c:choose>
                         </c:otherwise>
@@ -32,26 +34,26 @@
 						<li>Movie</li>
 					</ul>
 					<h5>
+						<!-- 임희열 : 로그인 했을 때와 로그인 하지 않았을 떄의 메세지를 다르게 표시하였음 -->
 						<c:choose>
 							<c:when test="${empty loginUserVo}">
-								<a href="#">비회원님 환영합니다</a><br>
+								<a href="/user/login_form">비회원님 환영합니다</a><br>
 							</c:when>
 							<c:otherwise>
-								<a href="#">
-								<c:choose>
-									<c:when test="${empty loginUserVo}">
-									</c:when>
-									<c:otherwise>
-									</c:otherwise>
-								</c:choose>
-								${loginUserVo.userid}(${loginUserVo.nickname})님
-								
+								<a href="/user/mypage">
+									<c:choose>
+										<c:when test="${not empty loginUserVo.sns_type}">
+											${loginUserVo.userid}님
+										</c:when>
+										<c:otherwise>
+											${loginUserVo.userid}(${loginUserVo.nickname})님
+										</c:otherwise>
+									</c:choose>
 								</a><br>
-								<a href="#">환영합니다</a><br>
-								<a href="#">포인트 : ${loginUserVo.point}점</a>
+								<a href="/user/mypage">환영합니다</a><br>
+								<a href="/user/mypage">포인트 : ${loginUserVo.point}점</a>
 							</c:otherwise>
 						</c:choose>
-						<!-- 임희열 : 로그인 되어있는 상태를 확인하기 위해 임시로 작성 -->
 					</h5>
 				</div>
 			</div>

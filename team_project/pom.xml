@@ -14,11 +14,6 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>	
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context-support</artifactId>
-    <version>4.1.7.RELEASE</version>
-</dependency>
 		<!-- 임희열 : 네이버 로그인에 필요한 것 추가 -->
 		<!-- scribejava-core -->
 		<dependency>

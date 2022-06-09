@@ -90,7 +90,7 @@
             </div>
             <div class="login__social">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-lg-6" style="justify-content:center;">
+                    <div class="col-lg-6">
                         <div class="login__social__links">
                             <ul>
 <!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
