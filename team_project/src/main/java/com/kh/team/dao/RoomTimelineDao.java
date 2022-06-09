@@ -6,6 +6,9 @@ import com.kh.team.vo.RoomTimelineVo;
 
 public interface RoomTimelineDao {
 	
+	// 상영관 코드 얻어내기
+	public String selectRoomTimelineCode(int room_no);
+	
 	// 상영관 별 스케줄 생성
 	public boolean insertRoomTimeline(
 				RoomTimelineVo roomTimelineVo

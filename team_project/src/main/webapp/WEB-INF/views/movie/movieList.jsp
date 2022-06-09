@@ -39,7 +39,7 @@ $.ajax({
 			console.log("j",j);
 			/* audiAcc = j.audiAcc;
 			$("#audiAcc").val(audiAcc); */
-		});r4
+		});
 		
 		
 	}

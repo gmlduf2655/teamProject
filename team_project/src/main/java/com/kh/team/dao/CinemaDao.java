@@ -12,6 +12,9 @@ public interface CinemaDao {
 				CinemaVo cinemaVo
 			);
 	
+	// 영화관 코드 얻어내기
+	public String selectCinemaCode(int cinema_no);
+	
 	// 영화관 리스트 조회 (전체 조회)
 	public List<CinemaVo> selectCinemaList(
 			String order_column,

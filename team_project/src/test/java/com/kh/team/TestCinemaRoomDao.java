@@ -1,6 +1,7 @@
 package com.kh.team;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +23,14 @@ public class TestCinemaRoomDao {
 	public void insertCinemaRoomTest() {
 		
 		int cinema_no			= 4;
+		String room_type_code	= "01";
 		String room_name		= "상영관 4";
 		String room_floor		= "5층";
 		String room_begin_time	= "00:00";
 		String room_finish_time	= "12:50";
 		boolean room_status		= false;
 		
-		CinemaRoomVo cinemaRoomVo = new CinemaRoomVo(cinema_no, room_name, room_floor, room_begin_time, room_finish_time, room_status); 
+		CinemaRoomVo cinemaRoomVo = new CinemaRoomVo(cinema_no, room_type_code, room_name, room_floor, room_begin_time, room_finish_time, room_status); 
 		boolean result = cinemaRoomDao.insertCinemaRoom(cinemaRoomVo);
 		System.out.println(result);
 	}
@@ -44,7 +46,7 @@ public class TestCinemaRoomDao {
 		String order_type		= "asc";
 		
 //		List<CinemaRoomVo> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, order_column, order_type);
-		List<CinemaRoomVo> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, search_column, search_data, order_column, order_type);
+		List<Map<String, Object>> cinemaRoomList = cinemaRoomDao.selectCinemaRoomList(cinema_no, search_column, search_data, order_column, order_type);
 		
 //		for (CinemaRoomVo vo : cinemaRoomList) {
 //			System.out.println("cinemaList : " + vo);
@@ -58,7 +60,7 @@ public class TestCinemaRoomDao {
 		
 		int room_no = 1;
 		
-		CinemaRoomVo cinemaRoomVo = cinemaRoomDao.selectCinemaRoom(room_no);
+		Map<String, Object> cinemaRoomVo = cinemaRoomDao.selectCinemaRoom(room_no);
 		System.out.println(cinemaRoomVo);
 	}
 	
@@ -67,13 +69,14 @@ public class TestCinemaRoomDao {
 	public void updateCinemaRoomInfoTest() {
 		
 		int room_no				= 1;
+		String room_type_code	= "01";
 		String room_name		= "상영관 수정 1";
 		String room_floor		= "22층";
 		String room_begin_time	= "20:50";
 		String room_finish_time	= "00:50";
 		boolean room_status		= true;
 		
-		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_name, room_floor, room_begin_time, room_finish_time, room_status);
+		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_type_code, room_name, room_floor, room_begin_time, room_finish_time, room_status);
 		System.err.println("updateCinemaRoomInfo, result : " + result);
 		
 	}

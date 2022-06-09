@@ -27,6 +27,12 @@ public class CinemaDaoImpl implements CinemaDao {
 		return false;
 	}
 
+	// 영화관 코드 얻어내기
+	public String selectCinemaCode(int cinema_no) {
+		String cinema_code = sqlSession.selectOne(NAMESPACE + "selectCinemaCode", cinema_no);
+		return cinema_code;
+	};
+	
 	// 영화관 리스트 조회 (전체 조회)
 	public List<CinemaVo> selectCinemaList(String order_column, String order_type) {
 

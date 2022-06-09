@@ -21,7 +21,7 @@ public class TicketDaoImpl implements TicketDao {
 	private SqlSession sqlSession;
 
 	// 티켓 예약 번호 얻기
-	public String getTicketUUID() {
+	public String selectTicketCode() {
 		String uuid = sqlSession.selectOne(NAMESPACE + "getTicketUUID");
 		return uuid;
 	}
@@ -70,7 +70,13 @@ public class TicketDaoImpl implements TicketDao {
 //		Map<String, Object> ticketInfo = objectMapper.convertValue(sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no), Map.class);
 //		return ticketInfo;
 
-		Map<String, Object> ticketInfo = sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no);
+		Map<String, Object> tempList = sqlSession.selectOne(NAMESPACE + "selectTicket", ticket_no);
+		Map<String, Object> ticketInfo = new HashMap<>();
+		for (Map.Entry<String, Object> entry : tempList.entrySet()) {
+			String keys = entry.getKey().toLowerCase();
+			Object values = entry.getValue();
+			ticketInfo.put(keys, values);
+		}
 		return ticketInfo;
 	}
 

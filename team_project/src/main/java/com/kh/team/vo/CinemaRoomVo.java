@@ -12,16 +12,18 @@ public class CinemaRoomVo {
 	private Date room_regdate;
 	private Date room_chgdate;
 	private boolean room_status;
+	private String room_type_code;
 
 	public CinemaRoomVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CinemaRoomVo(int cinema_no, String room_name, String room_floor, String room_begin_time,
+	public CinemaRoomVo(int cinema_no, String room_type_code, String room_name, String room_floor, String room_begin_time,
 			String room_finish_time, boolean room_status) {
 		super();
 		this.cinema_no = cinema_no;
+		this.room_type_code = room_type_code;
 		this.room_name = room_name;
 		this.room_floor = room_floor;
 		this.room_begin_time = room_begin_time;
@@ -101,12 +103,20 @@ public class CinemaRoomVo {
 		this.room_status = room_status;
 	}
 
+	public String getRoom_type_no() {
+		return room_type_code;
+	}
+
+	public void setRoom_type_no(String room_type_no) {
+		this.room_type_code = room_type_no;
+	}
+
 	@Override
 	public String toString() {
 		return "CinemaRoomVo [room_no=" + room_no + ", cinema_no=" + cinema_no + ", room_name=" + room_name
 				+ ", room_floor=" + room_floor + ", room_begin_time=" + room_begin_time + ", room_finish_time="
 				+ room_finish_time + ", room_regdate=" + room_regdate + ", room_chgdate=" + room_chgdate
-				+ ", room_status=" + room_status + "]";
+				+ ", room_status=" + room_status + ", room_type_code=" + room_type_code + "]";
 	}
 
 }

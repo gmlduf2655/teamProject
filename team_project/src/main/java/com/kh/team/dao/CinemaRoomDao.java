@@ -1,6 +1,7 @@
 package com.kh.team.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.team.vo.CinemaRoomVo;
 
@@ -11,17 +12,18 @@ public interface CinemaRoomDao {
 	public boolean insertCinemaRoom(CinemaRoomVo cinemaRoomVo);
 	
 	// 영화관 내 상영관 리스트 조회
-	public List<CinemaRoomVo> selectCinemaRoomList(int cinema_no, String order_column, String order_type);
+	public List<Map<String, Object>> selectCinemaRoomList(int cinema_no, String order_column, String order_type);
 	
 	// 해당 영화 상영중인 상영관 리스트 / 상영관 이름으로 상영관 리스트 조회
-	public List<CinemaRoomVo> selectCinemaRoomList(int cinema_no, String search_column, String search_data, String order_column, String order_type);
+	public List<Map<String, Object>> selectCinemaRoomList(int cinema_no, String order_type, String search_column, String search_data, String order_column);
 	
 	// 상영관 정보 조회
-	public CinemaRoomVo selectCinemaRoom(int room_no);
+	public Map<String, Object> selectCinemaRoom(int room_no);
 	
 	// 상영관 정보 수정
 	public boolean updateCinemaRoomInfo(
 			int room_no,
+			String room_type_code,
 			String room_name,
 			String room_floor,
 			String room_begin_time,

@@ -29,9 +29,11 @@ public class MovieController {
 	
 	@RequestMapping(value="/movieList", method = RequestMethod.GET)
 	public String movieList(Model model) {
-		System.out.println("movieList");
 		List<MovieVo> list = movieService.movieList();
+//		System.out.println("movieList : " + list);
+		
 		model.addAttribute("list", list);
+		
 		return "movie/movieList";
 	}
 	
