@@ -22,7 +22,6 @@
 
 
 
-
 <script>
 // 평점 별
 $(function(){
@@ -80,24 +79,26 @@ $(document).ready(function(){
 		});
 	});
  	
+	getCommentList();
+ 	
 	function getCommentList(){
 		var review_no = "${reviewVo.review_no}";
 		var url = "/reviewComment/commentList/" + review_no;
 		$.get(url, function(rData){
 			console.log("rData:", rData);
-// 			$("#comment_list").childen().remove();
+ 			$("#comment_list").children().remove();
 			
-//  			$.each(rData, function(){
-//  				var clone = $("#clone").children().clone();
-//  				var name = clone.find("h6");
-//  				var regDate = clone.find("span");
-//  				var content = clone.find("p");
-//  				name.eq(0).text(this.review_no);
-//  				regDate.eq(0).text(this.comment_reg_date);
-//  				content.eq(0).text(this.comment_content);
+  			$.each(rData, function(){
+  				var clone = $("#clone").children().clone();
+  				var name = clone.find("h6");
+  				var regDate = clone.find("span");
+  				var content = clone.find("p");
+  				name.text(this.userid);
+  				regDate.text(this.comment_reg_date);
+  				content.text(this.comment_content);
  				
-//  				$("#comment_list").append(clone);
-//			});
+  				$("#comment_list").append(clone);
+			});
 		});
 	}
 
@@ -162,8 +163,8 @@ $(document).ready(function(){
 					<h5>댓글</h5>
 				</div>
 				
-				
-				<div class="anime__review__item" style="display:none;" id="clone">
+				<!-- clone table -->
+				<div class="anime__review__item" style="display:none;" id="clone" >
 					<div class="anime__review__item__pic">
 						<img src="img/anime/review-1.jpg">
 					</div>
