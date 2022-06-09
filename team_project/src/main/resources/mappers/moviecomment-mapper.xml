@@ -7,8 +7,9 @@
 	
 	<!-- 유수연 영화별 코멘트 입력  -->
 	<insert id="commentInsert">
-		insert into tbl_movie_comment(cno, movie_code, userid, movie_comment)
-		values(seq_movie_comment_cno.nextval, #{movie_code}, #{userid}, #{movie_comment, jdbcType=VARCHAR})
+		insert into tbl_movie_comment(cno, movie_code, userid, movie_comment,profile_image)
+		values(seq_movie_comment_cno.nextval, #{movie_code}, #{userid},
+				 #{movie_comment, jdbcType=VARCHAR}, #{profile_image, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 유수연 영화별 코멘트 리스트  -->

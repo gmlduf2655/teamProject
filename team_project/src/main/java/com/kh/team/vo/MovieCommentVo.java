@@ -8,6 +8,7 @@ public class MovieCommentVo {
 	private String userid;
 	private String movie_comment;
 	private Date regdate;
+	private String profile_image;
 	
 	
 	public MovieCommentVo() {
@@ -33,6 +34,15 @@ public class MovieCommentVo {
 	}
 
 	
+
+	public MovieCommentVo(String movie_code, String userid, String movie_comment, String profile_image) {
+		super();
+		this.movie_code = movie_code;
+		this.userid = userid;
+		this.movie_comment = movie_comment;
+		this.profile_image = profile_image;
+	}
+
 
 	public MovieCommentVo(int cno, String movie_code, String userid, String movie_comment) {
 		super();
@@ -93,11 +103,23 @@ public class MovieCommentVo {
 	}
 
 
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
+
 	@Override
 	public String toString() {
 		return "MovieCommentVo [cno=" + cno + ", movie_code=" + movie_code + ", userid=" + userid + ", movie_comment="
-				+ movie_comment + ", regdate=" + regdate + "]";
+				+ movie_comment + ", regdate=" + regdate + ", profile_image=" + profile_image + "]";
 	}
+
+
 	
 	
 }
