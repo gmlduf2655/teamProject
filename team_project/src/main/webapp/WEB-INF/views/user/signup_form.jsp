@@ -203,7 +203,7 @@
     <section class="signup spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="login__form">
                         <h3>회원가입</h3>
                         <form action="/user/signup_run" method="post" id="signup_form" enctype="multipart/form-data">
@@ -269,22 +269,22 @@
                         <h5>이미 계정이 있으신가요? <a href="/user/login_form">로그인하기</a></h5>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="login__social__links">
-                        <h3>Login With:</h3>
-                        <ul>
-<!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
-<!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->
-                        	<li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li>
-                        	<li>
-                                <a id="naverIdLogin_loginButton" href="javascript:void(0)" class="twitter" style="background:#03C75A;"> <!-- #2DB400 -->
-                                	<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;">
-                                	네이버로 로그인하기
-                                </a>
-                       		</li>
-                       </ul>
-                    </div>
-                </div>
+<!--                 <div class="col-lg-6"> -->
+<!--                     <div class="login__social__links"> -->
+<!--                         <h3>Login With:</h3> -->
+<!--                         <ul> -->
+<!-- <!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> --> -->
+<!-- <!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> --> -->
+<!--                         	<li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li> -->
+<!--                         	<li> -->
+<!--                                 <a id="naverIdLogin_loginButton" href="javascript:void(0)" class="twitter" style="background:#03C75A;"> #2DB400 -->
+<!--                                 	<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;"> -->
+<!--                                 	네이버로 로그인하기 -->
+<!--                                 </a> -->
+<!--                        		</li> -->
+<!--                        </ul> -->
+<!--                     </div> -->
+<!--                 </div> -->
             </div>
         </div>
     </section>

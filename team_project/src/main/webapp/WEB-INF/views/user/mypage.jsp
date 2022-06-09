@@ -121,7 +121,8 @@
 		                        		<!-- 기존회원 : C:/에 있는 폴더에서 사진을 받아옴 -->
 		                        		<c:choose>
 				                        	<c:when test="${empty loginUserVo.sns_type}">
-				                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" src="/user/get_profile_image?filename=${loginUserVo.profile_image}" style="width:300px;">
+				                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" 
+				                        		src="/user/get_profile_image?filename=${loginUserVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
 				                        	</c:when>
 				                        	<c:otherwise>
 				                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" src="${loginUserVo.profile_image}" style="width:300px;">
@@ -180,7 +181,7 @@
             <hr>
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-12">
-					<h3>포인트 내역</h3>
+					<h3><a href="/point/point_list?userno=1&userid=user01" style="color:white;">포인트 내역</a></h3>
             	</div>
             </div>
             <hr>

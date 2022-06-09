@@ -29,7 +29,7 @@
 	
 	<!-- 아이디로 포인트 목록조회 -->
 	<select id="selectPointListByUserno" resultType="PointVo">
-		select pointno, a.point, userno, b.point_code, b.point_name, b.point_desc
+		select pointno, a.point, userno, point_date, b.point_code, b.point_name, b.point_desc
 		from tbl_point a, tbl_point_code b
 		where a.point_code = b.point_code
 		and a.userno = #{userno}		
@@ -37,7 +37,7 @@
 	
 	<!-- 포인트 코드로 포인트 목록조회 -->
 	<select id="selectPointListByPointCode" resultType="PointVo">
-		select pointno, a.point, userno, b.point_code, b.point_name, b.point_desc
+		select pointno, a.point, userno, point_date, b.point_code, b.point_name, b.point_desc
 		from tbl_point a, tbl_point_code b
 		where a.point_code = b.point_code
 		and a.point_code = #{point_code}		
@@ -45,7 +45,7 @@
 
 	<!--  포인트 번호로 포인트 내역조회 -->
 	<select id="selectPointByPointno" resultType="PointVo">
-		select pointno, a.point, userno, b.point_code, b.point_name, b.point_desc
+		select pointno, a.point, userno, point_date, b.point_code, b.point_name, b.point_desc
 		from tbl_point a, tbl_point_code b
 		where a.point_code = b.point_code
 		and a.pointno = #{pointno}		
