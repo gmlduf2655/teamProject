@@ -158,7 +158,7 @@ public class UserController {
 	@RequestMapping(value="/get_profile_image", method=RequestMethod.GET)
 	@ResponseBody
 	public byte[] getProfileImage(String filename) throws IOException {
-		FileInputStream fis = new FileInputStream(MyFileUploader.C_DRIVER + filename);
+		FileInputStream fis = new FileInputStream(MyFileUploader.MY_IP + filename);
 		byte[] data = IOUtils.toByteArray(fis);
 		fis.close();
 		return data;
