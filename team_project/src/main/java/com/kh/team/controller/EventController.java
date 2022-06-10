@@ -69,7 +69,7 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		if(originalFilename != null) {
-			String event_image = EventFileUploader.uploadFile("//192.168.0.60/boardattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
@@ -84,7 +84,7 @@ public class EventController {
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 		
-		String uploadPath = "//192.168.0.60/boardattach";
+		String uploadPath = "//192.168.0.62/boardattach";
 		String originalFilename = multipartFile.getOriginalFilename();
 		
 		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());

@@ -240,12 +240,17 @@ $(document).ready(function(){
 						<h6> </h6>
 						<span style="color: white;"> </span>
 							<p></p>
+							
+						
+							
 							<button type="button"
 							class="btn btn-sm btn-warning btnCommentModify">수정</button>
 							<button type="button" class="btn btn-sm btn-success btnCommentModifyRun" 
 							style="display:none">수정완료</button>
 							<button type="button"
 							class="btn btn-sm btn-danger btnCommentDelete">삭제</button>
+							
+							
 					</div>
 					<br>
 				</div>

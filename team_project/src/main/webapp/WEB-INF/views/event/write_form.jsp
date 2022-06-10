@@ -8,7 +8,6 @@
 
 
 
-
 <!-- Normal Breadcrumb Begin -->
 <section class="normal-breadcrumb set-bg"
 	data-setbg="/resources/images/img/normal-breadcrumb.jpg">
@@ -58,14 +57,19 @@
 			</div>
 
 			<div class="form-group">
+				<label for="event_image" id="event_image"> 대표 이미지 업로드 </label> 
+				<input type="file" class="form-control-file" id="file" name="file"/>
+				<img id="preview" src="/resources/images/no_image.jpg" width="200px"><br>
+                <a id="image_delete">사진 삭제 <b style="color:red;font-size:30px;">&times;</b></a>
+			</div>
+
+
+			<div class="form-group">
 				<label for="event_content"> 내용 </label>
 				<textarea class="summernote" id="event_content" name="event_content"></textarea>
 			</div>
 
-			<div class="form-group">
-				<label for="event_image"> 이미지 업로드 </label> 
-				<input type="file" class="form-control-file" id="file" name="file" />
-			</div>
+			
 
 			<button type="submit" class="btn btn-primary">저장</button>
 		</form>
@@ -81,7 +85,7 @@ $('.summernote').summernote({
 	  height: 350,
 	  // 에디터 한글 설정
 	  lang: "ko-KR",
-	  // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
+	  // 에디터에 커서 이동 
 	  focus : true,
 	  toolbar: [
 		    // 글꼴 설정
@@ -128,6 +132,22 @@ function uploadSummernoteImageFile(file) {
  		}
 	});
 }
+// 대표 이미지 미리보기
+$(function() {
+    $("#file").on("change", function(){
+    readURL(this);
+    });
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        $("#preview").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 </script>
 
 <!-- footer -->
