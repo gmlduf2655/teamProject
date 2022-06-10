@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- 임희열 : 헤더 메뉴 부분에서 현재 있는 메뉴를 보여주기 위해 사용 -->
+<!-- 현재 request 경로를 얻어오고 그 중에서 "/user", "/movie", "/event" 등등의 경로만 
+	 path라는 변수로 잘라와서 path으로 현재 있는 메뉴를 알 수 있게함 -->
 <%
 	String uri = request.getRequestURI();
 	int index1 = uri.indexOf("/", "/WEB-INF/views/".length()-1);
@@ -142,7 +145,7 @@
                         		 href="/user/login_form"
                         	</c:when>
                         	<c:otherwise>
-                        		href="/user/mypage"
+                        		href="/user/mypage?userno=${loginUserVo.userno}"
                         	</c:otherwise>
                         </c:choose>
                         

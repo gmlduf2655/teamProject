@@ -62,10 +62,10 @@ public interface CinemaService {
 	public boolean createRoomTimeline(RoomTimelineVo roomTimelineVo);
 
 	// 상영 스케줄 리스트 조회
-	public List<RoomTimelineVo> getRoomTimelineList(int room_no, String order_column, String order_type);
+	public List<Map<String, Object>> getRoomTimelineList(int room_no, String order_column, String order_type);
 	
 	// 상영 스케줄 리스트 조회
-	public List<RoomTimelineVo> getRoomTimelineList(int cinema_no, String search_column, Object search_data, String order_column, String order_type);
+	public List<Map<String, Object>> getRoomTimelineList(int cinema_no, String search_column, Object search_data, String order_column, String order_type);
 	
 	// 상영 스케줄 정보 조회
 	public RoomTimelineVo getRoomTimeline(int timeline_no);

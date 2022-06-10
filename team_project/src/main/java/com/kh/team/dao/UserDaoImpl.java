@@ -43,7 +43,13 @@ public class UserDaoImpl implements UserDao {
 		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserById", userid);
 		return userVo;
 	}
-	
+
+	// 유저번호로 회원 조회
+	@Override
+	public UserVo selectUserByUserno(int userno) {
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByUserno", userno);
+		return userVo;
+	}	
 	// 아이디, 비밀번호로 회원 조회
 	@Override
 	public UserVo selectUserByIdAndPwd(String userid, String userpw) {

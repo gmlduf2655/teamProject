@@ -47,6 +47,13 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testGetUserInfo, userVo : " + userVo);
 	}
 	
+	// 유저번호로 회원정보 조회 테스트
+	@Test
+	public void testGetUserInfoByUserno() {
+		UserVo userVo = userService.getUserInfoByUserno(1);
+		System.out.println("UserServiceTest, testGetUserInfoByUserno, userVo : " + userVo);		
+	}
+	
 	// 회원 목록 조회 테스트
 	@Test
 	public void testGetUserList() {

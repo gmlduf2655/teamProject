@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 
 	// 상영관별 스케줄 리스트 조회
 	@Override
-	public List<RoomTimelineVo> selectRoomTimelineList(
+	public List<Map<String, Object>> selectRoomTimelineList(
 				int room_no, 
 				String order_column, 
 				String order_type
@@ -46,13 +47,23 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 		parameter.put("room_no", room_no);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
-		List<RoomTimelineVo> roomTimelineList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);
+		List<Map<String, Object>> tempList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);
+		List<Map<String, Object>> roomTimelineList = new ArrayList<>();
+		for (Map<String, Object> map : tempList) {
+			Map<String, Object> tempMap = new HashMap<>();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String keys = entry.getKey().toLowerCase();
+				Object values = entry.getValue();
+				tempMap.put(keys, values);
+			}
+			roomTimelineList.add(tempMap);
+		}
 		return roomTimelineList;
 	}
 
 	// 영화관 별 영화 스케줄 리스트 조회
 	@Override
-	public List<RoomTimelineVo> selectRoomTimelineList(
+	public List<Map<String, Object>> selectRoomTimelineList(
 				int cinema_no, 
 				String search_column, 
 				Object search_data,
@@ -67,7 +78,7 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
 		
-		List<RoomTimelineVo> roomTimelineList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);
+		List<Map<String, Object>> roomTimelineList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);
 		return roomTimelineList;
 	}
 

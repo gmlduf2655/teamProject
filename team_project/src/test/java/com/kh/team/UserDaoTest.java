@@ -44,7 +44,14 @@ public class UserDaoTest {
 	@Test
 	public void testSelectUserById() {
 		UserVo userVo = userDao.selectUserById("user01");
-		System.out.println("UserDaoTest, testSelectUserById, userVo : " + true);
+		System.out.println("UserDaoTest, testSelectUserById, userVo : " + userVo);
+	}
+	
+	// 유저번호로 회원 조회하기 테스트
+	@Test
+	public void testSelectUserByUserno() {
+		UserVo userVo = userDao.selectUserByUserno(1);
+		System.out.println("UserDaoTest, testSelectUserById, userVo : " + userVo);
 	}
 	
 	// 아이디, 비밀번호로 회원 조회하기 테스트

@@ -1,6 +1,7 @@
 package com.kh.team;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,11 +54,11 @@ public class TestRoomTimelineDao {
 		String order_column		= "room_no";
 		String order_type		= "desc";
 		
-		List<RoomTimelineVo> roomTimelineList = roomTimelineDao.selectRoomTimelineList(room_no, order_column, order_type);
+		List<Map<String, Object>> roomTimelineList = roomTimelineDao.selectRoomTimelineList(room_no, order_column, order_type);
 //		List<RoomTimelineVo> roomTimelineList = roomTimelineDao.selectRoomTimelineList(cinema_no, search_column, search_data, order_column, order_type);
 		
-		for (RoomTimelineVo roomTimelineVo : roomTimelineList) {
-			System.out.println("roomTimelineList : " + roomTimelineVo);
+		for (Map<String, Object> roomTimelineInfo : roomTimelineList) {
+			System.out.println("roomTimelineList : " + roomTimelineInfo);
 		}
 	}
 	

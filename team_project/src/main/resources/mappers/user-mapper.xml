@@ -41,6 +41,12 @@
 		where userid= #{userid}
 	</select>
 	
+	<!-- 유저번호로 회원 조회 -->
+	<select id="selectUserByUserno" resultType="UserVo">
+		select * from tbl_user
+		where userno = #{userno}
+	</select>
+	
 	<!-- 아이디, 비밀번호로 회원 조회 -->
 	<select id="selectUserByIdAndPwd" resultType="UserVo">
 		select * from tbl_user

@@ -1,6 +1,7 @@
 package com.kh.team.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.team.vo.RoomTimelineVo;
 
@@ -15,14 +16,14 @@ public interface RoomTimelineDao {
 			);
 	
 	// 상영관별 스케줄 리스트 조회
-	public List<RoomTimelineVo> selectRoomTimelineList(
+	public List<Map<String, Object>> selectRoomTimelineList(
 				int room_no,
 				String order_column, 
 				String order_type
 			);
 	
 	// 영화관별 영화 스케줄 리스트 조회
-	public List<RoomTimelineVo> selectRoomTimelineList(
+	public List<Map<String, Object>> selectRoomTimelineList(
 				int cinema_no,
 				String search_column, 
 				Object search_data, 
