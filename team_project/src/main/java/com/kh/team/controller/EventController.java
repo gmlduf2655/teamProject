@@ -30,6 +30,7 @@ import com.kh.team.util.EventFileUploader;
 import com.kh.team.service.EventService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.WinnerPagingDto;
 import com.kh.team.vo.WinnerVo;
 
 @Controller
@@ -139,9 +140,12 @@ public class EventController {
 	
 	// 당첨자 발표 게시판 목록
 	@RequestMapping(value = "/winner_info", method = RequestMethod.GET)
-	public String winnerInfo(Model model) {
+	public String winnerInfo(Model model, WinnerPagingDto pagingDto) {
+		pagingDto.setCount(winnerService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
 		List<WinnerVo> winnerList = winnerService.list();
 		model.addAttribute("winnerList", winnerList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "event/winner_info";
 	}
 	

@@ -27,6 +27,14 @@ public class WinnerDaoTest {
 	}
 	
 	@Test
+	public void testInsert500() {
+		for (int i = 1 ; i <= 500 ; i++) {
+			WinnerVo winnerVo = new WinnerVo("제목-"+i, "내용-"+i, null);
+			winnerDao.insert(winnerVo);
+		}
+	}
+	
+	@Test
 	public void testModify() {
 		WinnerVo winnerVo = new WinnerVo("제목-수정", "내용-수정", null);
 		winnerVo.setWinner_no(2);

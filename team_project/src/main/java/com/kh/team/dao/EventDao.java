@@ -3,6 +3,7 @@ package com.kh.team.dao;
 import java.util.List;
 
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.WinnerPagingDto;
 
 public interface EventDao {
 	public List<EventVo> list(); //게시글 리스트
@@ -11,5 +12,6 @@ public interface EventDao {
 	public boolean delete(int event_no); //게시글 삭제
 	public EventVo readContent(int event_no); // 게시글 읽기
 	public void viewConuntUpdate(int event_no); // 조회수 증가
+	
 
 }

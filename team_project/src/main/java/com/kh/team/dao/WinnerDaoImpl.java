@@ -3,9 +3,11 @@ package com.kh.team.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.WinnerPagingDto;
 import com.kh.team.vo.WinnerVo;
 
 @Repository
@@ -58,6 +60,12 @@ public class WinnerDaoImpl implements WinnerDao {
 	public void viewConuntUpdate(int winner_no) {
 		sqlSession.update(NAMESPACE + "viewConuntUpdate", winner_no);
 		
+	}
+
+	@Override
+	public int getCount(WinnerPagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
+		return count;
 	}
 
 }

@@ -52,8 +52,13 @@
 			</div>
 
 			<div class="form-group">
+				<label for="event_start_date"> 이벤트 시작일 </label> <br>
+				<input type="date" id="event_start_date" name="event_start_date" min="">
+			</div>
+			
+			<div class="form-group">
 				<label for="event_end_date"> 이벤트 종료일 </label> <br>
-				<input type="date" id="event_end_date" name="event_end_date">
+				<input type="date" id="event_end_date" name="event_end_date" min="0000-00-00">
 			</div>
 
 			<div class="form-group">
@@ -147,6 +152,32 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+// 대표 이미지 삭제하기
+
+// 이벤트 시작일 최소날짜
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("event_start_date").setAttribute("min", today);
+
+// 이벤트 종료일 최소날짜
+$(event_start_date).change(function(){
+	var start_date = $("#event_start_date").val();
+	console.log(start_date);
+	$("#event_end_date").attr("min", start_date);
+});
 
 </script>
 

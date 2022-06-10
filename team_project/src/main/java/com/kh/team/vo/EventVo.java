@@ -10,18 +10,29 @@ public class EventVo {
 	private String event_image;
 	private int event_count;
 	private Date event_end_date;
+	private Date event_start_date;
 	
 	public EventVo() {
 		super();
 		
 	}
 	
-	
-	public EventVo(String event_title, String event_content, Date event_end_date) {
+	public EventVo(String event_title, String event_content, String event_image, Date event_end_date,
+			Date event_start_date) {
+		super();
+		this.event_title = event_title;
+		this.event_content = event_content;
+		this.event_image = event_image;
+		this.event_end_date = event_end_date;
+		this.event_start_date = event_start_date;
+	}
+
+	public EventVo(String event_title, String event_content, Date event_end_date, Date event_start_date) {
 		super();
 		this.event_title = event_title;
 		this.event_content = event_content;
 		this.event_end_date = event_end_date;
+		this.event_start_date = event_start_date;
 	}
 
 	public EventVo(String event_title, String event_content, String event_image, Date event_end_date) {
@@ -33,7 +44,7 @@ public class EventVo {
 	}
 
 	public EventVo(int event_no, String event_title, String event_content, String event_image, int event_count,
-			Date event_end_date) {
+			Date event_end_date, Date event_start_date) {
 		super();
 		this.event_no = event_no;
 		this.event_title = event_title;
@@ -41,6 +52,15 @@ public class EventVo {
 		this.event_image = event_image;
 		this.event_count = event_count;
 		this.event_end_date = event_end_date;
+		this.event_start_date = event_start_date;
+	}
+
+	public Date getEvent_start_date() {
+		return event_start_date;
+	}
+
+	public void setEvent_start_date(Date event_start_date) {
+		this.event_start_date = event_start_date;
 	}
 
 	public int getEvent_no() {
@@ -95,7 +115,7 @@ public class EventVo {
 	public String toString() {
 		return "EventVo [event_no=" + event_no + ", event_title=" + event_title + ", event_content=" + event_content
 				+ ", event_image=" + event_image + ", event_count=" + event_count + ", event_end_date=" + event_end_date
-				+ "]";
+				+ ", event_start_date=" + event_start_date + "]";
 	}
-	
+
 }

@@ -21,6 +21,7 @@
     </section>
     <!-- Normal Breadcrumb End -->
 
+<%@ include file="/WEB-INF/views/event/WinnerPaging.jsp" %>
 
 <div class="container-fluid" style="background-color: white">
 	<div class="row">
@@ -51,6 +52,47 @@
 		</div>
 		<div class="col-md-2"></div>
 	</div>
+	
+	<!-- 페이지 -->
+	
+	<div class="row">
+		<div class="col-md-12">
+			<nav>
+				<ul class="pagination justify-content-center">
+				<c:if test="${pagingDto.startPage!=1}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="${pagingDto.startPage-1}">이전</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
+					<li 
+					<c:choose>
+						<c:when test="${i==param.page}">
+							class="page-item active"
+						</c:when>
+						<c:otherwise>
+							class="page-item"
+						</c:otherwise>
+					</c:choose>
+					>
+						<a class="page-link" href="${i}">${i}</a>
+					</li>
+				</c:forEach>
+				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="${pagingDto.endPage + 1}">다음</a>
+					</li>
+				</c:if>
+				</ul>
+			</nav>
+		</div>
+	</div>	
+	
+	
+	
+	
 </div>
 <div class="float-right">
 	<p>
