@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.team.vo.UserVo;
 
+// 기능 15개 ㄷㄷ
 public interface UserService {
 	// 회원가입
 	public boolean signUp(UserVo userVo);
@@ -11,6 +12,8 @@ public interface UserService {
 	public boolean addSnsUser(UserVo userVo);
 	// 회원정보 조회
 	public UserVo getUserInfo(String userid);
+	// 유저번호로 유저 정보 조회
+	public UserVo getUserInfoByUserno(int userno);
 	// 회원 목록 조회
 	public List<UserVo> getUserList();
 	// 기존회원 목록 조회

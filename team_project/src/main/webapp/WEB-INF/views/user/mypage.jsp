@@ -111,7 +111,7 @@
 	                        <h3 class="mb-4">프로필 사진</h3>
 		                        <!-- 프로필 사진이 없다면 기본이미지 있다면 프로필 사진이미지를 보여줌 -->
 		                        <c:choose>
-		                        	<c:when test="${empty loginUserVo.profile_image}">
+		                        	<c:when test="${empty userVo.profile_image}">
 		                        		<img class="mb-3"  id="profile_image_view" alt="프로필 사진" src="/resources/images/no_image.jpg" style="width:300px;">
 		                        	</c:when>
 		                        	<c:otherwise>
@@ -119,12 +119,12 @@
 		                        		<!-- 간편로그인 : 외부 url로 부터 사진을 받아옴 -->
 		                        		<!-- 기존회원 : C:/에 있는 폴더에서 사진을 받아옴 -->
 		                        		<c:choose>
-				                        	<c:when test="${empty loginUserVo.sns_type}">
+				                        	<c:when test="${empty userVo.sns_type}">
 				                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" 
-				                        		src="/user/get_profile_image?filename=${loginUserVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
+				                        		src="/user/get_profile_image?filename=${userVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
 				                        	</c:when>
 				                        	<c:otherwise>
-				                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" src="${loginUserVo.profile_image}" style="width:300px;">
+				                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" src="${userVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
 				                        	</c:otherwise>
 				                        </c:choose>
 		                        	</c:otherwise>
@@ -141,30 +141,30 @@
 	                <div class="col-lg-6">
 	                    <div class="login__register">
 	                        <h3>내 정보</h3>
-	                        <h4>이름 : ${loginUserVo.username}</h4>
-	                        <h4>별명 : ${loginUserVo.nickname}</h4>
+	                        <h4>이름 : ${userVo.username}</h4>
+	                        <h4>별명 : ${userVo.nickname}</h4>
 	                        <h4 id="nickname_label" style="display:none;">
-	                        	별명 : <input type="text" name="nickname" id="nickname" value="${loginUserVo.nickname}">
+	                        	별명 : <input type="text" name="nickname" id="nickname" value="${userVo.nickname}">
 	                        </h4>
-	                        <h4>이메일 : ${loginUserVo.email}</h4>
+	                        <h4>이메일 : ${userVo.email}</h4>
 	                        <h4 id="email_label" style="display:none;">
-	                        	이메일 : <input type="email" name="email" id="email" value="${loginUserVo.email}">
+	                        	이메일 : <input type="email" name="email" id="email" value="${userVo.email}">
 	                        </h4>
-	                        <h4>휴대폰번호: ${loginUserVo.cellphone}</h4>
+	                        <h4>휴대폰번호: ${userVo.cellphone}</h4>
 	                        <h4 id="cellphone_label" style="display:none;">
-	                        	휴대폰번호 : <input type="text" name="cellphone" id="cellphone" value="${loginUserVo.cellphone}">
+	                        	휴대폰번호 : <input type="text" name="cellphone" id="cellphone" value="${userVo.cellphone}">
 	                        </h4>
-	                        <h4>주소: ${loginUserVo.address}</h4>
+	                        <h4>주소: ${userVo.address}</h4>
 	                        <h4 id="address_label" style="display:none;">
-	                        	주소 : <input type="text" name="address" id="address" value="${loginUserVo.address}">
+	                        	주소 : <input type="text" name="address" id="address" value="${userVo.address}">
 	                        </h4>
-	                        <h4>포인트 : ${loginUserVo.point}</h4>
+	                        <h4>포인트 : ${userVo.point}</h4>
 	                        <c:choose>
-			                	<c:when test="${empty loginUserVo.sns_type}">
-			                        <h4>가입일 : ${loginUserVo.reg_date}</h4>
+			                	<c:when test="${empty userVo.sns_type}">
+			                        <h4>가입일 : ${userVo.reg_date}</h4>
 			                    </c:when>
 			                    <c:otherwise>
-			                        <h4>연동일 : ${loginUserVo.sns_connect_date}</h4>
+			                        <h4>연동일 : ${userVo.sns_connect_date}</h4>
 			                    </c:otherwise>
 			                </c:choose>
 	                    </div>
@@ -183,13 +183,122 @@
             <hr>
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-12">
-					<h3><a href="/point/point_list?userno=1&userid=user01" style="color:white;">포인트 내역</a></h3>
+					<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">포인트 내역</a></h3>
+					<table class="table" style="color:white;">
+			    		<thead>
+			    			<tr>
+								<th>#</th>    				
+								<th>유저 아이디</th>    				
+								<th>포인트</th>    				
+								<th>포인트 이름</th>    				
+								<th>포인트 적립일</th>    				
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+							<c:forEach var="pointVo" items="${pointList}" varStatus="status">
+								<c:if test="${status.index < 5}">
+									<tr>
+										<td>${pointVo.pointno}</td>
+										<td>
+										<c:choose>
+											<c:when test="${not empty userVo.userid }">
+												${userVo.userid}
+											</c:when>
+											<c:otherwise>
+												${userVo.sns_id}
+											</c:otherwise>
+										</c:choose>
+										</td>
+										<td>${pointVo.point}</td>
+										<td>${pointVo.point_name}</td>
+										<td>${pointVo.point_date}</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+			    	</table>
             	</div>
+            	<div class="row">
+	            	<div class="col-lg-12" style="text-align:center;">
+		            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&userid=${userVo.userid}">더보기</a>
+	            	</div>
+	            </div>
             </div>
             <hr>
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-12">
-					<h3>영화 예매내역</h3>
+					<h3 class="mb-4">영화 예매내역</h3>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<div class="product__item">
+								<div class="product__item__pic set-bg"
+									data-setbg="/resources/images/img/trending/trend-1.jpg">
+									<div class="ep">18 / 18</div>
+									<div class="comment">
+										<i class="fa fa-comments"></i> 11
+									</div>
+									<div class="view">
+										<i class="fa fa-eye"></i> 1234
+									</div>
+								</div>
+								<div class="product__item__text">
+									<ul>
+										<li>액션이 죽이는</li>
+										<li>영화</li>
+									</ul>
+									<h5>
+										<a href="#">예매한 영화1</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<div class="product__item">
+								<div class="product__item__pic set-bg"
+									data-setbg="/resources/images/img/trending/trend-2.jpg">
+									<div class="ep">18 / 18</div>
+									<div class="comment">
+										<i class="fa fa-comments"></i> 11
+									</div>
+									<div class="view">
+										<i class="fa fa-eye"></i> 5678
+									</div>
+								</div>
+								<div class="product__item__text">
+									<ul>
+										<li>재미있는</li>
+										<li>영화</li>
+									</ul>
+									<h5>
+										<a href="#">예매한 영화2</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<div class="product__item">
+								<div class="product__item__pic set-bg"
+									data-setbg="/resources/images/img/trending/trend-3.jpg">
+									<div class="ep">18 / 18</div>
+									<div class="comment">
+										<i class="fa fa-comments"></i> 9101
+									</div>
+									<div class="view">
+										<i class="fa fa-eye"></i> 9141
+									</div>
+								</div>
+								<div class="product__item__text">
+									<ul>
+										<li>힐링하기 좋은</li>
+										<li>영화</li>
+									</ul>
+									<h5>
+										<a href="#">예매한 영화3</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>				
             	</div>
             </div>
             <hr>

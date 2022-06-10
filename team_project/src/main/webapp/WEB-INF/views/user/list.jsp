@@ -66,7 +66,7 @@
 							</c:forEach>
 						</tbody>
 			    	</table>
-			    	<hr style="color:white;">
+			    	<hr style="background-color:white;">
 			    	<h3 class="mb-4" style="color:white;">간편로그인 회원</h3>
 			    	<table class="table" style="color:white;">
 			    		<thead>
@@ -100,7 +100,7 @@
             </div>
         </div>
         <div style="text-align:center;">
-	        <a href="/user/mypage" class="site-btn">마이페이지로</a>
+	        <a href="/user/mypage?userno=${param.userno}" class="site-btn">마이페이지로</a>
         </div>
     </section>
     <!-- 유저 목록을 보여주는 부분 끝 -->

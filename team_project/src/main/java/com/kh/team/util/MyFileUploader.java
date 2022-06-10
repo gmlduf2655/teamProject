@@ -12,7 +12,7 @@ public class MyFileUploader {
 	// 임희열 : 이미지 컬럼명 앞에 "C:/" 생략하기 위해서 만든 변수
 	public static final String C_DRIVER = "C:/";
 	// 임희열 : 공유폴더 내에 넣기 위한 변수
-	public static final String MY_IP = "//192.168.0.60/";
+	public static final String MY_IP = "//192.168.0.62/";
 	
 	// 임희열 : 파일 업로드
 	public static String fileUpload(String uploadPath, String filename, byte[] fileData) {
