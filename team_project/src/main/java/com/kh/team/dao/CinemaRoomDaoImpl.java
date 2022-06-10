@@ -60,8 +60,8 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 	public List<Map<String, Object>> selectCinemaRoomList(
 				int cinema_no, 
 				String search_column, 
-				String search_data,
-				String order_column,
+				String search_data, 
+				String order_column, 
 				String order_type
 			) {
 		Map<String, Object> parameter = new HashMap<>();

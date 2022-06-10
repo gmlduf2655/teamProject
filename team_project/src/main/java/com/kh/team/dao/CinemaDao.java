@@ -49,4 +49,7 @@ public interface CinemaDao {
 				String cinema_status
 			);
 	
+	// 등록 영화관 주소 (시 단위)리스트 얻어내기
+	public List<String> selectCinemaAddressCityList();
+	
 }

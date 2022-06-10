@@ -98,4 +98,11 @@ public class TestCinemaDao {
 		String cinema_status	= null;
 		cinemaDao.updateCinemaStatus(cinema_no, cinema_status);
 	}
+	
+	// 등록 영화관 주소 (시 단위) 리스트 얻어내기
+	@Test
+	public void getCinemaAddressCityList() {
+		List<String> cinemaCityAddressList = cinemaDao.selectCinemaAddressCityList();
+		System.out.println(cinemaCityAddressList);
+	}
 }
