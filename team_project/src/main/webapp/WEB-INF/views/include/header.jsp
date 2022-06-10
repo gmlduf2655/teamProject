@@ -108,8 +108,8 @@
                                 >
 									<a href="/movie/movieList">영화정보</a>
                                     <ul class="dropdown">
-                                        <li><a href="/movie/movieList">현재 상영작</a></li>
-                                        <li><a href="./anime-details.html">상영 예정작</a></li>
+                                        <li><a href="/movie/movieListIng">현재 상영작</a></li>
+                                        <li><a href="/movie/movieListSoon">상영 예정작</a></li>
                                     </ul>
 								</li>
                                 <li

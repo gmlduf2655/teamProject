@@ -21,6 +21,7 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	
+	//필요없나 생각중
 	@RequestMapping(value="/boxoffice", method = RequestMethod.GET)
 	public String boxoffice() {
 		System.out.println("boxoffice");
@@ -46,8 +47,16 @@ public class MovieController {
 		
 		return "movie/movieListIng";
 	}
-	
-	
+	//상영 예정 영화 movieListSoon
+	@RequestMapping(value="/movieListSoon", method = RequestMethod.GET)
+	public String movieListSoon(Model model) {
+		List<MovieVo> list = movieService.movieListSoon();
+		System.out.println("movieListSoon : " + list);
+		
+		model.addAttribute("list", list);
+		
+		return "movie/movieListSoon";
+	}
 	
 	@RequestMapping(value="/movieInfo", method = RequestMethod.GET)
 	public String movieInfo(String movie_code,Model model) {
@@ -57,13 +66,6 @@ public class MovieController {
 		return "movie/movieInfo";
 	}
 	 
-	@RequestMapping(value="/movieListDB", method = RequestMethod.GET)
-	public String movieListDB() {
-		System.out.println("movieListDB");
-		
-		return "movie/movieListDB";
-	}
-	
 	// 이미지 보여주기
 	@RequestMapping(value = "/displayImage", method = RequestMethod.GET)
 	@ResponseBody
@@ -74,5 +76,6 @@ public class MovieController {
 		fis.close();
 		return data;
 	}
+	
 
 }
