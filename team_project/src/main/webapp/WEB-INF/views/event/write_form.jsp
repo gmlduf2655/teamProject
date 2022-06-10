@@ -8,7 +8,6 @@
 
 
 
-
 <!-- Normal Breadcrumb Begin -->
 <section class="normal-breadcrumb set-bg"
 	data-setbg="/resources/images/img/normal-breadcrumb.jpg">
@@ -53,19 +52,29 @@
 			</div>
 
 			<div class="form-group">
-				<label for="event_end_date"> 이벤트 종료일 </label> <br>
-				<input type="date" id="event_end_date" name="event_end_date">
+				<label for="event_start_date"> 이벤트 시작일 </label> <br>
+				<input type="date" id="event_start_date" name="event_start_date" min="">
 			</div>
+			
+			<div class="form-group">
+				<label for="event_end_date"> 이벤트 종료일 </label> <br>
+				<input type="date" id="event_end_date" name="event_end_date" min="0000-00-00">
+			</div>
+
+			<div class="form-group">
+				<label for="event_image" id="event_image"> 대표 이미지 업로드 </label> 
+				<input type="file" class="form-control-file" id="file" name="file"/>
+				<img id="preview" src="/resources/images/no_image.jpg" width="200px"><br>
+                <a id="image_delete">사진 삭제 <b style="color:red;font-size:30px;">&times;</b></a>
+			</div>
+
 
 			<div class="form-group">
 				<label for="event_content"> 내용 </label>
 				<textarea class="summernote" id="event_content" name="event_content"></textarea>
 			</div>
 
-			<div class="form-group">
-				<label for="event_image"> 이미지 업로드 </label> 
-				<input type="file" class="form-control-file" id="file" name="file" />
-			</div>
+			
 
 			<button type="submit" class="btn btn-primary">저장</button>
 		</form>
@@ -81,7 +90,7 @@ $('.summernote').summernote({
 	  height: 350,
 	  // 에디터 한글 설정
 	  lang: "ko-KR",
-	  // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
+	  // 에디터에 커서 이동 
 	  focus : true,
 	  toolbar: [
 		    // 글꼴 설정
@@ -128,6 +137,48 @@ function uploadSummernoteImageFile(file) {
  		}
 	});
 }
+// 대표 이미지 미리보기
+$(function() {
+    $("#file").on("change", function(){
+    readURL(this);
+    });
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        $("#preview").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// 대표 이미지 삭제하기
+
+// 이벤트 시작일 최소날짜
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("event_start_date").setAttribute("min", today);
+
+// 이벤트 종료일 최소날짜
+$(event_start_date).change(function(){
+	var start_date = $("#event_start_date").val();
+	console.log(start_date);
+	$("#event_end_date").attr("min", start_date);
+});
+
 </script>
 
 <!-- footer -->

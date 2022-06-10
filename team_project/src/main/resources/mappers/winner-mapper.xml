@@ -46,5 +46,9 @@
 			where winner_no = #{winner_no}
 		</update>
 	
+	<!-- 글 갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) from tbl_winner
+	</select>
 
 </mapper>

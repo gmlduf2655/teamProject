@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.WinnerDao;
+import com.kh.team.vo.WinnerPagingDto;
 import com.kh.team.vo.WinnerVo;
 
 @Service
@@ -43,6 +44,12 @@ public class WinnerServiceImpl implements WinnerService {
 		winnerDao.viewConuntUpdate(winner_no);
 		WinnerVo winnerVo = winnerDao.readContent(winner_no);
 		return winnerVo;
+	}
+
+	@Override
+	public int getCount(WinnerPagingDto pagingDto) {
+		int count = winnerDao.getCount(pagingDto);
+		return count;
 	}
 
 }

@@ -7,9 +7,10 @@
 	<!-- 글 등록 -->
 	<insert id="insert">
 		insert into tbl_event
-			(event_no, event_title, event_content, event_image, event_end_date)
+			(event_no, event_title, event_content, event_image, event_end_date, event_start_date)
 		values
-			(seq_event_eventno.nextval, #{event_title}, #{event_content}, #{event_image, jdbcType=VARCHAR}, #{event_end_date, jdbcType=DATE})
+			(seq_event_eventno.nextval, #{event_title}, #{event_content}, 
+			#{event_image, jdbcType=VARCHAR}, #{event_end_date, jdbcType=DATE}, #{event_start_date, jdbcType=DATE})
 	</insert>
 	
 	<!-- 글 수정 -->
@@ -18,7 +19,8 @@
 			event_title = #{event_title},
 			event_content = #{event_content},
 			event_image = #{event_image, jdbcType=VARCHAR},
-			event_end_date = #{event_end_date, jdbcType=DATE}
+			event_end_date = #{event_end_date, jdbcType=DATE},
+			event_start_date = #{event_start_date, jdbcType=DATE}
 		where event_no = #{event_no}
 	</update>
 	

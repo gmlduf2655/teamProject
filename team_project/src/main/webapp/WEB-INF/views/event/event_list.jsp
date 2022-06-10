@@ -62,7 +62,7 @@ $(document).ready(function(){
 								<h5>
 									<a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
 								</h5>
-									<label style="color:white">이벤트 종료일: ${eventVo.event_end_date}</label>
+									<label style="color:white">이벤트 시작일: ${eventVo.event_start_date}</label>
 							</div>
 						</div>
 					</div>
