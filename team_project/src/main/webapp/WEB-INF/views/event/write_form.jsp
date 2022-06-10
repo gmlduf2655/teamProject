@@ -52,20 +52,22 @@
 			</div>
 
 			<div class="form-group">
-				<label for="event_start_date"> 이벤트 시작일 </label> <br>
-				<input type="date" id="event_start_date" name="event_start_date" min="">
+				<span>
+					<label for="event_start_date"> 이벤트 시작일   </label>
+					<label for="event_end_date"> 이벤트 종료일 </label> <br>
+					
+				</span>
+				<span>
+					<input type="date" id="event_start_date" name="event_start_date" min="">
+					<input type="date" id="event_end_date" name="event_end_date" min="0000-00-00">
+				</span>
 			</div>
 			
-			<div class="form-group">
-				<label for="event_end_date"> 이벤트 종료일 </label> <br>
-				<input type="date" id="event_end_date" name="event_end_date" min="0000-00-00">
-			</div>
-
 			<div class="form-group">
 				<label for="event_image" id="event_image"> 대표 이미지 업로드 </label> 
 				<input type="file" class="form-control-file" id="file" name="file"/>
 				<img id="preview" src="/resources/images/no_image.jpg" width="200px"><br>
-                <a id="image_delete">사진 삭제 <b style="color:red;font-size:30px;">&times;</b></a>
+                <a id="image_delete" style="display: none;">사진 삭제 <b style="color:red;font-size:30px;">&times;</b></a>
 			</div>
 
 
@@ -150,10 +152,19 @@ function readURL(input) {
         $("#preview").attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
+        $("#image_delete").show();
     }
 }
 
 // 대표 이미지 삭제하기
+$(document).ready(function(){
+	$("#image_delete").click(function(){
+		console.log($("#file").val());
+		$("#file").val("");
+		$("#preview").attr("src", "");
+		$("#image_delete").hide();
+	});
+});
 
 // 이벤트 시작일 최소날짜
 var today = new Date();

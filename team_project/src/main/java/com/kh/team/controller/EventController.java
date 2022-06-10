@@ -158,7 +158,7 @@ public class EventController {
 	}
 	
 	// 당첨자 게시판 글쓰기 폼 
-	@RequestMapping(value = "/winner_write", method = RequestMethod.GET)
+	@RequestMapping(value = "/winner_writeForm", method = RequestMethod.GET)
 	public String winnerWrite() {
 		return "event/winner_writeForm";
 	}
@@ -166,9 +166,9 @@ public class EventController {
 	// 당첨자 게시판 글쓰기
 	@RequestMapping(value = "/winner_writeRun", method = RequestMethod.POST)
 	public String winnerWriteRun(WinnerVo winnerVo, RedirectAttributes rttr) {
-		System.out.println("BoardController, createRun, winnerVo:"+ winnerVo);
+		System.out.println("EventController, winner_writeRun, winnerVo:"+ winnerVo);
 		boolean result = winnerService.insert(winnerVo);
-		System.out.println("BoardController, createRun, result:"+ result);
+		System.out.println("EventController, winner_writeRun, result:"+ result);
 		rttr.addFlashAttribute("insert_result", result);
 		return "redirect:/event/winner_info";
 	}
