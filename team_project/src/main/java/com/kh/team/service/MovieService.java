@@ -6,10 +6,9 @@ import com.kh.team.vo.MovieVo;
 
 public interface MovieService {
 	public List<MovieVo> movieList();
-	public MovieVo movieInfoByMovieCode(String movie_code); 
+	public List<MovieVo> movieListIng();
+	public List<MovieVo> movieListSoon();
 	public List<MovieVo> boxoffice();
-	public boolean insertMovie(MovieVo movieVo);
-	public boolean updateMovie(MovieVo movieVo);
-	public boolean deleteMovie(String movie_code);
+	public MovieVo movieInfoByMovieCode(String movie_code); 
 	
 }

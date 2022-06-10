@@ -30,6 +30,7 @@ import com.kh.team.util.EventFileUploader;
 import com.kh.team.service.EventService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.WinnerPagingDto;
 import com.kh.team.vo.WinnerVo;
 
 @Controller
@@ -69,7 +70,7 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		if(originalFilename != null) {
-			String event_image = EventFileUploader.uploadFile("//192.168.0.60/boardattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
@@ -84,7 +85,7 @@ public class EventController {
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 		
-		String uploadPath = "//192.168.0.60/boardattach";
+		String uploadPath = "//192.168.0.62/boardattach";
 		String originalFilename = multipartFile.getOriginalFilename();
 		
 		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
@@ -139,9 +140,12 @@ public class EventController {
 	
 	// 당첨자 발표 게시판 목록
 	@RequestMapping(value = "/winner_info", method = RequestMethod.GET)
-	public String winnerInfo(Model model) {
+	public String winnerInfo(Model model, WinnerPagingDto pagingDto) {
+		pagingDto.setCount(winnerService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
 		List<WinnerVo> winnerList = winnerService.list();
 		model.addAttribute("winnerList", winnerList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "event/winner_info";
 	}
 	

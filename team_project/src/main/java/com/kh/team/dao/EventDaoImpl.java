@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.WinnerPagingDto;
 
 @Repository
 public class EventDaoImpl implements EventDao {

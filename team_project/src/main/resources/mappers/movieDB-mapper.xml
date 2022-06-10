@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kh.team.mappers.movieDB">
+	
+	<!-- 유수연 영화 리스트  -->
+	<select id="movieList" resultType="MovieVo">
+		select * from tbl_movie
+		order by movie_no desc
+	</select>
+	
+	<!-- 유수연 영화 DB 삽입  -->
+	<insert id="insertMovie">
+		insert into tbl_movie (movie_no,movie_code, movie_name,
+			movie_name_en,opening_date,
+			make_year,runningtime, made_country,made_company,
+			movie_genre, movie_director ,movie_image_name ,movie_actors,
+			movie_audits,movie_synopsis)
+		values(seq_MOVIE.nextval, #{movie_code}, #{movie_name},
+			#{movie_name_en},#{opening_date},
+			#{make_year},#{runningtime}, #{made_country},#{made_company},
+			#{movie_genre}, #{movie_director} ,#{movie_image_name},#{movie_actors},
+			#{movie_audits}, #{movie_synopsis})
+	</insert>
+	
+	<!-- 유수연 영화 DB 업데이트  -->
+	<update id="updateMovie">
+		update tbl_movie set
+			movie_name = #{movie_name},
+			movie_name_en = #{movie_name_en},
+			opening_date = #{opening_date},
+			make_year = #{make_year},
+			runningtime = #{runningtime},
+			made_country = #{made_country},
+			made_company = #{made_company},
+			movie_genre = #{movie_genre},
+			movie_director = #{movie_director},
+			movie_image_name = #{movie_image_name},
+			movie_actors = #{movie_actors},
+			movie_audits = #{movie_audits},
+			movie_synopsis = #{movie_synopsis}
+		where movie_code = #{movie_code}
+	</update>
+
+	<!-- 유수연 영화 DB 유무 검색  -->
+	<select id="existMovie" resultType="int">
+		select count(*) from tbl_movie
+		where movie_code = #{movie_code}
+	</select>
+
+	<!-- 유수연 영화 DB 삭제  -->
+	<delete id="deleteMovie">
+		delete tbl_movie
+		where movie_code = #{movie_code}
+	</delete>
+
+	<!-- 유수연 영화 검색  -->
+	<select id="dbSearch" resultType="MovieVo">
+		select * from tbl_movie
+		where ${sType} like  '%'||#{sKeyword}||'%'
+	</select>
+	
+	
+	
+	
+</mapper>

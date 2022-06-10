@@ -59,7 +59,7 @@
             </div>
         </div>
         <div style="text-align:center;">
-	        <a href="/user/mypage" class="site-btn">마이페이지로</a>
+	        <a href="/user/mypage?userno=${param.userno}" class="site-btn">마이페이지로</a>
         </div>
     </section>
     <!-- 포인트 내역을 보여주는 부분 끝 -->

@@ -22,9 +22,9 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieVo movieInfoByMovieCode(String movie_code) {
-		MovieVo movieVo = movieDao.movieInfoByMovieCode(movie_code);
-		return movieVo;
+	public List<MovieVo> movieListIng() {
+		List<MovieVo> list = movieDao.movieListIng();
+		return list;
 	}
 
 	@Override
@@ -34,30 +34,15 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public boolean insertMovie(MovieVo movieVo) {
-		boolean result = movieDao.insertMovie(movieVo);
-		return result;
+	public MovieVo movieInfoByMovieCode(String movie_code) {
+		MovieVo movieVo = movieDao.movieInfoByMovieCode(movie_code);
+		return movieVo;
 	}
 
 	@Override
-	@Transactional
-	public boolean updateMovie(MovieVo movieVo) {
-		boolean result = false;
-		boolean result1 = movieDao.existMovie(movieVo.getMovie_code());
-		System.out.println("existMovie, result1 : " + result1);
-		if(result1 == true) {
-			result = movieDao.updateMovie(movieVo);
-		}
-		
-		System.out.println("updateMovie, result : " + result);
-		return result;
+	public List<MovieVo> movieListSoon() {
+		List<MovieVo> list = movieDao.movieListSoon();
+		return list;
 	}
-
-	@Override
-	public boolean deleteMovie(String movie_code) {
-		boolean result = movieDao.deleteMovie(movie_code);
-		return result;
-	}
-
 	
 }

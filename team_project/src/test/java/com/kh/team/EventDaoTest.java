@@ -21,14 +21,14 @@ public class EventDaoTest {
 	
 	@Test
 	public void testInsert() {
-		EventVo eventVo = new EventVo("제목-6", "내용-6", null, null);
+		EventVo eventVo = new EventVo("제목-6", "내용-6", null, null, null);
 		boolean result = eventDao.insert(eventVo);
 		System.out.println("result: "+ result);
 	} 
 	
 	@Test
 	public void testModify() {
-		EventVo eventVo = new EventVo("제목-수정", "내용-수정", null, null);
+		EventVo eventVo = new EventVo("제목-수정", "내용-수정", null, null, null);
 		boolean result = eventDao.modify(eventVo);
 		System.out.println("result: "+ result);
 	}

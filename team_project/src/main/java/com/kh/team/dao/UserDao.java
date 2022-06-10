@@ -11,6 +11,8 @@ public interface UserDao {
 	public boolean insertSnsUser(UserVo userVo);
 	// 아이디로 회원 조회
 	public UserVo selectUserById(String userid);
+	// 유저번호로 회원 조회
+	public UserVo selectUserByUserno(int userno);
 	// 아이디, 비밀번호로 회원 조회
 	public UserVo selectUserByIdAndPwd(String userid, String userpw);
 	// 닉네임으로 회원 조회
