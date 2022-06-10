@@ -31,6 +31,12 @@ public class CinemaServiceImpl implements CinemaService {
 	private RoomSeatDao roomSeatDao;
 	
 	@Override
+	public List<String> getCinemaCityAddressList() {
+		List<String> cinemaCityAssressList = cinemaDao.selectCinemaAddressCityList();
+		return cinemaCityAssressList;
+	};
+	
+	@Override
 	public boolean createCinema(CinemaVo cinemaVo) {
 		boolean result = cinemaDao.insertCinema(cinemaVo);
 		return result;

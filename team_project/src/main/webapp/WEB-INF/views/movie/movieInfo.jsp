@@ -47,7 +47,7 @@ $(function(){
 		td.eq(3).find(".commentUpdate").hide();
 		td.eq(3).find(".commentUpdateSubmit").show(); */
 		var div = $(this).prev(); //input상자
-		div.removeAttr("style").removeAttr("disabled");
+		div.removeAttr("disabled").attr("style","background-color : white;border: none; width:100%; resize: none;");
 		div.next().hide();
 		div.next().next().show();
 	});
@@ -112,6 +112,7 @@ $(function(){
 			});
 		});
 	};  */
+	//댓글 불러오기
 	function getCommentList(){
 		var url = "/moviecomment/commentList";
 		var movie_code = "${movieVo.movie_code}";

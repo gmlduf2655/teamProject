@@ -54,7 +54,7 @@
 	<!-- 상영관 정보 조회 -->
 	<select id="selectCinemaRoom" resultType="map">
 		select * from tbl_cinema_room room left outer join tbl_room_type type
-		on room.room_type_no = type.room_type_no
+		on room.room_type_code = type.room_type_code
 		where room_no = #{room_no}
 	</select>
 	

@@ -28,6 +28,8 @@ public interface CinemaService {
 	// 영화관 상태 변경
 	public boolean modifyCinemaStatus(int cinema_no, String cinema_status);
 	
+	// 등록 영화관 (시 단위) 리스트 얻어내기
+	public List<String> getCinemaCityAddressList();
 	
 	
 	//-----------------

@@ -22,41 +22,11 @@ public class MovieDaoImpl implements MovieDao {
 	}
 
 	@Override
-	public boolean insertMovie(MovieVo movieVo) {
-		int count = sqlSession.insert(NAMESPACE + "insertMovie", movieVo);
-		if(count > 0) {
-			return true;
-		}
-		return false;
+	public List<MovieVo> movieListIng() {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListIng");
+		return list;
 	}
-
-	@Override
-	public boolean updateMovie(MovieVo movieVo) {
-		int count = sqlSession.update(NAMESPACE + "updateMovie", movieVo);
-		if(count > 0) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean existMovie(String movie_code) {
-		int count = sqlSession.selectOne(NAMESPACE + "existMovie", movie_code);
-		if(count > 0) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean deleteMovie(String movie_code) {
-		int count = sqlSession.delete(NAMESPACE + "deleteMovie", movie_code); 
-		if(count > 0) {
-			return true;
-		}
-		return false;
-	}
-
+	
 	@Override
 	public MovieVo movieInfoByMovieCode(String movie_code) {
 		MovieVo movieVo = sqlSession.selectOne(NAMESPACE + "movieInfoByMovieCode", movie_code);
@@ -64,9 +34,9 @@ public class MovieDaoImpl implements MovieDao {
 	}
 
 	@Override
-	public List<MovieVo> movieListIng() {
-		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListIng");
+	public List<MovieVo> movieListSoon() {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListSoon");
 		return list;
 	}
-
+	
 }

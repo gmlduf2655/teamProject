@@ -21,4 +21,21 @@ public class MapAJaxAdaper {
 		return inputList;
 	}
 	
+	// Map 자료형을 AJax로 반환할 때 사용하는 형태
+	public static Map<String, Object> returnAdapter(Map<String, Object> inputMap) {
+		Map<String, Object> returnMap = new HashMap<>();
+		for (Map.Entry<String, Object> entry : inputMap.entrySet()) {
+			String keys = entry.getKey().toLowerCase();
+			Object values = null;
+			if (keys.contains("time") || keys.contains("date")) {
+				values = String.valueOf(entry.getValue());
+				returnMap.put(keys, values);
+			} else {
+				values = entry.getValue();
+				returnMap.put(keys, values);
+			}
+		}
+		return returnMap;
+	}
+	
 }
