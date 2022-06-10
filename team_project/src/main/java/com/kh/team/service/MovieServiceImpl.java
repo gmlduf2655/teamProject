@@ -59,5 +59,11 @@ public class MovieServiceImpl implements MovieService {
 		return result;
 	}
 
+	@Override
+	public List<MovieVo> movieListIng() {
+		List<MovieVo> list = movieDao.movieListIng();
+		return list;
+	}
+
 	
 }

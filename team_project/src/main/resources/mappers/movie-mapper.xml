@@ -62,4 +62,13 @@
 		where movie_code = #{movie_code}
 	</select>
 	
+	<!-- 유수연 현재 상영중 영화 -->
+	<select id="movieListIng">
+		select * from tbl_movie
+		where opening_date <![CDATA[<]]> sysdate
+		order by opening_date desc
+	</select>
+	
+	
+	
 </mapper>
