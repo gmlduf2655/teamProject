@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#message_popup").click(function(){
+			window.open("/message/message_list?userno=${loginUserVo.userno}&type=receive","쪽지보관함","width=800px,height=600px,scrollbars=yes");
+		});
+	});
+</script>
 <div class="col-lg-4 col-md-4">
 	<div class="product__sidebar">
 		<!-- 마이페이지 시작 -->
@@ -40,7 +48,7 @@
 								<a href="/user/login_form">비회원님 환영합니다</a><br>
 							</c:when>
 							<c:otherwise>
-								<a href="/user/mypage">
+								<a href="/user/mypage?userno=${loginUserVo.userno}">
 									<c:choose>
 										<c:when test="${not empty loginUserVo.sns_type}">
 											${loginUserVo.userid}님
@@ -50,11 +58,11 @@
 										</c:otherwise>
 									</c:choose>
 								</a><br>
-								<a href="/user/mypage">환영합니다</a><br>
-								<a href="/user/mypage">포인트 : ${loginUserVo.point}점</a>
+								<a href="/user/mypage?userno=${loginUserVo.userno}">포인트 : ${loginUserVo.point}점</a>
 							</c:otherwise>
 						</c:choose>
 					</h5>
+					<button class="site-btn btn-sm" id="message_popup" type="button" style="padding:6px 15px;">쪽지함</button>
 				</div>
 			</div>
 		</div>

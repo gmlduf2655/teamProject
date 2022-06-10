@@ -63,4 +63,10 @@ public class MovieDaoImpl implements MovieDao {
 		return movieVo;
 	}
 
+	@Override
+	public List<MovieVo> movieListIng() {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListIng");
+		return list;
+	}
+
 }

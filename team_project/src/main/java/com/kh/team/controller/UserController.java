@@ -38,10 +38,12 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrat
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.team.service.FollowService;
 import com.kh.team.service.NaverLoginService;
+import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.util.GoogleOAuthRequest;
 import com.kh.team.util.GoogleOAuthResponse;
 import com.kh.team.util.MyFileUploader;
+import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
 @Controller
@@ -54,6 +56,8 @@ public class UserController {
 	NaverLoginService naverLoginService;
 	@Autowired
 	FollowService followService;
+	@Autowired
+	PointService pointService;
 	
 	// 로그인 페이지 이동
 	@RequestMapping(value="/login_form", method=RequestMethod.GET)
@@ -156,14 +160,18 @@ public class UserController {
 	}
 	
 	// 마이페이지 화면이동
+	// 한 메소드에 3개의 서비스가..
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
-	public String mypage(HttpSession session, Model model) {
+	public String mypage(HttpSession session, Model model, int userno) {
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
-		int userno = loginUserVo.getUserno();
+		UserVo userVo = userService.getUserInfoByUserno(userno);
 		int follower = followService.selectFollowerNumber(userno);
 		int follow = followService.selectFollowNumber(userno);
+		List<PointVo> pointList = pointService.getPointListByUserno(userno);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
+		model.addAttribute("pointList", pointList);
+		model.addAttribute("userVo", userVo);
 		return "user/mypage";
 	}
 	
@@ -247,7 +255,7 @@ public class UserController {
 		String sns_type = "google";
 		String username = userInfo.get("name");
 		String profile_image = userInfo.get("picture");
-		UserVo userVo = new UserVo(null, username, null, profile_image, sns_id, sns_type);
+		UserVo userVo = new UserVo(username, username, null, profile_image, sns_id, sns_type);
 		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
 			boolean addResult = userService.addSnsUser(userVo);
 		}

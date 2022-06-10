@@ -26,7 +26,7 @@ public class MovieController {
 		System.out.println("boxoffice");
 		return "movie/boxoffice";
 	}
-	
+	//전체영화리스트
 	@RequestMapping(value="/movieList", method = RequestMethod.GET)
 	public String movieList(Model model) {
 		List<MovieVo> list = movieService.movieList();
@@ -36,6 +36,18 @@ public class MovieController {
 		
 		return "movie/movieList";
 	}
+	//현재 상영영화
+	@RequestMapping(value="/movieListIng", method = RequestMethod.GET)
+	public String movieListIng(Model model) {
+		List<MovieVo> list = movieService.movieListIng();
+		System.out.println("movieListIng : " + list);
+		
+		model.addAttribute("list", list);
+		
+		return "movie/movieListIng";
+	}
+	
+	
 	
 	@RequestMapping(value="/movieInfo", method = RequestMethod.GET)
 	public String movieInfo(String movie_code,Model model) {

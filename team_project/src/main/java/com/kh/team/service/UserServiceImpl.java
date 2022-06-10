@@ -36,6 +36,13 @@ public class UserServiceImpl implements UserService {
 		return userVo;
 	}	
 
+	// 유저번호로 회원정보 조회
+	@Override
+	public UserVo getUserInfoByUserno(int userno) {
+		UserVo userVo = userDao.selectUserByUserno(userno);
+		return userVo;
+	}
+	
 	// 회원목록 조회
 	@Override
 	public List<UserVo> getUserList() {

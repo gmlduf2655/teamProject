@@ -9,6 +9,24 @@
 </head>
 <body>
 <script type="text/javascript">
+var db_update_result = "${db_update_result}";
+var db_save_result = "${db_save_result}";
+var db_delete_result = "${db_delete_result}";
+if(db_update_result == "true"){
+	alert("db 수정 완료");
+} else if (db_update_result == "false"){
+	alert("db 수정 실패");
+}
+if(db_save_result == "true"){
+	alert("db 저장 완료");
+} else if (db_save_result == "false"){
+	alert("db 저장 실패");
+}if(db_delete_result == "true"){
+	alert("db 삭제 완료");
+} else if (db_delete_result == "false"){
+	alert("db 삭제 실패");
+}
+
 $(function(){
 	$("#dbSave").click(function(e){
 		//e.preventDefault();
@@ -72,6 +90,8 @@ $(function(){
 		
 		$("#dbSearch").click(function(){
 			var moviecode = $("#moviecode").val();
+			//moviecode 앞뒤로 공백제거
+			moviecode = $.trim(moviecode);
 			$.ajax({
 				type: "GET",
 				url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json",
