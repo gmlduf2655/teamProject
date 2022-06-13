@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.ReviewService;
 import com.kh.team.util.EventFileUploader;
+import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
 @Controller
@@ -26,9 +27,13 @@ public class ReviewController {
 	
 	// 게시글 목록
 		@RequestMapping(value = "/review_list", method = RequestMethod.GET)
-		public String eventList(Model model) {
-			List<ReviewVo> reviewList = reviewService.list();
+		public String eventList(Model model, ReviewPagingDto pagingDto) {
+			System.out.println("ReviewPagingDto:" + pagingDto);
+			pagingDto.setCount(reviewService.getCount(pagingDto));
+			pagingDto.setPage(pagingDto.getPage());
+			List<ReviewVo> reviewList = reviewService.list(pagingDto);
 			model.addAttribute("reviewList", reviewList);
+			model.addAttribute("pagingDto", pagingDto);
 			return "review/review_list";
 		}
 	// 게시글 작성 폼

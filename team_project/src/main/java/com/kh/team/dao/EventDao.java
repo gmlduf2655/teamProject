@@ -6,6 +6,7 @@ import com.kh.team.vo.EventVo;
 import com.kh.team.vo.WinnerPagingDto;
 
 public interface EventDao {
+	
 	public List<EventVo> list(); //게시글 리스트
 	public boolean insert(EventVo eventVo); //게시글 작성
 	public boolean modify(EventVo eventVo); //게시글 수정

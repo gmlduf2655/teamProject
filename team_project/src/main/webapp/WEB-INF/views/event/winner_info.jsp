@@ -6,7 +6,6 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <style>
-<style>
  tr.tr_list {
  	cursor: pointer;
  }
@@ -17,9 +16,11 @@
 </style>
 
 <script>
-var frmPaging = $("#frmPaging");
+
 
 $(document).ready(function(){
+	var frmPaging = $("#frmPaging");
+	
 	$(".td_list").click(function() {
 		var winner_no = $(this).attr("data-wno");
 		frmPaging.find("input[name=winner_no]").val(winner_no);
@@ -27,8 +28,31 @@ $(document).ready(function(){
 		frmPaging.attr("method", "get");
 		frmPaging.submit();
 	});
+	
+	$("#btnSearch").on("click", function(){
+		var searchType = $("#searchType").val();
+		var keyword = $("#keyword").val();
+		
+		
+		if(!searchType){
+	    	alert("검색 종류를 선택하세요.");
+	        return false;
+	    }
+	        
+	    if(!keyword){
+	        alert("검색어를 입력하세요.");
+	        return false;
+	    }    
+	   
+		frmPaging.find("input[name=searchType]").val(searchType);
+		frmPaging.find("input[name=keyword]").val(keyword);
+		frmPaging.find("input[name=page]").val(1);
+		frmPaging.submit();
+	});
 });
 </script>
+
+
 
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
@@ -44,18 +68,58 @@ $(document).ready(function(){
     </section>
     <!-- Normal Breadcrumb End -->
 
-<%@ include file="/WEB-INF/views/event/WinnerPaging.jsp" %>
-
-
-
-
 	
 
 <div class="container-fluid" style="background-color: white">
 
+
+
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
+
+
+<!-- 검색 -->
+			<div>
+			<select id="searchType">
+				<option value="">선택</option>
+				<option value="">---------------</option>
+				<option value="t"
+					<c:if test="${pagingDto.searchType == 't'}">
+						selected
+					</c:if>
+				>제목</option>
+				<option value="c"
+					<c:if test="${pagingDto.searchType == 'c'}">
+						selected
+					</c:if>
+				>내용</option>
+				<option value="w"
+					<c:if test="${pagingDto.searchType == 'w'}">
+						selected
+					</c:if>
+				>작성자</option>
+				<option value="tc"
+					<c:if test="${pagingDto.searchType == 'tc'}">
+						selected
+					</c:if>
+				>제목 + 내용</option>
+				<option value="tcw"
+					<c:if test="${pagingDto.searchType == 'tcw'}">
+						selected
+					</c:if>
+				>제목 + 내용 + 작성자</option>
+			</select>
+			<form id="frmPaging" action="/event/winner_info" method="get">
+			<input type="text" id="keyword">
+				<input type="hidden" name="winner_no" value="">
+				<input type="hidden" name="page" value="${pagingDto.page}">
+				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
+				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			</form>
+			</div> 
+
 
 			<table class="table">
 				<thead>

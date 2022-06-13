@@ -41,10 +41,10 @@ public class ReviewDaoTest {
 		System.out.println("result: "+ result);
 	}
 	
-	@Test
-	public void testList() {
-		List<ReviewVo> reviewList = reviewDao.list();
-		System.out.println("reviewList: "+ reviewList);
-	}
+//	@Test
+//	public void testList() {
+//		List<ReviewVo> reviewList = reviewDao.list();
+//		System.out.println("reviewList: "+ reviewList);
+//	}
 
 }

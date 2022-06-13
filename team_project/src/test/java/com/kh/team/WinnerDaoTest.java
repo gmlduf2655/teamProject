@@ -49,11 +49,11 @@ public class WinnerDaoTest {
 		System.out.println("result: "+ result);
 	}
 	
-	@Test
-	public void testList() {
-		List<WinnerVo> winnerList = winnerDao.list();
-		System.out.println("winnerList: "+ winnerList);
-	}
+//	@Test
+//	public void testList() {
+//		List<WinnerVo> winnerList = winnerDao.list();
+//		System.out.println("winnerList: "+ winnerList);
+//	}
 	
 
 }
