@@ -298,7 +298,12 @@
 								</div>
 							</div>
 						</div>
-					</div>				
+					</div>
+					<div class="row">
+		            	<div class="col-lg-12" style="text-align:center;">
+			            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&userid=${userVo.userid}">더보기</a>
+		            	</div>
+	            	</div>				
             	</div>
             </div>
             <hr>

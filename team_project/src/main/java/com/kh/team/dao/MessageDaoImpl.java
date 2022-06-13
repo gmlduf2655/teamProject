@@ -29,22 +29,36 @@ public class MessageDaoImpl implements MessageDao {
 
 	// 보내는 메세지 조회
 	@Override
-	public List<MessageVo> selectSenderMessageList(int sender) {
+	public List<MessageVo> selectSenderMessageList(String sender) {
 		List<MessageVo> senderMessageList = sqlSession.selectList(NAMESPACE + "selectSenderMessageList", sender);
 		return senderMessageList;
 	}
 
 	// 받는 메세지 조회
 	@Override
-	public List<MessageVo> selectReceiverMessageList(int receiver) {
+	public List<MessageVo> selectReceiverMessageList(String receiver) {
 		List<MessageVo> receiverMessageList = sqlSession.selectList(NAMESPACE + "selectReceiverMessageList", receiver);
 		return receiverMessageList;
 	}
 
+	// 메세지 번호로 메세지 조회
+	@Override
+	public MessageVo selectMessageByMessageno(int messageno) {
+		MessageVo messageVo = sqlSession.selectOne(NAMESPACE + "selectMessageByMessageno", messageno);
+		return messageVo;
+	}	
+	
+	// 메세지 번호 얻시
+	@Override
+	public int selectMessageno() {
+		int messageno = sqlSession.selectOne(NAMESPACE + "selectMessageno");
+		return messageno;
+	}
+	
 	// 메세지 내역 삭제
 	@Override
-	public boolean deleteMessage(int sender, int receiver) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public boolean deleteMessage(String sender, String receiver) {
+		Map<String, String> map = new HashMap<>();
 		map.put("sender", sender);
 		map.put("receiver", receiver);
 		int count = sqlSession.insert(NAMESPACE + "deleteMessage", map);
@@ -53,5 +67,6 @@ public class MessageDaoImpl implements MessageDao {
 		}
 		return false;
 	}
+
 
 }

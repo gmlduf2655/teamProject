@@ -10,8 +10,8 @@
 			tbl_message(messageno, groupno, sender, receiver, message_file, message_title, message_content)
 		values
 			(
-				seq_message_messageno.nextval, 
-				seq_message_messageno.nextval,
+				#{messageno}, 
+				#{messageno},
 				#{sender},
 				#{receiver},
 				#{message_file, jdbcType=VARCHAR},
@@ -32,6 +32,17 @@
 		select * from tbl_message
 		where receiver = #{receiver}
 		order by message_date desc		
+	</select>
+	
+	<!-- 메세지 번호로 메세지 조회 -->
+	<select id="selectMessageByMessageno" resultType="MessageVo">
+		select * from tbl_message
+		where messageno=#{messageno}
+	</select>
+
+	<!-- 메세지 번호 얻기 -->
+	<select id="selectMessageno" resultType="Integer">
+		select seq_message_messageno.nextval from dual
 	</select>
 		
 	<!-- 메세지 내역 삭제 -->
