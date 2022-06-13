@@ -21,12 +21,12 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	
-	//필요없나 생각중
+	/*//필요없나 생각중
 	@RequestMapping(value="/boxoffice", method = RequestMethod.GET)
 	public String boxoffice() {
 		System.out.println("boxoffice");
 		return "movie/boxoffice";
-	}
+	}*/
 	//전체영화리스트
 	@RequestMapping(value="/movieList", method = RequestMethod.GET)
 	public String movieList(Model model) {
@@ -77,5 +77,5 @@ public class MovieController {
 		return data;
 	}
 	
-
+	
 }

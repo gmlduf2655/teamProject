@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kh.team.mappers.movieLike">
+	
+	<!-- 유수연 영화 좋아요  -->
+	<insert id="insertLike">
+		insert into tbl_movie_like (gno, movie_no, gcount, userid )
+		values(seq_movie_like_gno.nextval,#{movie_no},#{gcount}, #{userid})
+	</insert>
+	<!-- 유수연 영화 좋아요 유무 -->
+	<select id="isLike" resultType="int">
+		select count(*) from tbl_movie_like
+		where userid = #{userid} and movie_no = #{movie_no}
+	</select>
+	<!-- 유수연 영화 좋아요 총 카운트 -->
+	<select id="countLike" resultType="int">
+		select count(*) from tbl_movie_like
+		where movie_no = #{movie_no}
+	</select>
+	<!-- 유수연 영화 좋아요 빼기 -->
+	<delete id="deleteLike">
+		delete tbl_movie_like
+		where userid = #{userid} and movie_no = #{movie_no}
+	</delete>
+
+</mapper>
