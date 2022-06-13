@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -27,6 +28,7 @@ import com.kh.team.service.MessageService;
 import com.kh.team.service.UserService;
 import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.MessageVo;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.UserVo;
 
 @Controller
@@ -39,17 +41,25 @@ public class MessageController {
 	
 	// 쪽지 보관함 페이지 이동
 	@RequestMapping(value="/message_list", method=RequestMethod.GET)
-	public String messageList(HttpSession session, Model model, String type) {
+	public String messageList(HttpSession session, Model model, String type, int page) {
 		UserVo userVo = (UserVo)session.getAttribute("loginUserVo");
+		String userid = userVo.getUserid();
 		List<MessageVo> messageList = null;
+		PagingDto pagingDto = new PagingDto();
+		int count = 0;
 		
 		if(type.equals("send")) {
-			messageList = messageService.getSenderMessageList(userVo.getUserid());
+			messageList = messageService.getSenderMessageList(userid);
+			count = messageService.getSenderMessageCount(userid);
 		}else if(type.equals("receive")){
-			messageList = messageService.getReceiverMessageList(userVo.getUserid());
+			messageList = messageService.getReceiverMessageList(userid);
+			count = messageService.getReceiverMessageCount(userid);
 		}else {}
+		pagingDto.setPage(page);
+		pagingDto.setCount(count);
 		
 		model.addAttribute("messageList", messageList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "message/message_list";
 	}
 	
@@ -69,15 +79,46 @@ public class MessageController {
 		}
 		redirectAttributes.addFlashAttribute("add_result", result + "");
 		System.out.println("messageVo : " + messageVo);
-		return "redirect:/message/message_list?userno=" + loginUserVo.getUserno() + "&type=receive";
+		return "redirect:/message/message_list?page=1&type=receive";
+	}
+	
+	// 답장 쓰기 페이지 이동
+	@RequestMapping(value="/reply_form", method=RequestMethod.GET)
+	public String replyForm(Model model, int messageno) {
+		MessageVo messageVo = messageService.getMessageByMessageno(messageno);
+		model.addAttribute("messageVo", messageVo);
+		return "message/reply_form";
+	}
+	
+	// 답장 쓰기
+	@RequestMapping(value="/reply_run", method=RequestMethod.POST)
+	public String replyRun(HttpSession session, MessageVo messageVo, RedirectAttributes redirectAttributes) {
+		System.out.println(messageVo);
+		boolean result = messageService.replyMessage(messageVo);
+		if(!result) {
+			MyFileUploader.deleteDirectory("/moverattach/message/" + messageVo.getMessageno());
+		}
+		redirectAttributes.addFlashAttribute("add_result", result + "");
+		return "redirect:/message/message_list?page=1&type=receive";
 	}
 	
 	// 쪽지 읽기 페이지 이동
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(Model model, int messageno) {
+	public String read(Model model, int messageno, String type) {
 		MessageVo messageVo = messageService.getMessageByMessageno(messageno);
+		if(type.equals("receive") && messageVo.getRead_date() == null){
+			messageService.updateReadDate(messageno);
+		}
 		model.addAttribute("messageVo", messageVo);
 		return "message/read";
+	}
+	
+	// 메세지 삭제
+	@RequestMapping(value="/delete_run", method=RequestMethod.GET)
+	public String deleteRun(int messageno, String type, RedirectAttributes redirectAttributes) {
+		boolean result = messageService.deleteMessage(messageno, type);
+		redirectAttributes.addFlashAttribute("delete_result", result);
+		return "redirect:/message/message_list?page=1&type=receive";
 	}
 	
 	// 파일업로드
