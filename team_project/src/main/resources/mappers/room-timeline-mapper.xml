@@ -16,6 +16,7 @@
 			timeline_no,
 			cinema_no,
 			room_no,
+			room_type_code,
 			movie_code,
 			movie_begin_date,
 			movie_finish_date,
@@ -24,6 +25,7 @@
 			seq_timeline_no.nextval,
 			#{cinema_no},
 			#{room_no},
+			#{room_type_code},
 			#{movie_code},
 			to_timestamp(#{movie_begin_date},'HH24:MI:SS'),
 			to_timestamp(#{movie_finish_date},'HH24:MI:SS'),
@@ -34,7 +36,8 @@
 	<!-- 상영관 별 스케줄 리스트 조회 -->
 	<select id="selectRoomTimelineList" resultType="map">
 		select * from tbl_room_timeline line left outer join tbl_movie movie
-		on line.movie_code = movie.movie_code
+		on line.movie_code = movie.movie_code left outer join tbl_room_type type
+		on line.room_type_code = type.room_type_code
 		<choose>
 			<when test="search_column == null">
 				where room_no = #{room_no}
@@ -48,8 +51,10 @@
 	</select>
 	
 	<!-- 스케줄 정보 조회 -->
-	<select id="selectRoomTimeline" resultType="RoomTimelineVo">
-		select * from tbl_room_timeline
+	<select id="selectRoomTimeline" resultType="map">
+		select * from tbl_room_timeline timeline left outer join tbl_movie movie
+		on timeline.movie_code = movie.movie_code left outer join tbl_cinema_room room
+		on timeline.room_no = room.room_no
 		where timeline_no = #{timeline_no}
 	</select>
 	
@@ -57,9 +62,10 @@
 	<update id="updateRoomTimelineInfo">
 		update tbl_room_timeline set
 			room_no 			= #{room_no},
+			room_type_code		= #{room_type_code},
 			movie_code			= #{movie_code},
-			movie_begin_date	= to_timestamp(#{movie_begin_date},'HH24:MI:SS'),
-			movie_finish_date	= to_timestamp(#{movie_finish_date},'HH24:MI:SS'),
+			movie_begin_date	= to_timestamp(#{movie_begin_date},'YYYY-MM-DD HH24:MI:SS'),
+			movie_finish_date	= to_timestamp(#{movie_finish_date},'YYYY-MM-DD HH24:MI:SS'),
 			movie_status		= #{movie_status}
 		where timeline_no = #{timeline_no}
 	</update>

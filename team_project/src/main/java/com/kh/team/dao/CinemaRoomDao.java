@@ -23,7 +23,6 @@ public interface CinemaRoomDao {
 	// 상영관 정보 수정
 	public boolean updateCinemaRoomInfo(
 			int room_no,
-			String room_type_code,
 			String room_name,
 			String room_floor,
 			String room_begin_time,

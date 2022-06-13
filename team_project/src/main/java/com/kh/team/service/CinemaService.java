@@ -7,6 +7,7 @@ import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.RoomSeatVo;
 import com.kh.team.vo.RoomTimelineVo;
+import com.kh.team.vo.RoomTypeVo;
 
 public interface CinemaService {
 	
@@ -49,7 +50,7 @@ public interface CinemaService {
 	public Map<String, Object> getCinemaRoom(int room_no);
 	
 	// 상영관 정보 수정
-	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status, String room_type_code);
+	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status);
 	
 	// 상영관 상태 변경
 	public boolean modifyCinemaRoomStatus(int room_no, boolean room_status);
@@ -70,10 +71,10 @@ public interface CinemaService {
 	public List<Map<String, Object>> getRoomTimelineList(int cinema_no, String search_column, Object search_data, String order_column, String order_type);
 	
 	// 상영 스케줄 정보 조회
-	public RoomTimelineVo getRoomTimeline(int timeline_no);
+	public Map<String, Object> getRoomTimeline(int timeline_no);
 	
 	// 상영 스케줄 정보 수정
-	public boolean modifyRoomTimelineInfo(int timeline_no, int room_no, String movie_code, String movie_begin_date, String movie_finish_date, boolean movie_status);
+	public boolean modifyRoomTimelineInfo(int timeline_no, int room_no, String room_type_code, String movie_code, String movie_begin_date, String movie_finish_date, boolean movie_status);
 	
 	// 상영 스케줄 상태 변경
 	public boolean modifyRoomTimelineStatus(int timeline_no, boolean movie_status);
@@ -97,5 +98,19 @@ public interface CinemaService {
 	// 좌석 정보 수정
 	public boolean modifyRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status);
 	
+	
+	
+	
+	
+	
+	// -------------------------------------
+	
+	
+	
+	
+	
+	
+	// 룸 타입 리스트 조회
+	public List<RoomTypeVo> getRoomTypeList();
 
 }
