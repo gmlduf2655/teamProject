@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#message_popup").click(function(){
-			window.open("/message/message_list?userno=${loginUserVo.userno}&type=receive","쪽지보관함","width=800px,height=600px,scrollbars=yes");
+			window.open("/message/message_list?type=receive","쪽지보관함","width=1000px,height=667px,scrollbars=yes");
 		});
 	});
 </script>

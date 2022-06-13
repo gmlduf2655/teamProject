@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class MessageVo {
 	private int messageno; // 메세지 번호
-	private int sender; // 보내는 이
-	private int receiver; // 받는 이
+	private String sender; // 보내는 이
+	private String receiver; // 받는 이
 	private Date message_date; // 메세지 보낸 날짜
 	private String message_file; // 메세지 첨부파일
 	private int groupno; // 메세지 그룹번호
@@ -13,15 +13,13 @@ public class MessageVo {
 	private int re_level; // 메세지 그룹레벨
 	private String message_title; // 메세지 제목
 	private String message_content; // 메세지 내용
-	
 	// 기본생성자
 	public MessageVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	// 필드생성자
-	public MessageVo(int messageno, int sender, int receiver, Date message_date, String message_file, int groupno,
+	public MessageVo(int messageno, String sender, String receiver, Date message_date, String message_file, int groupno,
 			int re_seq, int re_level, String message_title, String message_content) {
 		super();
 		this.messageno = messageno;
@@ -45,19 +43,19 @@ public class MessageVo {
 		this.messageno = messageno;
 	}
 
-	public int getSender() {
+	public String getSender() {
 		return sender;
 	}
 
-	public void setSender(int sender) {
+	public void setSender(String sender) {
 		this.sender = sender;
 	}
 
-	public int getReceiver() {
+	public String getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(int receiver) {
+	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
 
@@ -125,5 +123,7 @@ public class MessageVo {
 				+ ", re_level=" + re_level + ", message_title=" + message_title + ", message_content=" + message_content
 				+ "]";
 	}
+
+	
 	
 }

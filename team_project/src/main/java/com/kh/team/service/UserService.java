@@ -28,6 +28,10 @@ public interface UserService {
 	public boolean snsUserDuplCheck(String sns_id, String sns_type);
 	// 간편로그인 아이디와 타입으로 회원 정보 조회
 	public UserVo getUserBySnsIdAndType(String sns_id, String sns_type);
+	// 회원번호와 회원타입으로 회원 아이디 조회
+	public String getUseridByUsernoAndSnsType(int userno, String sns_type);
+	// 회원아이디와 회원타입으로 회원 번호 조회
+	public int getUsernoByUseridAndSnsType(String userid, String sns_type);
 	// 로그인
 	public UserVo login(String userid, String userpw);
 	// 회원 정보 수정

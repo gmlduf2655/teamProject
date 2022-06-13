@@ -19,15 +19,37 @@
 </style>
 </head>
 <body>
-	<div id="releaseCont">
-		<ol class="releaseRank">
-			<c:forEach begin="0" end="9" var="i">
-				<li class="active" id="rank${i}">
-					<a href="#"></a>
-				</li>
-			</c:forEach>
-		</ol>
+
+<div class="row">
+		
+		<div class="col-md-11">
+
+			<div id="releaseCont" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
+				<%-- <ol class="releaseRank">
+					<c:forEach begin="0" end="9" var="i">
+						<li class="active" id="rank${i}"><a href="#"></a></li>
+					</c:forEach>
+				</ol> --%>
+				<table style="color: white;">
+					<c:forEach begin="0" end="9" var="i">
+					<tr style="padding-bottom: 10px;">
+						<td style="text-align: right;">${i+1}.</td>
+						<td id="rank${i}"></td> 
+						<%-- <td><a  id="rank${i}" href="/movie/movieInfo?movie_code=${movieVo.movie_code}"></a></td> --%>
+					</tr>
+					</c:forEach>
+				</table>
+				
+			</div>
+
+		</div>
+		<div class="col-md-1"></div>
 	</div>
+
+
+
+
+	
 
 
 <script type="text/javascript">
@@ -42,7 +64,11 @@
 		success: function(data) {
 			console.log(data);
 			$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
-				$('#rank'+i).append("<span class=\"boxoffice_rank\">" +j.movieNm+"</span>");
+				/* $('#rank'+i).append("<span class=\"boxoffice_rank\">" +j.movieNm+"</span>"); 
+				$('#rank'+i).append("<input type='hidden' name='boMovie_cd' value=" + j.movieCd+"/>");  */
+				$('#rank'+i).append("<a style='color: white;' href='/movie/movieInfo?movie_code="+j.movieCd+"'>" +j.movieNm+"</a>"); 
+				/* $('#rank'+i).append("<a class=\"boxoffice_rank\ href='/movie/movieInfo?movie_code="+j.movieCd+">" +j.movieNm+"</a>");*/
+				
 				//$('#rank'+i).append("<span class=\"boxoffice_rank right rk_inten\" id=\"rk_inten"+ i +"\">"+j.rankInten+"</span>");
 				//old 일경우 이미지 new 일 경우 이미지
 				//$('#rank'+i).append("<span class=\"boxoffice_rank right "+ j.rankOldAndNew +"\">"+j.rankOldAndNew +"</span>");

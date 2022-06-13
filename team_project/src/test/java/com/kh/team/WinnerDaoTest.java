@@ -54,6 +54,7 @@ public class WinnerDaoTest {
 //		List<WinnerVo> winnerList = winnerDao.list();
 //		System.out.println("winnerList: "+ winnerList);
 //	}
+
 	
 
 }
