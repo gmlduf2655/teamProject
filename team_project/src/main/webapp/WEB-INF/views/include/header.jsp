@@ -120,6 +120,7 @@
 									<a href="/event/event_list">이벤트</a>
                                     <ul class="dropdown">
                                         <li><a href="/event/event_list">현재 진행중</a></li>
+                                        <li><a href="#">지난 이벤트</a></li>
                                         <li><a href="/event/winner_info">당첨자 발표</a></li>
                                     </ul>
 								</li>

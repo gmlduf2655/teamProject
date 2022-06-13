@@ -58,23 +58,21 @@ $(function(){
 				<c:forEach items="${list}" var="movieVo">
 					<div class="col-md-3">
 						<div class="product__item">
+						
 							<div class="product__item__pic set-bg"
 								
 								<c:choose>
-								<c:when test="${empty movieVo.movie_image_name}"> 
+								<c:when test="${empty movieVo.movie_image_name}">
 									data-setbg="/resources/images/no_image.jpg" 
 								</c:when>
 								<c:otherwise>
 									data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
 								</c:otherwise>
 								</c:choose>
-								>
-								<!-- <div class="ep"><span id="date">개봉날짜:</span></div> -->
-								<div class="ep">${movieVo.opening_date}</div>
-								<div class="view">
-									<i class="fa fa-eye"></i><div id="audiAcc"></div>
-								</div>
+								style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">
+								
 							</div>
+							
 							<div class="product__item__text">
 								<h5>
 									<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>

@@ -51,12 +51,8 @@ $(function(){
 									data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
 								</c:otherwise>
 								</c:choose>
-								>
-								<!-- <div class="ep"><span id="date">개봉날짜:</span></div> -->
-								<div class="ep">${movieVo.opening_date}</div>
-								<div class="view">
-									<i class="fa fa-eye"></i><div id="audiAcc"></div>
-								</div>
+								style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">
+								
 							</div>
 							<div class="product__item__text">
 								<h5>

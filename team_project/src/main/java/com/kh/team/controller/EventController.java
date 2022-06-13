@@ -1,22 +1,10 @@
 package com.kh.team.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -141,14 +129,15 @@ public class EventController {
 	// 당첨자 발표 게시판 목록
 	@RequestMapping(value = "/winner_info", method = RequestMethod.GET)
 	public String winnerInfo(Model model, WinnerPagingDto pagingDto) {
+		System.out.println("pagingDto:" + pagingDto);
 		pagingDto.setCount(winnerService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
-		List<WinnerVo> winnerList = winnerService.list();
+		List<WinnerVo> winnerList = winnerService.list(pagingDto);
 		model.addAttribute("winnerList", winnerList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/winner_info";
 	}
-	
+	 
 	// 당첨자 게시판 읽기
 	@RequestMapping(value = "/winner_read", method = RequestMethod.GET)
 	public String winnerRead(int winner_no, Model model) {
@@ -158,7 +147,7 @@ public class EventController {
 	}
 	
 	// 당첨자 게시판 글쓰기 폼 
-	@RequestMapping(value = "/winner_write", method = RequestMethod.GET)
+	@RequestMapping(value = "/winner_writeForm", method = RequestMethod.GET)
 	public String winnerWrite() {
 		return "event/winner_writeForm";
 	}
@@ -166,9 +155,9 @@ public class EventController {
 	// 당첨자 게시판 글쓰기
 	@RequestMapping(value = "/winner_writeRun", method = RequestMethod.POST)
 	public String winnerWriteRun(WinnerVo winnerVo, RedirectAttributes rttr) {
-		System.out.println("BoardController, createRun, winnerVo:"+ winnerVo);
+		System.out.println("EventController, winner_writeRun, winnerVo:"+ winnerVo);
 		boolean result = winnerService.insert(winnerVo);
-		System.out.println("BoardController, createRun, result:"+ result);
+		System.out.println("EventController, winner_writeRun, result:"+ result);
 		rttr.addFlashAttribute("insert_result", result);
 		return "redirect:/event/winner_info";
 	}

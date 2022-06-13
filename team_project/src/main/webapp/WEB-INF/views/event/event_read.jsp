@@ -52,21 +52,22 @@ $(document).ready(function(){
 							<input type="text" class="form-control" id="event_title" name="event_title"
 								value="${eventVo.event_title}" readonly />
 						</div>
-						
+						<hr>
 						<div class="form-group">
 							<label for="event_end_date"> 이벤트 종료일 </label><br>
 							<input type="date" id="event_end_date" name="event_end_date" value="${eventVo.event_end_date}" readonly>
 						</div>
-						
+						<hr>
 						<div>
+						<label>메인 이미지</label><br>
 						 <img src="/event/displayImage?filename=${eventVo.event_image}">
 						</div>
-						
+						<hr>
 						<div class="form-group">
 							<label for="event_content"> 내용 </label>
 							${eventVo.event_content}
 						</div>
-						
+						<hr>
 						
 						
 						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a>

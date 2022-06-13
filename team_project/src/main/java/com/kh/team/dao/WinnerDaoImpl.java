@@ -3,7 +3,6 @@ package com.kh.team.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +17,8 @@ public class WinnerDaoImpl implements WinnerDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<WinnerVo> list() {
-		List<WinnerVo> winnerList = sqlSession.selectList(NAMESPACE + "list");
+	public List<WinnerVo> list(WinnerPagingDto pagingDto) {
+		List<WinnerVo> winnerList = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return winnerList;
 	}
 

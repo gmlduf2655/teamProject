@@ -23,6 +23,8 @@ alter table tbl_user modify (username varchar2(20));
 alter table tbl_user modify (status char(1) default '1' check(status='1' or status='0'));
 -- 휴대폰 번호 컬럼 변경
 alter table tbl_user modify (cellphone char(13));
+-- 아이디 컬럼 변경
+alter table tbl_user modify (userid varchar2(50));
 
 --제약조건 삭제-----------------------------------------
 -- check(status=='T' or status=='F') 제약조건 삭제

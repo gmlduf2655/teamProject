@@ -14,6 +14,22 @@ create table tbl_message(
 create sequence seq_message_messageno;
 
 -- 메세지 제목 컬럼 생성
-alter table tbl_message add(message_title varchar2(100) not null)
+alter table tbl_message add(message_title varchar2(100) not null);
 -- 메세지 내용 컬럼 생성
-alter table tbl_message add(message_content varchar2(2000) not null)
+alter table tbl_message add(message_content varchar2(2000) not null);
+-- 읽은 날짜 컬럼 생성
+alter table tbl_message add(read_date date);
+-- 메세지 삭제됨 컬럼 생성(보내는 이)
+alter table tbl_message add(sender_delete char(1) default 'F' check(sender_delete in('T','F')));
+-- 메세지 삭제됨 컬럼 생성(보내는 이)
+alter table tbl_message add(receiver_delete char(1) default 'F' check(receiver_delete in('T','F')));
+
+-- 보내는 이 외래키 제약 조건 삭제
+alter table tbl_message drop constraint SYS_C008673;
+-- 받는 이 외래키 제약 조건 삭제
+alter table tbl_message drop constraint SYS_C008674;
+
+-- 보내는이 컬럼 변경
+alter table tbl_message modify(sender varchar2(50) references tbl_user(userid));
+-- 받는이 컬럼 변경
+alter table tbl_message modify(receiver varchar2(50) references tbl_user(userid));

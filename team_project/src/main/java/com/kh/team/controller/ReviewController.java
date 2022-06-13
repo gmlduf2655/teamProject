@@ -8,9 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.ReviewService;
+import com.kh.team.util.EventFileUploader;
+import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
 @Controller
@@ -22,9 +27,13 @@ public class ReviewController {
 	
 	// 게시글 목록
 		@RequestMapping(value = "/review_list", method = RequestMethod.GET)
-		public String eventList(Model model) {
-			List<ReviewVo> reviewList = reviewService.list();
+		public String eventList(Model model, ReviewPagingDto pagingDto) {
+			System.out.println("ReviewPagingDto:" + pagingDto);
+			pagingDto.setCount(reviewService.getCount(pagingDto));
+			pagingDto.setPage(pagingDto.getPage());
+			List<ReviewVo> reviewList = reviewService.list(pagingDto);
 			model.addAttribute("reviewList", reviewList);
+			model.addAttribute("pagingDto", pagingDto);
 			return "review/review_list";
 		}
 	// 게시글 작성 폼
@@ -73,5 +82,18 @@ public class ReviewController {
 			boolean result = reviewService.delete(review_no);
 			rttr.addFlashAttribute("delete_result", result);
 			return "redirect:/review/review_list";
+		}
+		
+		// 썸머노트 이미지 업로드
+		@RequestMapping(value = "/uploadSummernoteImageFile", method = RequestMethod.POST)
+		@ResponseBody
+		public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+			
+			String uploadPath = "//192.168.0.62/boardattach";
+			String originalFilename = multipartFile.getOriginalFilename();
+			
+			String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
+			System.out.println("uploadSummernoteImageFile, file:" + file);
+			return file;
 		}
 }

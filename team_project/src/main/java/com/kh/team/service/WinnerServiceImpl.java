@@ -16,8 +16,8 @@ public class WinnerServiceImpl implements WinnerService {
 	private WinnerDao winnerDao;
 
 	@Override
-	public List<WinnerVo> list() {
-		List<WinnerVo> winnerList = winnerDao.list();
+	public List<WinnerVo> list(WinnerPagingDto pagingDto) {
+		List<WinnerVo> winnerList = winnerDao.list(pagingDto);
 		return winnerList;
 	}
 

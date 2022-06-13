@@ -95,12 +95,27 @@ $(document).ready(function(){
   				var name = clone.find("h6");
   				var regDate = clone.find("span");
   				var content = clone.find("p");
+  				
   				name.text(this.userid);
   				regDate.text(this.comment_reg_date);
   				content.text(this.comment_content);
+  				
+  				if (this.profile_image != null) {
+  					$("#userprofile").attr("src" , "/user/get_profile_image?filename="+this.profile_image);
+  				}
+  				
   				clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
   				clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
   				clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
+  				
+  				if("${loginUserVo.userid}" == this.userid){
+					clone.find(".btnCommentModify").show();
+					clone.find(".btnCommentDelete").show();
+				} else {
+					clone.find(".btnCommentModify").hide();
+					clone.find(".btnCommentDelete").hide();
+				} 
+  				
   				$("#comment_list").append(clone);
 			});
 		});
@@ -136,8 +151,8 @@ $(document).ready(function(){
 	$("#comment_list").on("click", ".btnCommentModifyRun", function() {
 		var comment_content = $(".contentModify").val();
 		var comment_no = $(this).attr("data-cno");
-		console.log("comment_no:"+comment_no);
-		console.log("comment_content:"+comment_content);
+//		console.log("comment_no:"+comment_no);
+//		console.log("comment_content:"+comment_content);
 		var sData = {
 				"comment_content": comment_content,
 				"comment_no"     : comment_no
@@ -173,12 +188,12 @@ $(document).ready(function(){
 	<label for="review_title"> 제목 </label> 
 	<input type="text" class="form-control" id="review_title" name="review_title" 
 		value="${reviewVo.review_title}" readonly/>
-	
+	<hr>
 	<label for="review_writer"> 작성자 </label> 
 	<input type="text" class="form-control" id="review_writer" name="review_writer"	
 		value="${reviewVo.review_writer}" readonly/>
 
-	
+	<hr>
 	<label>별점</label>
 		<div class="make_star">
 			<div class="rating" data-rate="${reviewVo.review_star}">
@@ -189,11 +204,10 @@ $(document).ready(function(){
 				<i class="fa fa-star"></i>
 			</div>
 		</div>
-
-	
-	<br><label>내용</label>
+	<hr>
+	<label>내용</label><br>
 		<div>${reviewVo.review_content}</div>
-		
+	<hr>
 	
 	
 	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
@@ -234,14 +248,13 @@ $(document).ready(function(){
 				<!-- clone table -->
 				<div class="anime__review__item" style="display:none;" id="clone" >
 					<div class="anime__review__item__pic">
-						<img src="img/anime/review-1.jpg">
+						<img src="/resources/images/usernoimage.JPG" id="userprofile">
 					</div>
 					<div class="anime__review__item__text">
 						<h6> </h6>
 						<span style="color: white;"> </span>
 							<p></p>
 							
-						
 							
 							<button type="button"
 							class="btn btn-sm btn-warning btnCommentModify">수정</button>
@@ -249,8 +262,6 @@ $(document).ready(function(){
 							style="display:none">수정완료</button>
 							<button type="button"
 							class="btn btn-sm btn-danger btnCommentDelete">삭제</button>
-							
-							
 					</div>
 					<br>
 				</div>

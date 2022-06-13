@@ -29,8 +29,12 @@
 	
 	<!-- 글 목록 -->
 	<select id="list" resultType="ReviewVo">
-		select * from tbl_review
-		order by review_no desc
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_review
+				<include refid="search"></include>
+				order by review_no desc) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 글 읽기 -->
@@ -45,5 +49,37 @@
 				review_count = review_count + 1
 			where review_no = #{review_no}
 		</update>
+		
+	<!-- 글 갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) from tbl_review
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 검색 조건 -->
+		<sql id="search">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					where review_title like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "c"'>
+    					where review_content like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "w"'>
+    					where review_writer like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "tc"'>
+    					where review_title like '%' || #{keyword} || '%'
+    					or    review_content like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "tcw"'>
+    					where review_title like '%' || #{keyword} || '%'
+    					or    review_content like '%' || #{keyword} || '%'
+    					or    review_writer like '%' || #{keyword} || '%'
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
 
 </mapper>

@@ -35,6 +35,7 @@ $(function(){
 			console.log(rData);
 			if(rData == "true"){
 				getCommentList();
+				$("#movie_comment").val("");
 			}
 		});
 	});
@@ -55,33 +56,46 @@ $(function(){
 	$("#comment_list").on("click", ".commentUpdateSubmit" ,function(){
 		/* var tr = $(this).parent().parent();
 		var td = tr.children(); */
-		var div = $(this).prev().prev(); //input상자
-		var movie_comment = div.val();
-		var cno = $(this).attr("data-cno");
-		var url = "/moviecomment/commentUpdate";
-		var sData = {
-				"cno" : cno,
-				"movie_comment" : movie_comment
-		};
-		$.post(url, sData, function(rData){
-			if(rData == "true"){
-				getCommentList();
-			}
-		});
+		//사용자 아이디 체크 후 수정요청
+		var userid = $(this).parent().find("h6").text();
+		console.log("userid" , userid);
+		if("${loginUserVo.userid}" == userid){
+			var div = $(this).prev().prev(); //input상자
+			var movie_comment = div.val();
+			var cno = $(this).attr("data-cno");
+			var url = "/moviecomment/commentUpdate";
+			var sData = {
+					"cno" : cno,
+					"movie_comment" : movie_comment
+			};
+			$.post(url, sData, function(rData){
+				if(rData == "true"){
+					getCommentList();
+				}
+			});
+		} else {
+			alert("사용자가 다릅니다");
+		}
 	});
 	//댓글 삭제 
 	$("#comment_list").on("click", ".commentDelete" ,function(){
 		console.log("click, commentDelete");
-		var cno = $(this).attr("data-cno");
-		var url = "/moviecomment/commentDelete";
-		var sData = {
-				"cno" : cno
-		};
-		$.get(url, sData, function(rData){
-			if(rData == "true"){
-				getCommentList();
-			}
-		});
+		var userid = $(this).parent().find("h6").text();
+		//사용자 아이디 체크 후 삭제요청
+		if("${loginUserVo.userid}" == userid){
+			var cno = $(this).attr("data-cno");
+			var url = "/moviecomment/commentDelete";
+			var sData = {
+					"cno" : cno
+			};
+			$.get(url, sData, function(rData){
+				if(rData == "true"){
+					getCommentList();
+				}
+			});
+		} else {
+			alert("사용자가 다릅니다");
+		}
 	});
 	//댓글 리스트 불러오기
 	/* function getCommentList(){
@@ -153,10 +167,59 @@ $(function(){
 			 
 		});
 	}; 
+	//초기 화면 좋아요 출력
+	getislike();
+	getcountlike();
+	//좋아요클릭(삭제)
+	$("#btnlikecount").click(function(e){
+		e.preventDefault();
+		console.log("btnlikecount 클릭");
+		var url = "/movielike/insertLike";
+		var movie_no = "${movieVo.movie_no}";
+		var userid = "${loginUserVo.userid}";
+		var sData = {
+				"movie_no" : movie_no,
+				"userid" : userid
+		};
+		$.post(url, sData, function(rData){
+			console.log("btnlikecount 클릭 rData" ,rData);
+			getislike();
+			getcountlike();
+		});
+	});
+	//좋아요 갯수 불러오기
+	function getcountlike(){
+		var url = "/movielike/likeCount";
+		var sData = {
+				"movie_no" : "${movieVo.movie_no}"
+		};
+		$.get(url, sData, function(rData){
+			console.log("초기 좋아요 카운트 rData" ,rData);
+			$("#likeCount").text(rData);
+		});
+	}
 	
-	
+	//초기 좋아요 user 여부
+	function getislike(){
+		var url = "/movielike/islike";
+		var movie_no = "${movieVo.movie_no}";
+		var userid = "${loginUserVo.userid}";
+		var sData = {
+				"movie_no" : movie_no,
+				"userid" : userid
+		};
+		$.get(url, sData, function(rData){
+			console.log("초기 좋아요 유저여부 rData" ,rData);
+			if(rData == "true"){
+				$("#faclass").attr("class" , "fa fa-heart" );
+			} else {
+				$("#faclass").attr("class" , "fa fa-heart-o" );
+			}
+		});
+	}
 });
 </script>
+${loginUserVo.userid}
 <!-- <section class="anime-details spad"> -->
         <div class="container">
             <div class="anime__details__content">
@@ -173,42 +236,41 @@ $(function(){
                                 <h3>${movieVo.movie_name}</h3>
                                 <span>${movieVo.movie_name_en}</span>
                             </div>
+                            <!-- 좋아요 수  -->
                             <div class="anime__details__rating">
                                 <div class="rating">
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star-half-o"></i></a>
+                                   
+                                    <a href="#"><i class="fa fa-heart"></i></a>
                                 </div>
-                                <span>1.029 Votes</span>
+                                <span id="likeCount"></span>
                             </div>
                             <p>${movieVo.movie_synopsis}</p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>장르:</span> ${movieVo.movie_genre}</li>
-                                            <li><span>제작사:</span> ${movieVo.made_company}</li>
-                                            <li><span>배우:</span> ${movieVo.movie_actors}외</li>
-                                            <li><span>감독:</span> ${movieVo.movie_director}</li>
-                                            <li><span>상영시간:</span> ${movieVo.runningtime}분</li>
+                                            <li><span>장르:</span>${movieVo.movie_genre}</li>
+                                            <li><span>제작사:</span>${movieVo.made_company}</li>
+                                            <li><span>배우:</span>${movieVo.movie_actors}외</li>
+                                            <li><span>감독:</span>${movieVo.movie_director}</li>
+                                            <li><span>상영시간:</span>${movieVo.runningtime}분</li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li  id="date"><span>개봉날짜:</span></li>
-                                            <li><span>제작연도:</span> ${movieVo.make_year}</li>
-                                            <li><span>제작국가:</span> ${movieVo.made_country}</li>
-                                            <li><span>관람등급:</span> ${movieVo.movie_audits}</li>
-                                            <li><span>Views:</span>${movieVo.opening_date}</li>
+                                            <li><span>제작연도:</span>${movieVo.make_year}</li>
+                                            <li><span>제작국가:</span>${movieVo.made_country}</li>
+                                            <li><span>관람등급:</span>${movieVo.movie_audits}</li>
+                                            <!-- <li><span></span></li> -->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <a href="#" class="watch-btn"><span>예매하기</span> <i class="fa fa-angle-right"></i></a>
-                                <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> 좋아요</a>
+                            	<a href="#" id="btnlikecount" class="follow-btn"><i id="faclass" class="fa fa-heart-o"></i> 좋아요</a>
+                                <a href="#" class="follow-btn"><span>예매하기</span></a>
+                                
                                 </div>
                             </div>
                         </div>
@@ -236,7 +298,6 @@ $(function(){
                            
                             
                             
-                            <!-- try -->
                             <div class="review__item">
 	                           <div class="anime__review__item" id="comment_list">
 									<div class="anime__review__item__pic">
@@ -271,7 +332,7 @@ $(function(){
 									</div>
 									<br>
 								</div>
-								<!-- try -->
+							
                             
                             
                             <!-- 기존 테이블 댓글

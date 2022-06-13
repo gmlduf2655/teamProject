@@ -29,10 +29,14 @@
 	
 	<!-- 글 목록 -->
 	<select id="list" resultType="WinnerVo">
-		select * from tbl_winner
-		order by winner_no desc
+		select * from 
+			(select rownum rnum, a.* from
+    			(select * from tbl_winner
+    			<include refid="search"></include>
+    			order by winner_no desc) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
-	
+	             
 	<!-- 글 읽기 -->
 	<select id="readContent" resultType="WinnerVo">
 		select * from tbl_winner
@@ -49,6 +53,26 @@
 	<!-- 글 갯수 -->
 	<select id="getCount" resultType="int">
 		select count(*) from tbl_winner
+		<include refid="search"></include>
 	</select>
+	
+	<!-- 검색 조건-->
+	<sql id="search">
+		<if test="searchType != null and keyword != null">
+    		<choose>
+    			<when test='searchType == "t"'>
+    				where winner_title like '%' || #{keyword} || '%'
+    			</when>
+    			<when test='searchType == "c"'>
+    				where winner_content like '%' || #{keyword} || '%'
+    			</when>
+    			<when test='searchType == "tc"'>
+    				where winner_title like '%' || #{keyword} || '%'
+    				or    winner_content like '%' || #{keyword} || '%'
+    			</when>
+    		</choose>
+    	</if> 
+	</sql>
+
 
 </mapper>

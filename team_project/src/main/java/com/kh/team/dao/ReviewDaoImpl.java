@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
 @Repository
@@ -16,8 +17,8 @@ public class ReviewDaoImpl implements ReviewDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<ReviewVo> list() {
-		List<ReviewVo> reviewList = sqlSession.selectList(NAMESPACE + "list");
+	public List<ReviewVo> list(ReviewPagingDto pagingDto) {
+		List<ReviewVo> reviewList = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return reviewList;
 	}
 
@@ -58,6 +59,12 @@ public class ReviewDaoImpl implements ReviewDao {
 	public void viewConuntUpdate(int review_no) {
 		sqlSession.update(NAMESPACE + "viewConuntUpdate", review_no);
 		
+	}
+
+	@Override
+	public int getCount(ReviewPagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
+		return count;
 	}
 
 }
