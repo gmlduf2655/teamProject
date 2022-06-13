@@ -27,15 +27,6 @@ $(document).ready(function(){
 		frmPaging.attr("method", "get");
 		frmPaging.submit();
 	});
-	
-	$("#perPage").change(function(){
-		var perPage = $(this).val();
-		frmPaging.find("input[name=perPage]").val(perPage);
-		frmPaging.find("input[name=page]").val(1);
-		frmPaging.attr("action", "/event/winner_info");
-		frmPaging.attr("method", "get");
-		frmPaging.submit();
-	}); //$("#perPage").change
 });
 </script>
 
@@ -65,20 +56,6 @@ $(document).ready(function(){
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-		
-<!-- n줄씩 보기 -->
-	 <select name="perPage" id="perPage">
-	 	<c:forEach begin="5" end="30" step="5" var="v">
-	 		<option value="${v}"
-		 		<c:if test="${pagingDto.perPage == v}">
-		 			selected
-		 		</c:if>
-	 		>${v}줄씩 보기</option>
-	 	</c:forEach>
-	 </select>
-
-
-
 
 			<table class="table">
 				<thead>

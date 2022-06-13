@@ -141,14 +141,15 @@ public class EventController {
 	// 당첨자 발표 게시판 목록
 	@RequestMapping(value = "/winner_info", method = RequestMethod.GET)
 	public String winnerInfo(Model model, WinnerPagingDto pagingDto) {
+		System.out.println("pagingDto:" + pagingDto);
 		pagingDto.setCount(winnerService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
-		List<WinnerVo> winnerList = winnerService.list();
+		List<WinnerVo> winnerList = winnerService.list(pagingDto);
 		model.addAttribute("winnerList", winnerList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/winner_info";
 	}
-	
+	 
 	// 당첨자 게시판 읽기
 	@RequestMapping(value = "/winner_read", method = RequestMethod.GET)
 	public String winnerRead(int winner_no, Model model) {

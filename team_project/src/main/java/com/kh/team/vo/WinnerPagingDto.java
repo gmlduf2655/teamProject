@@ -3,15 +3,15 @@ package com.kh.team.vo;
 public class WinnerPagingDto {
 	
 	private int page = 1;
-	private int startRow;
-	private int endRow;
+	private int startRow = 1;
+	private int endRow = 10;
 	private String searchType;
 	private String keyword;
 	private int perPage = 10;
 	private int totalPage;
 	private int count;
-	private int startPage;
-	private int endPage;
+	private int startPage = 1;
+	private int endPage = 10;
 	private final int PAGE_BLOCK = 10;
 	
 	public WinnerPagingDto() {
@@ -24,7 +24,7 @@ public class WinnerPagingDto {
 
 	public void setPage(int page) {
 		this.page = page;
-		
+
 		this.endRow = this.page * this.perPage;
 		this.startRow = this.endRow - (this.perPage - 1);
 		
@@ -117,4 +117,5 @@ public class WinnerPagingDto {
 				+ searchType + ", keyword=" + keyword + ", perPage=" + perPage + ", totalPage=" + totalPage + ", count="
 				+ count + ", startPage=" + startPage + ", endPage=" + endPage + "]";
 	}
+	
 }

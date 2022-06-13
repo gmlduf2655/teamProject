@@ -30,11 +30,12 @@
 	<!-- 글 목록 -->
 	<select id="list" resultType="WinnerVo">
 		select * from 
-			(select rownum rnum, a.*from
-    			(select * from tbl_winner) a)
+			(select rownum rnum, a.* from
+    			(select * from tbl_winner
+    			order by winner_no desc) a)
 		where rnum between #{startRow} and #{endRow}
 	</select>
-	
+	             
 	<!-- 글 읽기 -->
 	<select id="readContent" resultType="WinnerVo">
 		select * from tbl_winner
@@ -52,31 +53,6 @@
 	<select id="getCount" resultType="int">
 		select count(*) from tbl_winner
 	</select>
-	
-	<!-- 검색 조건 -->
-		<sql id="search">
-			<if test="searchType != null and keyword != null">
-    			<choose>
-    				<when test='searchType == "t"'>
-    					where title like '%' || #{keyword} || '%'
-    				</when>
-    				<when test='searchType == "c"'>
-    					where content like '%' || #{keyword} || '%'
-    				</when>
-    				<when test='searchType == "w"'>
-    					where writer like '%' || #{keyword} || '%'
-    				</when>
-    				<when test='searchType == "tc"'>
-    					where title like '%' || #{keyword} || '%'
-    					or    content like '%' || #{keyword} || '%'
-    				</when>
-    				<when test='searchType == "tcw"'>
-    					where title like '%' || #{keyword} || '%'
-    					or    content like '%' || #{keyword} || '%'
-    					or    writer like '%' || #{keyword} || '%'
-    				</when>
-    			</choose>
-    		</if> 
-		</sql>
+
 
 </mapper>
