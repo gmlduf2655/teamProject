@@ -46,13 +46,13 @@ $(document).ready(function(){
 								value="${winnerVo.winner_title}" readonly />
 						</div>
 						
-						
+						<hr>
 						
 						<div class="form-group">
 							<label for="winner_content"> 내용 </label><br>
 							<p>${winnerVo.winner_content}</p>
 						</div>
-						
+						<hr>
 						<a href="/event/winner_info" class="btn btn-primary">게시글 목록으로</a>
 					</div>
 					<div class="col-md-2"></div>
