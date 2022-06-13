@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.CinemaService;
 import com.kh.team.util.MapAJaxAdaper;
+import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.RoomTimelineVo;
 
@@ -29,12 +30,9 @@ public class MkCinemaController {
 	private CinemaService cinemaService;
 	
 	@RequestMapping(value = "/cinema", method = RequestMethod.GET)
-	public String createCinema(HttpServletRequest request, Model model, RedirectAttributes rttr) {
-		String uri = request.getRequestURI();
-		int index = uri.indexOf("/");
-		String str = uri.substring(index);
-		System.out.println(str);
-		model.addAttribute("pageInfo", str);
+	public String createCinema(Model model, RedirectAttributes rttr) {
+		List<String> cinemaCityList = cinemaService.getCinemaCityAddressList();
+		model.addAttribute("cinemaCityList", cinemaCityList);
 		return "cinema/cinemaDB";
 	}
 	
@@ -71,5 +69,21 @@ public class MkCinemaController {
 		List<Map<String, Object>> roomTimelineList = MapAJaxAdaper.returnAdapter(tempList);
 		System.out.println(roomTimelineList);
 		return roomTimelineList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getCinema", method = RequestMethod.GET)
+	public CinemaVo getCinemaInfo(int cinema_no) {
+		CinemaVo cinemaVo = cinemaService.getCinema(cinema_no);
+		return cinemaVo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getCinemaRoom", method = RequestMethod.GET)
+	public Map<String, Object> getCinemaRoomInfo(int room_no) {
+		Map<String, Object> tempMap = cinemaService.getCinemaRoom(room_no);
+		Map<String, Object> cinemaRoomMap = MapAJaxAdaper.returnAdapter(tempMap);
+		System.out.println(tempMap);
+		return cinemaRoomMap;
 	}
 }

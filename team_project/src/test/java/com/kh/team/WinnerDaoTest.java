@@ -51,7 +51,7 @@ public class WinnerDaoTest {
 	
 	@Test
 	public void testList() {
-		List<WinnerVo> winnerList = winnerDao.list();
+		List<WinnerVo> winnerList = winnerDao.list(null);
 		System.out.println("winnerList: "+ winnerList);
 	}
 	

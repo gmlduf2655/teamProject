@@ -5,6 +5,4 @@
 	<input type="hidden" name="winner_no" value="">
 	<input type="hidden" name="page" value="${pagingDto.page}">
 	<input type="hidden" name="perPage" value="${pagingDto.perPage}">
-	<input type="hidden" name="searchType" value="${pagingDto.searchType}">
-	<input type="hidden" name="keyword" value="${pagingDto.keyword}">
 </form>

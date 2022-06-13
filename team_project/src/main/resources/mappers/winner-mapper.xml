@@ -29,10 +29,13 @@
 	
 	<!-- 글 목록 -->
 	<select id="list" resultType="WinnerVo">
-		select * from tbl_winner
-		order by winner_no desc
+		select * from 
+			(select rownum rnum, a.* from
+    			(select * from tbl_winner
+    			order by winner_no desc) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
-	
+	             
 	<!-- 글 읽기 -->
 	<select id="readContent" resultType="WinnerVo">
 		select * from tbl_winner
@@ -50,5 +53,6 @@
 	<select id="getCount" resultType="int">
 		select count(*) from tbl_winner
 	</select>
+
 
 </mapper>

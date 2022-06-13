@@ -5,7 +5,30 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+<style>
+<style>
+ tr.tr_list {
+ 	cursor: pointer;
+ }
+ 
+ tr.tr_list:hover {
+ 	background-color: #FFCCCB;
+ }
+</style>
 
+<script>
+var frmPaging = $("#frmPaging");
+
+$(document).ready(function(){
+	$(".td_list").click(function() {
+		var winner_no = $(this).attr("data-wno");
+		frmPaging.find("input[name=winner_no]").val(winner_no);
+		frmPaging.attr("action", "/event/winner_read");
+		frmPaging.attr("method", "get");
+		frmPaging.submit();
+	});
+});
+</script>
 
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
@@ -23,7 +46,13 @@
 
 <%@ include file="/WEB-INF/views/event/WinnerPaging.jsp" %>
 
+
+
+
+	
+
 <div class="container-fluid" style="background-color: white">
+
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -39,9 +68,9 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${winnerList}" var="winnerVo">
-						<tr>
+						<tr class="tr_list">
 							<td>${winnerVo.winner_no}</td>
-							<td><a
+							<td class="td_list" data-wno="${winnerVo.winner_no}"><a
 								href="/event/winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
 							<td>${winnerVo.winner_sysdate}</td>
 							<td>${winnerVo.winner_count}</td>
@@ -62,7 +91,7 @@
 				<c:if test="${pagingDto.startPage!=1}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="${pagingDto.startPage-1}">이전</a>
+							href="/event/winner_info?page=${pagingDto.startPage-1}">이전</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
@@ -76,13 +105,13 @@
 						</c:otherwise>
 					</c:choose>
 					>
-						<a class="page-link" href="${i}">${i}</a>
+						<a class="page-link" href="/event/winner_info?page=${i}">${i}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="${pagingDto.endPage + 1}">다음</a>
+							href="/event/winner_info?page=${pagingDto.endPage + 1}">다음</a>
 					</li>
 				</c:if>
 				</ul>
@@ -96,7 +125,7 @@
 </div>
 <div class="float-right">
 	<p>
-		<a class="btn btn-primary btn-large" href="/event/winner_write">게시글 쓰기</a>
+		<a class="btn btn-primary btn-large" href="/event/winner_writeForm">게시글 쓰기</a>
 	</p>
 </div>
 

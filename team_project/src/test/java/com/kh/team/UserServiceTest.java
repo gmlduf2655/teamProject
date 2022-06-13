@@ -108,6 +108,19 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testGetUserBySnsIdAndType, userVo : " + userVo);
 	}
 	
+	// 회원번호와 회원타입으로 회원 아이디 조회 테스트
+	@Test
+	public void testGetUseridByUsernoAndSnsType() {
+		String userid = userService.getUseridByUsernoAndSnsType(25, "naver");
+		System.out.println("UserServiceTest, testGetUseridByUsernoAndSnsType, userid : " + userid);
+	}
+	
+	// 회원아이디와 회원타입으로 회원 번호 조회 테스트
+	@Test
+	public void testGetUsernoByUseridAndSnsType() {
+		int userno = userService.getUsernoByUseridAndSnsType("gmlduf2655", null);
+		System.out.println("UserServiceTest, testGetUseridByUsernoAndSnsType, userno : " + userno);
+	}
 	// 로그인 테스트
 	@Test
 	public void testLogin() {

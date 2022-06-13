@@ -58,6 +58,7 @@
 			<beans:ref bean="hostInterceptor"/>
 		</interceptor>
 		<interceptor>
+			<mapping path="/message/*"/>
 			<mapping path="/user/mypage"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>

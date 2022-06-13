@@ -46,9 +46,6 @@ $(document).ready(function(){
 								value="${winnerVo.winner_title}" readonly />
 						</div>
 						
-<!-- 						<div> -->
-<%-- 						 <img src="/event/displayImage?filename=${winnerVo.winner_image}"> --%>
-<!-- 						</div> -->
 						
 						
 						<div class="form-group">

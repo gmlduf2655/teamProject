@@ -83,4 +83,11 @@
 			cinema_status	= #{cinema_status, jdbcType=VARCHAR}
 		where cinema_no		= #{cinema_no}
 	</update>
+	
+	<!-- 등록 영화관 주소 (시 단위)리스트 얻어내기 -->
+	<select id="getCinemaAddressCityList" resultType="string">
+		select distinct a from
+		(select substr(cinema_address,0,2) a from tbl_cinema)
+		order by a asc
+	</select>
 </mapper>

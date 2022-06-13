@@ -18,8 +18,8 @@ public class WinnerDaoImpl implements WinnerDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<WinnerVo> list() {
-		List<WinnerVo> winnerList = sqlSession.selectList(NAMESPACE + "list");
+	public List<WinnerVo> list(WinnerPagingDto pagingDto) {
+		List<WinnerVo> winnerList = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return winnerList;
 	}
 

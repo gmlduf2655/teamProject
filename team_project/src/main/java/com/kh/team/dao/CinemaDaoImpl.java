@@ -99,4 +99,11 @@ public class CinemaDaoImpl implements CinemaDao {
 		return false;
 	}
 
+	// 등록 영화관 주소 (시 단위)리스트 얻어내기
+	@Override
+	public List<String> selectCinemaAddressCityList() {
+		List<String> cinemaAddressCityList = sqlSession.selectList(NAMESPACE + "getCinemaAddressCityList");
+		return cinemaAddressCityList;
+	}
+
 }

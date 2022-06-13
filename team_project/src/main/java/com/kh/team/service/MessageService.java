@@ -9,11 +9,17 @@ public interface MessageService {
 	public boolean addMessage(MessageVo messageVo);
 	
 	// 보내는 메세지 조회
-	public List<MessageVo> getSenderMessageList(int sender);
+	public List<MessageVo> getSenderMessageList(String sender);
 	
 	// 받는 메세지 조회
-	public List<MessageVo> getReceiverMessageList(int receiver);
+	public List<MessageVo> getReceiverMessageList(String receiver);
+	
+	// 메세지 번호로 메세지 조회
+	public MessageVo getMessageByMessageno(int messageno);
+	
+	// 메세지 번호 얻기
+	public int getMessageno();
 	
 	// 메세지 내역 삭제
-	public boolean deleteMessage(int sender, int receiver);	
+	public boolean deleteMessage(String sender, String receiver);	
 }

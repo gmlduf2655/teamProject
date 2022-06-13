@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
 		List<UserVo> snsUserList = userDao.snsUserList();
 		return snsUserList;
 	}
+	
 	// 아이디 중복체크
 	@Override
 	public boolean useridDuplCheck(String userid) {
@@ -99,6 +100,30 @@ public class UserServiceImpl implements UserService {
 		UserVo userVo = userDao.selectUserBySnsIdAndType(sns_id, sns_type);
 		return userVo;
 	}
+	
+	// 회원번호와 회원타입으로 회원 아이디 조회
+	public String getUseridByUsernoAndSnsType(int userno, String sns_type) {
+		String userid = "";
+		UserVo userVo = userDao.selectUserByUserno(userno);
+		if(sns_type.equals("")) {
+			userid = userVo.getUserid();
+		}else{
+			userid = userVo.getSns_id();
+		}
+		return userid;
+	}
+	
+	// 회원아이디와 회원타입으로 회원 번호 조회
+	public int getUsernoByUseridAndSnsType(String userid, String sns_type) {
+		UserVo userVo;
+		if(sns_type.equals("")) {
+			userVo = userDao.selectUserById(userid);
+		}else{
+			userVo = userDao.selectUserBySnsIdAndType(userid, sns_type);
+		}		
+		int userno = userVo.getUserno();
+		return userno;
+	}	
 	
 	// 로그인
 	@Override

@@ -112,7 +112,7 @@
 </div>
 <div class="float-right">
 	<p>
-		<a class="btn btn-primary btn-large" href="/review/review_form">게시글 쓰기</a>
+		<a class="btn btn-primary btn-large" href="/review/review_form">게시글</a>
 	</p>
 </div>
     
