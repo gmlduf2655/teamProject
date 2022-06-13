@@ -217,7 +217,6 @@ $(function(){
 			}
 		});
 	}
-	
 });
 </script>
 ${loginUserVo.userid}
