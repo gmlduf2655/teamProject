@@ -133,6 +133,7 @@ public class UserController {
 		String username = (String)result.get("name");
 		String nickname = (String)result.get("nickname");
 		UserVo userVo = new UserVo(nickname, username, cellphone, profile_image, sns_id, sns_type);
+		userVo.setUserid(email);
 		
 		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
 			userService.addSnsUser(userVo);
@@ -256,6 +257,7 @@ public class UserController {
 		String username = userInfo.get("name");
 		String profile_image = userInfo.get("picture");
 		UserVo userVo = new UserVo(username, username, null, profile_image, sns_id, sns_type);
+		userVo.setUserid(email);
 		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
 			boolean addResult = userService.addSnsUser(userVo);
 		}

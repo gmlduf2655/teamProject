@@ -13,6 +13,10 @@ public class MessageVo {
 	private int re_level; // 메세지 그룹레벨
 	private String message_title; // 메세지 제목
 	private String message_content; // 메세지 내용
+	private Date read_date; // 메세지 읽은 날짜
+	private String sender_delete; // 보내는 이의 메세지 삭제 유무
+	private String receiver_delete; // 받는 이의 메세지 삭제 유무
+	
 	// 기본생성자
 	public MessageVo() {
 		super();
@@ -115,15 +119,37 @@ public class MessageVo {
 		this.message_content = message_content;
 	}
 
-	// toString()
+	public Date getRead_date() {
+		return read_date;
+	}
+
+	public void setRead_date(Date read_date) {
+		this.read_date = read_date;
+	}
+
+	public String getSender_delete() {
+		return sender_delete;
+	}
+
+	public void setSender_delete(String sender_delete) {
+		this.sender_delete = sender_delete;
+	}
+
+	public String getReceiver_delete() {
+		return receiver_delete;
+	}
+
+	public void setReceiver_delete(String receiver_delete) {
+		this.receiver_delete = receiver_delete;
+	}
+
 	@Override
 	public String toString() {
 		return "MessageVo [messageno=" + messageno + ", sender=" + sender + ", receiver=" + receiver + ", message_date="
 				+ message_date + ", message_file=" + message_file + ", groupno=" + groupno + ", re_seq=" + re_seq
 				+ ", re_level=" + re_level + ", message_title=" + message_title + ", message_content=" + message_content
-				+ "]";
+				+ ", read_date=" + read_date + ", sender_delete=" + sender_delete + ", receiver_delete="
+				+ receiver_delete + "]";
 	}
-
-	
 	
 }

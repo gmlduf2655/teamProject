@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#message_popup").click(function(){
-			window.open("/message/message_list?type=receive","쪽지보관함","width=1000px,height=667px,scrollbars=yes");
+			window.open("/message/message_list?page=1&type=receive","쪽지보관함","width=1000px,height=667px,scrollbars=yes");
 		});
 	});
 </script>
@@ -62,7 +62,9 @@
 							</c:otherwise>
 						</c:choose>
 					</h5>
-					<button class="site-btn btn-sm" id="message_popup" type="button" style="padding:6px 15px;">쪽지함</button>
+					<c:if test="${not empty loginUserVo}">
+						<button class="site-btn btn-sm" id="message_popup" type="button" style="padding:6px 15px;">쪽지함</button>
+					</c:if>
 				</div>
 			</div>
 		</div>

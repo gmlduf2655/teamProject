@@ -17,6 +17,7 @@
 		line-height:50px;
 	}
 </style>
+<!-- 다음 도로명 주소 api script -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	$(document).ready(function(){
@@ -146,7 +147,32 @@
 	                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
 	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 	                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+	                var sido = data.sido;
 	                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+	                
+	                // 시/도명 풀네임으로 변경
+	                if( ( fullRoadAddr.includes("울산") ||  fullRoadAddr.includes("부산") ||  fullRoadAddr.includes("대구")
+	                		|| fullRoadAddr.includes("대구") || fullRoadAddr.includes("광주") || fullRoadAddr.includes("대전")
+	                	) && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, sido + "광역시")
+	                }else if(fullRoadAddr.includes("서울") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, sido + "특별시")
+	                }else if( ( fullRoadAddr.includes("경기") ||  fullRoadAddr.includes("강원")
+	                		)&& fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, sido + "도")
+	                }else if(fullRoadAddr.includes("경남") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, "경상남도")
+	                }else if(fullRoadAddr.includes("경북") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, "경상북도")
+	                }else if(fullRoadAddr.includes("전남") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, "전라남도")
+	                }else if(fullRoadAddr.includes("전북") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, "전라북도")
+	                }else if(fullRoadAddr.includes("충남") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, "충청남도")
+	                }else if(fullRoadAddr.includes("충북") && fullRoadAddr.indexOf(sido) == 0){
+	                	fullRoadAddr = fullRoadAddr.replace(sido, "충청북도")
+	                }else {}
 	 
 	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
 	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
