@@ -8,12 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.MovieDBService;
-import com.kh.team.service.MovieService;
 import com.kh.team.util.MovieFileUploader;
 import com.kh.team.vo.MovieVo;
 
@@ -29,8 +27,6 @@ public class MovieDBController {
 	@RequestMapping(value="/dbSave", method = RequestMethod.POST)
 	public String movieCrawling(MovieVo movieVo, MultipartFile file, RedirectAttributes rttr) {
 		
-		/*int make_year = Integer.parseInt(s_make_year);
-		int runningtime = Integer.parseInt(s_runningtime);*/
 		String originalFilename =  file.getOriginalFilename();
 		try {
 			String movie_image_name = MovieFileUploader.fileUpload("//192.168.0.62/moverattach", originalFilename, file.getBytes());
@@ -70,10 +66,7 @@ public class MovieDBController {
 	@RequestMapping(value="/dbList", method = RequestMethod.GET)
 	public String dbListMovie(Model model) {
 		List<MovieVo> list = service.movieList();
-		/*System.out.println("movieList : " + list);*/
-		
 		model.addAttribute("list", list);
-		
 		return "dbcontrol/dbList";
 	}
 	
@@ -83,4 +76,14 @@ public class MovieDBController {
 		model.addAttribute("list", list);
 		return "dbcontrol/dbList";
 	}
+	
+	@RequestMapping(value="/dbsearchBymoviecode", method = RequestMethod.GET)
+	public String dbsearchBymoviecode(String movie_code, Model model) {
+		MovieVo movieVo = service.dbsearchBymoviecode(movie_code);
+		model.addAttribute("movieVo", movieVo);
+		return "dbcontrol/dbmovieInfo";
+	}
+	
+	
+	
 }
