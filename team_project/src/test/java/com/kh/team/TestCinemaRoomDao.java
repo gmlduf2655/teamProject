@@ -23,7 +23,6 @@ public class TestCinemaRoomDao {
 	public void insertCinemaRoomTest() {
 		
 		int cinema_no			= 4;
-		String room_type_code	= "01";
 		String room_name		= "상영관 4";
 		String room_floor		= "5층";
 		String room_begin_time	= "00:00";
