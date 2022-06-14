@@ -13,8 +13,8 @@ public class FollowServiceImpl implements FollowService {
 	
 	// 팔로우 내역 추가
 	@Override
-	public boolean insertFollow(FollowVo followVo) {
-		boolean result = followDao.insertFollow(followVo);
+	public boolean insertFollow(int follower, int follow) {
+		boolean result = followDao.insertFollow(follower, follow);
 		return result;
 	}
 
@@ -32,11 +32,19 @@ public class FollowServiceImpl implements FollowService {
 		return count;
 	}
 
+	// 팔로우 여부 확인
+	@Override
+	public boolean isFollowed(int follower, int follow) {
+		boolean result = followDao.selectFollow(follower, follow);
+		return result;
+	}	
+	
 	// 팔로우 내역 삭제
 	@Override
 	public boolean deleteFollow(int follower, int follow) {
 		boolean result = followDao.deleteFollow(follower,follow);
 		return result;
 	}
+
 
 }

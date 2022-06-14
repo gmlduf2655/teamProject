@@ -42,6 +42,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public ReviewVo readContent(int review_no) {
+		reviewDao.viewConuntUpdate(review_no);
 		ReviewVo reviewVo = reviewDao.readContent(review_no);
 		return reviewVo;
 	}

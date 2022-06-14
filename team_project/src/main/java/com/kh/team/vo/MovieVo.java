@@ -5,6 +5,7 @@ public class MovieVo {
 	private String movie_name;
 	private String movie_name_en;
 	private String opening_date;
+	private String endding_date;
 	private int runningtime;
 	private int make_year;
 	private String made_country;
@@ -16,6 +17,7 @@ public class MovieVo {
 	private String movie_audits;
 	private String movie_synopsis;
 	private int movie_no;
+	private String movie_video_add;
 	
 	
 	
@@ -73,13 +75,13 @@ public class MovieVo {
 	}
 
 	
-
 	
 	
 
 	public MovieVo(String movie_code, String movie_name, String movie_name_en, String opening_date, int runningtime,
 			int make_year, String made_country, String movie_genre, String movie_director, String made_company,
-			String movie_image_name, String movie_actors, String movie_audits, String movie_synopsis, int movie_no) {
+			String movie_image_name, String movie_actors, String movie_audits, String movie_synopsis, int movie_no,
+			String movie_video_add) {
 		super();
 		this.movie_code = movie_code;
 		this.movie_name = movie_name;
@@ -96,6 +98,7 @@ public class MovieVo {
 		this.movie_audits = movie_audits;
 		this.movie_synopsis = movie_synopsis;
 		this.movie_no = movie_no;
+		this.movie_video_add = movie_video_add;
 	}
 
 	public String getMovie_code() {
@@ -218,19 +221,35 @@ public class MovieVo {
 		this.movie_no = movie_no;
 	}
 
+	public String getMovie_video_add() {
+		return movie_video_add;
+	}
+
+	public void setMovie_video_add(String movie_video_add) {
+		this.movie_video_add = movie_video_add;
+	}
+	
+	
+
+	public String getEndding_date() {
+		return endding_date;
+	}
+
+	public void setEndding_date(String endding_date) {
+		this.endding_date = endding_date;
+	}
+
 	@Override
 	public String toString() {
 		return "MovieVo [movie_code=" + movie_code + ", movie_name=" + movie_name + ", movie_name_en=" + movie_name_en
-				+ ", opening_date=" + opening_date + ", runningtime=" + runningtime + ", make_year=" + make_year
-				+ ", made_country=" + made_country + ", movie_genre=" + movie_genre + ", movie_director="
-				+ movie_director + ", made_company=" + made_company + ", movie_image_name=" + movie_image_name
-				+ ", movie_actors=" + movie_actors + ", movie_audits=" + movie_audits + ", movie_synopsis="
-				+ movie_synopsis + ", movie_no=" + movie_no + "]";
+				+ ", opening_date=" + opening_date + ", endding_date=" + endding_date + ", runningtime=" + runningtime
+				+ ", make_year=" + make_year + ", made_country=" + made_country + ", movie_genre=" + movie_genre
+				+ ", movie_director=" + movie_director + ", made_company=" + made_company + ", movie_image_name="
+				+ movie_image_name + ", movie_actors=" + movie_actors + ", movie_audits=" + movie_audits
+				+ ", movie_synopsis=" + movie_synopsis + ", movie_no=" + movie_no + ", movie_video_add="
+				+ movie_video_add + "]";
 	}
 
-	
-
-	
 	
 	
 }

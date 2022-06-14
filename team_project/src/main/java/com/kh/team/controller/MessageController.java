@@ -48,14 +48,16 @@ public class MessageController {
 		PagingDto pagingDto = new PagingDto();
 		int count = 0;
 		
+		pagingDto.setPage(page);
+		System.out.println(pagingDto);
 		if(type.equals("send")) {
-			messageList = messageService.getSenderMessageList(userid);
+			messageList = messageService.getSenderMessageList(userid, pagingDto);
 			count = messageService.getSenderMessageCount(userid);
 		}else if(type.equals("receive")){
-			messageList = messageService.getReceiverMessageList(userid);
+			messageList = messageService.getReceiverMessageList(userid, pagingDto);
 			count = messageService.getReceiverMessageCount(userid);
 		}else {}
-		pagingDto.setPage(page);
+		
 		pagingDto.setCount(count);
 		
 		model.addAttribute("messageList", messageList);
@@ -119,6 +121,35 @@ public class MessageController {
 		boolean result = messageService.deleteMessage(messageno, type);
 		redirectAttributes.addFlashAttribute("delete_result", result);
 		return "redirect:/message/message_list?page=1&type=receive";
+	}
+	
+	// 메세지 다중 삭제
+	@RequestMapping(value="/multi_message_delete_run", method=RequestMethod.POST)
+	@ResponseBody
+	public List<MessageVo> multiMessageDeleteRun(String sData, HttpSession session) throws ParseException {
+		JSONParser parser = new JSONParser();
+		Map<String, Object> map = (Map<String, Object>)parser.parse(sData);
+		
+		String type = (String) map.get("type");
+		String userid = (String) map.get("userid");
+		String pageStr = (String) map.get("page");
+		int page = Integer.parseInt(pageStr);
+		List<Integer>messagenos = new ArrayList<>();
+		List<String> tempList = (List<String>) map.get("messagenos");
+		for(String temp : tempList) {
+			messagenos.add(Integer.parseInt(temp));
+		}
+		boolean result = messageService.deleteMultiMessage(messagenos, type);
+		
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(page);
+		List<MessageVo> messageList = null;
+		if(type.equals("send")) {
+			messageList = messageService.getSenderMessageList(userid, pagingDto);
+		}else if(type.equals("receive")) {
+			messageList = messageService.getReceiverMessageList(userid, pagingDto);
+		}else {}
+		return messageList;
 	}
 	
 	// 파일업로드

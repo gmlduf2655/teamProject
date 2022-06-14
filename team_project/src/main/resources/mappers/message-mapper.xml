@@ -16,7 +16,7 @@
 				#{receiver},
 				#{message_file, jdbcType=VARCHAR},
 				#{message_title},
-				#{message_content},
+				#{message_content}
 			)
 	</insert>
 	
@@ -40,16 +40,26 @@
 	
 	<!-- 보낸 메세지 조회 -->
 	<select id="selectSenderMessageList" resultType="MessageVo">
-		select * from tbl_message
-		where sender = #{sender} and sender_delete = 'F'
-		order by message_date desc, re_seq asc, re_level asc		
+		select * from(
+		    select rownum rnum, a.* from (
+			    select * from tbl_message
+			    where sender = #{sender}
+			    and sender_delete = 'F'
+			    order by groupno desc, re_seq asc, re_level asc
+			) a
+		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}		
 	</select>
 	
 	<!-- 받는 메세지 조회 -->
 	<select id="selectReceiverMessageList" resultType="MessageVo">
-		select * from tbl_message
-		where receiver = #{receiver} and receiver_delete = 'F'
-		order by message_date desc, re_seq asc, re_level asc		
+		select * from(
+		    select rownum rnum, a.* from (
+			    select * from tbl_message
+			    where receiver = #{receiver}
+			    and receiver_delete = 'F'
+			    order by groupno desc, re_seq asc, re_level asc
+		    ) a
+		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}		
 	</select>
 	
 	<!-- 보낸 메세지 수 조회 -->
@@ -95,10 +105,30 @@
 		where messageno = #{messageno} 
 	</update>	
 	
+	<!-- 보내는 이 메세지 다중 삭제 -->
+	<update id="deleteMultiMessageBySender">
+		update tbl_message
+			set sender_delete = 'T'
+		where messageno in 
+			<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+	</update>	
+	
 	<!-- 받는 이가 메세지 내역 삭제 -->
 	<update id="deleteMessageByReceiver">
 		update tbl_message
 			set receiver_delete = 'T'
 		where messageno = #{messageno}
+	</update>	
+	
+	<!-- 받는 이 메세지 다중 삭제 -->
+	<update id="deleteMultiMessageByReceiver">
+		update tbl_message
+			set receiver_delete = 'T'
+		where messageno in 
+			<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
 	</update>	
 </mapper>

@@ -11,4 +11,5 @@ public interface MovieDBDao {
 	public boolean existMovie(String movie_code);
 	public boolean deleteMovie(String movie_code);
 	public List<MovieVo> dbSearchMovie(String sType, String sKeyword);
+	public MovieVo dbsearchBymoviecode(String movie_code);
 }

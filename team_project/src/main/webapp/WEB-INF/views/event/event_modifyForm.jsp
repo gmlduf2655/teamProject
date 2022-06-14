@@ -44,36 +44,192 @@
 
 		<form role="modifyForm" action="/event/event_modify" method="post"
 			id="frmCreate" enctype="multipart/form-data">
-		<input type="hidden" name="event_no" value="${winnerVo.event_no}">
+			 <input type="hidden" name="event_no" value="${param.event_no}">
+			 <input type="hidden" name="event_image" value="${eventVo.event_image}">
 			
 			<div class="form-group">
-				<label for="event_title"> 제목 </label> <input type="text"
-					class="form-control" id="event_title" name="event_title" value="${eventVo.event_title}" />
+				<label for="event_title"> 제목 </label> 
+				<input type="text" class="form-control" id="event_title" name="event_title" value="${eventVo.event_title}" />
 			</div>
-
+			
+			<hr>
+			
 			<div class="form-group">
-				<label for="event_end_date"> 이벤트 종료일 </label> <br>
-				<input type="date" id="event_end_date" name="event_end_date" value="${eventVo.event_end_date}">
+				<span>
+					<label for="event_start_date"> 이벤트 시작일 ~ </label>
+					<label for="event_end_date"> 이벤트 종료일 </label> <br>
+					
+				</span>
+				<span>
+					<input type="date" id="event_start_date" name="event_start_date" min="" value="${eventVo.event_start_date}">
+					<input type="date" id="event_end_date" name="event_end_date" min="0000-00-00" value="${eventVo.event_end_date}">
+				</span>
+			</div>
+			<hr>
+			<div class="form-group">
+				<label for="event_image" id="event_image"> 대표 이미지 업로드 </label> 
+				<input type="file" class="form-control-file" id="file" name="file" data-filename="${eventVo.event_image}"/>
+				
+				<c:choose>
+					<c:when test="${empty eventVo.event_image}">
+						<img id="preview" src="/resources/images/no_image.jpg" width="200px">
+					</c:when>
+					<c:otherwise>
+						<img id="preview" src="/event/displayImage?filename=${eventVo.event_image}" width="200px">
+					</c:otherwise>
+				</c:choose>
+				
+				<br>
+				
+                <a id="image_delete" >사진 삭제<b style="color:red;font-size:30px;">&times;</b></a>
 			</div>
 
+			<hr>
 			<div class="form-group">
 				<label for="event_content"> 내용 </label>
 				<textarea class="summernote" id="event_content" name="event_content">${eventVo.event_content}</textarea>
 			</div>
 
-			<div class="form-group">
-				<label for="event_image"> 이미지 업로드 </label> 
-				<input type="file" class="form-control-file" id="file" name="file" value="${eventVo.event_image}"/>
-			</div>
+			<hr>
 
-			<button type="submit" class="btn btn-primary">저장</button>
+			<button type="button" id="btnModify" class="btn btn-primary">저장</button>
 		</form>
 	</div>
 <script>
 $('.summernote').summernote({
-	  height: 450,
-	  lang: "ko-KR"
+	  // 에디터 높이
+	  height: 350,
+	  // 에디터 한글 설정
+	  lang: "ko-KR",
+	  // 에디터에 커서 이동 
+	  focus : true,
+	  toolbar: [
+		    // 글꼴 설정
+		    ['fontname', ['fontname']],
+		    // 글자 크기 설정
+		    ['fontsize', ['fontsize']],
+		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		    // 글자색
+		    ['color', ['forecolor','color']],
+		    // 표만들기
+		    ['table', ['table']],
+		    // 글머리 기호, 번호매기기, 문단정렬
+		    ['para', ['ul', 'ol', 'paragraph']],
+		    // 줄간격
+		    ['height', ['height']],
+		    // 그림첨부, 링크만들기, 동영상첨부
+		    ['insert',['picture','link','video']],
+		    // 코드보기, 확대해서보기, 도움말
+		    ['view', ['codeview','fullscreen', 'help']]
+		  ],
+		  // 추가한 글꼴
+		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+		 // 추가한 폰트사이즈
+		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+		
 	});
+	
+function uploadSummernoteImageFile(file) {
+	data = new FormData();
+	data.append("file", file);
+	$.ajax({
+		data : data,
+		type : "POST",
+		url : "/event/uploadSummernoteImageFile",
+		contentType : false,
+		enctype : 'multipart/form-data',
+		processData : false,
+		success : function(data) {
+			$('.summernote').summernote('insertImage', "/event/summerimages?filename=" + data);
+		},
+		error : function(e) {
+ 			console.log(e)
+ 		}
+	});
+}
+//대표 이미지 미리보기
+$(function() {
+    $("#file").on("change", function(){
+    readURL(this);
+    });
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        $("#preview").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+        $("#image_delete").show();
+    }
+}
+
+// 이미지 임시 삭제
+ $(document).ready(function(){
+ 	$("#image_delete").click(function(){
+		$("#preview").attr("src", "");
+		$("#image_delete").hide();
+	});
+ 	
+ 	$("#btnModify").click(function(e){
+ 		var filename = $("#file").attr("data-filename");
+ 		var url = "/event/deleteFile";
+ 		var sendData = {
+ 				"filename" : filename
+ 		};
+ 		console.log("filename:", filename)
+ 		$.get(url, sendData, function(rData) {
+ 			console.log(rData);
+ 			if (rData == "true") {
+ 				$("#frmCreate").submit();
+ 			}
+ 		});
+	}); 
+});
+
+// 대표 이미지 삭제하기
+// $(document).ready(function(){
+// 	$("#image_delete").click(function(){
+// 		var filename = $("#file").attr("data-filename");
+// 		var url = "/event/deleteFile";
+// 		var sendData = {
+// 				"filename" : filename
+// 		};
+// 		console.log("filename:", filename)
+// 		$.get(url, sendData, function(rData) {
+// 			console.log(rData);
+// 			if (rData == "true") {
+// 				$("#preview").attr("src", "");
+// 				$("#image_delete").hide();
+// 			}
+// 		});
+// 	});
+// });
+// 이벤트 시작일 최소날짜
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //1월은 0
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("event_start_date").setAttribute("min", today);
+
+// 이벤트 종료일 최소날짜
+$(event_start_date).change(function(){
+	var start_date = $("#event_start_date").val();
+	console.log(start_date);
+	$("#event_end_date").attr("min", start_date);
+});
+
 </script>
 </body>
 </html>

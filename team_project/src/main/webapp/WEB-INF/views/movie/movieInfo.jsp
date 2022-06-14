@@ -211,9 +211,9 @@ $(function(){
 		$.get(url, sData, function(rData){
 			console.log("초기 좋아요 유저여부 rData" ,rData);
 			if(rData == "true"){
-				$("#faclass").attr("class" , "fa fa-heart" );
+				$("#faclass").attr("class" , "fa fa-thumbs-up" );
 			} else {
-				$("#faclass").attr("class" , "fa fa-heart-o" );
+				$("#faclass").attr("class" , "fa fa-thumbs-o-up" );
 			}
 		});
 	}
@@ -268,7 +268,7 @@ ${loginUserVo.userid}
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                            	<a href="#" id="btnlikecount" class="follow-btn"><i id="faclass" class="fa fa-heart-o"></i> 좋아요</a>
+                            	<a href="#" id="btnlikecount" class="follow-btn"><i id="faclass" class="fa fa-thumbs-o-up"></i> 좋아요</a>
                                 <a href="#" class="follow-btn"><span>예매하기</span></a>
                                 
                                 </div>
@@ -276,10 +276,39 @@ ${loginUserVo.userid}
                         </div>
                     </div>
                 </div>
+                <!-- 메인끝 -->
+                <!-- 예고편, 스틸컷  -->
+                <div  class="row">
+                	<div class="col-lg-8 col-md-8">
+                	<c:if test="${not empty movieVo.movie_video_add}">
+	                 <div class="section-title">
+	                      <h5>예고편</h5>
+	                 </div>
+	                 </c:if>
+                 </div>
+                 <div class="col-lg-4 col-md-4">
+	                 <div class="section-title">
+	                      <h5>스틸컷</h5>
+	                 </div>
+                 </div>
+                </div>
+                <div class="row">
+                
+                	<div class="col-lg-8 col-md-8">
+                	<c:if test="${not empty movieVo.movie_video_add}">
+                		<iframe src='https://tv.naver.com/embed/${movieVo.movie_video_add}' frameborder='no' scrolling='no' marginwidth='0' marginheight='0' WIDTH='740' HEIGHT='416' allow='autoplay' allowfullscreen></iframe>
+                	</c:if>
+                	</div>
+                	 <div class="col-lg-4 col-md-4">
+                	 	<!-- 스틸컷 자리 -->
+                	 
+                	 </div>
+                </div>
+                 <!-- 예고편, 스틸컷  -->
+               
                 <!-- 댓글입력 -->
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
-                    
                      <div class="anime__details__form">
                             <div class="section-title">
                                 <h5>댓글 달기</h5>

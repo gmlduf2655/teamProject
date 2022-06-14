@@ -1,5 +1,6 @@
 package com.kh.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -22,9 +23,19 @@ public class MessageDaoTest {
 	// 메세지 내역 추가 테스트
 	@Test
 	public void testInsertMessage() {
-		MessageVo messageVo = new MessageVo(0, "user01", "gmlduf2655", null, null, 0, 0, 0, "제목 1", "내용 1");
+		MessageVo messageVo = new MessageVo(1, "user01", "gmlduf2655", null, null, 0, 0, 0, "제목 1", "내용 1");
 		boolean result = messageDao.insertMessage(messageVo);
 		System.out.println("MessageDaoTest, testInsertMessage, result : " + result);
+	}
+	
+	// 테스트 데이터 추가
+	@Test
+	public void addTestData() {
+		for(int i=1 ; i <=10 ; i++) {
+			MessageVo messageVo = new MessageVo(i, "user01", "gmlduf2655", null, null, 0, 0, 0, "제목 " + i, "내용 " + i);
+			boolean result = messageDao.insertMessage(messageVo);
+			System.out.println("MessageDaoTest, testInsertMessage, result : " + result);		
+		}
 	}
 	
 	// 메세지 답장 추가 테스트
@@ -38,7 +49,7 @@ public class MessageDaoTest {
 	// 보내는 메세지 조회 테스트
 	@Test
 	public void testSelectSenderMessageList() {
-		List<MessageVo> senderMessageList = messageDao.selectSenderMessageList("user01");
+		List<MessageVo> senderMessageList = messageDao.selectSenderMessageList("user01", null);
 		for(MessageVo messageVo : senderMessageList) {
 			System.out.println("MessageDaoTest, testSelectSenderMessageList, messageVo : " + messageVo);
 		}
@@ -47,7 +58,7 @@ public class MessageDaoTest {
 	// 받는 메세지 조회 테스트
 	@Test
 	public void testSelectReceiverMessageList() {
-		List<MessageVo> receiverMessageList = messageDao.selectReceiverMessageList("gmlduf2655");
+		List<MessageVo> receiverMessageList = messageDao.selectReceiverMessageList("gmlduf2655", null);
 		for(MessageVo messageVo : receiverMessageList) {
 			System.out.println("MessageDaoTest, testSelectReceiverMessageList, messageVo : " + messageVo);
 		}
@@ -94,11 +105,30 @@ public class MessageDaoTest {
 		boolean result = messageDao.deleteMessageBySender(72);
 		System.out.println("MessageDaoTest, testDeleteMessage, result : " + result);
 	}
+
+	// 보내는 이 메세지 다중삭제 테스트
+	@Test
+	public void testDeleteMultiMessageBySender() {
+		List<Integer> messagenos = new ArrayList<Integer>();
+		for(int i=1 ; i<=10 ; i++) {
+			messagenos.add(i);
+		}
+		boolean result = messageDao.deleteMultiMessageBySender(messagenos);
+	}
 	
 	// 받는 이에 의한 메세지 내역 삭제 테스트
 	@Test
 	public void testDeleteMessageByReceiver() {
 		boolean result = messageDao.deleteMessageByReceiver(72);
 		System.out.println("MessageDaoTest, testDeleteMessageByReceiver, result : " + result);
+	}
+	// 받는 이 메세지 다중삭제 테스트
+	@Test
+	public void testDeleteMultiMessageByReceiver() {
+		List<Integer> messagenos = new ArrayList<Integer>();
+		for(int i=1 ; i<=10 ; i++) {
+			messagenos.add(i);
+		}
+		boolean result = messageDao.deleteMultiMessageByReceiver(messagenos);
 	}
 }

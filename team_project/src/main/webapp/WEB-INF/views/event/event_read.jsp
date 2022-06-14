@@ -54,8 +54,17 @@ $(document).ready(function(){
 						</div>
 						<hr>
 						<div class="form-group">
-							<label for="event_end_date"> 이벤트 종료일 </label><br>
-							<input type="date" id="event_end_date" name="event_end_date" value="${eventVo.event_end_date}" readonly>
+							<span>
+								<label for="event_start_date"> 이벤트 시작일 ~  </label>
+								<label for="event_end_date"> 이벤트 종료일 </label> <br>
+								
+							</span>
+							<span>
+								<input type="date" id="event_start_date" name="event_start_date" readonly
+									min="" value="${eventVo.event_start_date}">
+								<input type="date" id="event_end_date" name="event_end_date" readonly
+									min="0000-00-00" value="${eventVo.event_end_date}">
+							</span>
 						</div>
 						<hr>
 						<div>
