@@ -37,12 +37,14 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrategyBase;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.team.service.FollowService;
+import com.kh.team.service.MovieService;
 import com.kh.team.service.NaverLoginService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.util.GoogleOAuthRequest;
 import com.kh.team.util.GoogleOAuthResponse;
 import com.kh.team.util.MyFileUploader;
+import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -58,6 +60,8 @@ public class UserController {
 	FollowService followService;
 	@Autowired
 	PointService pointService;
+	@Autowired
+	MovieService movieService;
 	
 	// 로그인 페이지 이동
 	@RequestMapping(value="/login_form", method=RequestMethod.GET)
@@ -161,7 +165,7 @@ public class UserController {
 	}
 	
 	// 마이페이지 화면이동
-	// 한 메소드에 3개의 서비스가..
+	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model, int userno) {
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
@@ -169,17 +173,27 @@ public class UserController {
 		int follower = followService.selectFollowerNumber(userno);
 		int follow = followService.selectFollowNumber(userno);
 		List<PointVo> pointList = pointService.getPointListByUserno(userno);
+		List<MovieVo> movieList = movieService.movieList();
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("userVo", userVo);
+		model.addAttribute("movieList", movieList);
 		return "user/mypage";
 	}
 	
-	// 비밀번호 찾기
-	@RequestMapping(value="/find_password", method=RequestMethod.GET)
-	public String findPassword() {
-		return "user/find_password";
+	// 아이디 혹은 비밀번호 찾기
+	@RequestMapping(value="/find_user_id_and_pwd", method=RequestMethod.GET)
+	public String findUserIdAndPwd() {
+		return "user/find_user_id_and_pwd";
+	}
+	
+	// 아이디 찾기 결과 페이지
+	@RequestMapping(value="/find_userid_result", method=RequestMethod.POST)
+	public String findUserIdResult(Model model, String username, String email) {
+		String userid = userService.getUseridByUsernameAndEmail(username, email);
+		model.addAttribute("userid", userid);
+		return "user/find_userid_result";
 	}
 	
 	// 프로필 사진 가져오기
@@ -209,15 +223,8 @@ public class UserController {
 			session.setAttribute("loginUserVo", loginUserVo);
 		}
 		redirectAttributes.addFlashAttribute("modify_result", result);
-		return "redirect:/user/mypage";
+		return "redirect:/user/mypage?userno=1";
 	}
-	
-//	// 주소 팝업페이지 이동
-//	@RequestMapping(value="/juso_popup", method=RequestMethod.GET)
-//	public String jusoPopup(HttpServletRequest request) {
-//		System.out.println("queryString : " + request.getQueryString());
-//		return"user/juso_popup";
-//	}
 	
 	// 구글 로그인 후 인증
 	@RequestMapping(value="/google_auth", method=RequestMethod.GET)

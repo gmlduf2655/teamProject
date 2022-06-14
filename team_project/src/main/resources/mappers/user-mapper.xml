@@ -60,16 +60,22 @@
 		where nickname= #{nickname}
 	</select>	
 		
-	<!-- 이메일로 회원 조회 -->
-	<select id="selectUserByEmail" resultType="UserVo">
+	<!-- 이메일과 아이디로 회원 조회 -->
+	<select id="selectUserByEmailAndUserid" resultType="UserVo">
 		select * from tbl_user
-		where email= #{email}
+		where email = #{email} and userid = #{userid}
 	</select>
 	
 	<!-- 간편로그인 아이디와 종류로 회원 조회 -->
 	<select id="selectUserBySnsIdAndType" resultType="UserVo">
 		select * from tbl_user
 		where sns_id = #{sns_id} and sns_type = #{sns_type}
+	</select>
+	
+	<!-- 회원 이름과 이메일로 회원 조회 -->
+	<select id="selectUserByUsernameAndEmail" resultType="UserVo">
+		select * from tbl_user
+		where username= #{username} and email = #{email}
 	</select>
 		
 	<!-- 유저 목록 조회 -->

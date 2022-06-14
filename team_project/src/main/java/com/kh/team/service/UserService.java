@@ -32,6 +32,8 @@ public interface UserService {
 	public String getUseridByUsernoAndSnsType(int userno, String sns_type);
 	// 회원아이디와 회원타입으로 회원 번호 조회
 	public int getUsernoByUseridAndSnsType(String userid, String sns_type);
+	// 회원이름과 이메일로 회원 아이디 조회
+	public String getUseridByUsernameAndEmail(String username, String email);
 	// 로그인
 	public UserVo login(String userid, String userpw);
 	// 회원 정보 수정
@@ -39,5 +41,5 @@ public interface UserService {
 	// 회원 탈퇴
 	public boolean unregister(String userid);
 	// 임시 비밀번호로 비밀번호 변경
-	public boolean updateUserpwToTempPwd(String email, String tempPwd);
+	public boolean updateUserpwToTempPwd(String email, String userid, String tempPwd);
 }

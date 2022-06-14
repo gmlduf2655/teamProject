@@ -69,8 +69,11 @@ public class UserDaoImpl implements UserDao {
 	
 	// 이메일로 회원 조회
 	@Override
-	public UserVo selectUserByEmail(String email) {
-		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByEmail", email);
+	public UserVo selectUserByEmailAndUserid(String email, String userid) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("email", email);
+		map.put("userid", userid);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByEmailAndUserid", map);
 		return userVo;
 	}
 
@@ -81,6 +84,16 @@ public class UserDaoImpl implements UserDao {
 		map.put("sns_id", sns_id);
 		map.put("sns_type", sns_type);
 		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserBySnsIdAndType", map);
+		return userVo;
+	}
+
+	// 회원 이름과 이메일로 회원 조회
+	@Override
+	public UserVo selectUserByUsernameAndEmail(String username, String email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", username);
+		map.put("email", email);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByUsernameAndEmail", map);
 		return userVo;
 	}
 	

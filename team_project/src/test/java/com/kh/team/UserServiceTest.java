@@ -121,6 +121,13 @@ public class UserServiceTest {
 		int userno = userService.getUsernoByUseridAndSnsType("gmlduf2655", null);
 		System.out.println("UserServiceTest, testGetUseridByUsernoAndSnsType, userno : " + userno);
 	}
+	// 회원 이름과 이메일로 회원 아이디 조회
+	@Test
+	public void testGetUseridByUsernameAndEmail() {
+		String userid = userService.getUseridByUsernameAndEmail("유저1", "user01@naver.com");
+		System.out.println("UserServiceTest, testGetUseridByUsernameAndEmail, userid : " + userid);
+	}
+	
 	// 로그인 테스트
 	@Test
 	public void testLogin() {
@@ -146,7 +153,7 @@ public class UserServiceTest {
 	// 임시 비밀번호로 비밀번호 변경 테스트
 	@Test
 	public void testUpdateUserpwToTempPwd() {
-		boolean result = userService.updateUserpwToTempPwd("user01@naver.com", "1234");
+		boolean result = userService.updateUserpwToTempPwd("user01@naver.com", "user01","1234");
 		System.out.println("UserServiceTest, testUpdateUserpwToTempPwd, result : " + result);
 	}
 }

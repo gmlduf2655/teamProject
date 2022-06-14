@@ -17,10 +17,12 @@ public interface UserDao {
 	public UserVo selectUserByIdAndPwd(String userid, String userpw);
 	// 닉네임으로 회원 조회
 	public UserVo selectUserByNickname(String nickname);
-	// 이메일로 회원 조회
-	public UserVo selectUserByEmail(String email);
+	// 이메일과 아이디로 회원 조회
+	public UserVo selectUserByEmailAndUserid(String email, String userid);
 	// 간편로그인 아이디와 종류로 회원 조회
 	public UserVo selectUserBySnsIdAndType(String sns_id, String sns_type);
+	// 유저 이름과 이메일로 회원 조회
+	public UserVo selectUserByUsernameAndEmail(String username, String email);
 	// 회원 목록 조회
 	public List<UserVo> userList();
 	// 기존회원 목록 조회

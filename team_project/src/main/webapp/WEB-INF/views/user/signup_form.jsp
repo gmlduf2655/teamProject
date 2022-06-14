@@ -16,6 +16,9 @@
 		color:black;
 		line-height:50px;
 	}
+	.login__form:after{
+		display:none;
+	}
 </style>
 <!-- 다음 도로명 주소 api script -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -210,7 +213,7 @@
 	});
 </script>
 
-    <!-- Normal Breadcrumb Begin -->
+    <!-- 제목 -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
             <div class="row">
@@ -223,9 +226,9 @@
             </div>
         </div>
     </section>
-    <!-- Normal Breadcrumb End -->
+    <!-- 제목 끝 -->
 
-    <!-- Signup Section Begin -->
+    <!-- 회원가입 -->
     <section class="signup spad">
         <div class="container">
             <div class="row">
@@ -314,6 +317,6 @@
             </div>
         </div>
     </section>
-    <!-- Signup Section End -->
+    <!-- 회원가입 끝 -->
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

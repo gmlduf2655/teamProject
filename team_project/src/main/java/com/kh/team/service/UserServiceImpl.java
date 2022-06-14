@@ -123,7 +123,14 @@ public class UserServiceImpl implements UserService {
 		}		
 		int userno = userVo.getUserno();
 		return userno;
-	}	
+	}
+	
+	// 회원 이름과 이메일로 회원 아이디 조회
+	@Override
+	public String getUseridByUsernameAndEmail(String username, String email) {
+		UserVo userVo = userDao.selectUserByUsernameAndEmail(username, email);
+		return userVo.getUserid();
+	}
 	
 	// 로그인
 	@Override
@@ -149,8 +156,8 @@ public class UserServiceImpl implements UserService {
 	// 임시 비밀번호 만들기
 	@Override
 	@Transactional
-	public boolean updateUserpwToTempPwd(String email, String tempPwd) {
-		UserVo userVo = userDao.selectUserByEmail(email);
+	public boolean updateUserpwToTempPwd(String email, String userid, String tempPwd) {
+		UserVo userVo = userDao.selectUserByEmailAndUserid(email, userid);
 		boolean result = userDao.updateUserpw(userVo.getUserid(), tempPwd);
 		return result;
 	}

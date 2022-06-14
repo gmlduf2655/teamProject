@@ -146,7 +146,7 @@
                         		 href="/user/login_form"
                         	</c:when>
                         	<c:otherwise>
-                        		href="/user/mypage?userno=${loginUserVo.userno}"
+                        		href="/mypage/main?userno=${loginUserVo.userno}"
                         	</c:otherwise>
                         </c:choose>
                         

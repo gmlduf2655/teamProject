@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<div class="btn__all">
-				<a href="#" class="primary-btn">View All <i class="bi bi-arrow-right"></i></span></a>
+				<a href="#" class="primary-btn">더 보기 <i class="bi bi-arrow-right"></i></span></a>
 			</div>
 		</div>
 	</div>
@@ -168,7 +168,7 @@
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<div class="btn__all">
-				<a href="#" class="primary-btn">View All <i class="bi bi-arrow-right"></i></a>
+				<a href="#" class="primary-btn">더 보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 	</div>

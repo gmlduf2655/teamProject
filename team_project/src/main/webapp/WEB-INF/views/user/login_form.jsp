@@ -17,6 +17,15 @@
 			margin-left:20px;
 			cursor:pointer;
 		}
+		.login__form:after{
+		    position: absolute;
+		    right: -14px;
+		    top: -40px;
+		    height: 360px;
+		    width: 1px;
+		    background: rgba(255, 255, 255, 0.2);
+		    content: "";
+		}
 	</style>
     <script>
     	$(document).ready(function(){
@@ -45,7 +54,7 @@
     	});
     </script> 
     
-    <!-- Normal Breadcrumb Begin -->
+    <!-- 제목 -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
             <div class="row">
@@ -58,9 +67,9 @@
             </div>
         </div>
     </section>
-    <!-- Normal Breadcrumb End -->
+    <!-- 제목 끝 -->
 
-    <!-- Login Section Begin -->
+    <!-- 로그인 -->
     <section class="login spad">
         <div class="container">
             <div class="row">
@@ -78,7 +87,8 @@
                             </div>
                             <button type="submit" class="site-btn">로그인</button>
                         </form>
-                        <a href="/user/find_password" class="forget_pass">비밀번호를 잊어버리셨나요?</a>
+                        <br>
+                        <a href="/user/find_user_id_and_pwd" style="color:white;">아이디 혹은 비밀번호를 잊어버리셨나요?</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -103,7 +113,7 @@
 <!--                                 	</a> -->
 <!--                                 </li> -->
                                 <li class="row" style="justify-content:center;">
-                                	<h3 style="color:white;margin-top:14px;line-height:50px;">간편로그인</h3>
+                                	<h3 style="color:white;margin-top:14px;line-height:50px;margin-left:120px;">간편로그인</h3>
                                 	<div id="google_login" style="width:50px;height:50px;background:#ff4343;color:white;font-size:25px;line-height:50px;border-radius:5px;margin-top:14px;margin-left:20px;"><i class="fa fa-google"></i></div>
                                 	<a href="${naverLoginUrl}" style="width:50px;margin-left:20px;">
                                 		<img src="/resources/images/naver_logo.png" style="width:50px">
@@ -118,7 +128,7 @@
             </div>
         </div>
     </section>
-    <!-- Login Section End -->
+    <!-- 로그인 끝 -->
 
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

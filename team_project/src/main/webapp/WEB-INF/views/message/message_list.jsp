@@ -15,6 +15,11 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>쪽지 보관함</title>
+<style>
+	option:hover{
+		background-color:lightgray;
+	}
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 쪽지 작성 여부 확인 메세지 출력
@@ -96,6 +101,13 @@
 					});
 				}
 			});
+			
+		});
+		
+		$("#search_btn").click(function(){
+			var searchType = $("#searchType").val();
+			var keyword = $("#keyword").val();
+			location.href = "/message/message_list?page=1&type=${param.type}&searchType=" + searchType + "&keyword=" + keyword;
 		});
 	});
 </script>
@@ -114,35 +126,61 @@
 				<div class="jumbotron">
 					<h2>쪽지보관함</h2>
 					<a class="btn btn-primary"
-						href="/message/write_form?page=${param.page}">쪽지 보내기</a>
+						href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
 				</div>
 			</div>
 		</div>
 		<!-- 메세지 목록 부분 -->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="tabbable" id="tabs-75640">
-					<ul class="nav nav-tabs">
-						<li class="nav-item"><a
-							class="nav-link
-									<c:if test="${param.type == 'receive'}">active show</c:if>
-									"
-							href="/message/message_list?page=1&type=receive">받는쪽지함</a></li>
-						<li class="nav-item"><a
-							class="nav-link 
-									<c:if test="${param.type == 'send'}">active show</c:if>
-									"
-							href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
-					</ul>
-				</div>
+				<!-- nav 부분 -->
+				<nav class="row">
+					<div class="col-md-4">
+						<div class="tabbable" id="tabs-75640">
+							<ul class="nav nav-tabs">
+								<li class="nav-item"><a
+									class="nav-link
+											<c:if test="${param.type == 'receive'}">active show</c:if>
+											"
+									href="/message/message_list?page=1&type=receive">받는쪽지함</a></li>
+								<li class="nav-item"><a
+									class="nav-link 
+											<c:if test="${param.type == 'send'}">active show</c:if>
+											"
+									href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+					<div class="col-md-2">
+						<select name="searchType" class="form-control" id="searchType">
+							<option value="t">제목</option>
+							<option value="c">내용</option>
+							<option value="u">유저</option>
+							<option value="tcu">모두 포함</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<input type="text" class="form-control" name="keyword" id="keyword">
+					</div>
+					<div class="col-md-2" style="padding-left:0px;">
+						<a type="button" class="btn btn-primary" id="search_btn">검색</a>
+					</div>
+				</nav>
 				<table class="table">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all"></th>
 							<th>#</th>
 							<th>메세지 제목</th>
-							<th>보낸 사람</th>
-							<th>받는 사람</th>
+							<c:choose>
+								<c:when test="${param.type == 'send'}">
+									<th>받는 이</th>
+								</c:when>
+								<c:when test="${param.type == 'receive'}">
+									<th>보낸 이</th>
+								</c:when>
+							</c:choose>
 							<th>작성일</th>
 							<th>읽은 날짜</th>
 						</tr>
@@ -161,8 +199,32 @@
 										<td><input type="checkbox" class="messages" name="messages" value="${messageVo.messageno}"></td>
 										<td>${messageVo.messageno}</td>
 										<td class="td_link" data-messageno="${messageVo.messageno}">${messageVo.message_title}</td>
-										<td>${messageVo.sender}</td>
-										<td>${messageVo.receiver}</td>
+										<td>
+											<div class="dropdown">
+												<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+												<c:choose>
+													<c:when test="${param.type == 'send'}">
+														${messageVo.receiver}
+													</c:when>
+													<c:when test="${param.type == 'receive'}">
+														${messageVo.sender}
+													</c:when>
+												</c:choose>
+												</button>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+													<a class="dropdown-item" href="/mypage/main?userno=1">정보보기</a> 
+													<c:choose>
+														<c:when test="${param.type == 'send'}">
+															<a class="dropdown-item" href="/message/write_form?page=${param.page}&receiver=${messageVo.receiver}">글쓰기</a>
+														</c:when>
+														<c:when test="${param.type == 'receive'}">
+															<a class="dropdown-item" href="/message/write_form?page=${param.page}&receiver=${messageVo.sender}">글쓰기</a>
+														</c:when>
+													</c:choose>
+													<a class="dropdown-item" href="#">팔로우하기</a> 
+												</div>
+											</div>
+										</td>										
 										<td>${messageVo.message_date}</td>
 										<c:choose>
 											<c:when test="${empty messageVo.read_date}">

@@ -115,7 +115,7 @@
 					</div>
 					<div class="form-group">
 						<label for="receiver"> 받는 이 </label> 
-						<input type="text" class="form-control" name="receiver" id="receiver" />
+						<input type="text" class="form-control" name="receiver" id="receiver" value="${param.receiver}" />
 					</div>
 <!-- 					<div class="form-group"> -->
 <!-- 						<label for="sns_type"> 간편로그인 </label>  -->
