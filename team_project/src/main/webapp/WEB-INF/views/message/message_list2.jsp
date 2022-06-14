@@ -4,10 +4,17 @@
 
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <style>
 	option:hover{
 		background-color:lightgray;
+	}
+	.tr_link:hover{
+		cursor : pointer;
+		background-color:gray;
+	}
+	.nice-select{
+		color:black;
 	}
 </style>
 <script type="text/javascript">
@@ -118,21 +125,12 @@
 
     <!-- 아이디  찾기 결과 -->
     <section class="signup spad">
-		<!-- 제목 부분 -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="jumbotron">
-					<h2>쪽지보관함</h2>
-					<a class="btn btn-primary"
-						href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
-				</div>
-			</div>
-		</div>
 		<!-- 메세지 목록 부분 -->
-		<div class="row">
-			<div class="col-md-12">
+		<div class="row" style="color:white">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
 				<!-- nav 부분 -->
-				<nav class="row">
+				<nav class="row mb-3" >
 					<div class="col-md-4">
 						<div class="tabbable" id="tabs-75640">
 							<ul class="nav nav-tabs">
@@ -151,7 +149,7 @@
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-2">
-						<select name="searchType" class="form-control" id="searchType">
+						<select name="searchType" id="searchType" style="color:black;">
 							<option value="t">제목</option>
 							<option value="c">내용</option>
 							<option value="u">유저</option>
@@ -165,7 +163,9 @@
 						<a type="button" class="btn btn-primary" id="search_btn">검색</a>
 					</div>
 				</nav>
-				<table class="table">
+				<!-- nav 부분 끝-->
+				<!-- 테이블 부분 -->
+				<table class="table" style="color:white">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all"></th>
@@ -198,8 +198,9 @@
 										<td>${messageVo.messageno}</td>
 										<td class="td_link" data-messageno="${messageVo.messageno}">${messageVo.message_title}</td>
 										<td>
-											<div class="dropdown">
-												<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+											<div class="dropdown" style="color:white">
+												<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" 
+												data-toggle="dropdown" style="color:white;">
 												<c:choose>
 													<c:when test="${param.type == 'send'}">
 														${messageVo.receiver}
@@ -238,12 +239,14 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<!-- 테이블 부분 끝 -->
 			</div>
+			<div class="col-md-2"></div>
 		</div>
 		<!-- 메세지 목록 부분 끝 -->
 
 		<!-- 글 목록 페이징 부분-->
-		<div class="row">
+		<div class="row mb-3">
 			<div class="col-md-12">
 				<nav>
 					<ul class="pagination justify-content-center" id="pagination">
@@ -280,6 +283,7 @@
 		<!-- 글 목록 페이징 부분 끝 -->
 		<!-- 메세지 다중 삭제 버튼 -->
 		<div style="text-align: center">
+			<a class="btn btn-primary" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
 			<button type="button" class="btn btn-primary" id="form_btn">삭제하기</button>
 		</div>
 		<!-- 메세지 다중 삭제 버튼 끝-->
