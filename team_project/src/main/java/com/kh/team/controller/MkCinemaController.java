@@ -16,8 +16,10 @@ import com.kh.team.service.CinemaService;
 import com.kh.team.service.MovieDBService;
 import com.kh.team.service.MovieService;
 import com.kh.team.util.MapAJaxAdaper;
+import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.MovieVo;
+import com.kh.team.vo.RoomSeatVo;
 import com.kh.team.vo.RoomTimelineVo;
 import com.kh.team.vo.RoomTypeVo;
 
@@ -83,7 +85,6 @@ public class MkCinemaController {
 	public Map<String, Object> getCinemaRoomInfo(int room_no) {
 		Map<String, Object> tempMap = cinemaService.getCinemaRoom(room_no);
 		Map<String, Object> cinemaRoomMap = MapAJaxAdaper.returnAdapter(tempMap);
-		System.out.println(tempMap);
 		return cinemaRoomMap;
 	}
 	
@@ -109,10 +110,16 @@ public class MkCinemaController {
 		return movieList;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getSeatList", method = RequestMethod.GET)
+	public List<RoomSeatVo> getMovieList(int room_no){
+		List<RoomSeatVo> roomSeatList = cinemaService.getRoomSeatList(room_no);
+		return roomSeatList;
+	}
+	
 	
 	@RequestMapping(value = "/modifyCinema", method = RequestMethod.GET)
 	public String modifyCinemaInfo(int cinema_no, String cinema_name, String cinema_address, String cinema_status, RedirectAttributes rttr) {
-		System.out.println(cinema_no);
 		boolean result = cinemaService.modifyCinemaInfo(cinema_no, cinema_name, cinema_address, cinema_status);
 		rttr.addFlashAttribute("modifyCinemaResult", result);
 		return "redirect:/mkcinema/cinema";
@@ -127,13 +134,42 @@ public class MkCinemaController {
 	}
 	
 	@RequestMapping(value = "/modifyTimeline", method = RequestMethod.GET)
-	public String modifyTimelineInfo(int timeline_no, int room_no, String room_type_code, String movie_code, String movie_begin_date, String movie_begin_time, String movie_finish_date, String movie_finish_time) {
+	public String modifyTimelineInfo(int timeline_no, int room_no, String room_type_code, String movie_code, String movie_begin_date, String movie_begin_time, String movie_finish_date, String movie_finish_time, RedirectAttributes rttr) {
 		
 		boolean movie_status = true;
 		movie_begin_date += " " + movie_begin_time; 
 		movie_finish_date += " " + movie_finish_time;
 		boolean result = cinemaService.modifyRoomTimelineInfo(timeline_no, room_no, room_type_code, movie_code, movie_begin_date, movie_finish_date, movie_status);
-		System.out.println(result);
+		rttr.addFlashAttribute("modifyTimelineResult", result);
 		return "redirect:/mkcinema/cinema";
+	}
+	
+	@RequestMapping(value = "/createCinema", method = RequestMethod.GET)
+	public String createCinema(CinemaVo cinemaVo, RedirectAttributes rttr) {
+		boolean result = cinemaService.createCinema(cinemaVo);
+		rttr.addFlashAttribute("createCinema", result);
+		return "redirect:/mkcinema/cinema"; 
+	}
+	
+	@RequestMapping(value = "/createRoom", method = RequestMethod.GET)
+	public String createCinema(CinemaRoomVo cinemaRoomVo, RedirectAttributes rttr) {
+		boolean result = cinemaService.createCinemaRoom(cinemaRoomVo);
+		rttr.addFlashAttribute("createRoom", result);
+		return "redirect:/mkcinema/cinema"; 
+	}
+	
+	@RequestMapping(value = "/createTimeline", method = RequestMethod.GET)
+	public String createCinema(RoomTimelineVo roomTimelineVo, RedirectAttributes rttr) {
+		String bdate = roomTimelineVo.getMovie_begin_date();
+		String fdate = roomTimelineVo.getMovie_finish_date();
+		String newBDate = bdate.replace("T", " ");
+		String newFDate = fdate.replace("T", " ");
+		roomTimelineVo.setMovie_begin_date(newBDate);
+		roomTimelineVo.setMovie_finish_date(newFDate);
+		roomTimelineVo.setMovie_status(true);
+		System.out.println(roomTimelineVo);
+		boolean result = cinemaService.createRoomTimeline(roomTimelineVo);
+//		rttr.addFlashAttribute("createTimeline", result);
+		return "redirect:/mkcinema/cinema"; 
 	}
 }

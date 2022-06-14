@@ -34,8 +34,8 @@ public class TestRoomTimelineDao {
 		int room_no					= 3;
 		String room_type_code		= "01";
 		String movie_code			= "20204548";
-		String movie_begin_date		= "12:20";
-		String movie_finish_date	= "13:50";
+		String movie_begin_date		= "2020-12-12 12:20";
+		String movie_finish_date	= "2020-12-12 13:50";
 		boolean movie_status		= true;
 		
 		RoomTimelineVo roomTimelineVo = new RoomTimelineVo(cinema_no, room_no, room_type_code, movie_code, movie_begin_date, movie_finish_date, movie_status);

@@ -30,9 +30,26 @@
 		where event_no = #{event_no}
 	</delete>
 	
-	<!-- 글 목록 -->
+	<!-- 글 전체 목록 -->
 	<select id="list" resultType="EventVo">
 		select * from tbl_event
+		<include refid="search"></include>
+		order by event_no desc
+	</select>
+	
+	<!-- 현재 진행중 목록 -->
+	<select id="nowEventlist" resultType="EventVo">
+		select * from tbl_event
+			where event_start_date <![CDATA[<=]]> sysdate
+			and event_end_date <![CDATA[>=]]> sysdate
+			<include refid="search2"></include>
+		order by event_no desc
+	</select>
+	
+	<!-- 지난 이벤트 목록 -->
+	<select id="lastEventlist" resultType="EventVo">
+		select * from tbl_event
+		where event_end_date <![CDATA[<]]> sysdate
 		order by event_no desc
 	</select>
 	
@@ -48,5 +65,47 @@
 				event_count = event_count + 1
 			where event_no = #{event_no}
 		</update>
+		
+		<!-- 글 갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) from tbl_event
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 검색 조건 -->
+		<sql id="search">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					where event_title like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "c"'>
+    					where event_content like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "tc"'>
+    					where event_title like '%' || #{keyword} || '%'
+    					or    event_content like '%' || #{keyword} || '%'
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
+		
+		<!-- 검색 조건 -->
+		<sql id="search2">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					and event_title like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "c"'>
+    					and event_content like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "tc"'>
+    					and event_title like '%' || #{keyword} || '%'
+    					or event_content like '%' || #{keyword} || '%'
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
 
 </mapper>

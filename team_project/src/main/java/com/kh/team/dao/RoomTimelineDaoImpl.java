@@ -30,6 +30,7 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 	public boolean insertRoomTimeline(
 				RoomTimelineVo roomTimelineVo
 			) {
+		System.out.println(roomTimelineVo);
 		int count = sqlSession.insert(NAMESPACE + "insertRoomTimeline", roomTimelineVo);
 		if (count > 0) {
 			return true;

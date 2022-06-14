@@ -70,5 +70,12 @@ public class MovieDBDaoImpl implements MovieDBDao {
 		return list;
 	}
 
+	@Override
+	public MovieVo dbsearchBymoviecode(String movie_code) {
+		MovieVo movieVo = sqlSession.selectOne(NAMESPACE + "dbsearchBymoviecode", movie_code);
+		return movieVo;
+	}
+
+
 
 }
