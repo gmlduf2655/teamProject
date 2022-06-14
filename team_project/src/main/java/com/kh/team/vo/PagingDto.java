@@ -1,41 +1,49 @@
 package com.kh.team.vo;
 
-public class WinnerPagingDto {
+public class PagingDto {
+	private int page = 1; // 현재 페이지
+	private int startRow; // 시작 행
+	private int endRow; // 종료 행
+	private String searchType; // 찾으려는 방식 
+	private String keyword; // 키워드
+	private int perPage = 5; // 각 페이지당 글 수
+	private int totalPage; // 전체 페이지
+	private int count; // 전체 글 수
+	private int startPage; // 시작 페이지
+	private int endPage; // 끝 페이지
 	
-	private int page = 1;
-	private int startRow;
-	private int endRow;
-	private String searchType;
-	private String keyword;
-	private int perPage = 10;
-	private int totalPage;
-	private int count;
-	private int startPage;
-	private int endPage;
-	private final int PAGE_BLOCK = 10;
-	
-	public WinnerPagingDto() {
+	// 기본 생성자
+	public PagingDto() {
 		super();
 	}
-
+	
+	// 필드 생성자
+	public PagingDto(int page, int startRow, int endRow, String searchType, String keyword, int perPage, int totalPage,
+					int count, int startPage, int endPage) {
+		super();
+		this.page = page;
+		this.startRow = startRow;
+		this.endRow = endRow;
+		this.searchType = searchType;
+		this.keyword = keyword;
+		this.perPage = perPage;
+		this.totalPage = totalPage;
+		this.count = count;
+		this.startPage = startPage;
+		this.endPage = endPage;
+	}
+	
+	// Getter & Setter (Accessor)
 	public int getPage() {
 		return page;
 	}
 
 	public void setPage(int page) {
 		this.page = page;
-
-		this.endRow = this.page * this.perPage;
-		this.startRow = this.endRow - (this.perPage - 1);
-		
-		totalPage = (int)(Math.ceil((double)count/perPage));
-		
-		startPage = ((page-1)/PAGE_BLOCK)*PAGE_BLOCK+1;
-		endPage = startPage+(PAGE_BLOCK - 1);
-		if (endPage > totalPage) {
-			endPage = totalPage;
-		}
-		
+		setStartRow(page*perPage-(perPage-1)); // 시작 행 설정
+		setEndRow(page*perPage); // 종료 행 설정
+		setStartPage( ((page-1)/10)*10 + 1 ); // 시작 페이지 설정
+		setEndPage( ((page-1)/10 + 1)*10); // 종료 페이지 설정
 	}
 
 	public int getStartRow() {
@@ -92,6 +100,9 @@ public class WinnerPagingDto {
 
 	public void setCount(int count) {
 		this.count = count;
+		setTotalPage((int)Math.ceil((double)count/perPage)); // 전체 페이지 결정
+		// 전체 페이지가 종료 페이지보다 작다면 종료 페이지를 전체 페이지로 변경
+		endPage = (totalPage < endPage)? totalPage : endPage;
 	}
 
 	public int getStartPage() {
@@ -116,5 +127,5 @@ public class WinnerPagingDto {
 				+ searchType + ", keyword=" + keyword + ", perPage=" + perPage + ", totalPage=" + totalPage + ", count="
 				+ count + ", startPage=" + startPage + ", endPage=" + endPage + "]";
 	}
-	
+
 }

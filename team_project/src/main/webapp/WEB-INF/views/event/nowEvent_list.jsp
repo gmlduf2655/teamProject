@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
@@ -39,7 +37,7 @@ $(document).ready(function(){
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>이벤트</h2>
+                        <h2>현재 진행중</h2>
                     </div>
                 </div>
             </div>
@@ -51,6 +49,7 @@ $(document).ready(function(){
 	<div class="row">
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
+		
 		
 		
 		<!-- 검색 -->
@@ -74,7 +73,7 @@ $(document).ready(function(){
 					</c:if>
 				>제목 + 내용</option>
 			</select>
-			<form id="frmSearch" action="/event/event_list" method="get">
+			<form id="frmSearch" action="/event/nowEvent_list" method="get">
 			<input type="text" id="keyword">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
@@ -85,9 +84,10 @@ $(document).ready(function(){
 		
 		
 		
+		
 			<div class="row">
 
-				<c:forEach items="${eventList}" var="eventVo">
+				<c:forEach items="${nowEventList}" var="eventVo">
 					<div class="col-md-3">
 						<div class="product__item">
 							<div class="product__item__pic set-bg"
@@ -109,7 +109,7 @@ $(document).ready(function(){
 								<h5>
 									<a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
 								</h5>
-									<label style="color:white">${eventVo.event_start_date}~${eventVo.event_end_date}</label>
+									<label style="color:white">이벤트 종료일 : ${eventVo.event_end_date}</label>
 							</div>
 						</div>
 					</div>
@@ -125,6 +125,14 @@ $(document).ready(function(){
 			</p>
 		</div>
 </div>
+
+
+
+
+
+
+
+
 
 
 <!-- footer -->

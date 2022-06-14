@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -20,7 +19,7 @@
 				<div class="jumbotron">
 					<h2>메세지 읽기</h2>
 					<p>
-						<a class="btn btn-primary btn-large" href="/message/message_list?userno=${loginUserVo.userno}&type=receive">목록으로</a>
+						<a class="btn btn-primary btn-large" href="/message/message_list?page=${param.page}&type=receive">목록으로</a>
 					</p>
 				</div>
 			</div>
@@ -28,31 +27,29 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<form role="form" method="post" action="/message/write_run" encType="multipart/form-data">
+				<form role="form" method="get" action="/message/reply_form">
 					<input type="hidden" name="messageno" value="${messageVo.messageno}">
 					<div class="form-group">
 						<label for="sender"> 보내는 이 </label> 
-						<input type="text" class="form-control" name="sender" id="sender" value="${messageVo.sender}" readonly>
+						<input type="text" class="form-control" id="sender" value="${messageVo.sender}" readonly>
 					</div>
 					<div class="form-group">
 						<label for="receiver"> 받는 이 </label> 
-						<input type="text" class="form-control" name="receiver" id="receiver" value="${messageVo.receiver}" readonly/>
+						<input type="text" class="form-control" id="receiver" value="${messageVo.receiver}" readonly/>
 					</div>
 					<div class="form-group">
 						<label for="message_title"> 제목 </label> 
-						<input type="text" class="form-control" name="message_title" id="message_title" value="${messageVo.message_title}" readonly/>
+						<input type="text" class="form-control" id="message_title" value="${messageVo.message_title}" readonly/>
 					</div>
 					<div class="form-group">
 						<label for="message_content"> 내용 </label> 
-						<div class="form-control" style="height:300px;">${messageVo.message_content}</div>
+						<div class="form-control" style="height:500px; overflow-y : scroll;">${messageVo.message_content}</div>
 					</div>
 					<div style="text-align:center">
 						<c:if test="${loginUserVo.userid == messageVo.receiver}">
-							<a class="btn btn-primary" id="form_btn" href="/message/reply_form">답장하기</a>
+							<button type="submit" class="btn btn-primary" >답장하기</button>
 						</c:if>
-						<c:if test="${loginUserVo.userid == messageVo.sender}">
-							<a class="btn btn-primary" id="form_btn" href="/message/delete_run">삭제하기</a>
-						</c:if>
+						<a class="btn btn-primary" id="form_btn" href="/message/delete_run?messageno=${messageVo.messageno}&type=${param.type}">삭제하기</a>
 					</div>
 				</form>
 			</div>

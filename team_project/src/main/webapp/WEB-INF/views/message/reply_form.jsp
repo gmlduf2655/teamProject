@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +9,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	
+
 <!-- 서머노트를 위해 추가해야할 부분 -->
 <script src="/resources/summerNote/summernote-lite.js"></script>
 <script src="/resources/summerNote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/resources/summerNote/summernote-lite.css">
-<title>쪽지 보내기</title>
+<title>답장 보내기</title>
+</head>
 <script>
 	$(document).ready(function(){
 		// 썸머노트 실행
@@ -48,7 +48,6 @@
 					});
 				}
 			}
-
 		});
 		
 		// 메세지 전송
@@ -87,10 +86,9 @@
 				}
 			});
 		});
-		
+
 	});
 </script>
-</head>
 <body>
 	<div class="container-fluid">
 		<div class="row">
@@ -106,16 +104,15 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<form id="message_form" role="form" method="post" action="/message/write_run" encType="multipart/form-data">
+				<form id="message_form" role="form" method="post" action="/message/reply_run" encType="multipart/form-data">
 					<input type="hidden" name="message_content" id="message_content" >
 					<div class="form-group">
 						<label for="sender"> 보내는 이 </label> 
-						<input type="text" class="form-control" name="sender" id="sender" value="${loginUserVo.userid}" readonly>
-
+						<input type="text" class="form-control" name="sender" id="sender" value="${messageVo.receiver}" readonly>
 					</div>
 					<div class="form-group">
 						<label for="receiver"> 받는 이 </label> 
-						<input type="text" class="form-control" name="receiver" id="receiver" />
+						<input type="text" class="form-control" name="receiver" id="receiver" value="${messageVo.sender}"/>
 					</div>
 <!-- 					<div class="form-group"> -->
 <!-- 						<label for="sns_type"> 간편로그인 </label>  -->
@@ -127,11 +124,14 @@
 <!-- 					</div> -->
 					<div class="form-group">
 						<label for="message_title"> 제목 </label> 
-						<input type="text" class="form-control" name="message_title" id="message_title" />
+						<input type="text" class="form-control" name="message_title" id="message_title" value="[re]:${messageVo.message_title}"/>
 					</div>
 					<div class="form-group">
 						<label for="message_title"> 내용 </label> 
-						<textarea rows="10" class="form-control summernote" ></textarea>
+						<textarea rows="10" class="form-control summernote" >
+						<br>
+						----------------------------------------------
+						${messageVo.message_content}</textarea>
 					</div>
 					<div class="form-group">
 						<span class="mb-4">파일첨부</span><br>

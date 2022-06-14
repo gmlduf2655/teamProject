@@ -40,10 +40,10 @@ public class EventDaoTest {
 		System.out.println("result: "+ result);
 	}
 	
-	@Test
-	public void testList() {
-		List<EventVo> eventList = eventDao.list();
-		System.out.println("eventList: "+ eventList);
-	}
+//	@Test
+//	public void testList() {
+//		List<EventVo> eventList = eventDao.list();
+//		System.out.println("eventList: "+ eventList);
+//	}
 
 }

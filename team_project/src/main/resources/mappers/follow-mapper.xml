@@ -24,6 +24,12 @@
 		where follow = #{follow}
 	</select>
 	
+	<!-- 팔로우 여부 조회 -->
+	<select id="selectFollow" resultType="int">
+		select count(*) from tbl_follow
+		where follow = #{follow} and follower = #{follower}
+	</select>
+	
 	<!-- 팔로우 내역 삭제 -->
 	<delete id="deleteFollow">
 		delete from tbl_follow 

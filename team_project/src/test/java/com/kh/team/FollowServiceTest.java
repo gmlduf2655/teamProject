@@ -20,21 +20,31 @@ public class FollowServiceTest {
 	@Test
 	public void testInsertFollow() {
 		FollowVo followVo = new FollowVo(0, 19, 1, null);
-		boolean result = followService.insertFollow(followVo);
+		boolean result = followService.insertFollow(19, 1);
 		System.out.println("FollowServiceTest, testInsertFollow, result : " + result);
 	}
+	
 	// 팔로워 수 조회 테스트
 	@Test
 	public void testSelectFollowerNumber() {
 		int count = followService.selectFollowerNumber(19);
 		System.out.println("FollowServiceTest, testSelectFollowerNumber, count : " + count);
 	}
+	
 	// 팔로우 수 조회 테스트
 	@Test
 	public void testSelectFollowNumber() {
 		int count = followService.selectFollowNumber(1);
 		System.out.println("FollowServiceTest, testSelectFollowNumber, count : " + count);		
 	}
+	
+	// 팔로우 여부 확인 테스트
+	@Test
+	public void testIsFollowed() {
+		boolean result = followService.isFollowed(19, 1);
+		System.out.println("FollowServiceTest, testIsFollowed, result : " + result);
+	}
+	
 	// 팔로우 내역 조회 테스트
 	@Test
 	public void testDeleteFollow() {

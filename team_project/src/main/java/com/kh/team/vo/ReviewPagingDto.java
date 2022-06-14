@@ -1,10 +1,10 @@
 package com.kh.team.vo;
 
-public class WinnerPagingDto {
+public class ReviewPagingDto {
 	
 	private int page = 1;
-	private int startRow;
-	private int endRow;
+	private int startRow = 1;
+	private int endRow = 10;
 	private String searchType;
 	private String keyword;
 	private int perPage = 10;
@@ -14,7 +14,7 @@ public class WinnerPagingDto {
 	private int endPage;
 	private final int PAGE_BLOCK = 10;
 	
-	public WinnerPagingDto() {
+	public ReviewPagingDto() {
 		super();
 	}
 

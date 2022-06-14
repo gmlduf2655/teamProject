@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.ReviewDao;
+import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
+import com.kh.team.vo.WinnerPagingDto;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -15,8 +17,8 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewDao reviewDao;
 
 	@Override
-	public List<ReviewVo> list() {
-		List<ReviewVo> reviewList = reviewDao.list();
+	public List<ReviewVo> list(ReviewPagingDto pagingDto) {
+		List<ReviewVo> reviewList = reviewDao.list(pagingDto);
 		return reviewList;
 	}
 
@@ -40,8 +42,15 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public ReviewVo readContent(int review_no) {
+		reviewDao.viewConuntUpdate(review_no);
 		ReviewVo reviewVo = reviewDao.readContent(review_no);
 		return reviewVo;
+	}
+
+	@Override
+	public int getCount(ReviewPagingDto pagingDto) {
+		int count = reviewDao.getCount(pagingDto);
+		return count;
 	}
 
 

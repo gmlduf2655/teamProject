@@ -32,12 +32,13 @@ public class TestRoomTimelineDao {
 		
 		int cinema_no				= 1;
 		int room_no					= 3;
+		String room_type_code		= "01";
 		String movie_code			= "20204548";
 		String movie_begin_date		= "12:20";
 		String movie_finish_date	= "13:50";
 		boolean movie_status		= true;
 		
-		RoomTimelineVo roomTimelineVo = new RoomTimelineVo(cinema_no, room_no, movie_code, movie_begin_date, movie_finish_date, movie_status);
+		RoomTimelineVo roomTimelineVo = new RoomTimelineVo(cinema_no, room_no, room_type_code, movie_code, movie_begin_date, movie_finish_date, movie_status);
 		
 		boolean result = roomTimelineDao.insertRoomTimeline(roomTimelineVo);
 		System.out.println("result : " + result);
@@ -66,7 +67,7 @@ public class TestRoomTimelineDao {
 	@Test
 	public void selectRoomTimelineTest() {
 		int timeline_no = 1;
-		RoomTimelineVo roomTimelineVo = roomTimelineDao.selectRoomTimeline(timeline_no);
+		Map<String, Object> roomTimelineVo = roomTimelineDao.selectRoomTimeline(timeline_no);
 		System.out.println(roomTimelineVo);
 	}
 	
@@ -76,12 +77,13 @@ public class TestRoomTimelineDao {
 		
 		int timeline_no				= 1;
 		int room_no					= 1;
+		String room_type_code		= "01";
 		String movie_code			= "20225365";
 		String movie_begin_date		= "00:00";
 		String movie_finish_date	= "00:15";
 		boolean movie_status		= false;
 		
-		boolean result = roomTimelineDao.updateRoomTimelineInfo(timeline_no, room_no, movie_code, movie_begin_date, movie_finish_date, movie_status);
+		boolean result = roomTimelineDao.updateRoomTimelineInfo(timeline_no, room_no, room_type_code, movie_code, movie_begin_date, movie_finish_date, movie_status);
 		System.out.println(result);
 	}
 	

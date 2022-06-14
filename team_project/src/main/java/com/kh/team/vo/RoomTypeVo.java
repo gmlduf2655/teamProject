@@ -3,7 +3,7 @@ package com.kh.team.vo;
 public class RoomTypeVo {
 	private int room_type_no;
 	private String room_type_code;
-	private String room_type;
+	private String room_type_name;
 	private int room_price;
 
 	public RoomTypeVo() {
@@ -11,10 +11,10 @@ public class RoomTypeVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RoomTypeVo(String room_type_code, String room_type, int room_price) {
+	public RoomTypeVo(String room_type_code, String room_type_name, int room_price) {
 		super();
 		this.room_type_code = room_type_code;
-		this.room_type = room_type;
+		this.room_type_name = room_type_name;
 		this.room_price = room_price;
 	}
 
@@ -34,12 +34,12 @@ public class RoomTypeVo {
 		this.room_type_code = room_type_code;
 	}
 
-	public String getRoom_type() {
-		return room_type;
+	public String getRoom_type_name() {
+		return room_type_name;
 	}
 
-	public void setRoom_type(String room_type) {
-		this.room_type = room_type;
+	public void setRoom_type_name(String room_type_name) {
+		this.room_type_name = room_type_name;
 	}
 
 	public int getRoom_price() {
@@ -52,7 +52,7 @@ public class RoomTypeVo {
 
 	@Override
 	public String toString() {
-		return "RoomType [room_type_no=" + room_type_no + ", room_type=" + room_type + ", room_price=" + room_price
+		return "RoomType [room_type_no=" + room_type_no + ", room_type_name=" + room_type_name + ", room_price=" + room_price
 				+ "]";
 	}
 

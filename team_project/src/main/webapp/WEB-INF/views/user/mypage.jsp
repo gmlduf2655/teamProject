@@ -82,6 +82,23 @@
 				}
 				fileReader.readAsDataURL(file);
 			});
+			
+			// 팔로우 버튼 클릭
+			$("#follow_btn").click(function(){
+				$.ajax({
+					type : "post",
+					async : "true",
+					url : "/follow/follow_user",
+					data : {
+						follow : "${loginUserVo.userno}",
+						follower : "${userVo.userno}"
+					},
+					success : function(rData){
+						console.log(rData);
+						$("#follower").text(rData);
+					}
+				});
+			});
 		});
     </script>
     
@@ -133,9 +150,12 @@
                             <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
                             <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;"><br>
 	                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
-	                    	<span style="color:white;font-size:30px;margin-right:15px;">${follower}</span>
+	                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follower">${follower}</span>
 	                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
-	                    	<span style="color:white;font-size:30px;margin-right:15px;">${follow}</span>
+	                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span><br>
+	                    	<c:if test="${loginUserVo.userid != userVo.userid and not empty loginUserVo}">
+	                    		<button type="button" class="site-btn" id="follow_btn">팔로우</button>
+	                    	</c:if>
 	                    </div>
 	                </div>
 	                <div class="col-lg-6">
@@ -172,7 +192,7 @@
             	</div>
 	            <div class="row">
 	            	<div class="col-lg-12" style="text-align:center;">
-	            		<c:if test="${empty loginUser.sns_type}">
+	            		<c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
 		            		<button type="button" class="site-btn" id="user_modify_btn">수정</button>
 		            		<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button>
 		            		<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button>

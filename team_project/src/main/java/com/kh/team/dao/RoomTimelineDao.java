@@ -32,7 +32,7 @@ public interface RoomTimelineDao {
 			);
 	
 	// 스케줄 정보 조회
-	public RoomTimelineVo selectRoomTimeline(
+	public Map<String, Object> selectRoomTimeline(
 				int timeline_no
 			);
 	
@@ -40,6 +40,7 @@ public interface RoomTimelineDao {
 	public boolean updateRoomTimelineInfo(
 				int timeline_no,
 				int room_no,
+				String room_type_code,
 				String movie_code,
 				String movie_begin_date,
 				String movie_finish_date,
