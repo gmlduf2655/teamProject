@@ -9,7 +9,7 @@
 		insert into tbl_room_type(
 			room_type_no,
 			room_type_code,
-			room_type,
+			room_type_name,
 			room_price
 		) values (
 			seq_room_type_no.nextval,

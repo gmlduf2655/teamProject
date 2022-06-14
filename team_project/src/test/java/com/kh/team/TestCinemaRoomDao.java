@@ -30,7 +30,7 @@ public class TestCinemaRoomDao {
 		String room_finish_time	= "12:50";
 		boolean room_status		= false;
 		
-		CinemaRoomVo cinemaRoomVo = new CinemaRoomVo(cinema_no, room_type_code, room_name, room_floor, room_begin_time, room_finish_time, room_status); 
+		CinemaRoomVo cinemaRoomVo = new CinemaRoomVo(cinema_no, room_name, room_floor, room_begin_time, room_finish_time, room_status); 
 		boolean result = cinemaRoomDao.insertCinemaRoom(cinemaRoomVo);
 		System.out.println(result);
 	}
@@ -76,7 +76,7 @@ public class TestCinemaRoomDao {
 		String room_finish_time	= "00:50";
 		boolean room_status		= true;
 		
-		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_type_code, room_name, room_floor, room_begin_time, room_finish_time, room_status);
+		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_name, room_floor, room_begin_time, room_finish_time, room_status);
 		System.err.println("updateCinemaRoomInfo, result : " + result);
 		
 	}

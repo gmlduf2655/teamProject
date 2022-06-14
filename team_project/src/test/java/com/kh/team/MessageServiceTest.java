@@ -1,5 +1,6 @@
 package com.kh.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class MessageServiceTest {
 	// 보내는 메세지 조회 테스트
 	@Test
 	public void testGetSenderMessageList() {
-		List<MessageVo> senderMessageList = messageService.getSenderMessageList("user01");
+		List<MessageVo> senderMessageList = messageService.getSenderMessageList("user01", null);
 		for(MessageVo messageVo : senderMessageList) {
 			System.out.println("MessageServiceTest, testSelectSenderMessageList, messageVo : " + messageVo);
 		}
@@ -48,7 +49,7 @@ public class MessageServiceTest {
 	// 받는 메세지 조회 테스트
 	@Test
 	public void testGetReceiverMessageList() {
-		List<MessageVo> receiverMessageList = messageService.getReceiverMessageList("gmlduf2655");
+		List<MessageVo> receiverMessageList = messageService.getReceiverMessageList("gmlduf2655", null);
 		for(MessageVo messageVo : receiverMessageList) {
 			System.out.println("MessageServiceTest, testSelectReceiverMessageList, messageVo : " + messageVo);
 		}
@@ -82,10 +83,21 @@ public class MessageServiceTest {
 		System.out.println("MessageServiceTest, testUpdateReadDate, result : " + result);
 	}
 	
-	// 메세지 내역 삭제
+	// 메세지 내역 삭제 테스트
 	@Test
 	public void testDeleteMessage() {
 		boolean result = messageService.deleteMessage(72, "send");
 		System.out.println("MessageServiceTest, testDeleteMessage, result : " + result);
+	}
+	
+	// 메세지 다중 삭제 테스트
+	@Test
+	public void testDeleteMultiMessage() {
+		List<Integer> messagenos = new ArrayList<Integer>();
+		for(int i=1 ; i<=10 ; i++) {
+			messagenos.add(i);
+		}
+		boolean result = messageService.deleteMultiMessage(messagenos, "receive");
+		System.out.println("MessageServiceTest, testDeleteMultiMessage, result : " + result);
 	}
 }

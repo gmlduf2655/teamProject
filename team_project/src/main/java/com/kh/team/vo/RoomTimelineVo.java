@@ -9,17 +9,19 @@ public class RoomTimelineVo {
 	private String movie_finish_date;
 	private boolean movie_status;
 	private String timeline_code;
+	private String room_type_code;
 
 	public RoomTimelineVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public RoomTimelineVo(int cinema_no, int room_no, String movie_code, String movie_begin_date,
+	public RoomTimelineVo(int cinema_no, int room_no, String room_type_code, String movie_code, String movie_begin_date,
 			String movie_finish_date, boolean movie_status) {
 		super();
 		this.cinema_no = cinema_no;
 		this.room_no = room_no;
+		this.room_type_code = room_type_code;
 		this.movie_code = movie_code;
 		this.movie_begin_date = movie_begin_date;
 		this.movie_finish_date = movie_finish_date;
@@ -90,11 +92,20 @@ public class RoomTimelineVo {
 		this.timeline_code = timeline_code;
 	}
 
+	public String getRoom_type_code() {
+		return room_type_code;
+	}
+
+	public void setRoom_type_code(String room_type_code) {
+		this.room_type_code = room_type_code;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomTimelineVo [timeline_no=" + timeline_no + ", cinema_no=" + cinema_no + ", room_no=" + room_no
 				+ ", movie_code=" + movie_code + ", movie_begin_date=" + movie_begin_date + ", movie_finish_date="
-				+ movie_finish_date + ", movie_status=" + movie_status + "]";
+				+ movie_finish_date + ", movie_status=" + movie_status + ", timeline_code=" + timeline_code
+				+ ", room_type_code=" + room_type_code + "]";
 	}
 
 }

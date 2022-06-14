@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.MessageDao;
 import com.kh.team.vo.MessageVo;
+import com.kh.team.vo.PagingDto;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -32,15 +33,15 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 보내는 메세지 조회
 	@Override
-	public List<MessageVo> getSenderMessageList(String sender) {
-		List<MessageVo> senderMessageList = messageDao.selectSenderMessageList(sender);
+	public List<MessageVo> getSenderMessageList(String sender, PagingDto pagingDto) {
+		List<MessageVo> senderMessageList = messageDao.selectSenderMessageList(sender, pagingDto);
 		return senderMessageList;
 	}
 
 	// 받는 메세지 조회
 	@Override
-	public List<MessageVo> getReceiverMessageList(String receiver) {
-		List<MessageVo> receiverMessageList = messageDao.selectReceiverMessageList(receiver);
+	public List<MessageVo> getReceiverMessageList(String receiver, PagingDto pagingDto) {
+		List<MessageVo> receiverMessageList = messageDao.selectReceiverMessageList(receiver, pagingDto);
 		return receiverMessageList;
 	}
 	
@@ -88,6 +89,18 @@ public class MessageServiceImpl implements MessageService {
 		}else if(type.equals("receive")){
 			result = messageDao.deleteMessageByReceiver(messageno);
 		}
+		return result;
+	}
+
+	// 메세지 다중 삭제
+	@Override
+	public boolean deleteMultiMessage(List<Integer> messagenos, String type) {
+		boolean result = false;
+		if(type.equals("send")) {
+			result = messageDao.deleteMultiMessageBySender(messagenos);
+		}else if(type.equals("receive")) {
+			result = messageDao.deleteMultiMessageByReceiver(messagenos);
+		}else {}
 		return result;
 	}
 

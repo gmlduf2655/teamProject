@@ -18,22 +18,31 @@ public class FollowDaoTest {
 	// 팔로우 내역 추가 테스트
 	@Test
 	public void testInsertFollow() {
-		FollowVo followVo = new FollowVo(0, 19, 1, null);
-		boolean result = followDao.insertFollow(followVo);
+		boolean result = followDao.insertFollow(19, 1);
 		System.out.println("FollowDaoTest, testInsertFollow, result : " + result);
 	}
+	
 	// 팔로워 수 조회 테스트
 	@Test
 	public void testSelectFollowerNumber() {
 		int count = followDao.selectFollowerNumber(19);
 		System.out.println("FollowDaoTest, testSelectFollowerNumber, count : " + count);
 	}
+	
 	// 팔로우 수 조회 테스트
 	@Test
 	public void testSelectFollowNumber() {
 		int count = followDao.selectFollowNumber(1);
 		System.out.println("FollowDaoTest, testSelectFollowNumber, count : " + count);		
 	}
+	
+	// 팔로우 여부 조회 테스트
+	@Test
+	public void testSelectFollow() {
+		boolean result = followDao.selectFollow(19, 1);
+		System.out.println("FollowDaoTest, testSelectFollow, result : " + result);
+	}
+	
 	// 팔로우 내역 조회 테스트
 	@Test
 	public void testDeleteFollow() {

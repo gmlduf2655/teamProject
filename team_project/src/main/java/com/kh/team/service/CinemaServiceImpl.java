@@ -10,10 +10,12 @@ import com.kh.team.dao.CinemaDao;
 import com.kh.team.dao.CinemaRoomDao;
 import com.kh.team.dao.RoomSeatDao;
 import com.kh.team.dao.RoomTimelineDao;
+import com.kh.team.dao.RoomTypeDao;
 import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.RoomSeatVo;
 import com.kh.team.vo.RoomTimelineVo;
+import com.kh.team.vo.RoomTypeVo;
 
 @Controller
 public class CinemaServiceImpl implements CinemaService {
@@ -29,6 +31,9 @@ public class CinemaServiceImpl implements CinemaService {
 	
 	@Autowired
 	private RoomSeatDao roomSeatDao;
+	
+	@Autowired
+	private RoomTypeDao roomTypeDao;
 	
 	@Override
 	public List<String> getCinemaCityAddressList() {
@@ -98,8 +103,8 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
-	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status, String room_type_code) {
-		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_type_code, room_name, room_floor, room_begin_time, room_finish_time, room_status);
+	public boolean modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, boolean room_status) {
+		boolean result = cinemaRoomDao.updateCinemaRoomInfo(room_no, room_name, room_floor, room_begin_time, room_finish_time, room_status);
 		return result;
 	}
 
@@ -128,14 +133,14 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
-	public RoomTimelineVo getRoomTimeline(int timeline_no) {
-		RoomTimelineVo roomTimelineVo = roomtimelineDao.selectRoomTimeline(timeline_no);
-		return roomTimelineVo;
+	public Map<String, Object> getRoomTimeline(int timeline_no) {
+		Map<String, Object> roomTimelineInfo = roomtimelineDao.selectRoomTimeline(timeline_no);
+		return roomTimelineInfo;
 	}
 
 	@Override
-	public boolean modifyRoomTimelineInfo(int timeline_no, int room_no, String movie_code, String movie_begin_date, String movie_finish_date, boolean movie_status) {
-		boolean result = roomtimelineDao.updateRoomTimelineInfo(timeline_no, room_no, movie_code, movie_begin_date, movie_finish_date, movie_status);
+	public boolean modifyRoomTimelineInfo(int timeline_no, int room_no, String room_type_code, String movie_code, String movie_begin_date, String movie_finish_date, boolean movie_status) {
+		boolean result = roomtimelineDao.updateRoomTimelineInfo(timeline_no, room_no, room_type_code, movie_code, movie_begin_date, movie_finish_date, movie_status);
 		return result;
 	}
 
@@ -167,6 +172,12 @@ public class CinemaServiceImpl implements CinemaService {
 	public boolean modifyRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status) {
 		boolean result = roomSeatDao.updateRoomSeatInfo(seat_no, seat_x, seat_y, seat_status);
 		return result;
+	}
+
+	@Override
+	public List<RoomTypeVo> getRoomTypeList() {
+		List<RoomTypeVo> roomTypeList = roomTypeDao.selectRoomTypeList();
+		return roomTypeList;
 	}
 
 }

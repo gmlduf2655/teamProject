@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.util.MapAJaxAdaper;
 import com.kh.team.vo.RoomTimelineVo;
 
 @Repository
@@ -84,11 +85,17 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 
 	// 스케줄 정보 조회
 	@Override
-	public RoomTimelineVo selectRoomTimeline(
+	public Map<String, Object> selectRoomTimeline(
 				int timeline_no
 			) {
-		RoomTimelineVo roomTimelineVo = sqlSession.selectOne(NAMESPACE + "selectRoomTimeline", timeline_no);
-		return roomTimelineVo;
+		Map<String, Object> tempMap = sqlSession.selectOne(NAMESPACE + "selectRoomTimeline", timeline_no);
+		Map<String, Object> roomTimelineInfo = new HashMap<>();
+		for (Map.Entry<String, Object> entry : tempMap.entrySet()) {
+			String keys = entry.getKey().toLowerCase();
+			Object values = entry.getValue();
+			roomTimelineInfo.put(keys, values);
+		}
+		return roomTimelineInfo;
 	}
 
 	// 상영관 스케줄 정보 변경
@@ -96,6 +103,7 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 	public boolean updateRoomTimelineInfo(
 				int timeline_no, 
 				int room_no, 
+				String room_type_code,
 				String movie_code, 
 				String movie_begin_date,
 				String movie_finish_date, 
@@ -104,6 +112,7 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put("timeline_no", timeline_no);
 		parameter.put("room_no", room_no);
+		parameter.put("room_type_code", room_type_code);
 		parameter.put("movie_code", movie_code);
 		parameter.put("movie_begin_date", movie_begin_date);
 		parameter.put("movie_finish_date", movie_finish_date);

@@ -18,8 +18,11 @@ public class FollowDaoImpl implements FollowDao {
 	
 	// 팔로우 내역 추가
 	@Override
-	public boolean insertFollow(FollowVo followVo) {
-		int count = sqlSession.insert(NAMESPACE + "insertFollow", followVo);
+	public boolean insertFollow(int follower, int follow) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("follower", follower);
+		map.put("follow", follow);
+		int count = sqlSession.insert(NAMESPACE + "insertFollow", map);
 		if(count > 0) {
 			return true;
 		}
@@ -39,7 +42,20 @@ public class FollowDaoImpl implements FollowDao {
 		int count = sqlSession.selectOne(NAMESPACE + "selectFollowNumber", follow);
 		return count;
 	}
-
+	
+	// 팔로우 여부 조회
+	@Override
+	public boolean selectFollow(int follower, int follow) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("follower", follower);
+		map.put("follow", follow);
+		int count = sqlSession.selectOne(NAMESPACE + "selectFollow", map);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	// 팔로우 내역 삭제
 	@Override
 	public boolean deleteFollow(int follower, int follow) {

@@ -101,7 +101,6 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 	@Override
 	public boolean updateCinemaRoomInfo(
 				int room_no,
-				String room_type_code,
 				String room_name,
 				String room_floor,
 				String room_begin_time,
@@ -115,7 +114,6 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		parameter.put("room_begin_time", room_begin_time);
 		parameter.put("room_finish_time", room_finish_time);
 		parameter.put("room_status", room_status);
-		parameter.put("room_type_code", room_type_code);
 		int count = sqlSession.update(NAMESPACE + "updateCinemaRoomInfo", parameter);
 		if (count > 0) {
 			return true;
