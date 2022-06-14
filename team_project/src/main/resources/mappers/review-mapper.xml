@@ -46,7 +46,7 @@
 	<!-- 조회수 증가 -->
 		<update id="viewConuntUpdate">
 			update tbl_review set
-				review_count = review_count + 1
+				review_viewcnt = review_viewcnt + 1
 			where review_no = #{review_no}
 		</update>
 		
