@@ -59,11 +59,23 @@ public class MovieDBServiceImpl implements MovieDBService {
 
 	@Override
 	public List<MovieVo> dbSearchMovie(String sType, String sKeyword) {
-		List<MovieVo> list = movieDBDao.dbSearchMovie(sType, sKeyword);
-		System.out.println("MovieDBServiceImpl " + list);
+		List<MovieVo> list = movieDBDao.dbSearchMovie(sType,sKeyword);
+		/*System.out.println("MovieDBServiceImpl " + list);*/
 		return list;
 		
 	}
+
+
+
+	@Override
+	public MovieVo dbsearchBymoviecode(String movie_code) {
+		MovieVo movieVo = movieDBDao.dbsearchBymoviecode(movie_code);
+		return movieVo;
+	}
+
+
+
+	
 
 	
 

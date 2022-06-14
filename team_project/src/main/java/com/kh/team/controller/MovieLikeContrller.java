@@ -29,11 +29,14 @@ public class MovieLikeContrller {
 	@ResponseBody
 	public String insertLike(MovieLikeVo movieLikeVo) {
 		boolean result = false;
-		boolean result1 = movieLikeService.isLike(movieLikeVo.getMovie_no(), movieLikeVo.getUserid());
-		if(result1 == false) {
-			result = movieLikeService.insertLike(movieLikeVo);
-		} else if (result1 == true) {
-			result = movieLikeService.deleteLike(movieLikeVo.getMovie_no(), movieLikeVo.getUserid());
+		boolean result1 = false;
+		if(movieLikeVo.getUserid() != null && !movieLikeVo.getUserid().equals("")) {
+			result1 = movieLikeService.isLike(movieLikeVo.getMovie_no(), movieLikeVo.getUserid());
+			if(result1 == false) {
+				result = movieLikeService.insertLike(movieLikeVo);
+			} else if (result1 == true) {
+				result = movieLikeService.deleteLike(movieLikeVo.getMovie_no(), movieLikeVo.getUserid());
+			}
 		}
 		return String.valueOf(result);
 	}

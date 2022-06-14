@@ -17,12 +17,12 @@
 			movie_name_en,opening_date,
 			make_year,runningtime, made_country,made_company,
 			movie_genre, movie_director ,movie_image_name ,movie_actors,
-			movie_audits,movie_synopsis)
+			movie_audits,movie_synopsis, movie_video_add , endding_date)
 		values(seq_MOVIE.nextval, #{movie_code}, #{movie_name},
 			#{movie_name_en},#{opening_date},
 			#{make_year},#{runningtime}, #{made_country},#{made_company},
 			#{movie_genre}, #{movie_director} ,#{movie_image_name},#{movie_actors},
-			#{movie_audits}, #{movie_synopsis})
+			#{movie_audits}, #{movie_synopsis}, #{movie_video_add}, #{endding_date})
 	</insert>
 	
 	<!-- 유수연 영화 DB 업데이트  -->
@@ -40,7 +40,9 @@
 			movie_image_name = #{movie_image_name},
 			movie_actors = #{movie_actors},
 			movie_audits = #{movie_audits},
-			movie_synopsis = #{movie_synopsis}
+			movie_synopsis = #{movie_synopsis},
+			movie_video_add = #{movie_video_add},
+			endding_date =  #{endding_date}
 		where movie_code = #{movie_code}
 	</update>
 
@@ -62,7 +64,10 @@
 		where ${sType} like  '%'||#{sKeyword}||'%'
 	</select>
 	
-	
-	
+	<!-- 유수연 영화 상세정보 -->
+	<select id="dbsearchBymoviecode" resultType="MovieVo">
+		select * from tbl_movie
+		where movie_code = #{movie_code}
+	</select>
 	
 </mapper>
