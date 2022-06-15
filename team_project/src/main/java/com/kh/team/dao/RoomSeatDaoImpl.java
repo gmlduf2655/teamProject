@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.vo.RoomSeatVo;
 
@@ -70,6 +71,40 @@ public class RoomSeatDaoImpl implements RoomSeatDao {
 		parameter.put("seat_no", seat_no);
 		parameter.put("ticket_no", ticket_no);
 		int count = sqlSession.update(NAMESPACE + "updateRoomSeatTicket", parameter);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean insertRoomSeatX(int room_no, int seat_x, List<String> yNum) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("room_no", room_no);
+		parameter.put("seat_x", seat_x);
+		int count = 0;
+		for(String a : yNum) {
+			parameter.put("seat_y", a);
+			count += sqlSession.insert(NAMESPACE + "insertRoomSeatXY", parameter);
+		}
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean insertRoomSeatY(int room_no, List<Integer> xNum, String seat_y) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("room_no", room_no);
+		int count = 0;
+		parameter.put("seat_y", seat_y);
+		for (int a : xNum) {
+			parameter.put("seat_x", a);
+			count += sqlSession.insert(NAMESPACE + "insertRoomSeatXY", parameter);
+		}
 		if (count > 0) {
 			return true;
 		}

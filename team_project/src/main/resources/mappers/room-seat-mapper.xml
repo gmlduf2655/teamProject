@@ -23,6 +23,23 @@
 		)
 	</insert>
 	
+	<!-- 상영관 좌석 x,y줄 늘리기 -->
+	<insert id="insertRoomSeatXY">
+		insert into tbl_room_seat(
+			seat_no,
+			room_no,
+			seat_x,
+			seat_y
+		) values (
+			seq_seat_no.nextval,
+			#{room_no},
+			#{seat_x},
+			#{seat_y}
+		)
+	</insert>
+	
+	<!-- 상영관 좌석 y줄 늘리기 -->
+	
 	<!-- 상영관 좌석 리스트 조회 -->
 	<select id="selectRoomSeatList" resultType="RoomSeatVo">
 		select * from tbl_room_seat

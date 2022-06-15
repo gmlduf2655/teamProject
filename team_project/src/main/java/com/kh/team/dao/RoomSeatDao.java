@@ -9,6 +9,12 @@ public interface RoomSeatDao {
 	// 좌석 만들기
 	public boolean insertRoomSeat(RoomSeatVo roomSeatVo);
 	
+	// 좌석 X줄 늘리기
+	public boolean insertRoomSeatX(int room_no, int seat_x, List<String> yNum);
+	
+	// 좌석 Y줄 늘리기
+	public boolean insertRoomSeatY(int room_no, List<Integer> xNum, String seat_y);
+	
 	// 상영관 좌석 리스트 조회
 	public List<RoomSeatVo> selectRoomSeatList(int room_no);
 	
