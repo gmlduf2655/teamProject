@@ -166,7 +166,7 @@
                         		<a href="/user/login_form">로그인</a>
                         	</c:when>
                         	<c:when test="${loginUserVo.userid == 'admin'}">
-                        		<a href="/user/login_form">관리자화면</a>
+                        		<a href="/admin/manage">관리자화면</a>
                         	</c:when>
                         	<c:otherwise>
                         		<a href="/user/logout">로그아웃</a>

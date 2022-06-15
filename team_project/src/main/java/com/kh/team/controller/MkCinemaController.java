@@ -1,8 +1,12 @@
 package com.kh.team.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -115,6 +119,36 @@ public class MkCinemaController {
 	public List<RoomSeatVo> getMovieList(int room_no){
 		List<RoomSeatVo> roomSeatList = cinemaService.getRoomSeatList(room_no);
 		return roomSeatList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/roomSeatAddX", method = RequestMethod.GET)
+	public boolean roomSeatAddX(int room_no, int seat_x, String yNum) throws ParseException{
+		JSONParser parse = new JSONParser();
+		List<String> yNumList = (List<String>)parse.parse(yNum);
+		for (String list : yNumList) {
+			System.out.println(list);
+		}
+		boolean result = cinemaService.createRoomSeatX(room_no, seat_x, yNumList);
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/roomSeatAddY", method = RequestMethod.GET)
+	public boolean roomSeatAddY(int room_no, String xNum, String seat_y) throws ParseException {
+		System.out.println("room_no : " + room_no);
+		System.out.println("xNum : " + xNum);
+		System.out.println("seat_y : " + seat_y);
+		JSONParser parse = new JSONParser();
+		List<String> tempList = (List<String>)parse.parse(xNum);
+		List<Integer> xNumList = new ArrayList<>();
+		for (String list : tempList) {
+			xNumList.add(Integer.parseInt(list));
+		}
+		boolean result = cinemaService.createRoomSeatY(room_no, xNumList, seat_y);
+		return result;
 	}
 	
 	

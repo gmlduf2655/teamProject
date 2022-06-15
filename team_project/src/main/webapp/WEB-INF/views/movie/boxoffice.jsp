@@ -16,6 +16,10 @@
 .active {
 	color : white;
 }
+.aclass:hover{
+	font-weight : bold;
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -53,7 +57,7 @@
 			$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
 				/* $('#rank'+i).append("<span class=\"boxoffice_rank\">" +j.movieNm+"</span>"); 
 				$('#rank'+i).append("<input type='hidden' name='boMovie_cd' value=" + j.movieCd+"/>");  */
-				$('#rank'+i).append("<a style='color: white;' href='/movie/movieInfo?movie_code="+j.movieCd+"'>" +j.movieNm+"</a>"); 
+				$('#rank'+i).append("<a style='color: white;' class='aclass' href='/movie/movieInfo?movie_code="+j.movieCd+"'>" +j.movieNm+"</a>"); 
 				/* $('#rank'+i).append("<a class=\"boxoffice_rank\ href='/movie/movieInfo?movie_code="+j.movieCd+">" +j.movieNm+"</a>");*/
 				
 				//$('#rank'+i).append("<span class=\"boxoffice_rank right rk_inten\" id=\"rk_inten"+ i +"\">"+j.rankInten+"</span>");
