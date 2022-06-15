@@ -10,12 +10,25 @@ public class ReviewVo {
 	private int review_star;
 	private Date review_reg_date;
 	private int review_viewcnt;
+	private int userno;
 	
 	public ReviewVo() {
 		super();
 	}
-
 	
+	public ReviewVo(int review_no, String review_writer, String review_title, String review_content, int review_star,
+			Date review_reg_date, int review_viewcnt, int userno) {
+		super();
+		this.review_no = review_no;
+		this.review_writer = review_writer;
+		this.review_title = review_title;
+		this.review_content = review_content;
+		this.review_star = review_star;
+		this.review_reg_date = review_reg_date;
+		this.review_viewcnt = review_viewcnt;
+		this.userno = userno;
+	}
+
 	public ReviewVo(int review_no, String review_writer, String review_title, String review_content, int review_star,
 			Date review_reg_date, int review_viewcnt) {
 		super();
@@ -34,6 +47,15 @@ public class ReviewVo {
 		this.review_title = review_title;
 		this.review_content = review_content;
 		this.review_star = review_star;
+		this.userno = userno;
+	}
+	
+	public int getUserno() {
+		return userno;
+	}
+
+	public void setUserno(int userno) {
+		this.userno = userno;
 	}
 
 	public int getReview_no() {
@@ -94,12 +116,13 @@ public class ReviewVo {
 		this.review_viewcnt = review_viewcnt;
 	}
 
-
 	@Override
 	public String toString() {
 		return "ReviewVo [review_no=" + review_no + ", review_writer=" + review_writer + ", review_title="
 				+ review_title + ", review_content=" + review_content + ", review_star=" + review_star
-				+ ", review_reg_date=" + review_reg_date + ", review_viewcnt=" + review_viewcnt + "]";
+				+ ", review_reg_date=" + review_reg_date + ", review_viewcnt=" + review_viewcnt + ", userno=" + userno
+				+ "]";
 	}
+
 	
 }

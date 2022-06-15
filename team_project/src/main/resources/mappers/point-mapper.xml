@@ -62,4 +62,10 @@
 		delete from tbl_point_code
 		where point_code= #{point_code}
 	</delete>
+	
+	<update id="updatePoint">
+		update tbl_user set
+			point = #{point}
+		where userno = #{userno}
+	</update>
 </mapper>

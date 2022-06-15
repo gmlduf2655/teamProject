@@ -5,6 +5,9 @@ import java.util.List;
 import com.kh.team.vo.PointVo;
 
 public interface PointDao {
+	public static final int INSERT_REVIEW_POINT = 50; // 리뷰 작성하면 50포인트
+	public static final int INSERT_REVIEW_CODE = 1002; // 리뷰 작성 포인트 코드
+	
 	// 포인트 내역 추가
 	public boolean insertPoint(PointVo pointVo);
 	// 포인트 코드 추가
@@ -21,4 +24,6 @@ public interface PointDao {
 	public boolean deletePoint(int pointno);
 	// 포인트코드 내역 삭제
 	public boolean deletePointCode(int point_code);
+	// 업데이트
+	public boolean updatePoint(PointVo pointVo);
 }
