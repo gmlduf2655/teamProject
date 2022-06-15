@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -20,152 +19,184 @@
 </section>
 <!-- Normal Breadcrumb End -->
 
-
-
 <script>
-// 평점 별
-$(function(){
+	// 평점 별
+	$(function() {
 		var starNum = $(".rating").data("rate");
-//		console.log("starNum:", starNum);
+		//		console.log("starNum:", starNum);
 		$(".make_star i").css("color", "black");
 		$(".make_star i:nth-child(-n" + starNum + ")").css("color", "orange");
-});
+	});
+	// 좋아요
+	$(function() {
+		// 화면 셋팅
+		isLike();
+		countLike();
 
-var insert_result = "${insert_result}";
+		// 좋아요 클릭(삭제)
+		$("#good").click(function() {
+			var review_no = $(this).attr("data-rno");
+			var userid = "${loginUserVo.userid}";
+			var url = "/review/createLike";
+			var sData = {
+				"review_no" : review_no,
+				"userid" : userid
+			};
+			$.post(url, sData, function(rData) {
+				console.log("good click, rData:", rData);
+				isLike();
+				countLike();
+			});
+		});
 
-if (insert_result == "true"){
-	alert("리뷰 작성 완료");
-}
+		// 좋아요 갯수 불러오기
+		function countLike() {
+			var url = "/review/countLike";
+			var sData = {
+				"review_no" : "${reviewVo.review_no}"
+			};
+			$.get(url, sData, function(rData) {
+				console.log("countLike, rData", rData);
+				$("#likeCount").text(rData);
+			});
+		}
 
+		// 좋아요 여부
+		function isLike() {
+			var url = "/review/isLike";
+			var review_no = "${reviewVo.review_no}";
+			var userid = "${loginUserVo.userid}";
+			var sData = {
+				"review_no" : review_no,
+				"userid" : userid
+			};
+			$.get(url, sData, function(rData) {
+				console.log("isLike, rData", rData);
+				if (rData == "true") {
+					$("#good").find("i").css("color", "red");
+				} else {
+					$("#good").find("i").css("color", "black");
+				}
+			});
+		}
+	});
 
-$(document).ready(function(){
- 	var frmPaging = $("#frmPaging");
- 	
- 	var modify_result = "${modify_result}";
- 	
- 	if (modify_result == "true"){
-		alert("리뷰 수정 완료");
-	}
-	
- 	// 삭제
-	$("#btnDelete").click(function(e){
+	$(document).ready(function() {
+		var frmPaging = $("#frmPaging");
+
+		// 댓글 삭제
+		$("#btnDelete").click(function(e) {
 		e.preventDefault();
 		var review_no = $(this).attr("href");
 		$("#frmPaging").find("input[name=review_no]").val(review_no);
-		frmPaging.attr("action", "/review/review_delete");
+		frmPaging.attr("action","/review/review_delete");
 		frmPaging.attr("method", "get");
 		frmPaging.submit();
-	});
- 	
- 	// Comment save
-	$("#btnCommentInsert").click(function(){
+		});
+
+		// 댓글 저장
+		$("#btnCommentInsert").click(function() {
 		var comment_content = $("#comment_content").val();
 //		console.log(comment_content);
 		var userid = $("#userid").val();
 		var review_no = "${reviewVo.review_no}";
 		var sData = {
-				"comment_content" : comment_content,
-				"review_no"       : review_no,
-				"userid"          : userid
+			"comment_content" : comment_content,
+			"review_no" : review_no,
+			"userid" : userid
 		}
 		console.log("sData:", sData);
-		
+
 		var url = "/reviewComment/insertComment";
 		$.post(url, sData, function(rData) {
-			console.log(rData);
-			if (rData == "true") {
-				getCommentList();
-				$("#comment_content").val("");
-			}
+		console.log(rData);
+		if (rData == "true") {
+			getCommentList();
+			$("#comment_content").val("");
+		}
 		});
 	});
-	
-	
- 	
+
+		
 	// 댓글 리스트
-	function getCommentList(){
-		var review_no = "${reviewVo.review_no}";
-		var url = "/reviewComment/commentList/" + review_no;
-		$.get(url, function(rData){
-//			console.log("rData:", rData);
- 			$("#comment_list").children().remove();
-			
-  			$.each(rData, function(){
-  				var clone = $("#clone").children().clone();
-  				var name = clone.find("h6");
-  				var regDate = clone.find("span");
-  				var content = clone.find("p");
-  				
-  				name.text(this.userid);
-  				regDate.text(this.comment_reg_date);
-  				content.text(this.comment_content);
-  				
-  				if (this.profile_image != null) {
-  					$("#userprofile").attr("src" , "/user/get_profile_image?filename="+this.profile_image);
-  				}
-  				
-  				clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
-  				clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
-  				clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
-  				
-  				if("${loginUserVo.userid}" == this.userid){
-					clone.find(".btnCommentModify").show();
-					clone.find(".btnCommentDelete").show();
-				} else {
-					clone.find(".btnCommentModify").hide();
-					clone.find(".btnCommentDelete").hide();
-				} 
-  				
-  				$("#comment_list").append(clone);
-			});
-		});
-	}
-	
-	// 댓글 삭제 버튼
-	$("#comment_list").on("click", ".btnCommentDelete", function(){
-		console.log("댓글 삭제 버튼 클릭됨");
-		var comment_no = $(this).attr("data-cno");
-		var url = "/reviewComment/deleteComment/" + comment_no;
-		$.get(url, function(rData){
-			console.log(rData);
-			if (rData == "true") {
-				getCommentList();
-			}
+	function getCommentList() {
+	var review_no = "${reviewVo.review_no}";
+	var url = "/reviewComment/commentList/" + review_no;
+	$.get(url, function(rData) {
+//	console.log("rData:", rData);
+	$("#comment_list").children().remove();
+	$.each(rData, function() {
+	var clone = $("#clone").children().clone();
+	var name = clone.find("h6");
+	var regDate = clone.find("span");
+	var content = clone.find("p");
+	name.text(this.userid);
+	regDate.text(this.comment_reg_date);
+	content.text(this.comment_content);
+		if (this.profile_image != null) {
+			$("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
+		}
+	clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
+	clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
+	clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
+		if ("${loginUserVo.userid}" == this.userid) {
+			clone.find(".btnCommentModify").show();
+			clone.find(".btnCommentDelete").show();
+		} else {
+			clone.find(".btnCommentModify").hide();
+			clone.find(".btnCommentDelete").hide();
+		}
+
+		$("#comment_list").append(clone);
 		});
 	});
-	
+}
+
+	// 댓글 삭제 버튼
+	$("#comment_list").on("click", ".btnCommentDelete", function() {
+//	console.log("댓글 삭제 버튼 클릭됨");
+	var comment_no = $(this).attr("data-cno");
+	var url = "/reviewComment/deleteComment/" + comment_no;
+	$.get(url, function(rData) {
+	console.log(rData);
+		if (rData == "true") {
+		getCommentList();
+		}
+	});
+});
+
 	// 댓글 수정 버튼
 	$("#comment_list").on("click", ".btnCommentModify", function() {
-//		console.log("댓글 수정 버튼 클릭됨");
-		$(this).hide();
-		$(this).next(".btnCommentModifyRun").show();
-		var content = $(this).prevAll("p").text();
-//		var content = $("#comment_list").children().clone().find("p").eq(0).text();
- 		console.log(content);
-//  		var modifyP = $("#comment_list > div:nth-child(2) > p");
- 		var modifyP = $(this).prevAll("p");
- 	    $(modifyP).html("<input type='text' class='contentModify' value='"+ content + "'/>");
+//	console.log("댓글 수정 버튼 클릭됨");
+	$(this).hide();
+	$(this).next(".btnCommentModifyRun").show();
+	var content = $(this).prevAll("p").text();
+//	var content = $("#comment_list").children().clone().find("p").eq(0).text();
+	console.log(content);
+//  var modifyP = $("#comment_list > div:nth-child(2) > p");
+	var modifyP = $(this).prevAll("p");
+	$(modifyP).html("<input type='text' class='contentModify' value='"+ content + "'/>");
 	});
-	
-	// 댓글 수정 저장 버튼
+
+// 댓글 수정 저장 버튼
 	$("#comment_list").on("click", ".btnCommentModifyRun", function() {
-		var comment_content = $(".contentModify").val();
-		var comment_no = $(this).attr("data-cno");
-//		console.log("comment_no:"+comment_no);
-//		console.log("comment_content:"+comment_content);
-		var sData = {
-				"comment_content": comment_content,
-				"comment_no"     : comment_no
+	var comment_content = $(".contentModify").val();
+	var comment_no = $(this).attr("data-cno");
+//	console.log("comment_no:"+comment_no);
+//	console.log("comment_content:"+comment_content);
+	var sData = {
+		"comment_content" : comment_content,
+		"comment_no" : comment_no
+	}
+	var url = "/reviewComment/updateComment";
+	$.post(url, sData, function(rData) {
+		console.log("rData:", rData);
+		if (rData == "true") {
+		getCommentList();
 		}
-		var url = "/reviewComment/updateComment";
-		$.post(url, sData, function(rData){
-			console.log("rData:", rData);
-			if (rData == "true") {
-				getCommentList();
-			}
-		});
 	});
-	
+});
+
 	getCommentList();
 });
 </script>
@@ -208,7 +239,8 @@ $(document).ready(function(){
 	<label>내용</label><br>
 		<div>${reviewVo.review_content}</div>
 	<hr>
-	
+	<label id="good" data-rno="${reviewVo.review_no}">좋아요<i class="fa fa-heart"></i><span id="likeCount">0</span></label>
+	<hr>
 	
 	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
 	<a href="/review/review_modifyForm?review_no=${reviewVo.review_no}" class="btn btn-sm btn-warning">수정</a>

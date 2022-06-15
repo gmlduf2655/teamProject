@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.service.ReviewLikeService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.util.EventFileUploader;
+import com.kh.team.vo.ReviewLikeVo;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
@@ -24,6 +27,9 @@ public class ReviewController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private ReviewLikeService reviewLikeService;
 	
 	// 게시글 목록
 		@RequestMapping(value = "/review_list", method = RequestMethod.GET)
@@ -95,5 +101,39 @@ public class ReviewController {
 			String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
 			System.out.println("uploadSummernoteImageFile, file:" + file);
 			return file;
+		}
+		
+		// 좋아요 
+		@RequestMapping(value="/createLike", method = RequestMethod.POST)
+		@Transactional
+		@ResponseBody
+		public String createLike(ReviewLikeVo reviewLikeVo) {
+			System.out.println("createLike, reviewLikeVo:"+reviewLikeVo);
+			boolean result = false;
+			boolean result1 = false;
+			if(reviewLikeVo.getUserid() != null && !reviewLikeVo.getUserid().equals("")) {
+				result1 = reviewLikeService.isLike(reviewLikeVo.getReview_no(), reviewLikeVo.getUserid());
+				if(result1 == false) {
+					result = reviewLikeService.createLike(reviewLikeVo);
+				} else if (result1 == true) {
+					result = reviewLikeService.deleteLike(reviewLikeVo.getReview_no(), reviewLikeVo.getUserid());
+				}
+			}
+			return String.valueOf(result);
+		}
+		
+		@RequestMapping(value="/isLike", method = RequestMethod.GET)
+		@ResponseBody
+		public String isLike(int review_no, String userid) {
+			boolean result = reviewLikeService.isLike(review_no, userid);
+			return String.valueOf(result);
+		}
+		
+		@RequestMapping(value="/countLike", method = RequestMethod.GET)
+		@ResponseBody
+		public int countLike(int review_no) {
+			System.out.println("countLike, review_no:"+review_no);
+			int count = reviewLikeService.countLike(review_no);
+			return count;
 		}
 }
