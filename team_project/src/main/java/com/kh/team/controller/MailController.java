@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,13 +43,13 @@ public class MailController {
 	
 	// 비밀번호 받기
 	@RequestMapping(value="/get_password", method=RequestMethod.POST)
-	@ResponseBody
-	public boolean getPassword(String email) {
+	public String getPassword(Model model, String email,String userid) {
 		String tempPwd = PasswordMaker.makeTempPwd();
-		boolean result = userService.updateUserpwToTempPwd(email, tempPwd);
+		boolean result = userService.updateUserpwToTempPwd(email, userid, tempPwd);
 		if(result) {
 			mailService.sendMail(email, "[Mover]임시 비밀번호", "임시비밀번호는<br><h1>" + tempPwd + "</h1>입니다");
 		}
-		return result;
+		model.addAttribute("result", result);
+		return "user/get_password_result";
 	}
 }

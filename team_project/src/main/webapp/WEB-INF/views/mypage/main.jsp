@@ -27,6 +27,7 @@
 	</style>
     <script>
 		$(document).ready(function(){
+			// 유저 정보 수정 확인
 			var modify_result = "${modify_result}";
 			if(modify_result == "true"){
 				alert("유저 정보 수정 성공");
@@ -130,28 +131,11 @@
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
     		<div class="col-md-2" style="color:white;padding-left:50px;">
-    			<h2 style="color:white;" class="mb-4">메뉴</h2>
-    			<div class="mb-4">
-	    			<h3 class="mb-3">1.내 정보</h3>
-	    			<ul style="padding-left:50px;">
-	    				<li><a href="#">내 정보</a></li>
-	    				<li><a href="#">비밀번호 변경</a></li>
-	    				<li><a href="#">회원 탈퇴</a></li>
-	    			</ul>
-    			</div>
-    			<div class="mb-4">
-	    			<h3 class="mb-3">2.영화 예매</h3>
-	    			<ul style="padding-left:50px;">
-	    				<li><a href="#">영화 예매 내역</a></li>
-	    			</ul>
-    			</div>
-    			<div class="mb-4">
-	    			<h3 class="mb-3">3.포인트</h3>
-	    			<ul style="padding-left:50px;">
-	    				<li><a href="#">포인트 내역</a></li>
-	    				<li><a href="#">포인트 충전</a></li>
-	    			</ul>
-    			</div>
+    			<div class="menu">
+	    			<c:if test="${loginUserVo.userno == userVo.userno}">
+						<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
+	    			</c:if>
+    			</div>    	
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
 	    	<!-- 유저 프로필 부분 -->
@@ -292,8 +276,8 @@
 						<h3 class="mb-4">영화 예매내역</h3>
 						<div class="row">
 						<c:forEach var="movieVo" items="${movieList}" varStatus="status">
-							<c:if test="${status.count <=3}">
-							<div class="col-lg-4 col-md-6 col-sm-6">
+							<c:if test="${status.count <=4}">
+							<div class="col-lg-3 col-md-6 col-sm-6">
 								<div class="product__item">
 	<!-- 								<div class="product__item__pic set-bg" data-setbg="/resources/images/img/trending/trend-1.jpg" -->
 									<div class="product__item__pic set-bg" 
@@ -330,7 +314,7 @@
 						</div>
 						<div class="row">
 			            	<div class="col-lg-12" style="text-align:center;">
-				            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&userid=${userVo.userid}">더보기</a>
+				            	<a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
 			            	</div>
 		            	</div>				
 	            	</div>

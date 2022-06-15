@@ -27,12 +27,6 @@
 	</style>
     <script>
 		$(document).ready(function(){
-			var modify_result = "${modify_result}";
-			if(modify_result == "true"){
-				alert("유저 정보 수정 성공");
-			}else if(modify_result == "false"){
-				alert("유저 정보 수정 실패");
-			}else {}
 			// 수정 버튼을 눌렀을 떄
 			$("#user_modify_btn").click(function(){
 				$("#nickname_label").show();
@@ -130,30 +124,10 @@
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
     		<div class="col-md-2" style="color:white;padding-left:50px;">
-    			<h2 style="color:white;" class="mb-4">메뉴</h2>
-    			<div class="mb-4">
-	    			<h3 class="mb-3">1.내 정보</h3>
-	    			<ul style="padding-left:50px;">
-	    				<li><a href="#">내 정보</a></li>
-	    				<li><a href="#">비밀번호 변경</a></li>
-	    				<li><a href="#">회원 탈퇴</a></li>
-	    			</ul>
-    			</div>
-    			<div class="mb-4">
-	    			<h3 class="mb-3">2.영화 예매</h3>
-	    			<ul style="padding-left:50px;">
-	    				<li><a href="#">영화 예매 내역</a></li>
-	    			</ul>
-    			</div>
-    			<div class="mb-4">
-	    			<h3 class="mb-3">3.포인트</h3>
-	    			<ul style="padding-left:50px;">
-	    				<li><a href="#">포인트 내역</a></li>
-	    				<li><a href="#">포인트 충전</a></li>
-	    			</ul>
-    			</div>
+    			<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
+    		
 	    	<!-- 유저 프로필 부분 -->
     		<div class="col-md-8" >
 	            <form method="post" action="/user/modify_user" encType="multipart/form-data">
@@ -238,115 +212,9 @@
 		            	</div>
 		            </div>
 	            </form>
-	            <!-- 유저 프로필 부분 끝 -->
-	            <hr>
-	            <!-- 유저 포인트 내역 부분 -->
-	            <div class="row d-flex justify-content-center">
-	                <div class="col-lg-12">
-						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">포인트 내역</a></h3>
-						<table class="table" style="color:white;">
-				    		<thead>
-				    			<tr>
-									<th>#</th>    				
-									<th>유저 아이디</th>    				
-									<th>포인트</th>    				
-									<th>포인트 이름</th>    				
-									<th>포인트 적립일</th>    				
-				    			</tr>
-				    		</thead>
-				    		<tbody>
-								<c:forEach var="pointVo" items="${pointList}" varStatus="status">
-									<c:if test="${status.index < 5}">
-										<tr>
-											<td>${pointVo.pointno}</td>
-											<td>
-											<c:choose>
-												<c:when test="${not empty userVo.userid }">
-													${userVo.userid}
-												</c:when>
-												<c:otherwise>
-													${userVo.sns_id}
-												</c:otherwise>
-											</c:choose>
-											</td>
-											<td>${pointVo.point}</td>
-											<td>${pointVo.point_name}</td>
-											<td>${pointVo.point_date}</td>
-										</tr>
-									</c:if>
-								</c:forEach>
-							</tbody>
-				    	</table>
-	            	</div>
-	            	<div class="row">
-		            	<div class="col-lg-12" style="text-align:center;">
-			            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&userid=${userVo.userid}">더보기</a>
-		            	</div>
-		            </div>
-	            </div>
-	            <!-- 유저 포인트 내역 부분 끝-->
-	            <hr>
-	            <!-- 유저 영화 예매 내역 부분 -->
-	            <div class="row d-flex justify-content-center">
-	                <div class="col-lg-12">
-						<h3 class="mb-4">영화 예매내역</h3>
-						<div class="row">
-						<c:forEach var="movieVo" items="${movieList}" varStatus="status">
-							<c:if test="${status.count <=3}">
-							<div class="col-lg-4 col-md-6 col-sm-6">
-								<div class="product__item">
-	<!-- 								<div class="product__item__pic set-bg" data-setbg="/resources/images/img/trending/trend-1.jpg" -->
-									<div class="product__item__pic set-bg" 
-											<c:choose>
-											<c:when test="${empty movieVo.movie_image_name}">
-												data-setbg="/resources/images/no_image.jpg" 
-											</c:when>
-											<c:otherwise>
-												data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
-											</c:otherwise>
-											</c:choose>
-											style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">								
-	<!-- 									<div class="ep">18 / 18</div> -->
-	<!-- 									<div class="comment"> -->
-	<!-- 										<i class="fa fa-comments"></i> 11 -->
-	<!-- 									</div> -->
-	<!-- 									<div class="view"> -->
-	<!-- 										<i class="fa fa-eye"></i> 1234 -->
-	<!-- 									</div> -->
-									</div>
-									<div class="product__item__text">
-										<ul>
-											<li>액션이 죽이는</li>
-											<li>영화</li>
-										</ul>
-										<h5>
-											<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
-										</h5>
-									</div>
-								</div>
-							</div>
-							</c:if>
-						</c:forEach>
-						</div>
-						<div class="row">
-			            	<div class="col-lg-12" style="text-align:center;">
-				            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&userid=${userVo.userid}">더보기</a>
-			            	</div>
-		            	</div>				
-	            	</div>
-	            </div>
-	            <!-- 유저 영화 예매 내역 부분 끝-->
-	            <hr>
-	            <!-- 유저 영화 리뷰 부분 -->
-	            <div class="row d-flex justify-content-center">
-	                <div class="col-lg-12">
-						<h3>내가 작성한 리뷰</h3>
-	            	</div>
-	            </div>
-	            <!-- 유저 영화 리뷰 부분끝 -->
+	    	<!-- 유저 프로필 부분 끝 -->
     		</div>
     		<div class="col-md-2"></div>
-    	</div>
         <div class="container">
         </div>
     </section>

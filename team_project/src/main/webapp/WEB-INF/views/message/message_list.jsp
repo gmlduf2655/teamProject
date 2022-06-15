@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<title>쪽지 보관함</title>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- header --%>
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<style>
+	option:hover{
+		background-color:lightgray;
+	}
+	.tr_link:hover{
+		cursor : pointer;
+		background-color:gray;
+	}
+	.nice-select{
+		color:black;
+	}
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 쪽지 작성 여부 확인 메세지 출력
@@ -53,17 +55,19 @@
 			var messages = $(".messages");
 			var type = "${param.type}";
 			var messagenos = [];
-				$.each(messages , function(i,v){
-					if($(this).is(":checked")){
-						messagenos.push($(this).val());
-					}
-				});
+			// 삭제할 메세지를 messagenos변수에 담음
+			$.each(messages , function(i,v){
+				if($(this).is(":checked")){
+					messagenos.push($(this).val());
+				}
+			});
 			var sData = {
 				"messagenos" : messagenos,
 				"type" : type,
 				"userid" : "${loginUserVo.userid}",
 				"page" : "${param.page}"
 			};
+			// 메세지를 삭제 한후 데이터를 다시 조회해서 보여줌
 			$.ajax({
 				type : "post",
 				async : "true",
@@ -96,53 +100,109 @@
 					});
 				}
 			});
+			
+		});
+		
+		// 검색 버튼 눌렀을 때
+		$("#search_btn").click(function(){
+			var searchType = $("#searchType").val();
+			var keyword = $("#keyword").val();
+			location.href = "/message/message_list?page=1&type=${param.type}&searchType=" + searchType + "&keyword=" + keyword;
+		});
+		
+		// 다른 유저 정보보기 버튼 눌렀을 때
+		$(".move_mypage").click(function(e){
+			e.preventDefault();
+			var userid = $(this).parents("div").prev().eq(0).text();
+			//var userid = $("#dropdownMenuButton").text();
+			userid = userid.trim();
+			console.log(userid);
+			$.ajax({
+				type : "post",
+				async : "true",
+				url : "/user/get_userno_by_userid",
+				data : {
+					userid : userid
+				},
+				success : function(rData){
+					location.href = "/mypage/main?userno=" + rData;
+				}
+			});
+
 		});
 	});
 </script>
-<style>
-.tr_link:hover {
-	background-color: lightgray;
-	cursor: pointer;
-}
-</style>
-</head>
-<body>
-	<div class="container-fluid">
-		<!-- 제목 부분 -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="jumbotron">
-					<h2>쪽지보관함</h2>
-					<a class="btn btn-primary"
-						href="/message/write_form?page=${param.page}">쪽지 보내기</a>
-				</div>
-			</div>
-		</div>
+
+    <!-- 제목 -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>메세지 목록</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 제목 끝 -->
+
+    <!-- 아이디  찾기 결과 -->
+    <section class="signup spad">
 		<!-- 메세지 목록 부분 -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="tabbable" id="tabs-75640">
-					<ul class="nav nav-tabs">
-						<li class="nav-item"><a
-							class="nav-link
-									<c:if test="${param.type == 'receive'}">active show</c:if>
-									"
-							href="/message/message_list?page=1&type=receive">받는쪽지함</a></li>
-						<li class="nav-item"><a
-							class="nav-link 
-									<c:if test="${param.type == 'send'}">active show</c:if>
-									"
-							href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
-					</ul>
-				</div>
-				<table class="table">
+		<div class="row" style="color:white">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<!-- nav 부분 -->
+				<nav class="row mb-3" >
+					<div class="col-md-4">
+						<div class="tabbable" id="tabs-75640">
+							<ul class="nav nav-tabs">
+								<li class="nav-item"><a
+									class="nav-link
+											<c:if test="${param.type == 'receive'}">active show</c:if>
+											"
+									href="/message/message_list?page=1&type=receive">받는쪽지함</a></li>
+								<li class="nav-item"><a
+									class="nav-link 
+											<c:if test="${param.type == 'send'}">active show</c:if>
+											"
+									href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+					<div class="col-md-2">
+						<select name="searchType" id="searchType" style="color:black;">
+							<option value="t">제목</option>
+							<option value="c">내용</option>
+							<option value="u">유저</option>
+							<option value="tcu">모두 포함</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<input type="text" class="form-control" name="keyword" id="keyword">
+					</div>
+					<div class="col-md-2" style="padding-left:0px;">
+						<a type="button" class="btn btn-primary" id="search_btn">검색</a>
+					</div>
+				</nav>
+				<!-- nav 부분 끝-->
+				<!-- 테이블 부분 -->
+				<table class="table" style="color:white">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all"></th>
 							<th>#</th>
 							<th>메세지 제목</th>
-							<th>보낸 사람</th>
-							<th>받는 사람</th>
+							<c:choose>
+								<c:when test="${param.type == 'send'}">
+									<th>받는 이</th>
+								</c:when>
+								<c:when test="${param.type == 'receive'}">
+									<th>보낸 이</th>
+								</c:when>
+							</c:choose>
 							<th>작성일</th>
 							<th>읽은 날짜</th>
 						</tr>
@@ -161,8 +221,33 @@
 										<td><input type="checkbox" class="messages" name="messages" value="${messageVo.messageno}"></td>
 										<td>${messageVo.messageno}</td>
 										<td class="td_link" data-messageno="${messageVo.messageno}">${messageVo.message_title}</td>
-										<td>${messageVo.sender}</td>
-										<td>${messageVo.receiver}</td>
+										<td>
+											<div class="dropdown" style="color:white">
+												<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" 
+												data-toggle="dropdown" style="color:white;">
+												<c:choose>
+													<c:when test="${param.type == 'send'}">
+														${messageVo.receiver}
+													</c:when>
+													<c:when test="${param.type == 'receive'}">
+														${messageVo.sender}
+													</c:when>
+												</c:choose>
+												</button>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+													<a class="dropdown-item move_mypage" href="#" >정보보기</a> 
+													<c:choose>
+														<c:when test="${param.type == 'send'}">
+															<a class="dropdown-item" href="/message/write_form?page=${param.page}&receiver=${messageVo.receiver}">글쓰기</a>
+														</c:when>
+														<c:when test="${param.type == 'receive'}">
+															<a class="dropdown-item" href="/message/write_form?page=${param.page}&receiver=${messageVo.sender}">글쓰기</a>
+														</c:when>
+													</c:choose>
+													<a class="dropdown-item" href="#">팔로우하기</a> 
+												</div>
+											</div>
+										</td>										
 										<td>${messageVo.message_date}</td>
 										<c:choose>
 											<c:when test="${empty messageVo.read_date}">
@@ -178,12 +263,14 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<!-- 테이블 부분 끝 -->
 			</div>
+			<div class="col-md-2"></div>
 		</div>
 		<!-- 메세지 목록 부분 끝 -->
 
 		<!-- 글 목록 페이징 부분-->
-		<div class="row">
+		<div class="row mb-3">
 			<div class="col-md-12">
 				<nav>
 					<ul class="pagination justify-content-center" id="pagination">
@@ -220,9 +307,11 @@
 		<!-- 글 목록 페이징 부분 끝 -->
 		<!-- 메세지 다중 삭제 버튼 -->
 		<div style="text-align: center">
+			<a class="btn btn-primary" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
 			<button type="button" class="btn btn-primary" id="form_btn">삭제하기</button>
 		</div>
 		<!-- 메세지 다중 삭제 버튼 끝-->
-	</div>
-</body>
-</html>
+    </section>
+    <!-- 아이디 찾기 결과 끝 -->
+<%-- footer --%>
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>

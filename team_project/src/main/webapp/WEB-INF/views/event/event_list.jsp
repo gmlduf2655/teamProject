@@ -39,7 +39,7 @@ $(document).ready(function(){
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>이벤트</h2>
+                        <h2>전체 이벤트</h2>
                     </div>
                 </div>
             </div>
