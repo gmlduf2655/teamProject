@@ -29,10 +29,28 @@
 	
 	<!-- 아이디로 포인트 목록조회 -->
 	<select id="selectPointListByUserno" resultType="PointVo">
-		select pointno, a.point, userno, point_date, b.point_code, b.point_name, b.point_desc
-		from tbl_point a, tbl_point_code b
-		where a.point_code = b.point_code
-		and a.userno = #{userno}		
+		select * from (
+			select rownum rnum, c.* from (
+				select pointno, a.point, userno, point_date, b.point_code, b.point_name, b.point_desc
+				from tbl_point a, tbl_point_code b
+				where a.point_code = b.point_code
+				and a.userno = #{userno}
+				<if test='pagingDto.searchType != null and pagingDto.searchType != "" and pagingDto.keyword != null and pagingDto.keyword != ""'>
+					<choose>
+						<when test='pagingDto.searchType == "p"'>
+							and a.point like '%' || #{pagingDto.keyword} || '%'	
+						</when>
+						<when test='pagingDto.searchType == "n"'>
+							and point_name like '%' || #{pagingDto.keyword} || '%'
+						</when>
+						<when test='pagingDto.searchType == "d"'>
+							and point_date like '%' || #{pagingDto.keyword} || '%'
+						</when>
+					</choose>
+				</if>
+				) c	
+		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow} 
+			
 	</select>
 	
 	<!-- 포인트 코드로 포인트 목록조회 -->
@@ -62,4 +80,10 @@
 		delete from tbl_point_code
 		where point_code= #{point_code}
 	</delete>
+	
+	<update id="updatePoint">
+		update tbl_user set
+			point = #{point}
+		where userno = #{userno}
+	</update>
 </mapper>

@@ -1,11 +1,14 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 
 @Repository
@@ -44,8 +47,11 @@ public class PointDaoImpl implements PointDao {
 
 	// 아이디로 포인트 목록조회
 	@Override
-	public List<PointVo> selectPointListByUserno(int userno) {
-		List<PointVo> pointList = sqlSession.selectList(NAMESPACE + "selectPointListByUserno", userno);
+	public List<PointVo> selectPointListByUserno(int userno, PagingDto pagingDto) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userno", userno);
+		map.put("pagingDto", pagingDto);
+		List<PointVo> pointList = sqlSession.selectList(NAMESPACE + "selectPointListByUserno", map);
 		return pointList;
 	}
 
@@ -77,6 +83,15 @@ public class PointDaoImpl implements PointDao {
 	@Override
 	public boolean deletePointCode(int point_code) {
 		int count = sqlSession.delete(NAMESPACE + "deletePointCode", point_code);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updatePoint(PointVo pointVo) {
+		int count = sqlSession.update(NAMESPACE + "updatePoint", pointVo);
 		if(count > 0) {
 			return true;
 		}

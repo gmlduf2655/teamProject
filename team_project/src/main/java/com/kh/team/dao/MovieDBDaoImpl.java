@@ -16,12 +16,6 @@ public class MovieDBDaoImpl implements MovieDBDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	
-	@Override
-	public List<MovieVo> movieList() {
-		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieList");
-		return list;
-	}
 
 	@Override
 	public boolean insertMovie(MovieVo movieVo) {
@@ -74,6 +68,24 @@ public class MovieDBDaoImpl implements MovieDBDao {
 	public MovieVo dbsearchBymoviecode(String movie_code) {
 		MovieVo movieVo = sqlSession.selectOne(NAMESPACE + "dbsearchBymoviecode", movie_code);
 		return movieVo;
+	}
+
+	@Override
+	public List<MovieVo> movieList() {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieList");
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> movieListopen() {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListopen");
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> movieListend() {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListend");
+		return list;
 	}
 
 

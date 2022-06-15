@@ -165,8 +165,12 @@ public class EventController {
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
 	public String  lastEventlist(Model model, PagingDto pagingDto) {
+		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
+		pagingDto.setCount(eventService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
 		List<EventVo> lastEventlist = eventService.lastEventlist(pagingDto);
 		model.addAttribute("lastEventlist", lastEventlist);
+		model.addAttribute("pagingDto", pagingDto);
 		return "event/lastEvent_list";
 	}
 	

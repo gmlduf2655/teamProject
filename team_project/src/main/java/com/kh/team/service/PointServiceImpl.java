@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.PointDao;
 import com.kh.team.dao.UserDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 
 @Service
@@ -46,8 +47,8 @@ public class PointServiceImpl implements PointService {
 
 	// 아이디로 포인트 목록 조회
 	@Override
-	public List<PointVo> getPointListByUserno(int userno) {
-		List<PointVo> pointList = pointDao.selectPointListByUserno(userno);
+	public List<PointVo> getPointListByUserno(int userno, PagingDto pagingDto) {
+		List<PointVo> pointList = pointDao.selectPointListByUserno(userno, pagingDto);
 		return pointList;		
 	}
 

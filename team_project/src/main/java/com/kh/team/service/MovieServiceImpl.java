@@ -43,5 +43,11 @@ public class MovieServiceImpl implements MovieService {
 		List<MovieVo> list = movieDao.movieListSoon();
 		return list;
 	}
+
+	@Override
+	public int movieInfoByMovieCodeExist(String movie_code) {
+		int count = movieDao.movieInfoByMovieCodeExist(movie_code);
+		return count;
+	}
 	
 }

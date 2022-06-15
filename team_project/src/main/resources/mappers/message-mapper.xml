@@ -45,6 +45,26 @@
 			    select * from tbl_message
 			    where sender = #{sender}
 			    and sender_delete = 'F'
+			    <if test='true'>
+			    	<choose>
+			    		<when test='pagingDto.searchType == "t"'>
+			    			and message_title like '%' || #{pagingDto.keyword, jdbcType =VARCHAR} || '%' 
+			    		</when>
+			    		<when test='pagingDto.searchType == "c"'>
+			    			and message_content like '%' || #{pagingDto.keyword} || '%' 
+			    		</when>
+			    		<when test='pagingDto.searchType == "u"'>
+			    			and sender like '%' || #{pagingDto.keyword} || '%' 
+			    		</when>
+			    		<when test='pagingDto.searchType == "tcu"'>
+			    			and (
+			    				message_title like '%' || #{pagingDto.keyword} || '%'
+			    				or message_content like '%' || #{pagingDto.keyword} || '%'
+			    				or sender like '%' || #{pagingDto.keyword} || '%' 
+			    			)
+			    		</when>
+			    	</choose>
+			    </if>
 			    order by groupno desc, re_seq asc, re_level asc
 			) a
 		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}		
@@ -57,6 +77,26 @@
 			    select * from tbl_message
 			    where receiver = #{receiver}
 			    and receiver_delete = 'F'
+			    <if test='pagingDto.searchType != "" and pagingDto.searchType != null and pagingDto.keyword != "" and pagingDto.searchType != null'>
+			    	<choose>
+			    		<when test='pagingDto.searchType == "t"'>
+			    			and message_title like '%' || #{pagingDto.keyword} || '%' 
+			    		</when>
+			    		<when test='pagingDto.searchType == "c"'>
+			    			and message_content like '%' || #{pagingDto.keyword} || '%' 
+			    		</when>
+			    		<when test='pagingDto.searchType == "u"'>
+			    			and receiver like '%' || #{pagingDto.keyword} || '%' 
+			    		</when>
+			    		<when test='pagingDto.searchType == "tcu"'>
+			    			and (
+			    				#{message_title like '%' || pagingDto.keyword} || '%'
+			    				#{or message_content like '%' || pagingDto.keyword} || '%'
+			    				#{or receiver like '%' || pagingDto.keyword} || '%' 
+			    			)
+			    		</when>
+			    	</choose>
+			    </if>
 			    order by groupno desc, re_seq asc, re_level asc
 		    ) a
 		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}		

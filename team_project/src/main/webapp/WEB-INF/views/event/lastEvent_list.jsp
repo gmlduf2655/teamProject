@@ -3,6 +3,34 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+
+<script>
+$(document).ready(function(){
+	var frmSearch = $("#frmSearch");
+	
+	$("#btnSearch").on("click", function(){
+		var searchType = $("#searchType").val();
+		var keyword = $("#keyword").val();
+		console.log("searchType:", searchType);
+		console.log("keyword:", keyword);
+		
+		if(!searchType){
+	    	alert("검색 종류를 선택하세요.");
+	        return false;
+	    }
+	        
+	    if(!keyword){
+	        alert("검색어를 입력하세요.");
+	        return false;
+	    }    
+	   
+	    frmSearch.find("input[name=searchType]").val(searchType);
+	    frmSearch.find("input[name=keyword]").val(keyword);
+	    frmSearch.submit();
+	});
+});
+</script>
+
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
@@ -21,6 +49,38 @@
 	<div class="row">
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
+		
+		
+		<!-- 검색 -->
+			<div>
+			<select id="searchType">
+				<option value="">선택</option>
+				<option value="">---------------</option>
+				<option value="t"
+					<c:if test="${pagingDto.searchType == 't'}">
+						selected
+					</c:if>
+				>제목</option>
+				<option value="c"
+					<c:if test="${pagingDto.searchType == 'c'}">
+						selected
+					</c:if>
+				>내용</option>
+				<option value="tc"
+					<c:if test="${pagingDto.searchType == 'tc'}">
+						selected
+					</c:if>
+				>제목 + 내용</option>
+			</select>
+			<form id="frmSearch" action="/event/lastEvent_list" method="get">
+			<input type="text" id="keyword">
+				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
+				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			</form>
+			</div> 
+		
+		
 			<div class="row">
 
 				<c:forEach items="${lastEventlist}" var="eventVo">

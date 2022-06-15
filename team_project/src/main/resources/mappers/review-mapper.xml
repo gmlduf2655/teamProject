@@ -7,9 +7,9 @@
 	<!-- 글 등록 -->
 	<insert id="insert">
 		insert into tbl_review
-			(review_no, review_writer, review_title, review_content, review_star)
+			(review_no, review_writer, review_title, review_content, review_star, userno)
 		values
-			(seq_review_winnerno.nextval, #{review_writer} , #{review_title}, #{review_content}, #{review_star})
+			(seq_review_winnerno.nextval, #{review_writer} , #{review_title}, #{review_content}, #{review_star}, #{userno})
 	</insert>
 	
 	<!-- 글 수정 -->

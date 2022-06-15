@@ -29,6 +29,13 @@ public class PointVo {
 		this.point_desc = point_desc;
 	}
 
+	public PointVo(int point, int userno, int point_code) {
+		super();
+		this.point = point;
+		this.userno = userno;
+		this.point_code = point_code;
+	}
+
 	// Getter & Setter (Accessor)
 	public int getPointno() {
 		return pointno;

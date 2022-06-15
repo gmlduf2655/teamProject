@@ -38,5 +38,11 @@ public class MovieDaoImpl implements MovieDao {
 		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListSoon");
 		return list;
 	}
+
+	@Override
+	public int movieInfoByMovieCodeExist(String movie_code) {
+		int count = sqlSession.selectOne(NAMESPACE+"movieInfoByMovieCodeExist", movie_code);
+		return count;
+	}
 	
 }

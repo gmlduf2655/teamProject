@@ -44,9 +44,9 @@
     
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-
+	
 	<!-- 임희열 : JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
     
     <!-- 임희열 : Naver Login API script -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
@@ -60,6 +60,13 @@
     	.header__menu li:hover{
     		background:#e53637;
     	}
+    	.header__right {
+		    text-align: left;
+		    padding: 20px 0 15px;
+		}
+		.header__right>a {
+			margin-right: 10px;
+		}
     </style>
 </head>
 
@@ -135,10 +142,12 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2" style="padding:0px;">
                 	<!-- 임희열 : 우측 상단 부분에 로그인버튼이랑 로그아웃 버튼 추가했습니다 -->
                     <div class="header__right">
                         <a href="#" class="search-switch"><i class="bi bi-search"></i></a>
+                        <!-- 쪽지함 추가했습니다 -->
+                        <a href="/message/message_list?page=1&type=receive"><i class="bi bi-chat-left"></i></a>
                         <!-- 임희열 : 로그인 되어있지 않을 때는 마이페이지를 누르면 로그인페이지로 이동하게함 -->
                         <a 
                         <c:choose>
@@ -146,7 +155,7 @@
                         		 href="/user/login_form"
                         	</c:when>
                         	<c:otherwise>
-                        		href="/user/mypage?userno=${loginUserVo.userno}"
+                        		href="/mypage/main?userno=${loginUserVo.userno}"
                         	</c:otherwise>
                         </c:choose>
                         
@@ -155,6 +164,9 @@
                         <c:choose>
                         	<c:when test="${empty loginUserVo}">
                         		<a href="/user/login_form">로그인</a>
+                        	</c:when>
+                        	<c:when test="${loginUserVo.userid == 'admin'}">
+                        		<a href="/admin/manage">관리자화면</a>
                         	</c:when>
                         	<c:otherwise>
                         		<a href="/user/logout">로그아웃</a>
