@@ -89,4 +89,13 @@ public class PointDaoImpl implements PointDao {
 		return false;
 	}
 
+	@Override
+	public boolean updatePoint(PointVo pointVo) {
+		int count = sqlSession.update(NAMESPACE + "updatePoint", pointVo);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

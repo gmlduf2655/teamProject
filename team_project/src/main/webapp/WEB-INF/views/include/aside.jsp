@@ -27,7 +27,7 @@
                     <!-- 임희열 : 로그인을 했을 때  기존회원이면 C:/에서 프로필 사진을 가져오고 간편로그인 회원이면 Url을 통해서 프로필 사진을 가져옴-->
 					<c:choose>
                         <c:when test="${empty loginUserVo.profile_image}" >
-                        	<img src="/resources/images/default_image.jpg" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
+                        	<img src="/resources/images/no_image.jpg" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
                         </c:when>
                         <c:otherwise>
                         	<c:choose>
@@ -88,18 +88,18 @@
 		</div>
 		<!-- // 마이페이지 끝 -->
 		
-		<!-- 박스 오피스 시작 -->
+		<!-- 유수연 박스 오피스 시작 -->
 		<div class="product__sidebar__view">
 			<div class="section-title">
 				<h5>박스 오피스</h5>
 			</div>
 			<ul class="filter__controls">
-				<li class="active" data-filter="*">Day</li>
-				<li data-filter=".week">Week</li>
-				<li data-filter=".month">Month</li>
-				<li data-filter=".years">Years</li>
+				<li><b>일간</b></li>
 			</ul>
-			<div class="filter__gallery">
+			<div class="anime__details__sidebar">
+                 <%@ include file="/WEB-INF/views/movie/boxoffice.jsp"%>
+            </div>
+			<!-- <div class="filter__gallery">
 				<div class="product__sidebar__view__item set-bg mix day years"
 					data-setbg="resources/images/img/sidebar/tv-1.jpg">
 					<div class="ep">18 / ?</div>
@@ -150,7 +150,7 @@
 						<a href="#">Fate stay night unlimited blade works</a>
 					</h5>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<!-- // 박스 오피스 끝 -->
 	</div>

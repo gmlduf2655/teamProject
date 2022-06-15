@@ -70,6 +70,7 @@ if (insert_result == "true"){
 
 <form role="writeForm" action="/review/review_writeRun" method="post" id="frmCreate" enctype="multipart/form-data">
 	<input type="hidden" name="review_star" id="review_star" value="0"/>
+	<input type="hidden" name="userno" value="${loginUserVo.userno}"/>
 	
 	<label for="review_writer"> 작성자 </label> 
 	<input type="text" class="form-control" id="review_writer" name="review_writer"/>

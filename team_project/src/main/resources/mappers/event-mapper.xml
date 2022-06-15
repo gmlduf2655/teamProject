@@ -50,6 +50,7 @@
 	<select id="lastEventlist" resultType="EventVo">
 		select * from tbl_event
 		where event_end_date <![CDATA[<]]> sysdate
+		<include refid="search2"></include>
 		order by event_no desc
 	</select>
 	

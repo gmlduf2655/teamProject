@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.team.dao.PointDao;
 import com.kh.team.dao.ReviewDao;
+import com.kh.team.vo.PointVo;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 import com.kh.team.vo.WinnerPagingDto;
@@ -15,6 +17,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	private ReviewDao reviewDao;
+	
+	@Autowired
+	private PointDao pointDao;
 
 	@Override
 	public List<ReviewVo> list(ReviewPagingDto pagingDto) {
@@ -24,8 +29,15 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public boolean insert(ReviewVo reviewVo) {
-		boolean result = reviewDao.insert(reviewVo);
-		return result;
+		boolean result1 = reviewDao.insert(reviewVo); // 게시글을 작성하면
+		PointVo pointVo = new PointVo(pointDao.INSERT_REVIEW_POINT, reviewVo.getUserno(), 
+										pointDao.INSERT_REVIEW_CODE);
+		boolean result2 = pointDao.updatePoint(pointVo);
+		boolean result3 = pointDao.insertPoint(pointVo);
+		if( result1 && result2 && result3) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

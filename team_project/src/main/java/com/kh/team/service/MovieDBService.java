@@ -6,6 +6,8 @@ import com.kh.team.vo.MovieVo;
 
 public interface MovieDBService {
 	public List<MovieVo> movieList();
+	public List<MovieVo> movieListopen();
+	public List<MovieVo> movieListend();
 	public boolean insertMovie(MovieVo movieVo);
 	public boolean updateMovie(MovieVo movieVo);
 	public boolean deleteMovie(String movie_code);

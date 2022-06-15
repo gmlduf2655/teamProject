@@ -2,8 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<!-- Bootstrap icon -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
 <title>영화정보 입력 관리자 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 	
@@ -49,35 +56,7 @@ $(function(){
 		$("form").attr("action", "/dbcontrol/dbDelete");
 		$("form").attr("method", "get");
 	});
-	//우리서버 db List 출력
-	$("#btndbList").click(function(){
-		//e.preventDefault();
-		$("#btndbList").attr("href","/dbcontrol/dbList").submit();
-		console.log("#btndbList");
-	});
-	
-	//우리서버 영화 db 검색
-	var sType;
-	var sKeyword;
-	$("#searchType").change(function(){
-		sType = $(this).val();
-		console.log("#searchType, sType" ,  sType);
-		});
-	$("#btndbSearch").click(function(){
-		
-		if(sType == null){
-			alert("검색타입을 선택해 주세요");
-		}else{
-			sKeyword = $("#moviename").val();
-			$("#btndbSearch").attr("href","/dbcontrol/dbSearch?sType="+sType+"&sKeyword="+sKeyword).submit();
-		}
-		
-	});
-	
-	
 });
-
-
 	// 진흥원에서  영화API 검색 자료 가져오기
 	$(document).ready(function(){
 		$("#dbSearch").click(function(){
@@ -172,9 +151,7 @@ $(function(){
 					
 					</div>
 				</div>
-				<hr>
-				<br>
-				<br>
+				<hr><br><br>
 				<button type="submit" class="btn btn-primary btndbRelation"
 					id="dbSave" style="display: none;">db저장</button>
 				<button type="submit" class="btn btn-warning btndbRelation"
@@ -187,8 +164,8 @@ $(function(){
 	</div>	
 	
 	<!-- 우리서버 영화 DB -->
-	<%@ include file="/WEB-INF/views/dbcontrol/movieListDB.jsp"%>
+	<%@ include file="/WEB-INF/views/dbcontrol/serverListDB.jsp"%>
 </div>
-<%-- ${list} --%>
 
 </body>
+</html>
