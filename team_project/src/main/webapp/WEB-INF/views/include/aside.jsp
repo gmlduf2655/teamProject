@@ -70,18 +70,20 @@
 		</div>
 		<!-- // 마이페이지 끝 -->
 		
-		<!-- 박스 오피스 시작 -->
+		<!-- 유수연 박스 오피스 시작 -->
 		<div class="product__sidebar__view">
 			<div class="section-title">
 				<h5>박스 오피스</h5>
 			</div>
 			<ul class="filter__controls">
-				<li class="active" data-filter="*">Day</li>
-				<li data-filter=".week">Week</li>
-				<li data-filter=".month">Month</li>
-				<li data-filter=".years">Years</li>
+				<li><b>일간</b></li>
 			</ul>
-			<div class="filter__gallery">
+			<div class="anime__details__sidebar">
+                 <%@ include file="/WEB-INF/views/movie/boxoffice.jsp"%>
+            </div>
+			
+			
+			<!-- <div class="filter__gallery">
 				<div class="product__sidebar__view__item set-bg mix day years"
 					data-setbg="resources/images/img/sidebar/tv-1.jpg">
 					<div class="ep">18 / ?</div>
@@ -132,7 +134,7 @@
 						<a href="#">Fate stay night unlimited blade works</a>
 					</h5>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<!-- // 박스 오피스 끝 -->
 	</div>

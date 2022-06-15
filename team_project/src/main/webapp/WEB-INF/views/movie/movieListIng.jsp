@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <%@ include file="/WEB-INF/views/include/daycount.jsp"%>
@@ -42,9 +43,9 @@ $(function(){
 					<div class="col-md-3">
 						<div class="product__item">
 							<div class="product__item__pic set-bg"
-								
+								<c:set var="movie_image_name" value="${movieVo.movie_image_name}"/>
 								<c:choose>
-								<c:when test="${empty movieVo.movie_image_name}"> 
+								<c:when test="${empty fn:substringAfter(movie_image_name,'_')}">
 									data-setbg="/resources/images/no_image.jpg" 
 								</c:when>
 								<c:otherwise>

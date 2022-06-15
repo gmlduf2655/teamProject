@@ -58,7 +58,7 @@
 		where movie_code = #{movie_code}
 	</delete>
 
-	<!-- 유수연 영화 검색  -->
+	<!-- 유수연 영화 타입별 검색  -->
 	<select id="dbSearch" resultType="MovieVo">
 		select * from tbl_movie
 		where ${sType} like  '%'||#{sKeyword}||'%'
@@ -69,5 +69,21 @@
 		select * from tbl_movie
 		where movie_code = #{movie_code}
 	</select>
+	 
+	<!-- 유수연 현재, 예정 영화 리스트  -->
+	<select id="movieListopen" resultType="MovieVo">
+		select * from tbl_movie
+		where opening_date <![CDATA[<=]]> sysdate and endding_date > sysdate 
+            or  opening_date <![CDATA[<=]]> sysdate and endding_date is null
+            or opening_date <![CDATA[>]]> sysdate and endding_date > sysdate 
+            or  opening_date <![CDATA[>]]> sysdate and endding_date is null
+		order by opening_date desc
+	</select>
 	
+	<!-- 유수연  종영 영화 리스트  -->
+	<select id="movieListend" resultType="MovieVo">
+		select * from tbl_movie
+		where endding_date <![CDATA[<]]> sysdate
+		order by endding_date desc
+	</select> 
 </mapper>

@@ -10,8 +10,40 @@
 $(function(){
 	$("#tableList").on("click", ".opening_date_input" ,function(){
 		console.log(".opening_date");
+	});
+	//우리서버 db List 전체 출력
+	$("#btndbListtotal").click(function(){
+		//e.preventDefault();
+		$("#btndbListtotal").attr("href","/dbcontrol/dbList").submit();
+	});
+	//우리서버 db List 상영중, 예정 출력
+	$("#btndbListopen").click(function(){
+		//e.preventDefault();
+		$("#btndbListopen").attr("href","/dbcontrol/dbListopen").submit();
+	});
+	//우리서버 db 종영List 출력
+	$("#btndbListend").click(function(){
+		//e.preventDefault();
+		$("#btndbListend").attr("href","/dbcontrol/dbListend").submit();
+	});
+	
+	//우리서버 영화 db 검색
+	var sType;
+	var sKeyword;
+	$("#searchType").change(function(){
+		sType = $(this).val();
+		console.log("#searchType, sType" ,  sType);
+		});
+	$("#btndbSearch").click(function(){
+		if(sType == null){
+			alert("검색타입을 선택해 주세요");
+		}else{
+			sKeyword = $("#moviename").val();
+			$("#btndbSearch").attr("href","/dbcontrol/dbSearch?sType="+sType+"&sKeyword="+sKeyword).submit();
+		}
 		
 	});
+	
 });	
 </script>
 <style>
@@ -26,11 +58,10 @@ $(function(){
 		<div class="col-md-2"></div>
 		<div class="col-md-8" align="center">
 		<hr>
-			<a type="button" class="btn btn-outline-primary"
-					id="btndbList">우리서버DB리스트</a>
-			<br>
-			<br>
-			<br>
+			<a type="button" class="btn btn-outline-success" id="btndbListopen">우리서버 상영중, 예정DB리스트</a>
+			<a type="button" class="btn btn-outline-primary" id="btndbListtotal">우리서버 전체 DB리스트</a>
+			<a type="button" class="btn btn-outline-warning" id="btndbListend">우리서버 종영 DB리스트</a>
+			<br><br><br>
 			<select id="searchType">
 				<option value="">선택
 				<option value="movie_code">영화코드
@@ -46,10 +77,10 @@ $(function(){
 		<div class="col-md-2"></div>
 	</div>
 <div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 		<br>
-				<table class="table" id="tableList" >
+				<table class="table">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -57,8 +88,6 @@ $(function(){
 							<th>영화제목</th>
 							<th>개봉일자</th>
 							<th>종영일자</th>
-							<th>배우</th>
-							<th>감독</th>
 							<th>등급</th>
 							<th>스틸샷</th>
 							<th>포스터</th>
@@ -83,21 +112,17 @@ $(function(){
 									<fmt:parseDate var="endding_date" value="${movieVo.endding_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate value="${endding_date}" pattern="yyyy-MM-dd"/>
 								</td>
-								<td><c:out value="${movieVo.movie_actors}"/></td>
-								<td><c:out value="${movieVo.movie_director}"/></td>
 								<td>
 									<c:set var="movie_audits" value="${movieVo.movie_audits}"/>
 									${fn:substring(movie_audits,0,3)}
 								</td>
 								<td><c:out value=""/></td>
 								<td>
-									<c:choose>
-									<c:when test="${not empty movieVo.movie_image_name}">
-										있음</c:when>
-									<c:otherwise>
-										없음
-									</c:otherwise>
-									</c:choose>	
+									<c:set var="movie_image_name" value="${movieVo.movie_image_name}"/>
+									<c:if test="${not empty fn:substringAfter(movie_image_name,'_')}">
+									있음</c:if>
+									<c:if test="${empty fn:substringAfter(movie_image_name,'_')}">
+									<b>포스터없음</b></c:if>
 								</td>
 								<td>
 									<c:choose>
@@ -113,8 +138,9 @@ $(function(){
 					</tbody>
 				</table>
 			</div>
-		<div class="col-md-1"></div>
+		<div class="col-md-2"></div>
 </div>
+
 
 
 

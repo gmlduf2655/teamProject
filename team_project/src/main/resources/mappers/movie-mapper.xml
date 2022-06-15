@@ -14,14 +14,16 @@
 	<!-- 유수연 현재 상영중 영화 -->
 	<select id="movieListIng" resultType="MovieVo">
 		select * from tbl_movie
-		where opening_date <![CDATA[<]]> sysdate
+		where opening_date <![CDATA[<=]]> sysdate and endding_date > sysdate 
+            or  opening_date <![CDATA[<=]]> sysdate and endding_date is null
 		order by opening_date desc
 	</select>
 	
 	<!-- 유수연 현재 상영예정 영화 -->
 	<select id="movieListSoon" resultType="MovieVo">
 		select * from tbl_movie
-		where opening_date <![CDATA[>]]> sysdate
+		where opening_date <![CDATA[>]]> sysdate and endding_date > sysdate 
+            or  opening_date <![CDATA[>]]> sysdate and endding_date is null
 		order by opening_date desc
 	</select>
 	

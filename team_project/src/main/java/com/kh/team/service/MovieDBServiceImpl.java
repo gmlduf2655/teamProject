@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.MovieDBDao;
-import com.kh.team.dao.MovieDao;
 import com.kh.team.vo.MovieVo;
 
 @Service
@@ -16,14 +15,6 @@ public class MovieDBServiceImpl implements MovieDBService {
 	@Autowired
 	private MovieDBDao movieDBDao;
 	
-	@Override
-	public List<MovieVo> movieList() {
-		List<MovieVo> list = movieDBDao.movieList();
-		return list;
-	}
-
-
-
 	@Override
 	@Transactional
 	public boolean insertMovie(MovieVo movieVo) {
@@ -71,6 +62,26 @@ public class MovieDBServiceImpl implements MovieDBService {
 	public MovieVo dbsearchBymoviecode(String movie_code) {
 		MovieVo movieVo = movieDBDao.dbsearchBymoviecode(movie_code);
 		return movieVo;
+	}
+
+	@Override
+	public List<MovieVo> movieList() {
+		List<MovieVo> list = movieDBDao.movieList();
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> movieListopen() {
+		List<MovieVo> list = movieDBDao.movieListopen();
+		return list;
+	}
+
+
+
+	@Override
+	public List<MovieVo> movieListend() {
+		List<MovieVo> list = movieDBDao.movieListend();
+		return list;
 	}
 
 
