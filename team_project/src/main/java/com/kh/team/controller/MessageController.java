@@ -61,7 +61,7 @@ public class MessageController {
 		
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("pagingDto", pagingDto);
-		return "message/message_list2";
+		return "message/message_list";
 	}
 	
 	// 쪽지 쓰기 페이지 이동

@@ -27,6 +27,7 @@
 	</style>
     <script>
 		$(document).ready(function(){
+			// 유저 정보 수정 확인
 			var modify_result = "${modify_result}";
 			if(modify_result == "true"){
 				alert("유저 정보 수정 성공");
@@ -131,10 +132,10 @@
 	    	<!-- 마이페이지 메뉴 부분 -->
     		<div class="col-md-2" style="color:white;padding-left:50px;">
     			<div class="menu">
-    			<c:if test="${loginUserVo.userno == userVo.userno}">
-				<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
-    			</c:if>
-    			</div>
+	    			<c:if test="${loginUserVo.userno == userVo.userno}">
+						<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
+	    			</c:if>
+    			</div>    	
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
 	    	<!-- 유저 프로필 부분 -->

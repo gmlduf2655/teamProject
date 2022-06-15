@@ -121,11 +121,19 @@ public class UserServiceTest {
 		int userno = userService.getUsernoByUseridAndSnsType("gmlduf2655", null);
 		System.out.println("UserServiceTest, testGetUseridByUsernoAndSnsType, userno : " + userno);
 	}
-	// 회원 이름과 이메일로 회원 아이디 조회
+	
+	// 회원 이름과 이메일로 회원 아이디 조회 테스트
 	@Test
 	public void testGetUseridByUsernameAndEmail() {
 		String userid = userService.getUseridByUsernameAndEmail("유저1", "user01@naver.com");
 		System.out.println("UserServiceTest, testGetUseridByUsernameAndEmail, userid : " + userid);
+	}
+	
+	// 유저 번호와 비밀번호로 유저 조회 테스트
+	@Test
+	public void testGetUserByUsernoAndUserpw() {
+		UserVo userVo = userService.getUserByUsernoAndUserpw(1, "1234");
+		System.out.println("UserServiceTest, testGetUserByUsernoAndUserpw, userVo : " + userVo);
 	}
 	
 	// 로그인 테스트
@@ -146,9 +154,16 @@ public class UserServiceTest {
 	// 회원 탈퇴 테스트
 	@Test
 	public void testUnregister() {
-		boolean result = userService.unregister("user03");
+		boolean result = userService.unregister(1);
 		System.out.println("UserServiceTest, testUnregister, result : " + result);
 	}
+	// 유저 비밀번호 변경 테스트
+	@Test
+	public void testModifyUserpw() {
+		boolean result = userService.modifyUserpw("user01", "1234");
+		System.out.println("UserServiceTest, testModifyUserpw, result : " + result);
+	}
+	
 	
 	// 임시 비밀번호로 비밀번호 변경 테스트
 	@Test

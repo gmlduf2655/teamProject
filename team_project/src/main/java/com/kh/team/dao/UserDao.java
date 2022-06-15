@@ -23,6 +23,8 @@ public interface UserDao {
 	public UserVo selectUserBySnsIdAndType(String sns_id, String sns_type);
 	// 유저 이름과 이메일로 회원 조회
 	public UserVo selectUserByUsernameAndEmail(String username, String email);
+	// 유저 번호와 비밀번호로 유저 조회
+	public UserVo selectUserByUsernoAndUserpw(int userno, String userpw);
 	// 회원 목록 조회
 	public List<UserVo> userList();
 	// 기존회원 목록 조회
@@ -36,5 +38,5 @@ public interface UserDao {
 	// 유저 포인트 수정
 	public boolean updateUserPoint(int point, int userno);
 	// 회원 삭제
-	public boolean deleteUser(String userid);
+	public boolean deleteUser(int userno);
 }

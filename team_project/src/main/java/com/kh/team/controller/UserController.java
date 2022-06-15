@@ -276,6 +276,14 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	// 유저 아이디를 통해 유저 번호 받기
+	@RequestMapping(value="/get_userno_by_userid", method=RequestMethod.POST)
+	@ResponseBody
+	public int getUserno(String userid) {
+		int userno = userService.getUsernoByUserid(userid);
+		return userno;
+	}
+	
 	// 유저 목록 페이지 이동 (관리자용)
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String userList(HttpSession session) {

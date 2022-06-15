@@ -29,11 +29,20 @@
 	</style>
     <script>
     	$(document).ready(function(){
+    		// 회원가입 성공 여부 메세지 출력
     		var signup_result = "${signup_result}";
     		if(signup_result == "true"){
     			alert("회원가입 성공");	
     		}else if(signup_result == "false"){
     			alert("회원가입 실패");	
+    		}
+    		
+    		// 비밀번호 변경 성공 여부 메세지 출력 
+    		var update_userpw_result = "${update_userpw_result}";
+    		if(update_userpw_result == "true"){
+    			alert("비밀번호 변경 성공");
+    		}else if(update_userpw_result == "false"){
+    			alert("비밀번호 변경 실패");
     		}
     	$("#google_login").click(function(){
     		location.href="https://accounts.google.com/o/oauth2/v2/auth?" + 

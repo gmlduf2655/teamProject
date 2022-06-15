@@ -51,7 +51,10 @@
 	<!-- 아이디, 비밀번호로 회원 조회 -->
 	<select id="selectUserByIdAndPwd" resultType="UserVo">
 		select * from tbl_user
-		where userid= #{userid} and userpw = #{userpw}
+		where 
+		userid= #{userid} 
+		and userpw = #{userpw}
+		and user_status = '1'
 	</select>
 	
 	<!-- 닉네임으로 회원 조회 -->
@@ -76,6 +79,12 @@
 	<select id="selectUserByUsernameAndEmail" resultType="UserVo">
 		select * from tbl_user
 		where username= #{username} and email = #{email}
+	</select>
+
+	<!-- 회원 번호와 비밀번호로 회원 조회 -->
+	<select id="selectUserByUsernoAndUserpw" resultType="UserVo">
+		select * from tbl_user
+		where userno = #{userno} and userpw = #{userpw}
 	</select>
 		
 	<!-- 유저 목록 조회 -->

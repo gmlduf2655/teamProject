@@ -125,6 +125,14 @@ public class UserServiceImpl implements UserService {
 		return userno;
 	}
 	
+	// 회원아이디로 회원 번호 조회 
+	@Override
+	public int getUsernoByUserid(String userid) {
+		UserVo userVo = userDao.selectUserById(userid);
+		int userno = userVo.getUserno();
+		return userno;
+	}
+	
 	// 회원 이름과 이메일로 회원 아이디 조회
 	@Override
 	public String getUseridByUsernameAndEmail(String username, String email) {
@@ -132,6 +140,12 @@ public class UserServiceImpl implements UserService {
 		return userVo.getUserid();
 	}
 	
+	// 유저 번호와 비밀번호로 유저 조회
+	@Override
+	public UserVo getUserByUsernoAndUserpw(int userno, String userpw) {
+		UserVo userVo = userDao.selectUserByUsernoAndUserpw(userno, userpw);
+		return userVo;
+	}	
 	// 로그인
 	@Override
 	public UserVo login(String userid, String userpw) {
@@ -148,11 +162,16 @@ public class UserServiceImpl implements UserService {
 
 	// 회원 탈퇴
 	@Override
-	public boolean unregister(String userid) {
-		boolean result = userDao.deleteUser(userid);
+	public boolean unregister(int userno) {
+		boolean result = userDao.deleteUser(userno);
 		return result;
 	}
-
+	// 유저 비밀번호 변경
+	@Override
+	public boolean modifyUserpw(String userid, String userpw) {
+		boolean result = userDao.updateUserpw(userid, userpw);
+		return result;
+	}
 	// 임시 비밀번호 만들기
 	@Override
 	@Transactional
