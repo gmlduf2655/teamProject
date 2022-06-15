@@ -1,11 +1,17 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#message_popup").click(function(){
-			window.open("/message/message_list?page=1&type=receive","쪽지보관함","width=1000px,height=667px,scrollbars=yes");
+		// 임희열 : 팝업으로 메세지 보관함 구현하려니까 불편한게 너무 많아서 안씀..
+// 		$("#message_popup").click(function(){
+// 			window.open("/message/message_list?page=1&type=receive","쪽지보관함","width=1000px,height=667px,scrollbars=yes");
+// 		});
+		// 임희열 : 회원가입 버튼 클릭시 회원가입 페이지로 이동
+		$("#signup_btn").click(function(){
+			location.href = "/user/signup_form";
 		});
 	});
 </script>
@@ -37,18 +43,30 @@
                     </c:choose>
 				</div>
 				<div class="product__sidebar__comment__item__text">
-					<ul>
-						<li>Active</li>
-						<li>Movie</li>
-					</ul>
+					<c:if test="${not empty loginUserVo}">
+						<ul>
+							<li>Active</li>
+							<li>Movie</li>
+						</ul>
+					</c:if>
 					<h5>
 						<!-- 임희열 : 로그인 했을 때와 로그인 하지 않았을 떄의 메세지를 다르게 표시하였음 -->
+						<!-- 임희열 : 마이페이지 부분에서 로그인 하지 않았을 때는 마이페이지에서 로그인을 하거나 회원 가입 페이지로 갈 수 있게 변경하였습니다 -->
+						<!-- 임희열 : 로그인 했을 때는 마이페이지에서 로그아웃 할 수 있게 변경하였습니다 -->
 						<c:choose>
 							<c:when test="${empty loginUserVo}">
-								<a href="/user/login_form">비회원님 환영합니다</a><br>
+<!-- 								<a href="/user/login_form">비회원님 환영합니다</a><br> -->
+								<form method="post" action="/user/login_run">
+									<input type="text" class="form-control mb-2" style="width:80%;"
+									name="userid" placeholder="아이디">
+									<input type="password" class="form-control mb-2" style="width:80%;" 
+									name="userpw" placeholder="비밀번호">
+									<button type="submit" class="site-btn btn-sm" style="padding:6px 15px;">로그인</button>
+									<button type="button" class="site-btn btn-sm" id="signup_btn" style="padding:6px 15px;">회원가입</button>
+								</form>
 							</c:when>
 							<c:otherwise>
-								<a href="/user/mypage?userno=${loginUserVo.userno}">
+								<a href="/mypage/main?userno=${loginUserVo.userno}">
 									<c:choose>
 										<c:when test="${not empty loginUserVo.sns_type}">
 											${loginUserVo.userid}님
@@ -58,30 +76,31 @@
 										</c:otherwise>
 									</c:choose>
 								</a><br>
-								<a href="/user/mypage?userno=${loginUserVo.userno}">포인트 : ${loginUserVo.point}점</a>
+								<a href="/mypage/main?userno=${loginUserVo.userno}">포인트 : ${loginUserVo.point}점</a>
 							</c:otherwise>
 						</c:choose>
 					</h5>
 					<c:if test="${not empty loginUserVo}">
-						<button class="site-btn btn-sm" id="message_popup" type="button" style="padding:6px 15px;">쪽지함</button>
+						<a class="site-btn btn-sm" style="padding:6px 15px;" href="/message/message_list?page=1&type=receive">쪽지함</a>
+						<a class="site-btn btn-sm" style="padding:6px 15px;" href="/user/logout">로그아웃</a>
 					</c:if>
 				</div>
 			</div>
 		</div>
 		<!-- // 마이페이지 끝 -->
 		
-		<!-- 박스 오피스 시작 -->
+		<!-- 유수연 박스 오피스 시작 -->
 		<div class="product__sidebar__view">
 			<div class="section-title">
 				<h5>박스 오피스</h5>
 			</div>
 			<ul class="filter__controls">
-				<li class="active" data-filter="*">Day</li>
-				<li data-filter=".week">Week</li>
-				<li data-filter=".month">Month</li>
-				<li data-filter=".years">Years</li>
+				<li><b>일간</b></li>
 			</ul>
-			<div class="filter__gallery">
+			<div class="anime__details__sidebar">
+                 <%@ include file="/WEB-INF/views/movie/boxoffice.jsp"%>
+            </div>
+			<!-- <div class="filter__gallery">
 				<div class="product__sidebar__view__item set-bg mix day years"
 					data-setbg="resources/images/img/sidebar/tv-1.jpg">
 					<div class="ep">18 / ?</div>
@@ -132,7 +151,7 @@
 						<a href="#">Fate stay night unlimited blade works</a>
 					</h5>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<!-- // 박스 오피스 끝 -->
 	</div>

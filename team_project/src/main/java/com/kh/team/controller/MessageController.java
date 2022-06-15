@@ -41,11 +41,10 @@ public class MessageController {
 	
 	// 쪽지 보관함 페이지 이동
 	@RequestMapping(value="/message_list", method=RequestMethod.GET)
-	public String messageList(HttpSession session, Model model, String type, int page) {
+	public String messageList(HttpSession session, Model model, String type, int page, PagingDto pagingDto) {
 		UserVo userVo = (UserVo)session.getAttribute("loginUserVo");
 		String userid = userVo.getUserid();
 		List<MessageVo> messageList = null;
-		PagingDto pagingDto = new PagingDto();
 		int count = 0;
 		
 		pagingDto.setPage(page);

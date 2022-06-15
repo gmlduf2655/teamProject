@@ -40,7 +40,8 @@
 <script type="text/javascript">
 	$(function(){
 		
-		var btnEdit = "<a class='btn btn-sm btn-info' id='modal-339736' href='#modal-container-339736' role='button' class='btn' data-toggle='modal'>수정</a>";
+		var btnEdit = "<a class='btn btn-sm btn-info' href='#modal-container-339736' role='button' class='btn' data-toggle='modal'>수정</a>";
+		var btnNewCreate = "<li><a class='btn btn-primary btnNewInsert' href='#modal-container-339736' role='button' class='btn' data-toggle='modal'>등록</a></li>";
 		
 		var cinemaListViewer = $(".cinemaListViewer");
 		var cinemaRoomListViewer = $(".cinemaRoomListViewer");
@@ -48,7 +49,6 @@
 		
 		/* 영화관 도시명 select선택 시 이벤트 */
 		$("select[name=cinema_address]").change(function(){
-			var btnNewCreate = "<li><a class='btn btn-primary'>등록</a></li>";
 			$(".cinemaListViewer").text("");
 			$(".cinemaRoomListViewer").text("");
 			$(".roomTimelineListViewer").text("");
@@ -71,7 +71,6 @@
 		$(".cinemaListViewer").on("click", "*[data-cinema_no]", function(){
 			$(".cinemaListViewer").find("a").css("background","");
 			$(this).css("background","skyblue").css("boarder","skyblue");
-			var btnNewCreate = "<li><a class='btn btn-primary'>등록</a></li>";
 			$(".cinemaRoomListViewer").text("");
 			$(".roomTimelineListViewer").text("");
 			$(".cinemaRoomListViewer").prepend(btnNewCreate);
@@ -85,6 +84,7 @@
 					var insertHtml = "<li><a class='btn btn-sm btn-light' data-cinema_room_no=" + this.room_no + ">" + this.room_name + "</a class='btn btn-info'>" + btnEdit + "</li>";
 					$(".cinemaRoomListViewer").prepend(insertHtml);
 				});
+				$("tbody").find("td").eq(1).find(".btnNewInsert").attr("data-cinema_no", cinema_no);
 			});
 		});
 		
@@ -92,10 +92,11 @@
 		$(".cinemaRoomListViewer").on("click", "*[data-cinema_room_no]", function(){
 			$(".cinemaRoomListViewer").find("a").css("background","");
 			$(this).css("background","skyblue").css("boarder","skyblue");
-			var btnNewCreate = "<li><a class='btn btn-primary'>등록</a></li>";
 			$(".roomTimelineListViewer").text("");
 			$(".roomTimelineListViewer").prepend(btnNewCreate);
 			var room_no = $(this).attr("data-cinema_room_no");
+			var cinema_no = $(this).parent("li").nextAll().last().find(".btnNewInsert").attr("data-cinema_no");
+			console.log(cinema_no);
 			var url = "/mkcinema/getRoomTimelineList";
 			var sData = {
 					"room_no" : room_no
@@ -106,12 +107,18 @@
 					var date = this.movie_begin_date.substr(11,5);
 					var insertHtml = "<li><a class='btn btn-sm btn-light' data-timeline_no=" + this.timeline_no + ">" + date + " - " + this.movie_name + "</a class='btn btn-info'>" + btnEdit + "</li>";
 					$(".roomTimelineListViewer").prepend(insertHtml);
+					
 				});
+				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-room_no", room_no);
+				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-cinema_no", cinema_no);
+				
 			});
 		});
 		
 		/* 수정 버튼 클릭 시 모달창 띄우기 */
-		$(".cinemaNavTable").on("click", "*", function(){
+		$(".cinemaNavTable").on("click", "button, a", function(e){
+			console.log("who:", $(this));
+			
 			var btnText = $(this).text();
 			var getClickNo = $(this).prev();
 			var cinema_no = getClickNo.attr("data-cinema_no");
@@ -132,25 +139,57 @@
 				};
 				$.get(url, sData, function(rData){
 					$(".modal-title").text(rData.cinema_name + " 정보 " + btnText);
-					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + rData.cinema_no + "' />");
-					$(".modal-body").append("<div><label>영화관 이름 : <input type='text' name='cinema_name' value='" + rData.cinema_name + "' /></label></div>");
-					$(".modal-body").append("<div><label>영화관 주소 [나머지 주소] : <input type='text' name='cinema_address' value='" + rData.cinema_address + "' /></label><button class='btn btn-sm btn-success' id='btnCinemaAddressSearch' type='button'>검색</button></div>");
 					
-					var cinemaStatus = "영업 상태";
-					cinemaStatus += "<div>";
-					cinemaStatus += "	<label><input type='radio' name='cinema_status' ";
+// 					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + rData.cinema_no + "' />");
+// 					$(".modal-body").append("<div><label>영화관 이름 : <input type='text' name='cinema_name' value='" + rData.cinema_name + "' /></label></div>");
+// 					$(".modal-body").append("<div><label>영화관 주소 [나머지 주소] : <input type='text' name='cinema_address' value='" + rData.cinema_address + "' /></label><button class='btn btn-sm btn-success' id='btnCinemaAddressSearch' type='button'>검색</button></div>");
+					
+// 					var cinemaStatus = "영업 상태";
+// 					cinemaStatus += "<div>";
+// 					cinemaStatus += "	<label><select name='cinema_status'><option ";
+// 					if (rData.cinema_status == null){
+// 						cinemaStatus += "checked";
+// 					}
+					
+// 					cinemaStatus += "> 영업준비중</label><br><label><input type='radio' name='cinema_status' value='1'";
+// 					if (rData.cinema_status == 1){
+// 						cinemaStatus +=  "checked";
+// 					}
+					
+// 					cinemaStatus += "> 영업중</label></div>";
+					
+// 					$(".modal-body").append(cinemaStatus);
+					
+					var insertHtml = `
+						<input type='hidden' name='cinema_no' value='` + rData.cinema_no + `' />
+						<div><label>영화관 이름 : <input type='text' name='cinema_name' value='` + rData.cinema_name + `' /></label></div>
+						<div><label>영화관 주소 [나머지 주소] : <input type='text' name='cinema_address' value='` + rData.cinema_address + `' /></label><button class='btn btn-sm btn-success' id='btnCinemaAddressSearch' type='button'>검색</button></div>
+						<div>
+							영업 상태 
+							<select name='cinema_status'>
+								<option value='1'`;
+					if (rData.cinema_status == 1) {
+						insertHtml += "selected";
+					}
+						insertHtml += `
+								>영업중</option>
+								<option value='0'`;
+					if (rData.cinema_status == 0){
+						insertHtml += "selected";
+					}
+						insertHtml += `
+								>영업 준비중</option>
+								<option`;
 					if (rData.cinema_status == null){
-						cinemaStatus += "checked";
+						insertHtml += "selected";
 					}
+								
+						insertHtml += `>폐점</option>
+							</select>
+						</div>
+					`;
 					
-					cinemaStatus += "> 영업준비중</label><br><label><input type='radio' name='cinema_status' value='1'";
-					if (rData.cinema_status == 1){
-						cinemaStatus +=  "checked";
-					}
-					
-					cinemaStatus += "> 영업중</label></div>";
-					
-					$(".modal-body").append(cinemaStatus);
+					$(".modal-body").append(insertHtml);
 				});
 				break;
 				
@@ -163,16 +202,48 @@
 						"room_no" : room_no
 				};
 				$.get(url, sData, function(rData){
-					console.log(rData);
+					console.log(rData.room_no);
 					$(".modal-title").text(rData.room_name + " 정보 " + btnText);
-					$(".modal-body").append("<input type='hidden' name='room_no' value='" + rData.room_no + "' />");
-					$(".modal-body").append("<div><label>상영관 이름 : <input type='text' name='room_name' value='" + rData.room_name + "' /></label></div>");
-					$(".modal-body").append("<div><label>상영관 위치 : <input type='text' name='room_floor' value='" + rData.room_floor + "' /></label></div>");
 					var roomBeginTime = rData.room_begin_time.substr(11,5);
 					var roomFinishTime = rData.room_finish_time.substr(11,5);
-					$(".modal-body").append("<div><label>운영 시작 시간 : <input type='text' name='room_begin_time' value='" + roomBeginTime + "' /></label></div>");
-					$(".modal-body").append("<div><label>운영 종료 시간 : <input type='text' name='room_finish_time' value='" + roomFinishTime + "' /></label></div>");
-					$(".modal-body").append("<button class='btn btn-sm btn-primary' type='button'>좌석 편집</button>");
+
+					var insertHtml = `
+						<input type='hidden' name='room_no' value='` + rData.room_no + `' />
+						<div><label>상영관 이름 : <input type='text' name='room_name' value='` + rData.room_name + `' /></label></div>
+						<div><label>상영관 위치 : <input type='text' name='room_floor' value='` + rData.room_floor + `' /></label></div>
+						<div><label>운영 시작 시간 : <input type='time' name='room_begin_time' value='` + roomBeginTime + `' /></label></div>
+						<div><label>운영 종료 시간 : <input type='time' name='room_finish_time' value='` + roomFinishTime + `' /></label></div>
+						<div id="btnRoomSeat">
+							<div class="card">
+								<div class="card-header">
+									 <a class="card-link" data-toggle="collapse" data-parent="#btnRoomSeat" href="#seatViewer">상영관 좌석 보기</a>
+								</div>
+								<div id="seatViewer" class="collapse">
+									<div class="card-body">
+										Anim pariatur cliche...
+									</div>
+								</div>
+							</div>
+						</div>
+					`;
+					$(".modal-body").append(insertHtml);
+// 					var a="a".charCodeAt()+1;
+// 					var w=String.fromCharCode(a);
+// 					$(".modal-body").append(a);
+// 					$(".modal-body").append(w);
+					
+					var url = "/mkcinema/getSeatList";
+					var sData = {
+							"room_no" : room_no
+					}
+					$.get(url, sData, function(rData){
+						$.each(rData, function(){
+							console.log("x : " + this.seat_x);
+							console.log("y : " + this.seat_y + " : " + this.seat_y.charCodeAt());
+							
+						});
+					});
+					
 				});
 				break;
 				
@@ -194,7 +265,19 @@
 					$(".modal-title").text(rData.room_name + " - " + roomBeginTime + " 스케줄 정보 " + btnText);
 					$(".modal-body").append("<input type='hidden' name='timeline_no' value='" + rData.timeline_no + "' />");
 					$(".modal-body").append("<input type='hidden' name='room_no' value='" + rData.room_no + "' />");
-					$(".modal-body").append("<div><label>상영 영화 : <input type='text' name='movie_code' value='" + rData.movie_code + "' readonly /><input type='text' id='movie_name' value='" + rData.movie_name + "' /><button type='button' id='btnMovieSearch'>검색</button></label></div>");
+					$(".modal-body").append("<div><label>상영 영화 : <input type='text' name='movie_code' value='" + rData.movie_code + "' readonly /><input type='text' id='movie_name' class='form-control' list='datalistOptions' value='" + rData.movie_name + "' /><button type='button' id='btnMovieSearch'>검색</button></label></div>");
+					$(".modal-body").append("<datalist id='datalistOptions'></datalist>");
+					$("#movie_name").keyup(function(){
+						var searchData = $(this).val();
+						$.get("/mkcinema/searchMovie", {"movie_name" : searchData}, function(rData){
+							$("#datalistOptions").text("");
+							$.each(rData, function(){
+								console.log(this.movie_name);
+								$("#datalistOptions").append("<option value='" + this.movie_name + "'>");
+							});
+						});
+						
+					});
 					$(".modal-body").append("<div><label>영화 타입 : <select name='room_type_code'></select></label></div>");
 					$.get("/mkcinema/getRoomTypeCodeList",function(rData){
 						console.log(rData);
@@ -212,11 +295,85 @@
 				});
 				$(".modal-title").text(timeline_no);
 				break;
+				
+			case $(this).text() == '등록':
+				var pindex = $(this).parents("td").index();
+				var columnTitle = $(this).parents("tbody").prev("thead").find("th").eq(pindex).find("h5").text();
+				
+				$(".modal-title").text(columnTitle + " " + btnText + "하기");
+				var createForm = $(".modal-body").parents("form");
+				switch (columnTitle) {
+				case "영화관":
+					console.log("영화관");
+					var inputHtml = `
+						<div><label>영화관 이름 : <input type='text' name='cinema_name' /></label></div>
+						<div><label>영화관 주소 : <input type='text' name='cinema_address' /><button class='btn btn-sm btn-success' id='btnCinemaAddressSearch' type='button'>검색</button></label></div>
+						<div>
+							<label>
+							영업 상태 : 
+								<select name='cinema_status'>
+									<option value='1' selected >영업중</option>
+									<option value=''>영업 준비중</option>
+								</select>
+							</label>
+						</div>
+					`;
+					$(".modal-body").append(inputHtml);
+					$("#btnModalSuccess").removeAttr("data-cinema_no").removeAttr("data-room_no").removeAttr("data-timeline_no");
+					$("#btnModalSuccess").attr("data-createCinema", "true");
+// 					createForm.submit();
+					break;
+				case "상영관":
+					var cinema_no = $(this).attr("data-cinema_no");
+					var inputHtml = `
+						<div><label>상영관 이름 : <input type='text' name='room_name' /></label></div>
+						<div><label>상영관 위치 : <input type='text' name='room_floor' /></label></div>
+						<div><label>운영 시작 시간 : <input type='time' name='room_begin_time' /></label></div>
+						<div><label>운영 종료 시간 : <input type='time' name='room_finish_time' /></label></div>
+						<input type='hidden' name='room_status' value='1' />
+						<input type='hidden' name='cinema_no' value='` + cinema_no + `' />
+					`;
+					$(".modal-body").append(inputHtml);
+					$("#btnModalSuccess").removeAttr("data-cinema_no").removeAttr("data-room_no").removeAttr("data-timeline_no");
+					$("#btnModalSuccess").attr("data-createRoom", "true");
+					break;
+				case "상영 스케줄":
+					var room_no = $(this).attr("data-room_no");
+					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + room_no + "' />");
+					$(".modal-body").append("<input type='hidden' name='room_no' value='" + room_no + "' />");
+					$(".modal-body").append("<div><label>상영 영화 : <input type='text' name='movie_code' readonly /><input type='text' id='movie_name' class='form-control' list='datalistOptions' value='' /><button type='button' id='btnMovieSearch'>검색</button></label></div>");
+					$(".modal-body").append("<datalist id='datalistOptions'></datalist>");
+					$("#movie_name").keyup(function(){
+						var searchData = $(this).val();
+						$.get("/mkcinema/searchMovie", {"movie_name" : searchData}, function(rData){
+							$("#datalistOptions").text("");
+							$.each(rData, function(){
+								console.log(this.movie_name);
+								$("#datalistOptions").append("<option value='" + this.movie_name + "'>");
+							});
+						});
+						
+					});
+					$(".modal-body").append("<div><label>영화 타입 : <select name='room_type_code'></select></label></div>");
+					$.get("/mkcinema/getRoomTypeCodeList",function(rData){
+						console.log(rData);
+						$.each(rData, function(){
+							$("select[name=room_type_code]").append("<option value='" + this.room_type_code + "'" + ">" + this.room_type_name + "</option>");
+						});
+					});
+					$(".modal-body").append("<div><label>영화 시작일 : <input type='datetime-local' name='movie_begin_date' /></label></div>");
+					$(".modal-body").append("<div><label>영화 종료일 : <input type='datetime-local' name='movie_finish_date' /></label></div>");
+					$("#btnModalSuccess").removeAttr("data-cinema_no").removeAttr("data-room_no").removeAttr("data-timeline_no");
+					$("#btnModalSuccess").attr("data-createTimeline", "true");
+					break;
+				}
+				break;
 			};
+			
 		});
 			
 		/* 모달창 안에 버튼 */
-		$(".modal").on("click", "*", function(){
+		$(".modal").on("click", "button", function(){
 			var btnId = $(this).attr("id");
 			switch (btnId) {
 			// 주소 검색버튼을 누르면
@@ -250,6 +407,9 @@
 				var cinema_no = $(this).attr("data-cinema_no");
 				var room_no = $(this).attr("data-room_no");
 				var timeline_no = $(this).attr("data-timeline_no");
+				var createCinema = $(this).attr("data-createCinema");
+				var createRoom = $(this).attr("data-createRoom");
+				var createTimeline = $(this).attr("data-createTimeline");
 				switch (true) {
 				case cinema_no != null:
 					form.attr("method", "get");
@@ -264,6 +424,21 @@
 				case timeline_no != null:
 					form.attr("method", "get");
 					form.attr("action", "/mkcinema/modifyTimeline");
+					form.submit();
+					break;
+				case createCinema != null:
+					form.attr("method", "get");
+					form.attr("action", "/mkcinema/createCinema");
+					form.submit();
+					break;
+				case createRoom != null:
+					form.attr("method", "get");
+					form.attr("action", "/mkcinema/createRoom");
+					form.submit();
+					break;
+				case createTimeline != null:
+					form.attr("method", "get");
+					form.attr("action", "/mkcinema/createTimeline");
 					form.submit();
 					break;
 
@@ -320,7 +495,7 @@
 				<tr class="cinemaNavTable">
 					<td>
 						<ul class="cinemaListViewer">
-							<li><a class="btn btn-primary" href="#">등록</a></li>
+							<li style="color: white;">영화관 지역을 선택해주세요</li>
 						</ul>
 					</td>
 					<td>
@@ -361,10 +536,10 @@
 							<div class="modal-footer">
 								 
 								<button type="button" id="btnModalSuccess" class="btn btn-primary">
-									완료 버튼
+									완료
 								</button> 
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">
-									취소 버튼
+									취소
 								</button>
 							</div>
 						</div>

@@ -16,6 +16,9 @@
 		color:black;
 		line-height:50px;
 	}
+	.login__form:after{
+		display:none;
+	}
 </style>
 
 <script>
@@ -51,62 +54,66 @@
 	});
 </script>
 
-    <!-- Normal Breadcrumb Begin -->
+    <!-- 제목 -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>비밀번호 찾기</h2>
+                        <h2>아이디 &비밀번호 찾기</h2>
 <!--                         <p>Welcome to the official Anime blog.</p> -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Normal Breadcrumb End -->
+    <!-- 제목 끝 -->
 
-    <!-- Signup Section Begin -->
+    <!-- 아이디 혹은 비밀번호 찾기 -->
     <section class="signup spad">
         <div class="container">
             <div class="row">
+            	<!-- 아이디 찾기 -->
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>비밀번호 찾기</h3>
-                        <form action="/user/signup_run" method="post" id="signup_form" enctype="multipart/form-data">
+                        <h3>아이디 찾기</h3>
+                        <form action="/user/find_userid_result" method="post" id="signup_form">
+                            <div class="input__item">
+                                <input type="text" placeholder="이름" name="username" id="username" required>
+                                <span class="icon_profile"></span>
+                            </div>
                             <div class="input__item">
                                 <input type="email" placeholder="이메일" name="email" id="email" required>
                                 <span class="icon_mail"></span>
-                                <button type="button" class="site-btn mb-4" id="email_auth_btn">이메일 인증</button>
-                                <input type="number" placeholder="인증코드 6자리 입력" id="email_auth_code" style="display:none;">
-                                <button type="button" class="site-btn" id="email_auth_code_btn" style="display:none;">전송</button>
-                                <p style="color:white;display:none;" id="email_auth_answer">이메일 인증 성공하였습니다</p>
+                                <button type="submit" class="site-btn mb-4" >아이디 찾기</button>
                             </div>
-
                             <a class="site-btn" id="signup_btn" href="/user/login_form">돌아가기</a>
                         </form>
-                        <h5>비밀번호를 기억하셨나요? <a href="/user/login_form">로그인하기</a></h5>
                     </div>
                 </div>
+                <!-- 아이디 찾기 끝 -->
+                <!-- 비밀번호 찾기 -->
                 <div class="col-lg-6">
-                    <div class="login__social__links">
-                        <h3>간편로그인</h3>
-                        <ul>
-<!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
-<!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->
-                        	<li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li>
-                        	<li>
-                                <a id="naverIdLogin_loginButton" href="javascript:void(0)" class="twitter" style="background:#03C75A;"> <!-- #2DB400 -->
-                                	<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;">
-                                	네이버로 로그인하기
-                                </a>
-                       		</li>
-                       </ul>
+                    <div class="login__form">
+                        <h3>비밀번호 찾기</h3>
+                        <form action="/mail/get_password" method="post" id="signup_form" >
+                            <div class="input__item">
+                                <input type="text" placeholder="아이디" name="userid" id="userid" required>
+                                <span class="icon_mail"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="email" placeholder="이메일" name="email" id="email" required>
+                                <span class="icon_mail"></span>
+                                <button type="submit" class="site-btn mb-4" id="email_auth_btn">비밀번호 찾기</button>
+                            </div>
+                            <h5>비밀번호를 기억하셨나요? <a href="/user/login_form">로그인하기</a></h5>
+                        </form>
                     </div>
                 </div>
+                <!-- 비밀번호 찾기끝 -->
             </div>
         </div>
     </section>
-    <!-- Signup Section End -->
+    <!-- 아이디 혹은 비밀번호 찾기 -->
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

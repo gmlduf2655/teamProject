@@ -69,8 +69,11 @@ public class UserDaoImpl implements UserDao {
 	
 	// 이메일로 회원 조회
 	@Override
-	public UserVo selectUserByEmail(String email) {
-		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByEmail", email);
+	public UserVo selectUserByEmailAndUserid(String email, String userid) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("email", email);
+		map.put("userid", userid);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByEmailAndUserid", map);
 		return userVo;
 	}
 
@@ -82,6 +85,25 @@ public class UserDaoImpl implements UserDao {
 		map.put("sns_type", sns_type);
 		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserBySnsIdAndType", map);
 		return userVo;
+	}
+
+	// 회원 이름과 이메일로 회원 조회
+	@Override
+	public UserVo selectUserByUsernameAndEmail(String username, String email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", username);
+		map.put("email", email);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByUsernameAndEmail", map);
+		return userVo;
+	}
+	// 유저 번호와 비밀번호로 유저 조회
+	@Override
+	public UserVo selectUserByUsernoAndUserpw(int userno, String userpw) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userno", userno);
+		map.put("userpw", userpw);
+		UserVo userVo = sqlSession.selectOne(NAMESPACE + "selectUserByUsernoAndUserpw", map);
+		return userVo;		
 	}
 	
 	// 회원 목록 조회
@@ -142,8 +164,8 @@ public class UserDaoImpl implements UserDao {
 	
 	// 회원 삭제
 	@Override
-	public boolean deleteUser(String userid) {
-		int count = sqlSession.update(NAMESPACE + "deleteUser", userid);
+	public boolean deleteUser(int userno) {
+		int count = sqlSession.update(NAMESPACE + "deleteUser", userno);
 		if(count > 0) {
 			return true;
 		}

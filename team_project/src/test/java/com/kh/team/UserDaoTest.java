@@ -70,8 +70,8 @@ public class UserDaoTest {
 	
 	// 이메일로 회원 조회하기 테스트
 	@Test 
-	public void testSelectUserByEmail() {
-		UserVo userVo = userDao.selectUserByEmail("user01@naver.com");
+	public void testSelectUserByEmailAndUserid() {
+		UserVo userVo = userDao.selectUserByEmailAndUserid("user01@naver.com", "user01");
 		System.out.println("UserDaoTest, testSelectUserByEmail, userVo : " + userVo);
 	}
 	
@@ -80,6 +80,20 @@ public class UserDaoTest {
 	public void testSelectUserBySnsIdAndType() {
 		UserVo userVo = userDao.selectUserBySnsIdAndType("user03", "naver");
 		System.out.println("UserDaoTest, testSelectUserBySnsIdAndType, userVo : " + userVo);
+	}
+	
+	// 회원 이름과 이메일로 회원 조회
+	@Test
+	public void testSelectUserByUsernameAndEmail() {
+		UserVo userVo = userDao.selectUserByUsernameAndEmail("유저1", "user01@naver.com");
+		System.out.println("UserDaoTest, testSelectUserByUsernameAndEmail, userVo : " + userVo);
+	}
+	
+	// 유저번호와 유저 비밀번호로 유저 조회 테스트
+	@Test
+	public void testSelectUserByUsernoAndUserpw() {
+		UserVo userVo = userDao.selectUserByUsernoAndUserpw(1, "1234");
+		System.out.println("UserDaoTest, testSelectUserByUsernoAndUserpw, userVo : " + userVo);
 	}
 	
 	// 회원 목록 조회 테스트
@@ -137,7 +151,7 @@ public class UserDaoTest {
 	// 유저 정보 삭제 테스트
 	@Test
 	public void testDeleteUser() {
-		boolean result = userDao.deleteUser("user03");
+		boolean result = userDao.deleteUser(1);
 		System.out.println("UserDaoTest, testDeleteUser, result : " + result);		
 	}
 	

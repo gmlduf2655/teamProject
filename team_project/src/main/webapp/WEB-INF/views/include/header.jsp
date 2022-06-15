@@ -44,9 +44,9 @@
     
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-
+	
 	<!-- 임희열 : JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
     
     <!-- 임희열 : Naver Login API script -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
@@ -146,7 +146,7 @@
                         		 href="/user/login_form"
                         	</c:when>
                         	<c:otherwise>
-                        		href="/user/mypage?userno=${loginUserVo.userno}"
+                        		href="/mypage/main?userno=${loginUserVo.userno}"
                         	</c:otherwise>
                         </c:choose>
                         
