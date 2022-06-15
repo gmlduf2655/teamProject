@@ -89,6 +89,12 @@ public interface CinemaService {
 	// 좌석 생성
 	public boolean createRoomSeat(RoomSeatVo roomSeatVo);
 	
+	// 좌석 x줄 추가
+	public boolean createRoomSeatX(int room_no, int seat_x, List<String> yNum);
+	
+	// 좌석 y줄 추가
+	public boolean createRoomSeatY(int room_no, List<Integer> xNum, String seat_y);
+	
 	// 좌석 리스트 조회
 	public List<RoomSeatVo> getRoomSeatList(int room_no);
 	
@@ -113,4 +119,24 @@ public interface CinemaService {
 	// 룸 타입 리스트 조회
 	public List<RoomTypeVo> getRoomTypeList();
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ---------------------------
 }
