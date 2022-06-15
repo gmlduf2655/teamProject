@@ -15,6 +15,11 @@ var day = date.getDay();
 month = month >= 10 ? month : '0' + month;
 day = day >= 10 ? day : '0' + day;
 $(function(){
+	//박스오피스 정보 우리 서버에 없을때
+	var movieInfoByMovieCodeExist = "${movieInfoByMovieCodeExist}";
+	if (movieInfoByMovieCodeExist == "false"){
+		alert("정보가 없습니다\n 빠른시일내에 준비하도록 하겠습니다");
+	}
 	//상영일자출력
 	var opendate = year + "-" + month + "-" + day;
 	$("#date").append(opendate);
@@ -217,6 +222,8 @@ $(function(){
 			}
 		});
 	}
+	
+	
 });
 </script>
 ${loginUserVo.userid}

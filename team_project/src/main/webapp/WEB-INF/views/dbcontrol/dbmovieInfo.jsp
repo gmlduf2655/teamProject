@@ -10,17 +10,18 @@
 <head>
 <script type="text/javascript">
 $(function(){
-var db_updatedetail_result = "${db_updatedetail_result}";
-if(db_updatedetail_result == "true"){
-	alert("DB 수정 완료");
-} else if (db_updatedetail_result == "false"){
-	alert("DB 수정 실패");
-}
-	//db 일부수정 disabled 해제
+	var db_updatedetail_result = "${db_updatedetail_result}";
+	if(db_updatedetail_result == "true"){
+		alert("DB 수정 완료");
+	} else if (db_updatedetail_result == "false"){
+		alert("DB 수정 실패");
+	}
+	//db 수정 disabled 해제
 	$("#btnattrAble").click(function(){
 		$(this).hide();
 		$("#btnUpdate").show();
 		$("input[disabled]").removeAttr("disabled");
+		$("#image_delete").removeAttr("style");
 		$("textarea[disabled]").removeAttr("disabled");
 	});
 	//우리서버에 db 일부수정
@@ -29,7 +30,7 @@ if(db_updatedetail_result == "true"){
 		$("form").attr("method", "post");
 		$("form").submit();
 	});
-	
+
 	//대표 이미지 미리보기
 	$(function() {
 	    $("#file").on("change", function(){
@@ -43,28 +44,22 @@ if(db_updatedetail_result == "true"){
 	        $("#preview").attr('src', e.target.result);
 	        }
 	        reader.readAsDataURL(input.files[0]);
+	        $("#preview").show();
 	        $("#image_delete").show();
 	    }
 	}
 
- 	// 이미지 임시 삭제
-	 $(document).ready(function(){
-	 	$("#image_delete").click(function(){
-			$("#preview").remove();
+	// 이미지 임시 삭제
+	$(document).ready(function(){
+			$("#image_delete").click(function(){
+			$("#preview").hide();
 			$("#image_delete").hide();
 		});
-	 	
-	 	
 	});
- 
-	
 });
 </script>
 </head>
 <body>
-
-		
-		
 <div class="row">
 <div class="col-md-1"></div>
 	<div class="col-md-10">
@@ -157,7 +152,7 @@ if(db_updatedetail_result == "true"){
 					</c:if>
 					<br>
 					<br>
-               		<a id="image_delete" >사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
+               		<a id="image_delete" style="display: none;">사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
 				</div>
 				
 				<div class="form-group">

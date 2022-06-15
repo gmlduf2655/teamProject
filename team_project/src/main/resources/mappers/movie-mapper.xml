@@ -32,6 +32,9 @@
 		select * from tbl_movie
 		where movie_code = #{movie_code}
 	</select>
-	
-	
+	<!-- 영화 존재여부 -->
+	<select id="movieInfoByMovieCodeExist" resultType="int">
+		select count(*) from tbl_movie
+  		where movie_code = #{movie_code}
+	</select>
 </mapper>

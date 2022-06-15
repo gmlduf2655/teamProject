@@ -9,4 +9,5 @@ public interface MovieDao {
 	public List<MovieVo> movieListIng();
 	public List<MovieVo> movieListSoon();
 	public MovieVo movieInfoByMovieCode(String movie_code);
+	public int movieInfoByMovieCodeExist(String movie_code);
 }
