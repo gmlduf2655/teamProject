@@ -22,8 +22,10 @@ public class HostInterceptor extends HandlerInterceptorAdapter {
 		// 임희열 : 호스트일 때
 		if(loginUserVo == null) {
 			
-		}else if(loginUserVo.getUserid().equals("user01") && loginUserVo.getUserpw().equals("1234")){
-			System.out.println("인증완료");
+		}else if(loginUserVo.getUserid().equals("admin") && loginUserVo.getUserpw().equals("1234")){
+			System.out.println("관리자 인증완료");
+		}else {
+			
 		}
 		return super.preHandle(request, response, handler);
 	}

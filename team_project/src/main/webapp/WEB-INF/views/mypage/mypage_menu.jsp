@@ -19,7 +19,7 @@
     			<div class="mb-4">
 	    			<h3 class="mb-3">3.포인트</h3>
 	    			<ul style="padding-left:50px;">
-	    				<li><a href="/point/point_list?userno=${loginUserVo.userno}&userid=${loginUserVo.userid}">포인트 내역</a></li>
+	    				<li><a href="/point/point_list?userno=${loginUserVo.userno}&page=1">포인트 내역</a></li>
 	    				<li><a href="#">포인트 충전</a></li>
 	    			</ul>
 	    		</div>
@@ -27,6 +27,6 @@
 	    			<h3 class="mb-3">4. 내 활동</h3>
 	    			<ul style="padding-left:50px;">
 	    				<li><a href="/point/point_list?userno=${loginUserVo.userno}&userid=${loginUserVo.userid}">내 리뷰</a></li>
-	    				<li><a href="#">참여 이벤트</a></li>
+	    				<li><a href="/mypage/participate_event_list?userno=${loginUserVo.userno}">참여 이벤트</a></li>
 	    			</ul>
 	    		</div>

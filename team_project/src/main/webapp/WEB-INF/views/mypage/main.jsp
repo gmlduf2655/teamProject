@@ -151,7 +151,7 @@
 			                        <!-- 프로필 사진이 없다면 기본이미지 있다면 프로필 사진이미지를 보여줌 -->
 			                        <c:choose>
 			                        	<c:when test="${empty userVo.profile_image}">
-			                        		<img class="mb-3"  id="profile_image_view" alt="프로필 사진" src="/resources/images/no_image.jpg" style="width:300px;">
+			                        		<img class="mb-3"  id="profile_image_view" alt="프로필 사진" src="/resources/images/default_image.jpg" style="width:300px;height:300px;border-radius:100%;">
 			                        	</c:when>
 			                        	<c:otherwise>
 			                        		<!-- 간편로그인(sns)회원일때와 아닐때 프로필 사진파일을 가져주는 방식이 다르기떄문에 이와 같이 코드 작성 -->
@@ -264,7 +264,7 @@
 	            	</div>
 	            	<div class="row">
 		            	<div class="col-lg-12" style="text-align:center;">
-			            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&userid=${userVo.userid}">더보기</a>
+			            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&page=1">더보기</a>
 		            	</div>
 		            </div>
 	            </div>
@@ -279,7 +279,6 @@
 							<c:if test="${status.count <=4}">
 							<div class="col-lg-3 col-md-6 col-sm-6">
 								<div class="product__item">
-	<!-- 								<div class="product__item__pic set-bg" data-setbg="/resources/images/img/trending/trend-1.jpg" -->
 									<div class="product__item__pic set-bg" 
 											<c:choose>
 											<c:when test="${empty movieVo.movie_image_name}">
@@ -290,13 +289,6 @@
 											</c:otherwise>
 											</c:choose>
 											style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">								
-	<!-- 									<div class="ep">18 / 18</div> -->
-	<!-- 									<div class="comment"> -->
-	<!-- 										<i class="fa fa-comments"></i> 11 -->
-	<!-- 									</div> -->
-	<!-- 									<div class="view"> -->
-	<!-- 										<i class="fa fa-eye"></i> 1234 -->
-	<!-- 									</div> -->
 									</div>
 									<div class="product__item__text">
 										<ul>
@@ -326,8 +318,57 @@
 	                <div class="col-lg-12">
 						<h3>내가 작성한 리뷰</h3>
 	            	</div>
+					<div class="row">
+			            <div class="col-lg-12" style="text-align:center;">
+				            <a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
+			            </div>
+		            </div>	            	
 	            </div>
-	            <!-- 유저 영화 리뷰 부분끝 -->
+	            <!-- 유저 영화 리뷰 부분 끝 -->
+	            <hr>
+	            <!-- 유저 참여 이벤트 부분 -->
+	            <div class="row d-flex justify-content-center">
+		        	<div class="col-lg-12">
+		                <h3 class="mb-4">내가 참여한 이벤트</h3>
+						<div class="row">
+							<c:forEach var="eventVo" items="${eventList}" varStatus="status">
+								<c:if test="${status.count <= 4}">
+								<div class="col-md-3">
+									<div class="product__item">
+										<div class="product__item__pic set-bg" 
+												<c:choose>
+												<c:when test="${empty eventVo.event_image}">
+													data-setbg="/resources/images/no_image.jpg" 
+												</c:when>
+												<c:otherwise>
+													data-setbg="/event/displayImage?filename=${eventVo.event_image}"
+												</c:otherwise>
+												</c:choose>
+												style="cursor: pointer;" onclick="location.href='/event/event_read?event_no=${eventVo.event_no}';">								
+										</div>
+										<div class="product__item__text">
+											<ul>
+												<li>액션이 죽이는</li>
+												<li>영화</li>
+											</ul>
+											<h5>
+												<a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
+											</h5>
+												<span style="color:white">${eventVo.event_start_date}~${eventVo.event_end_date}</span>
+										</div>
+									</div>
+								</div>
+								</c:if>
+								</c:forEach>
+							</div>
+						<div class="row">
+					        <div class="col-lg-12" style="text-align:center;">
+						        <a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
+					    	</div>
+				    	</div>	            	
+		            </div>
+	            </div>
+	            <!-- 유저 참여 이벤트 부분 끝 -->
     		</div>
     		<div class="col-md-2"></div>
     	</div>

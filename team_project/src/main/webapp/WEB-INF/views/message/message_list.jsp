@@ -16,6 +16,14 @@
 	.nice-select{
 		color:black;
 	}
+	#pagination a{
+		background-color:#e53637;
+		border-color:#e53637;
+	}
+	.nav-link{
+		color:white;
+	}
+	
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -156,23 +164,21 @@
 				<!-- nav 부분 -->
 				<nav class="row mb-3" >
 					<div class="col-md-4">
-						<div class="tabbable" id="tabs-75640">
-							<ul class="nav nav-tabs">
+						<div>
+							<ul class="nav">
 								<li class="nav-item"><a
-									class="nav-link
-											<c:if test="${param.type == 'receive'}">active show</c:if>
-											"
+									class="nav-link"
+									<c:if test="${param.type == 'receive'}">style="color:#007bff;"</c:if>
 									href="/message/message_list?page=1&type=receive">받는쪽지함</a></li>
 								<li class="nav-item"><a
-									class="nav-link 
-											<c:if test="${param.type == 'send'}">active show</c:if>
-											"
-									href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
+									class="nav-link "
+											<c:if test="${param.type == 'send'}">style="color:#007bff;"</c:if>
+									 href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-1"></div>
-					<div class="col-md-2">
+					<div class="col-md-3"></div>
+					<div class="col-md-1" style="text-align:right;">
 						<select name="searchType" id="searchType" style="color:black;">
 							<option value="t">제목</option>
 							<option value="c">내용</option>
@@ -181,10 +187,10 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<input type="text" class="form-control" name="keyword" id="keyword">
+						<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 					</div>
-					<div class="col-md-2" style="padding-left:0px;">
-						<a type="button" class="btn btn-primary" id="search_btn">검색</a>
+					<div class="col-md-1" style="padding-left:0px;">
+						<button type="button" class="site-btn" id="search_btn">검색</button>
 					</div>
 				</nav>
 				<!-- nav 부분 끝-->
@@ -273,7 +279,7 @@
 		<div class="row mb-3">
 			<div class="col-md-12">
 				<nav>
-					<ul class="pagination justify-content-center" id="pagination">
+					<ul class="pagination justify-content-center" id="pagination" >
 						<c:if test="${pagingDto.startPage > 1}">
 							<li class="page-item"><a class="page-link move_page"
 								href="1">처음으로</a></li>
@@ -307,8 +313,8 @@
 		<!-- 글 목록 페이징 부분 끝 -->
 		<!-- 메세지 다중 삭제 버튼 -->
 		<div style="text-align: center">
-			<a class="btn btn-primary" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
-			<button type="button" class="btn btn-primary" id="form_btn">삭제하기</button>
+			<a class="site-btn" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
+			<button type="button" class="site-btn" id="form_btn">삭제하기</button>
 		</div>
 		<!-- 메세지 다중 삭제 버튼 끝-->
     </section>
