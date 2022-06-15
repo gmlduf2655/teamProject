@@ -99,6 +99,7 @@ $(document).ready(function(){
 									data-setbg="/event/displayImage?filename=${eventVo.event_image}"
 								</c:otherwise>
 								</c:choose>
+								style="cursor: pointer;" onclick="location.href='/event/event_read?event_no=${eventVo.event_no}';"
 							>
 								
 								<div class="view">

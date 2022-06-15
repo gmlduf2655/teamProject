@@ -363,7 +363,7 @@
 							</div>
 						<div class="row">
 					        <div class="col-lg-12" style="text-align:center;">
-						        <a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
+						        <a class="site-btn" href="/mypage/participate_event_list?userno=${userVo.userno}">더보기</a>
 					    	</div>
 				    	</div>	            	
 		            </div>
