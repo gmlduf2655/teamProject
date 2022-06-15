@@ -27,7 +27,6 @@
 	</style>
     <script>
 		$(document).ready(function(){
-			
 		});
     </script>
     
@@ -58,22 +57,22 @@
 	            <!-- 유저 영화 예매 내역 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
-						<h3 class="mb-4">영화 예매내역</h3>
+						<h3 class="mb-4">내가 참가한 이벤트</h3>
 						<div class="row">
-						<c:forEach var="movieVo" items="${movieList}" varStatus="status">
+						<c:forEach var="eventVo" items="${eventList}" varStatus="status">
 							<c:if test="true">
 							<div class="col-md-3">
 								<div class="product__item">
 									<div class="product__item__pic set-bg" 
 											<c:choose>
-											<c:when test="${empty movieVo.movie_image_name}">
+											<c:when test="${empty eventVo.event_image}">
 												data-setbg="/resources/images/no_image.jpg" 
 											</c:when>
 											<c:otherwise>
-												data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
+												data-setbg="/event/displayImage?filename=${eventVo.event_image}"
 											</c:otherwise>
 											</c:choose>
-											style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">								
+											style="cursor: pointer;" onclick="location.href='/event/event_read?event_no=${eventVo.event_no}';">								
 									</div>
 									<div class="product__item__text">
 										<ul>
@@ -81,8 +80,9 @@
 											<li>영화</li>
 										</ul>
 										<h5>
-											<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
+											<a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
 										</h5>
+											<span style="color:white">${eventVo.event_start_date}~${eventVo.event_end_date}</span>
 									</div>
 								</div>
 							</div>

@@ -45,6 +45,7 @@ import com.kh.team.util.GoogleOAuthRequest;
 import com.kh.team.util.GoogleOAuthResponse;
 import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.MovieVo;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -168,11 +169,13 @@ public class UserController {
 	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model, int userno) {
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
 		UserVo userVo = userService.getUserInfoByUserno(userno);
 		int follower = followService.selectFollowerNumber(userno);
 		int follow = followService.selectFollowNumber(userno);
-		List<PointVo> pointList = pointService.getPointListByUserno(userno);
+		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto);
 		List<MovieVo> movieList = movieService.movieList();
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);

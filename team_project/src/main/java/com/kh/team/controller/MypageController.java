@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.service.EventService;
 import com.kh.team.service.FollowService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
+import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MovieVo;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -31,22 +34,33 @@ public class MypageController {
 	PointService pointService;
 	@Autowired
 	MovieService movieService;
+	@Autowired 
+	EventService eventService;
 	
 	// 마이페이지 이동
-	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 
+	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 + 1개더 추가요
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model, int userno) {
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
+		// 유저 번호로 유저 정보 얻음
 		UserVo userVo = userService.getUserInfoByUserno(userno);
+		// 유저 번호로 팔로우와 팔로워 얻음
 		int follower = followService.selectFollowerNumber(userno);
 		int follow = followService.selectFollowNumber(userno);
-		List<PointVo> pointList = pointService.getPointListByUserno(userno);
+		// 유저 번호와 pagingDto로 포인트 목록 얻어옴 (페이지는 1페이지로 가정)
+		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto);
+		// 영화 목록을 얻어옴
 		List<MovieVo> movieList = movieService.movieList();
+		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
+		List<EventVo> eventList = eventService.list(pagingDto);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("userVo", userVo);
 		model.addAttribute("movieList", movieList);
+		model.addAttribute("eventList", eventList);
 		return "mypage/main";
 	}
 	
@@ -68,6 +82,15 @@ public class MypageController {
 		List<MovieVo> movieList = movieService.movieList();
 		model.addAttribute("movieList", movieList);
 		return "mypage/ticket_movie_list";
+	}
+	
+	// 참여 이벤트 페이지 이동
+	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
+	public String participateEventList(Model model, int userno) {
+		PagingDto pagingDto = new PagingDto();
+		List<EventVo> eventList = eventService.list(pagingDto);
+		model.addAttribute("eventList", eventList);
+		return "mypage/participate_event_list";
 	}
 	
 	// 비밀번호 변경 페이지 이동

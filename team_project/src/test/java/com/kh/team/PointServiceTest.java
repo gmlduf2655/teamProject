@@ -49,7 +49,7 @@ public class PointServiceTest {
 	// 아이디로 포인트 목록 조회 테스트
 	@Test
 	public void testGetPointListByUserno() {
-		List<PointVo> pointList = pointService.getPointListByUserno(1);
+		List<PointVo> pointList = pointService.getPointListByUserno(1, null);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointServiceTest, testGetPointListByUserno, pointVo : " + pointVo);
 		}		

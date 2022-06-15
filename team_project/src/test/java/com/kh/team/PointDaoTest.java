@@ -48,7 +48,7 @@ public class PointDaoTest {
 	// 아이디로 포인트 목록조회 테스트
 	@Test
 	public void testSelectPointListByUserno() {
-		List<PointVo> pointList = pointDao.selectPointListByUserno(1);
+		List<PointVo> pointList = pointDao.selectPointListByUserno(1, null);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointDaoTest, testSelectPointListByUserno, pointVo : " + pointVo);
 		}		

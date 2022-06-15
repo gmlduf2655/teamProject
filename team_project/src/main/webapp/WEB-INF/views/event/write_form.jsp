@@ -87,6 +87,7 @@
 
 
 <script>
+// 썸머노트
 $('.summernote').summernote({
 	  // 에디터 높이
 	  height: 350,
@@ -120,7 +121,7 @@ $('.summernote').summernote({
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		
 	});
-	
+// 썸머노트 이미지 업로드
 function uploadSummernoteImageFile(file) {
 	data = new FormData();
 	data.append("file", file);
@@ -169,7 +170,7 @@ $(document).ready(function(){
 // 이벤트 시작일 최소날짜
 var today = new Date();
 var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
+var mm = today.getMonth() + 1; //1월은 0
 var yyyy = today.getFullYear();
 
 if (dd < 10) {
