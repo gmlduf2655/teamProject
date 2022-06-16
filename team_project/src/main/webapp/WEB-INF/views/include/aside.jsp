@@ -27,7 +27,7 @@
                     <!-- 임희열 : 로그인을 했을 때  기존회원이면 C:/에서 프로필 사진을 가져오고 간편로그인 회원이면 Url을 통해서 프로필 사진을 가져옴-->
 					<c:choose>
                         <c:when test="${empty loginUserVo.profile_image}" >
-                        	<img src="/resources/images/no_image.jpg" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
+                        	<img src="/resources/images/default_image.jpg" alt="프로필 사진" style="width:90px; height:90px;border-radius:100%">
                         </c:when>
                         <c:otherwise>
                         	<c:choose>
