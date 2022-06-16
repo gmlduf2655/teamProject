@@ -38,7 +38,7 @@ $(function(){
 		if(sType == null){
 			alert("검색타입을 선택해 주세요");
 		}else{
-			sKeyword = $("#moviename").val();
+			sKeyword = $("#sKeyword").val();
 			$("#btndbSearch").attr("href","/dbcontrol/dbSearch?sType="+sType+"&sKeyword="+sKeyword).submit();
 		}
 		
@@ -55,30 +55,34 @@ $(function(){
 
 <!-- 우리서버 영화 DB -->
 <div class="row" >
-		<div class="col-md-2"></div>
-		<div class="col-md-8" align="center" style="background-color: #eeeeee;">
+		<div class="col-md-12" style="background-color: #eeeeee;">
 		<hr>
 			<a type="button" class="btn btn-outline-success" id="btndbListopen">우리서버 상영중, 예정DB리스트</a>
 			<a type="button" class="btn btn-outline-primary" id="btndbListtotal">우리서버 전체 DB리스트</a>
 			<a type="button" class="btn btn-outline-warning" id="btndbListend">우리서버 종영 DB리스트</a>
 			<br><br><br>
-			<select id="searchType">
-				<option value="">선택
-				<option value="movie_code">영화코드
-				<option value="movie_name">영화제목
-			</select>
-			<input type="text" name="skeyword" id="moviename">
-			<a type="button" class="btn btn-outline-primary"
-					id="btndbSearch">우리서버 영화 검색</a>
-			
+			<div class="col">
+				<select id="searchType">
+					<option value="">선택
+					<option value="movie_code">영화코드
+					<option value="movie_name">영화제목
+					<option value="movie_actors">배우
+					<option value="movie_director">감독
+					<option value="opening_date">개봉날짜
+				</select>
+				<input type="text" name="skeyword" id="sKeyword" class="form-control" 
+							style="width: 300px;display:inline-block; margin: 3px;">
+				<a type="button" class="btn btn-outline-primary"
+						id="btndbSearch" style="margin-bottom: 5px;">우리서버 영화 검색</a>
+			</div>
 			
 		</div>
 		
-		<div class="col-md-2"></div>
+		
 	</div>
 <div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
+		
+		<div class="col-md-12">
 		<br>
 				<table class="table">
 					<thead>
@@ -138,7 +142,7 @@ $(function(){
 					</tbody>
 				</table>
 			</div>
-		<div class="col-md-2"></div>
+		
 </div>
 
 

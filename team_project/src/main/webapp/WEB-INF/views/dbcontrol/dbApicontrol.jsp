@@ -68,42 +68,33 @@ $(function(){
 					console.log("data" , data);
 					var rdata = data.movieInfoResult.movieInfo;
 					console.log(rdata.movieCd);
-					$('#list').append("<span>영화코드:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_code' value='" + rdata.movieCd +"'><br>");
-					$('#list').append("<span>영화제목:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_name' value='" + rdata.movieNm +"'><br>");
-					$('#list').append("<span>영화원제:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_name_en' value='" + rdata.movieNmEn +"'><br>");
-					$('#list').append("<span>제작연도:</span><input type='text' class=\'movieList\' style='width:300px;' name='make_year' value='" + rdata.prdtYear +"'><br>");
-					$('#list').append("<span>러닝타임:</span><input type='text' class=\'movieList\' style='width:300px;' name='runningtime' value='" + rdata.showTm +"'><br>");
-					$('#list').append("<span>개봉날짜:</span><input type='text' class=\'movieList\' style='width:300px;' name='opening_date' value='" + rdata.openDt +"'><br>");
-					$('#list').append("<span>제작회사:</span><input type='text' class=\'movieList\' style='width:300px;' name='made_company' value='" + rdata.companys[0].companyNm +"'><br>");
-					$('#list').append("<span>제작국가:</span><input type='text' class=\'movieList\' style='width:300px;' name='made_country' value='" + rdata.nations[0].nationNm +"'><br>");
-					$('#list').append("<span>영화감독:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_director' value='" + rdata.directors[0].peopleNm +"'><br>");
-					$('#list').append("<span>영화장르:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_genre' value='" + rdata.genres[0].genreNm +"'><br>");
-					$('#list').append("<span>영화배우:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_actors' value='" + rdata.actors[0].peopleNm +"'><br>");
-					$('#list').append("<span>영화등급:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_audits' value='" + rdata.audits[0].watchGradeNm +"'><br>");
-					$('#list').append("<span>메인예고:</span><input type='text' class=\'movieList\' style='width:300px;' name='movie_video_add' placeholder='v/ 이후 주소를 넣어주세요'><br>");
-					$('#list').append("<span>영화시놉:</span><textarea class=\'movieList\' style='width:300px; height:200px; ' name='movie_synopsis'></textarea><br>");
-					$('#list').append("<span><label for='file'> 포스터  :</label><input type='file' id='file' name='file' /></span>"); /* class='form-control-file'  */
+					$('#list').append("<hr><span>영화코드:</span><input type='text' class='form-control movieList' style='width:500px; display:inline-block; ' name='movie_code' value='" + rdata.movieCd +"'><br>");
+					$('#list').append("<span>영화제목:</span><input type='text' class=\'form-control movieList\' style='width:500px; display:inline-block; ' name='movie_name' value='" + rdata.movieNm +"'><br>");
+					$('#list').append("<span>영화원제:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_name_en' value='" + rdata.movieNmEn +"'><br>");
+					$('#list').append("<span>제작연도:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='make_year' value='" + rdata.prdtYear +"'><br>");
+					$('#list').append("<span>러닝타임:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='runningtime' value='" + rdata.showTm +"'><br>");
+					$('#list').append("<span>개봉날짜:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='opening_date' value='" + rdata.openDt +"'><br>");
+					$('#list').append("<span>제작회사:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='made_company' value='" + rdata.companys[0].companyNm +"'><br>");
+					$('#list').append("<span>제작국가:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='made_country' value='" + rdata.nations[0].nationNm +"'><br>");
+					$('#list').append("<span>영화감독:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_director' value='" + rdata.directors[0].peopleNm +"'><br>");
+					$('#list').append("<span>영화장르:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_genre' value='" + rdata.genres[0].genreNm +"'><br>");
+					$('#list').append("<span>영화배우:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_actors' value='" + rdata.actors[0].peopleNm +"'><br>");
+					$('#list').append("<span>영화등급:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_audits' value='" + rdata.audits[0].watchGradeNm +"'><br>");
+					$('#list').append("<span>메인예고:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_video_add' placeholder='v/ 이후 주소를 넣어주세요'><br>");
+					$('#list').append("<span>영화시놉:</span><textarea class=\'form-control movieList\' style='width:500px; height:200px; display:inline-block; ' name='movie_synopsis'></textarea><br>");
+					$('#list').append("<span><label for='file'> 포스터  :</label><input type='file' id='file' name='file' /></span><hr>"); /* class='form-control-file'  */
 				}		
 		});
-			/*$.each(data.movieInfoResult.movieInfo, function(i,j){
-					 console.log( " i" + i);
-					 console.log("J" +j);
-					$('#list' + 0).append("<textarea class=\'movieList\' name='movie_code' value='" + j +"'>"+ i +":" + j +"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='movie_name' value='" +j.movieNm +"'>" +j.movieNm+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='movie_name_en' value='" +j.movieNmEn +"'>" +j.movieNmEn+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='s_make_year' value='" +j.prdtYear +"'>" +j.prdtYear+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='s_runningtime' value='" +j.showTm +"'>" +j.showTm+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='opening_date' value='" +j.openDt +"'>" +j.openDt+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='MADE_COUNTRY' value='" +j.nationNm +"'>" +j.nationAlt+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='movie_genre' value='" +j.genreNm +"'>" +j.genreAlt+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='movie_director' value='" +j.peopleNm +"'>" +j.repNationNm+"</textarea><br>");
-					$('#list').append("<textarea class=\'movieList\' name='made_company' value='" +j.companyNm +"'>" +j.companyNm+"</textarea><br>");
-					 
-				}); */
+			
 		});
 	});
 </script>
 <style>
+	/* .movieList input{
+		width: 300px;
+		display:inline-block; 
+		margin: 3px;
+	} */
 	body {
 		background-color: #eeeeee;
 	}
@@ -137,8 +128,8 @@ $(function(){
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<div class="container-fluid">
 				<div class="row">
-
-					<div class="col-md-12" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<br>
 						<br>
 						<br>
@@ -153,15 +144,16 @@ $(function(){
 						<button type="submit" class="btn btn-sm btn-outline btn-success"
 							id="dbSearch">진흥원DB검색</button>
 					</div>
-
+				<div class="col-md-1"></div>
 
 				</div>
 				<!-- 진흥원 DB검색 내용 -->
 				<div class="row">
-					<div class="col-md-12" align="center">
+				<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<form action="" enctype="multipart/form-data">
 							<div id="releaseCont">
-								<hr>
+								
 
 								<div class="active" id="list">
 									<a href="#"></a>
@@ -169,22 +161,22 @@ $(function(){
 
 								</div>
 							</div>
-							<hr>
-							<br>
-							<br>
+							<div align="center">
 							<button type="submit" class="btn btn-primary btndbRelation"
 								id="dbSave" style="display: none;">db저장</button>
 							<button type="submit" class="btn btn-warning btndbRelation"
 								id="dbUpdate" style="display: none;">db수정</button>
 							<button type="submit" class="btn btn-danger btndbRelation"
 								id="dbDelete" style="display: none;">db삭제</button>
-						</form>
-
+							</div>	
+						</form><br>
+					
 					</div>
+					<div class="col-md-1"></div>
 				</div>
-				<!-- 우리서버 영화 DB -->
+		<%-- 		<!-- 우리서버 영화 DB -->
 				<jsp:include page="/WEB-INF/views/dbcontrol/serverListDB.jsp" />
-				<%-- <%@ include file="/WEB-INF/views/dbcontrol/serverListDB.jsp"%> --%>
+				<%@ include file="/WEB-INF/views/dbcontrol/serverListDB.jsp"%> --%>
 			</div>
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>
