@@ -8,11 +8,18 @@
 <style>
 	body {
 		background-color: #eeeeee;
+	}section.product {
+		padding : 0;
+	}
+	
+	.ma {
+		border-top: 50px solid #eeeeee;
 	}
 </style>
 <!-- 샘플 레이아웃 데이터 -->
-<div>
-	<div class="row">
+<div class="ma">
+
+	<div class="row" style="background-color: #eeeeee">
 		<div class="col-md-1"></div>
 		<!-- 유수연 메뉴 목록  -->
 		<div class="col-md-2">
@@ -26,12 +33,13 @@
 		<!-- 유수연 상세내용  -->
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+			<br><h2>관리자 페이지 접속</h2>
+			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-1"></div>
 	</div>
-
-
 </div>
+
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

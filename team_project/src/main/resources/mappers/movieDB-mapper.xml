@@ -22,7 +22,7 @@
 			#{movie_name_en},#{opening_date},
 			#{make_year},#{runningtime}, #{made_country},#{made_company},
 			#{movie_genre}, #{movie_director} ,#{movie_image_name},#{movie_actors},
-			#{movie_audits}, #{movie_synopsis}, #{movie_video_add}, #{endding_date})
+			#{movie_audits}, #{movie_synopsis}, #{movie_video_add, jdbcType = VARCHAR}, #{endding_date, jdbcType = VARCHAR})
 	</insert>
 	
 	<!-- 유수연 영화 DB 업데이트  -->
@@ -41,8 +41,8 @@
 			movie_actors = #{movie_actors},
 			movie_audits = #{movie_audits},
 			movie_synopsis = #{movie_synopsis},
-			movie_video_add = #{movie_video_add},
-			endding_date =  #{endding_date}
+			movie_video_add = #{movie_video_add , jdbcType = VARCHAR},
+			endding_date =  #{endding_date, jdbcType = VARCHAR}
 		where movie_code = #{movie_code}
 	</update>
 

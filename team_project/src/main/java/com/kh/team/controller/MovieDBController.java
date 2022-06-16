@@ -27,6 +27,21 @@ public class MovieDBController {
 	@Autowired
 	private MovieDBService service;
 	
+	//유수연 - API 영화등록 페이지 
+	@RequestMapping(value="/dbApicontrol", method = RequestMethod.GET)
+	public String dbApicontrol() {
+		
+		return "dbcontrol/dbApicontrol";
+	}
+	
+	//유수연 - 우리서버 영화 관리 페이지 
+	@RequestMapping(value="/serverListDB", method = RequestMethod.GET)
+	public String serverListDB() {
+		
+		return "dbcontrol/serverListDB";
+	}
+	
+	
 	//유수연 - 진흥원 데이터검색으로 우리 DB 영화 입력
 	@RequestMapping(value="/dbSave", method = RequestMethod.POST)
 	public String movieCrawling(MovieVo movieVo, MultipartFile file, RedirectAttributes rttr) {
@@ -42,7 +57,7 @@ public class MovieDBController {
 			e.printStackTrace();
 		}
 	
-		return "redirect:/dbcontrol/dbList";
+		return "redirect:/dbcontrol/dbApicontrol";
 	}
 	//유수연 - 진흥원 데이터검색으로 우리 DB 영화 수정
 	@RequestMapping(value="/dbUpdate", method = RequestMethod.POST)
@@ -57,7 +72,7 @@ public class MovieDBController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/dbcontrol/dbList";
+		return "redirect:/dbcontrol/dbApicontrol";
 	}
 	
 	//유수연 - 진흥원 데이터검색으로 우리 DB 영화 삭제
@@ -65,29 +80,29 @@ public class MovieDBController {
 	public String deleteMovie(String movie_code, RedirectAttributes rttr) {
 		boolean result = service.deleteMovie(movie_code);
 		rttr.addFlashAttribute("db_delete_result", result);
-		return "redirect:/dbcontrol/dbList";
+		return "redirect:/dbcontrol/dbApicontrol";
 	}
 	
-	//유수연 - 우리 DB 영화 리스트
+	//유수연 - 우리 DB 영화 리스트 
 	@RequestMapping(value="/dbList", method = RequestMethod.GET)
 	public String dbListMovie(Model model) {
 		List<MovieVo> list = service.movieList();
 		model.addAttribute("list", list);
-		return "dbcontrol/dbList";
+		return "dbcontrol/serverListDB";
 	}
 	//유수연 - 우리 DB 상영,예정 영화 리스트
 	@RequestMapping(value="/dbListopen", method = RequestMethod.GET)
 	public String dbListopenMovie(Model model) {
 		List<MovieVo> list = service.movieListopen();
 		model.addAttribute("list", list);
-		return "dbcontrol/dbList";
+		return "dbcontrol/serverListDB";
 	}
 	//유수연 - 우리 DB 종영영화 리스트
 	@RequestMapping(value="/dbListend", method = RequestMethod.GET)
 	public String dbListendMovie(Model model) {
 		List<MovieVo> list = service.movieListend();
 		model.addAttribute("list", list);
-		return "dbcontrol/dbList";
+		return "dbcontrol/serverListDB";
 	}
 	
 	//유수연 - 우리 DB 영화 타입별 검색
@@ -95,7 +110,7 @@ public class MovieDBController {
 	public String dbSearchMovie(String sType, String sKeyword, Model model) {
 		List<MovieVo> list = service.dbSearchMovie(sType, sKeyword);
 		model.addAttribute("list", list);
-		return "dbcontrol/dbList";
+		return "dbcontrol/serverListDB";
 	}
 	
 	//유수연 - 우리 DB 영화 상세페이지
