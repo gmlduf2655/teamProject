@@ -422,7 +422,7 @@
 				    		</thead>
 				    		<tbody>
 				    		
-				    			<c:forEach var="eventVo" items="${participateEventList}" varStatus="status">
+				    			<c:forEach var="eventVo" items="${eventList}" varStatus="status">
 				    			<c:choose>
 								<c:when test ="${eventVo.userno == userVo.userno}">
 									<c:if test="${status.index < 5}">

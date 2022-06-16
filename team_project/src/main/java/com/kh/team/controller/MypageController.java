@@ -65,22 +65,22 @@ public class MypageController {
 		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto);
 		// 영화 목록을 얻어옴
 		List<MovieVo> movieList = movieService.movieList();
-		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로함)
-		List<EventVo> eventList = eventService.list(pagingDto);
+//		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로함)
+//		List<EventVo> eventList = eventService.list(pagingDto);
 		// reviewPagingDto로 리뷰 목록 얻어옴 (페이지는 1페이지로함)
 		List<ReviewVo> reviewList = reviewService.list(reviewPagingDto);
 		
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
 //		List<EventVo> eventList = eventService.list(pagingDto);
 		// 내가 참여한 이벤트 목록 얻어오기
-		List<ParticipateEventVo> participateEventList = participateEventService.list(pagingDto);
+		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("userVo", userVo);
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("eventList", eventList);
-		model.addAttribute("participateEventList", participateEventList);
+//		model.addAttribute("participateEventList", participateEventList);
 		model.addAttribute("reviewList", reviewList);
 		return "mypage/main";
 	}
