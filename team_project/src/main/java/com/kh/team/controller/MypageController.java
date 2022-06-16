@@ -15,12 +15,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.team.service.EventService;
 import com.kh.team.service.FollowService;
 import com.kh.team.service.MovieService;
+import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PagingDto;
+import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
@@ -42,6 +44,8 @@ public class MypageController {
 	EventService eventService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	ParticipateEventService participateEventService;
 	
 	// 마이페이지 이동
 	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 + 1개더 추가요
@@ -66,12 +70,17 @@ public class MypageController {
 		// reviewPagingDto로 리뷰 목록 얻어옴 (페이지는 1페이지로함)
 		List<ReviewVo> reviewList = reviewService.list(reviewPagingDto);
 		
+		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
+//		List<EventVo> eventList = eventService.list(pagingDto);
+		// 내가 참여한 이벤트 목록 얻어오기
+		List<ParticipateEventVo> participateEventList = participateEventService.list(pagingDto);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("userVo", userVo);
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("eventList", eventList);
+		model.addAttribute("participateEventList", participateEventList);
 		model.addAttribute("reviewList", reviewList);
 		return "mypage/main";
 	}
@@ -111,14 +120,26 @@ public class MypageController {
 		return "mypage/write_review_list";
 	}
 	
-//	// 참여 이벤트 페이지 이동
-//	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
-//	public String participateEventList(Model model, int userno) {
-//		PagingDto pagingDto = new PagingDto();
-//		List<EventVo> eventList = eventService.list(pagingDto);
-//		model.addAttribute("eventList", eventList);
-//		return "mypage/participate_event_list";
-//	}
+	// 참여 이벤트 페이지 이동
+	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
+	public String participateEventList(Model model, PagingDto pagingDto, int userno) {
+		System.out.println("MypageController, participateEventList, pagingDto:"+pagingDto);
+		pagingDto.setPage(pagingDto.getPage());
+		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
+		pagingDto.setCount(participateEventService.getCount(pagingDto));
+		model.addAttribute("eventList", eventList);
+		model.addAttribute("pagingDto", pagingDto);
+		return "mypage/participate_event_list";
+	}
+	
+
+	// 이벤트 참여 취소(삭제 버튼)
+	@RequestMapping(value="/participate_event_cancel", method=RequestMethod.GET)
+	@ResponseBody
+	public String participateEventCancel(int participate_no) {
+		boolean result = participateEventService.delete(participate_no);
+		return String.valueOf(result);
+	}
 	
 	// 비밀번호 변경 페이지 이동
 	@RequestMapping(value="/change_password_form" , method=RequestMethod.GET)

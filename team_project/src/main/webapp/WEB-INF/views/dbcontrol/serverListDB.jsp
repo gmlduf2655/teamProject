@@ -1,11 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- Css Styles -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 	
+<!-- header -->
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
+<style>
+	body {
+		background-color: #eeeeee;
+	}
+	#trlist:hover {
+	background-color: aliceblue;
+	}
+	
+	section.product {
+		padding : 0;
+	}
+	
+	.ma {
+		border-top: 50px solid #eeeeee;
+	}
+</style>
 <script>
 $(function(){
 	$("#tableList").on("click", ".opening_date_input" ,function(){
@@ -38,7 +53,7 @@ $(function(){
 		if(sType == null){
 			alert("검색타입을 선택해 주세요");
 		}else{
-			sKeyword = $("#moviename").val();
+			sKeyword = $("#sKeyword").val();
 			$("#btndbSearch").attr("href","/dbcontrol/dbSearch?sType="+sType+"&sKeyword="+sKeyword).submit();
 		}
 		
@@ -46,39 +61,56 @@ $(function(){
 	
 });	
 </script>
-<style>
-#trlist:hover {
-	background-color: aliceblue;
-}
-</style>
 
+<!-- 샘플 레이아웃 데이터 -->
+
+<div class="ma">
+	<div class="row" style="background-color: #eeeeee">
+		<div class="col-md-1"></div>
+		<!-- 유수연 메뉴 목록  -->
+		<div class="col-md-2">
+		<div class="menu">
+	    			<%-- <c:if test="">
+								로그인 계정이 관리자 계정일때 관리자 메뉴 보이도록
+	    			</c:if> --%>
+	    				<jsp:include page="/WEB-INF/views/admin/manage_menu.jsp"/>	
+    			</div> 
+		</div>
+		<!-- 유수연 상세내용  -->
+		<div class="col-md-7">
+			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+			
 
 <!-- 우리서버 영화 DB -->
 <div class="row" >
-		<div class="col-md-2"></div>
-		<div class="col-md-8" align="center" style="background-color: #eeeeee;">
+		<div class="col-md-12" style="background-color: #eeeeee;">
 		<hr>
 			<a type="button" class="btn btn-outline-success" id="btndbListopen">우리서버 상영중, 예정DB리스트</a>
 			<a type="button" class="btn btn-outline-primary" id="btndbListtotal">우리서버 전체 DB리스트</a>
 			<a type="button" class="btn btn-outline-warning" id="btndbListend">우리서버 종영 DB리스트</a>
 			<br><br><br>
-			<select id="searchType">
-				<option value="">선택
-				<option value="movie_code">영화코드
-				<option value="movie_name">영화제목
-			</select>
-			<input type="text" name="skeyword" id="moviename">
-			<a type="button" class="btn btn-outline-primary"
-					id="btndbSearch">우리서버 영화 검색</a>
-			
+			<div class="col">
+				<select id="searchType">
+					<option value="">선택
+					<option value="movie_code">영화코드
+					<option value="movie_name">영화제목
+					<option value="movie_actors">배우
+					<option value="movie_director">감독
+					<option value="opening_date">개봉날짜
+				</select>
+				<input type="text" name="skeyword" id="sKeyword" class="form-control" 
+							style="width: 300px;display:inline-block; margin: 3px;">
+				<a type="button" class="btn btn-outline-primary"
+						id="btndbSearch" style="margin-bottom: 5px;">우리서버 영화 검색</a>
+			</div>
 			
 		</div>
 		
-		<div class="col-md-2"></div>
+		
 	</div>
 <div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
+		
+		<div class="col-md-12">
 		<br>
 				<table class="table">
 					<thead>
@@ -138,9 +170,14 @@ $(function(){
 					</tbody>
 				</table>
 			</div>
-		<div class="col-md-2"></div>
+		
+</div>
+			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-1"></div>
+	</div>
 </div>
 
-
-
-
+<!-- footer -->
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>

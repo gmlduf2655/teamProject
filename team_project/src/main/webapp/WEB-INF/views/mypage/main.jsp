@@ -126,7 +126,27 @@
 					}
 				});
 			});
-		});
+			
+			// 새로고침
+			function refreshMemList(){
+				location.reload();
+			}
+			
+			// 이벤트 참가 취소
+			$(".table").on("click", ".btnEventCancel", function(){
+				var url = "/mypage/participate_event_cancel";
+				var participate_no = $(this).attr("value");
+				var sData = {
+						"participate_no" : participate_no
+				}
+				console.log("participate_no:", participate_no); 
+				$.get(url, sData, function(rData){
+					console.log("rData", rData);
+					refreshMemList();
+				});
+			});
+			
+		}); //$(document).ready
     </script>
     
     <!-- 제목 부분 -->
@@ -402,9 +422,8 @@
 				    		</thead>
 				    		<tbody>
 				    		
-				    			<c:forEach var="eventVo" items="${eventList}" varStatus="status">
+				    			<c:forEach var="eventVo" items="${participateEventList}" varStatus="status">
 				    			<c:choose>
-								
 								<c:when test ="${eventVo.userno == userVo.userno}">
 									<c:if test="${status.index < 5}">
 										<tr>

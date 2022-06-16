@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+
 
 
 <script>
@@ -76,7 +77,16 @@ $(document).ready(function(){
 							<label for="event_content"> 내용 </label>
 							${eventVo.event_content}
 						</div>
+						<!-- 이벤트 참가 버튼 -->
+					<!-- 오늘 날짜 구하기-->
+					<c:set var="date" value="<%=new java.util.Date()%>" />
+					<c:set var="today">
+						<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+					</c:set> 
+						<!-- 날짜에 따라 이벤트 참가버튼 보이고 안보이게 설정 -->
+						<c:if test="${eventVo.event_start_date <= today && eventVo.event_end_date >= today}">
 						<hr>
+						<!-- 이벤트 참가버튼을 누르면 이벤트 참가 내역 테이블로 데이터 전송 -->
 						<div class="anime__details__btn">
 						<form action="/event/participateEvent" method="post">
 							<input type="hidden" name="event_title" value="${eventVo.event_title}">
@@ -87,6 +97,8 @@ $(document).ready(function(){
 							<input type="submit" class="btn follow-btn" value="이벤트 참가">
 						</form>
 						</div>
+						</c:if>
+						<!-- 이벤트 참가 버튼 끝 -->
 						<hr>
 						
 						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a>
