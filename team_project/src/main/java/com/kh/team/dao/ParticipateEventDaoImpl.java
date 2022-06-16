@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
 
 @Repository
@@ -34,9 +35,15 @@ public class ParticipateEventDaoImpl implements ParticipateEventDao {
 	}
 
 	@Override
-	public List<ParticipateEventVo> list() {
-		List<ParticipateEventVo> participateEventList = sqlSession.selectList(NAMESPACE + "list");
+	public List<ParticipateEventVo> list(PagingDto pagingDto) {
+		List<ParticipateEventVo> participateEventList = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return participateEventList;
+	}
+
+	@Override
+	public int getCount(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
+		return count;
 	}
 
 }

@@ -21,8 +21,29 @@
 	
 	<!-- 글 전체 목록 -->
 	<select id="list" resultType="ParticipateEventVo">
-		select * from tbl_participate_event
-		order by event_no desc
+		select * from 
+			(select rownum rnum, a.* from
+    			(select * from tbl_participate_event
+    			<include refid="search"></include>
+    			order by event_no desc) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
+		
+	<!-- 글 갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) from tbl_participate_event
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 검색 조건 -->
+		<sql id="search">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					where event_title like '%' || #{keyword} || '%'
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
 
 </mapper>

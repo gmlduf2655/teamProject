@@ -91,7 +91,7 @@
     		</if> 
 		</sql>
 		
-		<!-- 검색 조건 -->
+		<!-- 검색 조건2 -->
 		<sql id="search2">
 			<if test="searchType != null and keyword != null">
     			<choose>
