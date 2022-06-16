@@ -22,8 +22,8 @@ public class ParticipateEventServiceImpl implements ParticipateEventService {
 	}
 
 	@Override
-	public boolean delete(ParticipateEventVo vo) {
-		boolean result = dao.delete(vo);
+	public boolean delete(int participate_no) {
+		boolean result = dao.delete(participate_no);
 		return result;
 	}
 

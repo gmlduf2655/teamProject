@@ -26,8 +26,8 @@ public class ParticipateEventDaoImpl implements ParticipateEventDao {
 	}
 
 	@Override
-	public boolean delete(ParticipateEventVo vo) {
-		int count = sqlSession.delete(NAMESPACE + "delete", vo);
+	public boolean delete(int participate_no) {
+		int count = sqlSession.delete(NAMESPACE + "delete", participate_no);
 		if (count > 0) {
 			return true;
 		}

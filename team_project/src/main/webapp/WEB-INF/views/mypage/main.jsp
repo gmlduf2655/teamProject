@@ -340,16 +340,23 @@
 				    			</tr>
 				    		</thead>
 				    		<tbody>
-								<c:forEach var="eventVo" items="${eventList}" varStatus="status">
+				    		
+				    			<c:forEach var="eventVo" items="${eventList}" varStatus="status">
+				    			<c:choose>
+								
+								<c:when test ="${eventVo.userno == userVo.userno}">
 									<c:if test="${status.index < 5}">
 										<tr>
 											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
-											<td>${pointVo.point_date}</td>
+											<td><button class="btn btn-sm btn-danger">이벤트 참여 취소</button></td>
 										</tr>
 									</c:if>
+								</c:when>
+								</c:choose>
 								</c:forEach>
+								
 							</tbody>
 				    	</table>
 	            	</div>

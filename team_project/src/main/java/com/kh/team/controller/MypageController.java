@@ -94,12 +94,20 @@ public class MypageController {
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
 	public String participateEventList(Model model, PagingDto pagingDto, int userno) {
 		System.out.println("MypageController, participateEventList, pagingDto:"+pagingDto);
-		pagingDto.setCount(participateEventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
 		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
+		pagingDto.setCount(participateEventService.getCount(pagingDto));
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list";
+	}
+	
+	// 이벤트 참여 취소(삭제 버튼)
+	@RequestMapping(value="/participate_event_cancel", method=RequestMethod.GET)
+	@ResponseBody
+	public String participateEventCancel(int participate_no) {
+		boolean result = participateEventService.delete(participate_no);
+		return String.valueOf(result);
 	}
 	
 	// 비밀번호 변경 페이지 이동

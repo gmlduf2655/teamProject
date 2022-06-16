@@ -39,7 +39,7 @@ public class EventController {
 	// 이벤트 게시글 목록
 	@RequestMapping(value = "/event_list", method = RequestMethod.GET)
 	public String eventList(Model model, PagingDto pagingDto) {
-		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
+//		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
 		pagingDto.setCount(eventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
 		List<EventVo> eventList = eventService.list(pagingDto);
@@ -57,13 +57,13 @@ public class EventController {
 	// 이벤트 게시글 작성
 	@RequestMapping(value = "/write_run", method = RequestMethod.POST)
 	public String writeRun(EventVo eventVo, MultipartFile file) throws Exception {
-		System.out.println("eventController, writeRun, eventVo:"+ eventVo);
+//		System.out.println("eventController, writeRun, eventVo:"+ eventVo);
 		
-		System.out.println("eventController, writeRun, file:"+ file);
+//		System.out.println("eventController, writeRun, file:"+ file);
 		String originalFilename = file.getOriginalFilename();
-		System.out.println("originalFilename: "+ originalFilename);
+//		System.out.println("originalFilename: "+ originalFilename);
 		long size = file.getSize();
-		System.out.println("size:" + size);
+//		System.out.println("size:" + size);
 		
 		byte[] fileData = file.getBytes();
 		if(originalFilename != null) {
@@ -72,7 +72,7 @@ public class EventController {
 		}
 		
 		boolean result = eventService.insert(eventVo);
-		System.out.println("result:"+result);
+//		System.out.println("result:"+result);
 		return "redirect:/event/event_list";
 	}
 	
@@ -85,7 +85,7 @@ public class EventController {
 		String originalFilename = multipartFile.getOriginalFilename();
 		
 		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
-		System.out.println("uploadSummernoteImageFile, file:" + file);
+//		System.out.println("uploadSummernoteImageFile, file:" + file);
 		return file;
 	}
 	
@@ -110,12 +110,12 @@ public class EventController {
 	@RequestMapping(value = "/event_modify", method = RequestMethod.POST)
 	public String eventModify(EventVo eventVo, MultipartFile file) throws Exception {
 
-		System.out.println("EventController, eventModify, eventVo:" + eventVo);
+//		System.out.println("EventController, eventModify, eventVo:" + eventVo);
 		
-		System.out.println("eventController, writeRun, file:"+ file);
+//		System.out.println("eventController, writeRun, file:"+ file);
 		String originalFilename = file.getOriginalFilename();
 		long size = file.getSize();
-		System.out.println("size:" + size);
+//		System.out.println("size:" + size);
 		
 		byte[] fileData = file.getBytes();
 		if(originalFilename != null) {
@@ -158,7 +158,7 @@ public class EventController {
 	// 현재 상영중 이벤트 리스트
 	@RequestMapping(value = "/nowEvent_list", method = RequestMethod.GET)
 	public String nowEventList(Model model, PagingDto pagingDto) {
-		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
+//		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		pagingDto.setCount(eventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
 		List<EventVo> nowEventList = eventService.nowEventlist(pagingDto);
@@ -170,7 +170,7 @@ public class EventController {
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
 	public String  lastEventlist(Model model, PagingDto pagingDto) {
-		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
+//		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		pagingDto.setCount(eventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
 		List<EventVo> lastEventlist = eventService.lastEventlist(pagingDto);
@@ -182,7 +182,7 @@ public class EventController {
 	// 당첨자 발표 게시판 목록
 	@RequestMapping(value = "/winner_info", method = RequestMethod.GET)
 	public String winnerInfo(Model model, WinnerPagingDto pagingDto) {
-		System.out.println("pagingDto:" + pagingDto);
+//		System.out.println("pagingDto:" + pagingDto);
 		pagingDto.setCount(winnerService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
 		List<WinnerVo> winnerList = winnerService.list(pagingDto);
@@ -208,9 +208,9 @@ public class EventController {
 	// 당첨자 게시판 글쓰기
 	@RequestMapping(value = "/winner_writeRun", method = RequestMethod.POST)
 	public String winnerWriteRun(WinnerVo winnerVo) {
-		System.out.println("EventController, winner_writeRun, winnerVo:"+ winnerVo);
+//		System.out.println("EventController, winner_writeRun, winnerVo:"+ winnerVo);
 		boolean result = winnerService.insert(winnerVo);
-		System.out.println("EventController, winner_writeRun, result:"+ result);
+//		System.out.println("EventController, winner_writeRun, result:"+ result);
 		return "redirect:/event/winner_info";
 	}
 	
@@ -232,15 +232,15 @@ public class EventController {
 	// 당첨자 게시판 글 수정하기
 	@RequestMapping(value = "/winner_modify", method = RequestMethod.POST)
 	public String winnerModify(WinnerVo winnerVo, int winner_no) {
-		System.out.println("EventController, eventModify, winnerVo:" + winnerVo);
+//		System.out.println("EventController, eventModify, winnerVo:" + winnerVo);
 		boolean result = winnerService.modify(winnerVo);
 		return "redirect:/event/winner_read?winner_no=" + winner_no;
 	}
 	
-	// ㅇㅣㅂㅔㄴㅌㅡ ㅊㅏㅁㄱㅏ /participateEvent
+	// 이벤트 참가
 	@RequestMapping(value = "/participateEvent", method = RequestMethod.POST)
 	public String insertParticipateEvent(ParticipateEventVo vo, int event_no) {
-		System.out.println("EventController, insertParticipateEvent, ParticipateEventVo:" + vo);
+//		System.out.println("EventController, insertParticipateEvent, ParticipateEventVo:" + vo);
 		boolean result = participateEventService.insert(vo);
 		return "redirect:/event/event_read?event_no=" + event_no;
 	}
