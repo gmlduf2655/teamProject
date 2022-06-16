@@ -1,6 +1,9 @@
 package com.kh.team;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +42,33 @@ public class TestRoomSeatDao {
 				);
 		
 		boolean result = roomSeatDao.insertRoomSeat(roomSeatVo);
+		System.out.println(result);
+	}
+	
+	// x줄 추가하기
+	@Test
+	public void insertRoomSeatXTest() {
+		int room_no = 2;
+		int seat_x = 4;
+		List<String> YNum = new ArrayList<>();
+		YNum.add("A");
+		YNum.add("B");
+		YNum.add("C");
+		boolean result = roomSeatDao.insertRoomSeatX(room_no, seat_x, YNum);
+		System.out.println(result);
+	}
+	
+	// y줄 추가하기
+	@Test
+	public void insertRoomSeatYTest() {
+		int room_no	= 2;
+		String seat_y = "D";
+		List<Integer> xNum = new ArrayList<>();
+		xNum.add(1);
+		xNum.add(2);
+		xNum.add(3);
+		xNum.add(4);
+		boolean result = roomSeatDao.insertRoomSeatY(room_no, xNum, seat_y);
 		System.out.println(result);
 	}
 	

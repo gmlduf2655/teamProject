@@ -180,4 +180,16 @@ public class CinemaServiceImpl implements CinemaService {
 		return roomTypeList;
 	}
 
+	@Override
+	public boolean createRoomSeatX(int room_no, int seat_x, List<String> yNum) {
+		boolean result = roomSeatDao.insertRoomSeatX(room_no, seat_x, yNum);
+		return result;
+	}
+
+	@Override
+	public boolean createRoomSeatY(int room_no, List<Integer> xNum, String seat_y) {
+		boolean result = roomSeatDao.insertRoomSeatY(room_no, xNum, seat_y);
+		return result;
+	}
+
 }

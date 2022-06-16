@@ -27,12 +27,13 @@
 		list-style: none;
 	}
 	
-	table a {
-		color: white;
-	}
-	
 	table li {
 		margin: 1em 0 1.5em 0;
+	}
+	
+	.modal-content table {
+		margin: 0 auto 0 2em;
+		width: 95%;
 	}
 	
 </style>
@@ -140,26 +141,6 @@
 				$.get(url, sData, function(rData){
 					$(".modal-title").text(rData.cinema_name + " 정보 " + btnText);
 					
-// 					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + rData.cinema_no + "' />");
-// 					$(".modal-body").append("<div><label>영화관 이름 : <input type='text' name='cinema_name' value='" + rData.cinema_name + "' /></label></div>");
-// 					$(".modal-body").append("<div><label>영화관 주소 [나머지 주소] : <input type='text' name='cinema_address' value='" + rData.cinema_address + "' /></label><button class='btn btn-sm btn-success' id='btnCinemaAddressSearch' type='button'>검색</button></div>");
-					
-// 					var cinemaStatus = "영업 상태";
-// 					cinemaStatus += "<div>";
-// 					cinemaStatus += "	<label><select name='cinema_status'><option ";
-// 					if (rData.cinema_status == null){
-// 						cinemaStatus += "checked";
-// 					}
-					
-// 					cinemaStatus += "> 영업준비중</label><br><label><input type='radio' name='cinema_status' value='1'";
-// 					if (rData.cinema_status == 1){
-// 						cinemaStatus +=  "checked";
-// 					}
-					
-// 					cinemaStatus += "> 영업중</label></div>";
-					
-// 					$(".modal-body").append(cinemaStatus);
-					
 					var insertHtml = `
 						<input type='hidden' name='cinema_no' value='` + rData.cinema_no + `' />
 						<div><label>영화관 이름 : <input type='text' name='cinema_name' value='` + rData.cinema_name + `' /></label></div>
@@ -179,7 +160,7 @@
 					}
 						insertHtml += `
 								>영업 준비중</option>
-								<option`;
+								<option value=''`;
 					if (rData.cinema_status == null){
 						insertHtml += "selected";
 					}
@@ -218,7 +199,7 @@
 								<div class="card-header">
 									 <a class="card-link" data-toggle="collapse" data-parent="#btnRoomSeat" href="#seatViewer">상영관 좌석 보기</a>
 								</div>
-								<div id="seatViewer" class="collapse">
+								<div id="seatViewer" class="collapse show">
 									<div class="card-body">
 										Anim pariatur cliche...
 									</div>
@@ -227,21 +208,57 @@
 						</div>
 					`;
 					$(".modal-body").append(insertHtml);
-// 					var a="a".charCodeAt()+1;
-// 					var w=String.fromCharCode(a);
-// 					$(".modal-body").append(a);
-// 					$(".modal-body").append(w);
 					
 					var url = "/mkcinema/getSeatList";
 					var sData = {
 							"room_no" : room_no
 					}
 					$.get(url, sData, function(rData){
+						var arry = [];
+						var attrx = [];
+						console.log(attrx);
 						$.each(rData, function(){
-							console.log("x : " + this.seat_x);
-							console.log("y : " + this.seat_y + " : " + this.seat_y.charCodeAt());
-							
+							arry.push(this.seat_y.charCodeAt());
+							attrx.push(this.seat_x);
+							console.log("seat_y",this.seat_y);
+							console.log("seat_x",this.seat_x);
 						});
+						
+						$(".card-body").text("");
+						var startCodeNum = Math.min.apply(null, arry);
+						var endCodeNum = Math.max.apply(null, arry);
+						var spanCount = Math.max.apply(null, attrx);
+						
+						var seatTableHtml = `
+							<table>
+								<thead>
+									<tr>
+										<th colspan=` + (spanCount + 1) + `>스크린</th>
+									</tr>`;
+								
+						for (var j = startCodeNum; j <= endCodeNum; j++) {
+							var inputString = String.fromCharCode(j);
+							seatTableHtml += "<tr><th>" + inputString + " - </th>";
+							for (var i = 1; i <= spanCount; i++) {
+								if (i == spanCount && j == startCodeNum){
+									seatTableHtml += "<td><a href='#'>" + i + "</a></td>";
+									seatTableHtml += "<td rowspan='" + (endCodeNum - startCodeNum + 1) + "'><a class='btn btn-sm btn-outline-info' id='addX' data-room_no=" + room_no + " > + </a></td>";
+								} else {
+									seatTableHtml += "<td><a href='#'>" + i + "</a></td>";
+								}
+							}
+							seatTableHtml += "</tr>";
+						}
+							seatTableHtml += `
+									<tr>
+										<th colspan=` + (spanCount + 1) + `><a class='btn btn-sm btn-outline-info' id='addY' data-room_no=` + room_no + `> + </a></th>
+									</tr>
+								</thead>
+							</table>
+						`;
+						$(".card-body").append(seatTableHtml);
+
+
 					});
 					
 				});
@@ -267,7 +284,7 @@
 					$(".modal-body").append("<input type='hidden' name='room_no' value='" + rData.room_no + "' />");
 					$(".modal-body").append("<div><label>상영 영화 : <input type='text' name='movie_code' value='" + rData.movie_code + "' readonly /><input type='text' id='movie_name' class='form-control' list='datalistOptions' value='" + rData.movie_name + "' /><button type='button' id='btnMovieSearch'>검색</button></label></div>");
 					$(".modal-body").append("<datalist id='datalistOptions'></datalist>");
-					$("#movie_name").keyup(function(){
+					$("#movie_name").keydown(function(){
 						var searchData = $(this).val();
 						$.get("/mkcinema/searchMovie", {"movie_name" : searchData}, function(rData){
 							$("#datalistOptions").text("");
@@ -373,7 +390,7 @@
 		});
 			
 		/* 모달창 안에 버튼 */
-		$(".modal").on("click", "button", function(){
+		$(".modal").on("click", "button, a", function(){
 			var btnId = $(this).attr("id");
 			switch (btnId) {
 			// 주소 검색버튼을 누르면
@@ -444,8 +461,75 @@
 
 				}
 				break;
+				
+			case "addX":
+				var room_no = $(this).attr("data-room_no");
+				var seat_x = parseInt($(this).parent("td").prev().find("a").text()) + 1;
+				var yNum = new Array();
+				var arryChar = $(this).parent().parent().prev().nextAll("tr").children("th").not("th[colspan]");
+				$.each(arryChar, function(){
+					yNum.push($(this).text().substr(0,1));
+				});
+				console.log(yNum);
+				var url = "/mkcinema/roomSeatAddX";
+				var sData = {
+					"room_no" : room_no,
+					"seat_x" : seat_x,
+					"yNum" : JSON.stringify(yNum)
+				}
+				$.get(url, sData, function(rData){
+					if (rData == true){
+						var targetColumn = $(".card-body > table").find("tr").not("tr:first-child").not("tr:last-child");
+						console.log(targetColumn);
+						$.each(targetColumn, function(){
+							$(this).find("td").not("td[rowspan]").last().after("<td><a href='#'>" + seat_x + "</a></td>");
+						});
+					}
+				});
+				break;
+				
+			case "addY":
+				var room_no = $(this).attr("data-room_no");
+				var temp_y = $(this).parent().parent().prev().find("th").text().substr(0,1);
+				var seat_y = String.fromCharCode(temp_y.charCodeAt() + 1);
+				var arrayChar = $(this).parent().parent().prev().find("td").not("td[rowspan]");
+				var xNum = new Array();
+				
+				if (arrayChar.text() == ""){
+					seat_y = "A";
+					xNum.push("1");
+				}
+				
+				$.each(arrayChar, function(){
+					xNum.push($(this).text());
+				});
+				console.log(xNum);
+				console.log(seat_y);
+				var url = "/mkcinema/roomSeatAddY";
+				var sData = {
+						"room_no" : room_no,
+						"xNum" : JSON.stringify(xNum),
+						"seat_y" : seat_y
+				}
+				$.get(url, sData, function(rData){
+					if (rData == true){
+						var targetColumn = $(".card-body > table").find("tr").not("tr:first-child").not("tr:last-child").last();
+						console.log(targetColumn);
+						var insertHtml = `
+							<tr>
+								<th>` + seat_y + ` - </th>`;
+						for (var i = 0; i < xNum.length; i++) {
+							insertHtml += `
+								<td><a href='#'>` + xNum[i] + `</a></td>`;
+						};
+						insertHtml += `</tr>`;
+						targetColumn.after(insertHtml);
+					}
+				});
+				break;
 			}
 		});
+		
 		
 	});
 	
