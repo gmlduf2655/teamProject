@@ -20,7 +20,7 @@
 	    			<h3 class="mb-3">3.포인트</h3>
 	    			<ul style="padding-left:50px;">
 	    				<li><a href="/point/point_list?userno=${loginUserVo.userno}&page=1">포인트 내역</a></li>
-	    				<li><a href="#">포인트 충전</a></li>
+	    				<li><a href="/mypage/charge_point_form?userno=${loginUserVo.userno}">포인트 충전</a></li>
 	    			</ul>
 	    		</div>
     			<div class="mb-4">

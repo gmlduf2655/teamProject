@@ -5,10 +5,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
-<body style="background-color: #eeeeee;">
+<style>
+	body {
+		background-color: #eeeeee;
+	}
+</style>
+<!-- 샘플 레이아웃 데이터 -->
+<div>
 	<div class="row">
-		<div class="col-md-1">
-		</div>
+		<div class="col-md-1"></div>
+		<!-- 유수연 메뉴 목록  -->
 		<div class="col-md-2">
 		<div class="menu">
 	    			<%-- <c:if test="">
@@ -16,18 +22,16 @@
 	    			</c:if> --%>
 	    				<jsp:include page="/WEB-INF/views/admin/manage_menu.jsp"/>	
     			</div> 
-		
 		</div>
+		<!-- 유수연 상세내용  -->
 		<div class="col-md-7">
-		
+			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-1">
-		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-1"></div>
 	</div>
 
 
-</body>
+</div>
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

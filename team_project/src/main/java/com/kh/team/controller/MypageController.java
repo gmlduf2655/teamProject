@@ -108,6 +108,12 @@ public class MypageController {
 		return "mypage/change_password_form";
 	}
 	
+	// 포인트 충전 페이지 이동
+	@RequestMapping(value="/charge_point_form", method=RequestMethod.GET)
+	public String chargePointForm(int userno) {
+		return "mypage/charge_point_form";
+	}
+	
 	// 비밀번호 확인 결과
 	@RequestMapping(value="/password_check_result", method=RequestMethod.POST)
 	@ResponseBody

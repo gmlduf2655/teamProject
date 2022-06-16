@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
+<!-- <link rel="stylesheet" href="/resources/css/admin.css"> -->
+<!-- <style>
 h5{
 	margin-bottom: 10px;
 }
@@ -18,9 +19,8 @@ a{
 a:hover{
 	color: black;
 }
--->
-</style>
-<div class="row">
+</style> -->
+<div class="row admin-menu">
 	<div  class="col-md-12">
 		<div class="product__page__title">
 			<div class="section-title">
@@ -52,8 +52,8 @@ a:hover{
 				<h5 style="color : black;">영화 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">영화목록</a></h6>
-				<h6><a id="" href="#">영화목록</a></h6>
+				<h6><a id="" href="/dbcontrol/dbList">영화목록</a></h6>
+				<h6><a id="" href="#">영화관리</a></h6>
 			</div>
 		</div>	
 		
