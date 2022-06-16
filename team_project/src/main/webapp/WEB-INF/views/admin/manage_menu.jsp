@@ -18,7 +18,6 @@ a{
 a:hover{
 	color: black;
 }
--->
 </style>
 <div class="row">
 	<div  class="col-md-12">
@@ -52,8 +51,8 @@ a:hover{
 				<h5 style="color : black;">영화 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">영화목록</a></h6>
-				<h6><a id="" href="#">영화목록</a></h6>
+				<h6><a id="" href="/dbcontrol/dbList">영화목록</a></h6>
+				<h6><a id="" href="#">영화관리</a></h6>
 			</div>
 		</div>	
 		

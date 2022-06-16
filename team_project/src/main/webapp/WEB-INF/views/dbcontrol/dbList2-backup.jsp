@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- header -->
-<%@ include file="/WEB-INF/views/include/header.jsp"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+<!-- Bootstrap icon -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+<title>영화정보 입력 관리자 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 	
 <script type="text/javascript">
 
@@ -103,94 +111,61 @@ $(function(){
 		});
 	});
 </script>
-<style>
-	body {
-		background-color: #eeeeee;
-	}
-	
-	section.product {
-		padding : 0;
-	}
-	
-	.ma {
-		border-top: 50px solid #eeeeee;
-	}
-</style>
 
-<!-- 샘플 레이아웃 데이터 -->
-<div class="ma">
-	<div class="row" style="background-color: #eeeeee">
-		<div class="col-md-1"></div>
-		<!-- 유수연 메뉴 목록  -->
-		<div class="col-md-2">
-			<div class="menu">
-				<%-- <c:if test="">
-								로그인 계정이 관리자 계정일때 관리자 메뉴 보이도록
-	    			</c:if> --%>
-				<%-- <jsp:include page="/WEB-INF/views/admin/manage_menu.jsp" /> --%>
-				<%@ include file="/WEB-INF/views/admin/manage_menu.jsp"%>
-			</div>
+
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8" align="center">
+		<br><br><br>
+			<!-- 영화코드, 시놉시스, 포스터 다운위한 이동 새창 -->
+			<a target="_blank"
+				href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do"
+				class="btn btn-primary" style="margin-bottom: 20px;">영화코드
+			가져오기</a><br>
+			<a target="_blank"
+			href="https://tv.naver.com/navermovie" class="btn btn-warning">네이버예고편가져오기</a>
+			<br><br>
+			<input type="text" name="moviecode" id="moviecode">
+			<button type="submit" class="btn btn-sm btn-outline btn-success"
+				id="dbSearch">진흥원DB검색</button>
 		</div>
-		<!-- 유수연 상세내용  -->
-		<div class="col-md-7">
-			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
-			<div class="container-fluid">
-				<div class="row">
-
-					<div class="col-md-12" align="center">
-						<br>
-						<br>
-						<br>
-						<!-- 영화코드, 시놉시스, 포스터 다운위한 이동 새창 -->
-						<a target="_blank"
-							href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do"
-							class="btn btn-primary" style="margin-bottom: 20px;">영화코드
-							가져오기</a><br> <a target="_blank"
-							href="https://tv.naver.com/navermovie" class="btn btn-warning">네이버예고편가져오기</a>
-						<br>
-						<br> <input type="text" name="moviecode" id="moviecode">
-						<button type="submit" class="btn btn-sm btn-outline btn-success"
-							id="dbSearch">진흥원DB검색</button>
-					</div>
-
-
-				</div>
-				<!-- 진흥원 DB검색 내용 -->
-				<div class="row">
-					<div class="col-md-12" align="center">
-						<form action="" enctype="multipart/form-data">
-							<div id="releaseCont">
-								<hr>
-
-								<div class="active" id="list">
-									<a href="#"></a>
-									<div class="active" id="list"></div>
-
-								</div>
-							</div>
-							<hr>
-							<br>
-							<br>
-							<button type="submit" class="btn btn-primary btndbRelation"
-								id="dbSave" style="display: none;">db저장</button>
-							<button type="submit" class="btn btn-warning btndbRelation"
-								id="dbUpdate" style="display: none;">db수정</button>
-							<button type="submit" class="btn btn-danger btndbRelation"
-								id="dbDelete" style="display: none;">db삭제</button>
-						</form>
-
-					</div>
-				</div>
-				<!-- 우리서버 영화 DB -->
-				<jsp:include page="/WEB-INF/views/dbcontrol/serverListDB.jsp" />
-				<%-- <%@ include file="/WEB-INF/views/dbcontrol/serverListDB.jsp"%> --%>
-			</div>
-			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
-		</div>
-		<div class="col-md-1"></div>
-		<div class="col-md-1"></div>
+		
+		<div class="col-md-2"></div>
 	</div>
-	<!-- row -->
-</div><!-- main div -->
-<!-- footer -->
-<%@ include file="/WEB-INF/views/include/footer.jsp"%>
+	<!-- 진흥원 DB검색 내용 -->
+<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8"  align="center">
+			<form action="" enctype="multipart/form-data">
+				<div id="releaseCont">
+					<hr>
+					
+						<div class="active" id="list">
+							<a href="#"></a>
+						<div class="active" id="list">
+							
+						</div>
+					
+					</div>
+				</div>
+				<hr><br><br>
+				<button type="submit" class="btn btn-primary btndbRelation"
+					id="dbSave" style="display: none;">db저장</button>
+				<button type="submit" class="btn btn-warning btndbRelation"
+					id="dbUpdate" style="display: none;">db수정</button>
+				<button type="submit" class="btn btn-danger btndbRelation"
+					id="dbDelete" style="display: none;">db삭제</button>
+			</form>
+		</div>
+		<div class="col-md-2"></div>
+	</div>	
+	
+	<!-- 우리서버 영화 DB -->
+	<%@ include file="/WEB-INF/views/dbcontrol/serverListDB.jsp"%>
+</div>
+
+</body>
+</html>
