@@ -44,7 +44,7 @@
     
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-	
+	<link rel="stylesheet" href="/resources/css/admin.css">
 	<!-- 임희열 : JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
     

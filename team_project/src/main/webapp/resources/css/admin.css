@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.admin-menu h5{
+	margin-bottom: 10px;
+}
+.admin-menu h6{
+	margin-bottom: 10px;
+	margin-left: 22px;
+}
+.admin-menu .product__page__title{
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+.admin-menu a{
+	color: black;
+}
+.admin-menu a:hover{
+	color: black;

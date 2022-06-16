@@ -115,6 +115,7 @@ $(function(){
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
+	
 </style>
 
 <!-- 샘플 레이아웃 데이터 -->

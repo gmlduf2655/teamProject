@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
+<!-- <link rel="stylesheet" href="/resources/css/admin.css"> -->
+<!-- <style>
 h5{
 	margin-bottom: 10px;
 }
@@ -18,8 +19,8 @@ a{
 a:hover{
 	color: black;
 }
-</style>
-<div class="row">
+</style> -->
+<div class="row admin-menu">
 	<div  class="col-md-12">
 		<div class="product__page__title">
 			<div class="section-title">
