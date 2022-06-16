@@ -77,7 +77,17 @@ $(document).ready(function(){
 							${eventVo.event_content}
 						</div>
 						<hr>
-						
+						<div class="anime__details__btn">
+						<form action="/event/participateEvent" method="post">
+							<input type="hidden" name="event_title" value="${eventVo.event_title}">
+							<input type="hidden" name="event_start_date" value="${eventVo.event_start_date}">
+							<input type="hidden" name="event_end_date" value="${eventVo.event_end_date}">
+							<input type="hidden" name="userno" value="${loginUserVo.userno}">
+							<input type="hidden" name="event_no" value="${eventVo.event_no}">
+							<input type="submit" class="btn follow-btn" value="이벤트 참가">
+						</form>
+						</div>
+						<hr>
 						
 						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a>
 					</div>

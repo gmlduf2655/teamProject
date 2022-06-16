@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.participateEvent">
+
+	<!-- 글 등록 -->
+	<insert id="insert">
+		insert into tbl_participate_event
+			(participate_no, event_title, event_start_date, event_end_date, userno, event_no)
+		values
+			(seq_participate_event_participateno.nextval, #{event_title}, #{event_start_date}, 
+			#{event_end_date}, #{userno}, #{event_no})
+	</insert>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete">
+		delete from tbl_participate_event
+		where participate_no = #{participate_no}
+	</delete>
+	
+	<!-- 글 전체 목록 -->
+	<select id="list" resultType="ParticipateEventVo">
+		select * from tbl_participate_event
+		order by event_no desc
+	</select>
+
+</mapper>
