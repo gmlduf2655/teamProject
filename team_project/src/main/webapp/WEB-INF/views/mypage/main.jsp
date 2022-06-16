@@ -109,7 +109,27 @@
 					}
 				});
 			});
-		});
+			
+			// 새로고침
+			function refreshMemList(){
+				location.reload();
+			}
+			
+			// 이벤트 참가 취소
+			$(".table").on("click", ".btnEventCancel", function(){
+				var url = "/mypage/participate_event_cancel";
+				var participate_no = $(this).attr("value");
+				var sData = {
+						"participate_no" : participate_no
+				}
+				console.log("participate_no:", participate_no); 
+				$.get(url, sData, function(rData){
+					console.log("rData", rData);
+					refreshMemList();
+				});
+			});
+			
+		}); //$(document).ready
     </script>
     
     <!-- 제목 부분 -->
@@ -332,7 +352,7 @@
 						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">이벤트 참여 내역</a></h3>
 						<table class="table" style="color:white;">
 				    		<thead>
-				    			<tr>				
+				    			<tr>
 									<th>이벤트 제목</th>    				
 									<th>이벤트 시작일</th>    				
 									<th>이벤트 종료일</th>		
@@ -350,7 +370,7 @@
 											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
-											<td><button class="btn btn-sm btn-danger">이벤트 참여 취소</button></td>
+											<td><button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button></td>
 										</tr>
 									</c:if>
 								</c:when>
