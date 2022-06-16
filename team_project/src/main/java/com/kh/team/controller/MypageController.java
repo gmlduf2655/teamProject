@@ -15,11 +15,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.team.service.EventService;
 import com.kh.team.service.FollowService;
 import com.kh.team.service.MovieService;
+import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PagingDto;
+import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -36,6 +38,8 @@ public class MypageController {
 	MovieService movieService;
 	@Autowired 
 	EventService eventService;
+	@Autowired
+	ParticipateEventService participateEventService;
 	
 	// 마이페이지 이동
 	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 + 1개더 추가요
@@ -54,7 +58,9 @@ public class MypageController {
 		// 영화 목록을 얻어옴
 		List<MovieVo> movieList = movieService.movieList();
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
-		List<EventVo> eventList = eventService.list(pagingDto);
+//		List<EventVo> eventList = eventService.list(pagingDto);
+		// 내가 참여한 이벤트 목록 얻어오기
+		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
@@ -86,10 +92,13 @@ public class MypageController {
 	
 	// 참여 이벤트 페이지 이동
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
-	public String participateEventList(Model model, int userno) {
-		PagingDto pagingDto = new PagingDto();
-		List<EventVo> eventList = eventService.list(pagingDto);
+	public String participateEventList(Model model, PagingDto pagingDto, int userno) {
+		System.out.println("MypageController, participateEventList, pagingDto:"+pagingDto);
+		pagingDto.setCount(participateEventService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
 		model.addAttribute("eventList", eventList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list";
 	}
 	

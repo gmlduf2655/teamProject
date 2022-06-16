@@ -328,45 +328,36 @@
 	            <hr>
 	            <!-- 유저 참여 이벤트 부분 -->
 	            <div class="row d-flex justify-content-center">
-		        	<div class="col-lg-12">
-		                <h3 class="mb-4">내가 참여한 이벤트</h3>
-						<div class="row">
-							<c:forEach var="eventVo" items="${eventList}" varStatus="status">
-								<c:if test="${status.count <= 4}">
-								<div class="col-md-3">
-									<div class="product__item">
-										<div class="product__item__pic set-bg" 
-												<c:choose>
-												<c:when test="${empty eventVo.event_image}">
-													data-setbg="/resources/images/no_image.jpg" 
-												</c:when>
-												<c:otherwise>
-													data-setbg="/event/displayImage?filename=${eventVo.event_image}"
-												</c:otherwise>
-												</c:choose>
-												style="cursor: pointer;" onclick="location.href='/event/event_read?event_no=${eventVo.event_no}';">								
-										</div>
-										<div class="product__item__text">
-											<ul>
-												<li>액션이 죽이는</li>
-												<li>영화</li>
-											</ul>
-											<h5>
-												<a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a>
-											</h5>
-												<span style="color:white">${eventVo.event_start_date}~${eventVo.event_end_date}</span>
-										</div>
-									</div>
-								</div>
-								</c:if>
+	                <div class="col-lg-12">
+						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">이벤트 참여 내역</a></h3>
+						<table class="table" style="color:white;">
+				    		<thead>
+				    			<tr>				
+									<th>이벤트 제목</th>    				
+									<th>이벤트 시작일</th>    				
+									<th>이벤트 종료일</th>		
+									<th>참여 취소</th>		
+				    			</tr>
+				    		</thead>
+				    		<tbody>
+								<c:forEach var="eventVo" items="${eventList}" varStatus="status">
+									<c:if test="${status.index < 5}">
+										<tr>
+											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
+											<td>${eventVo.event_start_date}</td>
+											<td>${eventVo.event_end_date}</td>
+											<td>${pointVo.point_date}</td>
+										</tr>
+									</c:if>
 								</c:forEach>
-							</div>
-						<div class="row">
+							</tbody>
+				    	</table>
+	            	</div>
+	            	<div class="row">
 					        <div class="col-lg-12" style="text-align:center;">
-						        <a class="site-btn" href="/mypage/participate_event_list?userno=${userVo.userno}">더보기</a>
+						        <a class="site-btn" href="/mypage/participate_event_list?userno=${userVo.userno}&page=1">더보기</a>
 					    	</div>
-				    	</div>	            	
-		            </div>
+				    	</div>
 	            </div>
 	            <!-- 유저 참여 이벤트 부분 끝 -->
     		</div>
