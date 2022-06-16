@@ -133,7 +133,8 @@
 					userid : userid
 				},
 				success : function(rData){
-					location.href = "/mypage/main?userno=" + rData;
+					var openNewWindow = window.open("about:blank");
+					openNewWindow.location.href = "/mypage/main?userno=" + rData;
 				}
 			});
 

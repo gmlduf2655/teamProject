@@ -24,6 +24,10 @@
 		li>a{
 			color:white;
 		}
+		#pagination a{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -74,7 +78,7 @@
 						<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 					</div>
 					<div class="col-md-1" style="padding-left:0px;">
-						<button type="button" class="btn btn-primary" id="search_btn">검색</button>
+						<button type="button" class="site-btn" id="search_btn">검색</button>
 					</div>
 				</nav>
 				<!-- nav 부분 끝-->
