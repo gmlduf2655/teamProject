@@ -1,6 +1,10 @@
+<%@page import="com.kh.team.vo.MessageVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -48,6 +52,16 @@
 					<div class="form-group">
 						<label for="message_title"> 제목 </label> 
 						<input type="text" class="form-control" id="message_title" value="${messageVo.message_title}" readonly/>
+					</div>
+					<div class="form-group">
+						<label for="message_title"> 첨부파일 </label> 
+						<div class="help-block form-control" style="height:100px;" id="attach_files">
+							<c:forEach var="filename" items="${filenames}">
+								<div>
+									<span>${filename}</span>
+								</div>
+							</c:forEach>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="message_content"> 내용 </label> 

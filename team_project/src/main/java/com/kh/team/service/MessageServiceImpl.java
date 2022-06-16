@@ -17,8 +17,15 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 메세지 내역 추가
 	@Override
+	@Transactional
 	public boolean addMessage(MessageVo messageVo) {
 		boolean result = messageDao.insertMessage(messageVo);
+		List<String> filenames = messageVo.getMessage_files();
+		if(filenames != null) {
+			for(String filename : filenames) {
+				result = result & messageDao.insertMessageAttach(messageVo.getMessageno(), filename);
+			}
+		}
 		return result;
 	}
 
@@ -43,6 +50,12 @@ public class MessageServiceImpl implements MessageService {
 	public List<MessageVo> getReceiverMessageList(String receiver, PagingDto pagingDto) {
 		List<MessageVo> receiverMessageList = messageDao.selectReceiverMessageList(receiver, pagingDto);
 		return receiverMessageList;
+	}
+	
+	// 메세지 첨부 파일 조회
+	public List<String> getFilenames(int messageno){
+		List<String> filenames = messageDao.selectFilenameList(messageno);
+		return filenames;
 	}
 	
 	// 보내는 메세지 수 조회

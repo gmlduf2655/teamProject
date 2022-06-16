@@ -14,6 +14,8 @@ public interface MessageService {
 	public List<MessageVo> getSenderMessageList(String sender, PagingDto pagingDto);
 	// 받는 메세지 조회
 	public List<MessageVo> getReceiverMessageList(String receiver, PagingDto pagingDto);
+	// 메세지 첨부 파일 조회
+	public List<String> getFilenames(int messageno);
 	// 보내는 메세지 수 조회
 	public int getSenderMessageCount(String sender);
 	// 받는 메세지 수 조회

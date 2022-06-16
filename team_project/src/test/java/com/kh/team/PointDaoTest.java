@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.team.dao.PointDao;
 import com.kh.team.dao.UserDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -48,7 +49,9 @@ public class PointDaoTest {
 	// 아이디로 포인트 목록조회 테스트
 	@Test
 	public void testSelectPointListByUserno() {
-		List<PointVo> pointList = pointDao.selectPointListByUserno(1, null);
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
+		List<PointVo> pointList = pointDao.selectPointListByUserno(1, pagingDto);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointDaoTest, testSelectPointListByUserno, pointVo : " + pointVo);
 		}		

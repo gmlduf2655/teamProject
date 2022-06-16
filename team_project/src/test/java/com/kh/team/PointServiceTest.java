@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kh.team.dao.PointDao;
 import com.kh.team.dao.UserDao;
 import com.kh.team.service.PointService;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -25,7 +26,7 @@ public class PointServiceTest {
 	@Test
 	public void testAddPoint() {
 		PointVo pointVo = new PointVo(0, 10, 1, null, 1001, null, null);
-		boolean result = pointService.addPoint(pointVo, 1);
+		boolean result = pointService.addPoint(pointVo);
 		System.out.println("PointServiceTest, testAddPoint, result : " + result);
 	}
 	
@@ -49,7 +50,9 @@ public class PointServiceTest {
 	// 아이디로 포인트 목록 조회 테스트
 	@Test
 	public void testGetPointListByUserno() {
-		List<PointVo> pointList = pointService.getPointListByUserno(1, null);
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
+		List<PointVo> pointList = pointService.getPointListByUserno(1, pagingDto);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointServiceTest, testGetPointListByUserno, pointVo : " + pointVo);
 		}		
