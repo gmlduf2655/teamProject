@@ -1,26 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
-
-
-<!-- Normal Breadcrumb Begin -->
-<section class="normal-breadcrumb set-bg"
-	data-setbg="/resources/images/img/normal-breadcrumb.jpg">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="normal__breadcrumb__text">
-					<h2>현재 진행중</h2>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- Normal Breadcrumb End -->
-
 
 <html lang="ko">
 
@@ -39,13 +23,45 @@
 <link rel="stylesheet" href="/resources/summerNote/summernote-lite.css">
 </head>
 
-<body>
-	<div class="container" style="background-color: white">
+<style>
+	body {
+		background-color: #eeeeee;
+	}section.product {
+		padding : 0;
+	}
+	
+	.ma {
+		border-top: 50px solid #eeeeee;
+	}
+</style>
+<!-- 샘플 레이아웃 데이터 -->
+<div class="ma">
+
+	<div class="row" style="background-color: #eeeeee">
+		<div class="col-md-1"></div>
+		<!-- 유수연 메뉴 목록  -->
+		<div class="col-md-2">
+		<div class="menu">
+	    			<%-- <c:if test="">
+								로그인 계정이 관리자 계정일때 관리자 메뉴 보이도록
+	    			</c:if> --%>
+	    				<jsp:include page="/WEB-INF/views/admin/manage_menu.jsp"/>	
+    			</div> 
+		</div>
+		<!-- 유수연 상세내용  -->
+		<div class="col-md-7">
+			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+			<br><h2>이벤트 수정</h2>
+
+			
+			
+			
+	<div class="container">
 
 		<form role="modifyForm" action="/event/event_modify" method="post"
 			id="frmCreate" enctype="multipart/form-data">
 			 <input type="hidden" name="event_no" value="${param.event_no}">
-			 <input type="hidden" name="event_image" value="${eventVo.event_image}">
+			 <input type="hidden" id="Image" name="event_image" value="${eventVo.event_image}">
 			
 			<div class="form-group">
 				<label for="event_title"> 제목 </label> 
@@ -81,7 +97,7 @@
 				
 				<br>
 				
-                <a id="image_delete" >사진 삭제<b style="color:red;font-size:30px;">&times;</b></a>
+                <a id="image_delete">사진 삭제<b style="color:red;font-size:30px;">&times;</b></a>
 			</div>
 
 			<hr>
@@ -92,7 +108,7 @@
 
 			<hr>
 
-			<button type="button" id="btnModify" class="btn btn-primary">저장</button>
+			<button type="button" id="btnModifyRun" class="btn btn-primary">저장</button>
 		</form>
 	</div>
 <script>
@@ -164,29 +180,20 @@ function readURL(input) {
         $("#image_delete").show();
     }
 }
-
-// 이미지 임시 삭제
- $(document).ready(function(){
- 	$("#image_delete").click(function(){
-		$("#preview").attr("src", "");
-		$("#image_delete").hide();
-	});
- 	
- 	$("#btnModify").click(function(e){
- 		var filename = $("#file").attr("data-filename");
- 		var url = "/event/deleteFile";
- 		var sendData = {
- 				"filename" : filename
- 		};
- 		console.log("filename:", filename)
- 		$.get(url, sendData, function(rData) {
- 			console.log(rData);
- 			if (rData == "true") {
- 				$("#frmCreate").submit();
- 			}
- 		});
-	}); 
+//이미지 임시 삭제
+$(document).ready(function(){
+$("#image_delete").click(function(){
+	$("#preview").attr("src", "");
+	$("#Image").attr("value", "");
+	$("#image_delete").hide();
+	
 });
+	
+$("#btnModifyRun").click(function(){
+		$("#frmCreate").submit();
+	});
+}); 
+
 
 // 대표 이미지 삭제하기
 // $(document).ready(function(){
@@ -231,9 +238,18 @@ $(event_start_date).change(function(){
 });
 
 </script>
-</body>
+
+			
+			
+			
+			
+			
+			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-1"></div>
+	</div>
+</div>
 </html>
-
-
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

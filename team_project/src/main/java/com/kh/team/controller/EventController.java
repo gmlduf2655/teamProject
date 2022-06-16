@@ -57,23 +57,24 @@ public class EventController {
 	// 이벤트 게시글 작성
 	@RequestMapping(value = "/write_run", method = RequestMethod.POST)
 	public String writeRun(EventVo eventVo, MultipartFile file) throws Exception {
-//		System.out.println("eventController, writeRun, eventVo:"+ eventVo);
-		
-//		System.out.println("eventController, writeRun, file:"+ file);
-		String originalFilename = file.getOriginalFilename();
-//		System.out.println("originalFilename: "+ originalFilename);
+		System.out.println("eventController, writeRun, eventVo:"+ eventVo);
 		long size = file.getSize();
-//		System.out.println("size:" + size);
+		System.out.println("eventController, writeRun, file:"+ file);
+		if(size != 0) {
+		String originalFilename = file.getOriginalFilename();
+		System.out.println("originalFilename: "+ originalFilename);
+		
+		System.out.println("size:" + size);
 		
 		byte[] fileData = file.getBytes();
-		if(originalFilename != null) {
+		
 			String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
 		boolean result = eventService.insert(eventVo);
 //		System.out.println("result:"+result);
-		return "redirect:/event/event_list";
+		return "redirect:/admin/event_admin_list";
 	}
 	
 	// 썸머노트 이미지 업로드
@@ -110,30 +111,31 @@ public class EventController {
 	@RequestMapping(value = "/event_modify", method = RequestMethod.POST)
 	public String eventModify(EventVo eventVo, MultipartFile file) throws Exception {
 
-//		System.out.println("EventController, eventModify, eventVo:" + eventVo);
-		
-//		System.out.println("eventController, writeRun, file:"+ file);
-		String originalFilename = file.getOriginalFilename();
+		System.out.println("EventController, eventModify, eventVo:" + eventVo);
+		System.out.println("eventController, writeRun, file:"+ file);
 		long size = file.getSize();
-//		System.out.println("size:" + size);
-		
-		byte[] fileData = file.getBytes();
-		if(originalFilename != null) {
-			String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
-			eventVo.setEvent_image(event_image);
+		System.out.println("size:" + size);
+		if(size == 0) {
+			boolean result1 = eventService.modify(eventVo);
+			System.out.println("result1:"+result1);
+		} else {
+			String originalFilename = file.getOriginalFilename();
+			byte[] fileData = file.getBytes();
+				String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
+				eventVo.setEvent_image(event_image);
+			boolean result2 = eventService.modify(eventVo);
+			System.out.println("result2:"+result2);
 		}
 		
-		boolean result = eventService.modify(eventVo);
-		return "redirect:/event/event_read?event_no=" + eventVo.getEvent_no();
+		
+		return "redirect:/admin/event_admin_read?event_no=" + eventVo.getEvent_no();
 	}
-	
-	
 	
 	// 이벤트 게시글 삭제 
 	@RequestMapping(value = "/event_delete", method = RequestMethod.GET)
 	public String delete(int event_no) {
 		boolean result = eventService.delete(event_no);
-		return "redirect:/event/event_list";
+		return "redirect:/admin/event_admin_list";
 	}
 	
 	// 이미지 보여주기

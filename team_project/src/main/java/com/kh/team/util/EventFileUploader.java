@@ -12,7 +12,7 @@ public class EventFileUploader {
 		
 		UUID uuid = UUID.randomUUID();
 		String saveFilename = uploadPath + "/" 
-				+ uuid + "_" + originalFilename;
+				+ uuid + "_" + originalFilename ;
 		System.out.println("saveFilename: " + saveFilename);
 		File fTarget = new File(saveFilename);
 		try {

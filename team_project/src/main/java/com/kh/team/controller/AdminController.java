@@ -35,4 +35,12 @@ public class AdminController {
 			model.addAttribute("pagingDto", pagingDto);
 			return "admin/event_admin_list";
 		}
+	
+	// 관리자 페이지 이벤트 관리 - 이벤트 목록 -> 이벤트 읽기(수정, 삭제)
+		@RequestMapping(value = "/event_admin_read", method = RequestMethod.GET)
+		public String eventAdminRead(int event_no, Model model) {
+			EventVo eventVo = eventService.readContent(event_no);
+			model.addAttribute("eventVo", eventVo);
+			return "admin/event_admin_read";
+		}
 }

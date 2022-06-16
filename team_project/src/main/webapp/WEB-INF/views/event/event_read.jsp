@@ -107,10 +107,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="float-right">
-			<a href="/event/event_modifyForm?event_no=${eventVo.event_no}" class="btn btn-sm btn-warning" id="btnUpdate">수정</a>
-			<a href="${eventVo.event_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
-		</div>
 </div>
 
 <!-- footer -->
