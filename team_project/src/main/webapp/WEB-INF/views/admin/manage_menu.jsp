@@ -44,7 +44,6 @@
 				<h5 style="color : black;">평점/리뷰 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">평점/리뷰 등록</a></h6>
 				<h6><a id="" href="#">평점/리뷰 목록</a></h6>
 			</div>
 		</div>	
@@ -55,7 +54,7 @@
 			</div>
 			<div class="h6li">
 				<h6><a id="" href="/event/write_form">이벤트 등록</a></h6>
-				<h6><a id="" href="#">이벤트 목록</a></h6>
+				<h6><a id="" href="/admin/event_admin_list">이벤트 목록</a></h6>
 			</div>
 		</div>	
 		

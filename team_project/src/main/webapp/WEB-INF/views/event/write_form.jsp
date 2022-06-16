@@ -51,7 +51,7 @@
 		<!-- 상세내용  -->
 		<div class="col-md-7">
 			<!-- 본문 내용 시작 -->
-			<br><h2>관리자 페이지 - 이벤트 등록</h2>
+			<br><h2>이벤트 등록</h2>
 			
 			<form role="writeForm" action="/event/write_run" method="post"
 			id="frmCreate" enctype="multipart/form-data">
