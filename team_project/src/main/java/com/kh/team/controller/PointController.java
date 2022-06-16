@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
@@ -33,5 +34,19 @@ public class PointController {
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("count", count);
 		return "mypage/point_list";
+	}
+
+	// 포인트 충전 페이지 이동
+	@RequestMapping(value="/charge_point_form", method=RequestMethod.GET)
+	public String chargePointForm(int userno) {
+		return "mypage/charge_point_form";
+	}
+	
+	// 포인트 충전
+	@RequestMapping(value="/charge_point_run", method=RequestMethod.POST)
+	public String chargePointRun(PointVo pointVo, RedirectAttributes redirectAttributes) {
+		boolean result = pointService.addPoint(pointVo);
+		redirectAttributes.addFlashAttribute("charge_result", result);
+		return "redirect:/mypage/main?userno=" + pointVo.getUserno();
 	}
 }

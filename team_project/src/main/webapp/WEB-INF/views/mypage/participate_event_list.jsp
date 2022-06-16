@@ -57,6 +57,7 @@
 				var sData = {
 						"participate_no" : participate_no
 				}
+				console.log("participate_no:", participate_no); 
 				console.log("participate_no:", participate_no); 
 				$.get(url, sData, function(rData){
 					console.log("rData", rData);

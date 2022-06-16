@@ -17,17 +17,21 @@ import com.kh.team.service.FollowService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.PointService;
+import com.kh.team.service.ReviewService;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
+import com.kh.team.vo.ReviewPagingDto;
+import com.kh.team.vo.ReviewVo;
 import com.kh.team.vo.UserVo;
 
 @Controller
 @RequestMapping(value="/mypage")
 public class MypageController {
+	// 서비스가 무려 6개 ㄷㄷ
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -39,6 +43,8 @@ public class MypageController {
 	@Autowired 
 	EventService eventService;
 	@Autowired
+	ReviewService reviewService;
+	@Autowired
 	ParticipateEventService participateEventService;
 	
 	// 마이페이지 이동
@@ -46,17 +52,24 @@ public class MypageController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model, int userno) {
 		PagingDto pagingDto = new PagingDto();
+		ReviewPagingDto reviewPagingDto = new ReviewPagingDto();
 		pagingDto.setPage(1);
+		reviewPagingDto.setPage(1);
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
 		// 유저 번호로 유저 정보 얻음
 		UserVo userVo = userService.getUserInfoByUserno(userno);
 		// 유저 번호로 팔로우와 팔로워 얻음
 		int follower = followService.selectFollowerNumber(userno);
 		int follow = followService.selectFollowNumber(userno);
-		// 유저 번호와 pagingDto로 포인트 목록 얻어옴 (페이지는 1페이지로 가정)
+		// 유저 번호와 pagingDto로 포인트 목록 얻어옴 (페이지는 1페이지로함)
 		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto);
 		// 영화 목록을 얻어옴
 		List<MovieVo> movieList = movieService.movieList();
+//		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로함)
+//		List<EventVo> eventList = eventService.list(pagingDto);
+		// reviewPagingDto로 리뷰 목록 얻어옴 (페이지는 1페이지로함)
+		List<ReviewVo> reviewList = reviewService.list(reviewPagingDto);
+		
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
 //		List<EventVo> eventList = eventService.list(pagingDto);
 		// 내가 참여한 이벤트 목록 얻어오기
@@ -67,6 +80,8 @@ public class MypageController {
 		model.addAttribute("userVo", userVo);
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("eventList", eventList);
+//		model.addAttribute("participateEventList", participateEventList);
+		model.addAttribute("reviewList", reviewList);
 		return "mypage/main";
 	}
 	
@@ -90,6 +105,21 @@ public class MypageController {
 		return "mypage/ticket_movie_list";
 	}
 	
+	// 내가 쓴 리뷰 내역 페이지 이동
+	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
+	public String writeRiewList(Model model, int userno) {
+		ReviewPagingDto pagingDto = new ReviewPagingDto();
+		pagingDto.setPage(1);
+		List<ReviewVo> reviewList = reviewService.list(pagingDto);
+		int count = reviewList.size();
+		pagingDto.setCount(count);
+		pagingDto.setPage(1);
+		System.out.println(reviewList);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("pagingDto", pagingDto);
+		return "mypage/write_review_list";
+	}
+	
 	// 참여 이벤트 페이지 이동
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
 	public String participateEventList(Model model, PagingDto pagingDto, int userno) {
@@ -102,6 +132,7 @@ public class MypageController {
 		return "mypage/participate_event_list";
 	}
 	
+
 	// 이벤트 참여 취소(삭제 버튼)
 	@RequestMapping(value="/participate_event_cancel", method=RequestMethod.GET)
 	@ResponseBody
@@ -114,12 +145,6 @@ public class MypageController {
 	@RequestMapping(value="/change_password_form" , method=RequestMethod.GET)
 	public String changePassword(int userno) {
 		return "mypage/change_password_form";
-	}
-	
-	// 포인트 충전 페이지 이동
-	@RequestMapping(value="/charge_point_form", method=RequestMethod.GET)
-	public String chargePointForm(int userno) {
-		return "mypage/charge_point_form";
 	}
 	
 	// 비밀번호 확인 결과

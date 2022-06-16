@@ -7,7 +7,7 @@ import com.kh.team.vo.PointVo;
 
 public interface PointService {
 	// 포인트 내역 추가
-	public boolean addPoint(PointVo pointVo, int userno);
+	public boolean addPoint(PointVo pointVo);
 	// 포인트 코드 추가
 	public boolean addPointCode(PointVo pointVo);
 	// 포인트 목록 조회

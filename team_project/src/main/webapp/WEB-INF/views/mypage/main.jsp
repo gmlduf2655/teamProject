@@ -24,6 +24,14 @@
 		li>a{
 			color:white;
 		}
+		.checked {
+		  color: orange;
+		}
+		.product__item {
+		    margin-bottom: 30px;
+		    padding-left: 30px;
+		    padding-right: 30px;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -34,6 +42,15 @@
 			}else if(modify_result == "false"){
 				alert("유저 정보 수정 실패");
 			}else {}
+			
+			// 유저 포인트 충전 여부 확인
+			var charge_result = "${charge_result}";
+			if(charge_result == "true"){
+				alert("포인트 충전 성공");
+			}else if(charge_result == "false"){
+				alert("포인트 충전 실패");
+			}else {}
+			
 			// 수정 버튼을 눌렀을 떄
 			$("#user_modify_btn").click(function(){
 				$("#nickname_label").show();
@@ -336,17 +353,61 @@
 	            <!-- 유저 영화 리뷰 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
-						<h3>내가 작성한 리뷰</h3>
+						<h3 class="mb-4">내가 작성한 리뷰</h3>
+		            	<table class="table" style="color:white;">
+					    	<thead>
+					    		<tr>
+									<th>번호</th>
+									<th>작성자</th>
+									<th>제목</th>
+									<th>평점</th>
+									<th>작성일</th>
+									<th>조회수</th>	   				
+					   			</tr>
+					   		</thead>
+					   		<tbody>
+								<c:forEach var="reviewVo" items="${reviewList}" varStatus="status">
+									<c:if test="${status.index < 5}">
+										<tr>
+											<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
+											<td>${reviewVo.review_writer}</td>
+											<td><a style="color:white"
+												href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
+											<td>
+												<span class="fa fa-star
+													<c:if test="${reviewVo.review_star >= 1}">checked</c:if>
+												"></span>
+												<span class="fa fa-star
+													<c:if test="${reviewVo.review_star >= 2}">checked</c:if>
+												"></span>
+												<span class="fa fa-star
+													<c:if test="${reviewVo.review_star >= 3}">checked</c:if>
+												"></span>
+												<span class="fa fa-star
+													<c:if test="${reviewVo.review_star >= 4}">checked</c:if>
+												"></span>
+												<span class="fa fa-star
+													<c:if test="${reviewVo.review_star >= 5}">checked</c:if>
+												"></span>
+											</td>
+												
+											<td>${reviewVo.review_reg_date}</td>
+											<td>${reviewVo.review_viewcnt}</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</tbody>
+					    </table>
 	            	</div>
 					<div class="row">
 			            <div class="col-lg-12" style="text-align:center;">
-				            <a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
+				            <a class="site-btn" href="/mypage/write_review_list?userno=${userVo.userno}">더보기</a>
 			            </div>
 		            </div>	            	
 	            </div>
 	            <!-- 유저 영화 리뷰 부분 끝 -->
 	            <hr>
-	            <!-- 유저 참여 이벤트 부분 -->
+				<!-- 유저 참여 이벤트 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
 						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">이벤트 참여 내역</a></h3>
@@ -363,7 +424,6 @@
 				    		
 				    			<c:forEach var="eventVo" items="${eventList}" varStatus="status">
 				    			<c:choose>
-								
 								<c:when test ="${eventVo.userno == userVo.userno}">
 									<c:if test="${status.index < 5}">
 										<tr>
@@ -381,10 +441,10 @@
 				    	</table>
 	            	</div>
 	            	<div class="row">
-					        <div class="col-lg-12" style="text-align:center;">
-						        <a class="site-btn" href="/mypage/participate_event_list?userno=${userVo.userno}&page=1">더보기</a>
-					    	</div>
-				    	</div>
+					    <div class="col-lg-12" style="text-align:center;">
+							<a class="site-btn" href="/mypage/participate_event_list?userno=${userVo.userno}&page=1">더보기</a>
+					    </div>
+				    </div>
 	            </div>
 	            <!-- 유저 참여 이벤트 부분 끝 -->
     		</div>

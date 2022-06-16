@@ -59,7 +59,9 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/message/*"/>
-			<mapping path="/user/mypage"/>
+			<mapping path="/point/charge_point_form"/>
+			<mapping path="/mypage/change_password_form"/>
+			<mapping path="/mypage/unregister_form"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
 	</interceptors>

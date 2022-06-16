@@ -21,11 +21,11 @@ public class PointServiceImpl implements PointService {
 	// 포인트 내역 추가
 	@Override
 	@Transactional
-	public boolean addPoint(PointVo pointVo, int userno) {
+	public boolean addPoint(PointVo pointVo) {
 		boolean result1 = pointDao.insertPoint(pointVo);
 		boolean result2 = false;
 		if(result1) {
-			result2 = userDao.updateUserPoint(pointVo.getPoint(), userno);
+			result2 = userDao.updateUserPoint(pointVo.getPoint(), pointVo.getUserno());
 		}
 		boolean result = result1 && result2;
 		return result;
