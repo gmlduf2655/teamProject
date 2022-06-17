@@ -68,7 +68,7 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		
-			String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.63/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
@@ -82,7 +82,7 @@ public class EventController {
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 		
-		String uploadPath = "//192.168.0.62/boardattach";
+		String uploadPath = "//192.168.0.63/boardattach";
 		String originalFilename = multipartFile.getOriginalFilename();
 		
 		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
@@ -121,12 +121,11 @@ public class EventController {
 		} else {
 			String originalFilename = file.getOriginalFilename();
 			byte[] fileData = file.getBytes();
-				String event_image = EventFileUploader.uploadFile("//192.168.0.62/boardattach", file.getOriginalFilename(), fileData);
+				String event_image = EventFileUploader.uploadFile("//.168.0.63/boardattach", file.getOriginalFilename(), fileData);
 				eventVo.setEvent_image(event_image);
 			boolean result2 = eventService.modify(eventVo);
 			System.out.println("result2:"+result2);
 		}
-		
 		
 		return "redirect:/admin/event_admin_read?event_no=" + eventVo.getEvent_no();
 	}

@@ -65,5 +65,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return count;
 	}
 
+	@Override
+	public boolean adminDelete(ReviewVo reviewVo) {
+		boolean result = reviewDao.adminDelete(reviewVo);
+		return result;
+	}
+
 
 }

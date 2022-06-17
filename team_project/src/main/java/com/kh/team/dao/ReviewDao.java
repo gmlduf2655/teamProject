@@ -14,4 +14,5 @@ public interface ReviewDao {
 	public ReviewVo readContent(int review_no); // 게시글 읽기
 	public void viewConuntUpdate(int review_no); // 조회수 증가
 	public int getCount(ReviewPagingDto pagingDto); //게시글 갯수
+	public boolean adminDelete(ReviewVo reviewVo); // 관리자 게시물 삭제(수정)
 }
