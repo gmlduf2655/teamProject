@@ -40,9 +40,16 @@ public class PointDaoImpl implements PointDao {
 
 	// 포인트 목록조회
 	@Override
-	public List<PointVo> selectPointList() {
-		List<PointVo> pointList = sqlSession.selectList(NAMESPACE + "selectPointList");
+	public List<PointVo> selectPointList(PagingDto pagingDto) {
+		List<PointVo> pointList = sqlSession.selectList(NAMESPACE + "selectPointList", pagingDto);
 		return pointList;
+	}
+
+	// 전체 유저 포인트 내역 수 조회
+	@Override
+	public int getCountPointList() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountPointList");
+		return count;
 	}
 
 	// 아이디로 포인트 목록조회
@@ -54,7 +61,12 @@ public class PointDaoImpl implements PointDao {
 		List<PointVo> pointList = sqlSession.selectList(NAMESPACE + "selectPointListByUserno", map);
 		return pointList;
 	}
-
+	// 특정 유저 포인트 내역 수 조회
+	public int getCountPointListByUserno(int userno) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountPointListByUserno", userno);
+		return count;		
+	}
+	
 	// 포인트 코드로 포인트 목록조회
 	@Override
 	public List<PointVo> selectPointListByPointCode(int point_code) {
@@ -68,6 +80,13 @@ public class PointDaoImpl implements PointDao {
 		PointVo pointVo = sqlSession.selectOne(NAMESPACE + "selectPointByPointno", pointno);
 		return pointVo;
 	}	
+	
+	// 포인트 코드 목록조회
+	@Override
+	public List<PointVo> selectPointCodeList() {
+		List<PointVo> pointCodeList = sqlSession.selectList(NAMESPACE + "selectPointCodeList");
+		return pointCodeList;
+	}
 	
 	// 포인트 내역 삭제
 	@Override

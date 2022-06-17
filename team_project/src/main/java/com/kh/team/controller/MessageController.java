@@ -48,7 +48,6 @@ public class MessageController {
 		int count = 0;
 		
 		pagingDto.setPage(page);
-		System.out.println(pagingDto);
 		if(type.equals("send")) {
 			messageList = messageService.getSenderMessageList(userid, pagingDto);
 			count = messageService.getSenderMessageCount(userid);
@@ -58,6 +57,8 @@ public class MessageController {
 		}else {}
 		
 		pagingDto.setCount(count);
+		
+		System.out.println(pagingDto);
 		
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("pagingDto", pagingDto);

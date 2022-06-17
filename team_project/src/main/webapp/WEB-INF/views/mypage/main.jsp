@@ -51,6 +51,28 @@
 				alert("포인트 충전 실패");
 			}else {}
 			
+			// 팔로우 체크 여부 확인
+			if("${loginUserVo}" != ""){
+				$.ajax({
+					type : "post",
+					async : "true",
+					url : "/follow/check_follow",
+					data : {
+						follower : "${userVo.userno}",
+						follow : "${loginUserVo.userno}"
+					},
+					success: function(rData){
+						console.log(rData)
+						if(rData){
+							$("#follow_icon").attr("class", "bi-person-check-fill mr-3");
+						}else {
+							$("#follow_icon").attr("class", "bi-person-plus-fill mr-3");
+						}
+					}
+					
+				});
+			}
+			
 			// 수정 버튼을 눌렀을 떄
 			$("#user_modify_btn").click(function(){
 				$("#nickname_label").show();
@@ -121,8 +143,15 @@
 						follower : "${userVo.userno}"
 					},
 					success : function(rData){
-						console.log(rData);
-						$("#follower").text(rData);
+						var follower = parseInt($("#follower").text());
+						if(rData){
+							$("#follow_icon").attr("class", "bi-person-plus-fill mr-3");
+							follower = follower - 1;
+						}else {
+							$("#follow_icon").attr("class", "bi-person-check-fill mr-3");
+							follower = follower + 1;
+						}
+						$("#follower").text(follower);
 					}
 				});
 			});
@@ -167,7 +196,7 @@
     <section class="login spad">
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
-    		<div class="col-md-2" style="color:white;padding-left:50px;">
+    		<div class="col-md-2" style="color:white;" >
     			<div class="menu">
 	    			<c:if test="${loginUserVo.userno == userVo.userno}">
 						<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
@@ -213,7 +242,9 @@
 		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span><br>
 		                    	<c:if test="${loginUserVo.userid != userVo.userid and not empty loginUserVo}">
-		                    		<button type="button" class="site-btn" id="follow_btn">팔로우</button>
+		                    		<button type="button" class="site-btn" id="follow_btn" style="font-size:18px;">
+		                    			<i class="bi bi-person-check-fill mr-3" id="follow_icon"></i>팔로우
+		                    		</button>
 		                    	</c:if>
 		                    </div>
 		                </div>

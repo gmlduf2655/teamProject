@@ -35,6 +35,12 @@ public class MessageServiceImpl implements MessageService {
 	public boolean replyMessage(MessageVo messageVo) {
 		messageDao.updateReSeq(messageVo.getGroupno(), messageVo.getRe_seq());
 		boolean result = messageDao.insertReplyMessage(messageVo);
+		List<String> filenames = messageVo.getMessage_files();
+		if(filenames != null) {
+			for(String filename : filenames) {
+				result = result & messageDao.insertMessageAttach(messageVo.getMessageno(), filename);
+			}
+		}
 		return result;
 	}	
 	

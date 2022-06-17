@@ -26,10 +26,10 @@ public class PointController {
 	// 포인트 목록 내역
 	@RequestMapping (value="/point_list", method=RequestMethod.GET)
 	public String pointList(Model model, int userno, int page, PagingDto pagingDto) {
+		int count = pointService.getCountPointListByUserno(userno);
+		pagingDto.setCount(count);
 		pagingDto.setPage(page);
 		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto); 
-		int count = pointList.size();
-		pagingDto.setCount(count);
 		System.out.println(pointList);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("count", count);

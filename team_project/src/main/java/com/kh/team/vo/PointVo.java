@@ -10,6 +10,7 @@ public class PointVo {
 	private int point_code; // 포인트 코드
 	private String point_name; // 포인트 이름
 	private String point_desc; // 포인트 설명
+	private String userid; // 유저 아이디
 	
 	// 기본 생성자
 	public PointVo() {
@@ -93,11 +94,21 @@ public class PointVo {
 		this.point_desc = point_desc;
 	}
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
 	// toString()
 	@Override
 	public String toString() {
 		return "PointVo [pointno=" + pointno + ", point=" + point + ", userno=" + userno + ", point_date=" + point_date
-				+ ", point_code=" + point_code + ", point_name=" + point_name + ", point_desc=" + point_desc + "]";
+				+ ", point_code=" + point_code + ", point_name=" + point_name + ", point_desc=" + point_desc
+				+ ", userid=" + userid + "]";
 	}
+	
 	
 }

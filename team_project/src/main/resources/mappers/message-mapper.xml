@@ -30,14 +30,13 @@
 	<!-- 답장 메세지 추가 -->
 	<insert id="insertReplyMessage">
 		insert into
-			tbl_message(messageno, groupno, sender, receiver, message_file, message_title, message_content, re_seq, re_level)
+			tbl_message(messageno, groupno, sender, receiver, message_title, message_content, re_seq, re_level)
 		values
 			(
 				#{messageno}, 
 				#{groupno},
 				#{sender},
 				#{receiver},
-				#{message_file, jdbcType=VARCHAR},
 				#{message_title},
 				#{message_content},
 				#{re_seq} + 1,
