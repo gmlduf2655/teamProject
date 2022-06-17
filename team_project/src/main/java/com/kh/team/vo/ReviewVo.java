@@ -11,13 +11,14 @@ public class ReviewVo {
 	private Date review_reg_date;
 	private int review_viewcnt;
 	private int userno;
+	private String admin_delete;
 	
 	public ReviewVo() {
 		super();
 	}
 	
 	public ReviewVo(int review_no, String review_writer, String review_title, String review_content, int review_star,
-			Date review_reg_date, int review_viewcnt, int userno) {
+			Date review_reg_date, int review_viewcnt, int userno, String admin_delete) {
 		super();
 		this.review_no = review_no;
 		this.review_writer = review_writer;
@@ -27,6 +28,7 @@ public class ReviewVo {
 		this.review_reg_date = review_reg_date;
 		this.review_viewcnt = review_viewcnt;
 		this.userno = userno;
+		this.admin_delete = admin_delete;
 	}
 
 	public ReviewVo(int review_no, String review_writer, String review_title, String review_content, int review_star,
@@ -50,6 +52,25 @@ public class ReviewVo {
 		this.userno = userno;
 	}
 	
+	public ReviewVo(String review_writer, String review_title, String review_content, int review_star, int userno,
+			String admin_delete) {
+		super();
+		this.review_writer = review_writer;
+		this.review_title = review_title;
+		this.review_content = review_content;
+		this.review_star = review_star;
+		this.userno = userno;
+		this.admin_delete = admin_delete;
+	}
+
+	public String getAdmin_delete() {
+		return admin_delete;
+	}
+
+	public void setAdmin_delete(String admin_delete) {
+		this.admin_delete = admin_delete;
+	}
+
 	public int getUserno() {
 		return userno;
 	}
@@ -121,8 +142,7 @@ public class ReviewVo {
 		return "ReviewVo [review_no=" + review_no + ", review_writer=" + review_writer + ", review_title="
 				+ review_title + ", review_content=" + review_content + ", review_star=" + review_star
 				+ ", review_reg_date=" + review_reg_date + ", review_viewcnt=" + review_viewcnt + ", userno=" + userno
-				+ "]";
+				+ ", admin_delete=" + admin_delete + "]";
 	}
 
-	
 }

@@ -109,7 +109,7 @@ $(document).ready(function(){
 									data-setbg="/event/displayImage?filename=${eventVo.event_image}"
 								</c:otherwise>
 								</c:choose>
-								style="cursor: pointer;" onclick="location.href='/event/event_read?event_no=${eventVo.event_no}';"
+								style="cursor: pointer;" onclick="location.href='/admin/event_admin_read?event_no=${eventVo.event_no}';"
 							>
 								
 								<div class="view">
@@ -118,7 +118,7 @@ $(document).ready(function(){
 							</div>
 							<div class="product__item__text">
 								<h5>
-									<a href="/event/event_read?event_no=${eventVo.event_no}" style="color: black;">${eventVo.event_title}</a>
+									<a href="/admin/event_admin_read?event_no=${eventVo.event_no}" style="color: black;">${eventVo.event_title}</a>
 								</h5>
 									<label>${eventVo.event_start_date}~${eventVo.event_end_date}</label>
 							</div>

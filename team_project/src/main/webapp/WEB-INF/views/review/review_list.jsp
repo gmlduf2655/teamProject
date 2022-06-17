@@ -19,6 +19,10 @@
  tr.tr_list:hover {
  	background-color: #FFCCCB;
  }
+ 
+ .review_content {
+ 	display: none;
+ }
 </style>  
 
 <script>
@@ -136,7 +140,17 @@ $(document).ready(function(){
 				</thead>
 				<tbody>
 					<c:forEach items="${reviewList}" var="reviewVo">
-						<tr class="tr_list">
+					
+					
+					<c:choose>
+					
+					<c:when test="${reviewVo.admin_delete == 'y'}">
+						<tr><td colspan="7" align="center">관리자가 삭제한 게시글 입니다.</td></tr>
+					</c:when>
+					
+					<c:otherwise>
+					
+					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
 							<td><a
@@ -190,7 +204,16 @@ $(document).ready(function(){
 							
 							<td>${reviewVo.review_reg_date}</td>
 							<td>${reviewVo.review_viewcnt}</td>
+							
 						</tr>
+					
+					</c:otherwise>
+						
+					</c:choose>
+					
+					
+					
+						
 					</c:forEach>
 				</tbody>
 			</table>
@@ -199,6 +222,12 @@ $(document).ready(function(){
 	</div>
 	
 	
+	<!-- 글 쓰기 버튼 -->
+	<div class="float-right">
+	<p>
+		<a class="btn btn-primary btn-large" href="/review/review_form">게시글 쓰기</a>
+	</p>
+</div>
 	
 	<!-- 페이지 -->
 	
@@ -241,11 +270,7 @@ $(document).ready(function(){
 	
 </div>
 
-<div class="float-right">
-	<p>
-		<a class="btn btn-primary btn-large" href="/review/review_form">게시글</a>
-	</p>
-</div>
+
     
     
 
