@@ -122,7 +122,7 @@
 	<!-- 유저 포인트 수정 -->
 	<update id="updatePoint">
 		update tbl_user set
-			point = #{point}
+			point = point + #{point}
 		where userno = #{userno}
 	</update>
 </mapper>
