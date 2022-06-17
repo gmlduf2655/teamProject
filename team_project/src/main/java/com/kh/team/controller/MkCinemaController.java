@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.service.CinemaService;
 import com.kh.team.service.MovieDBService;
-import com.kh.team.service.MovieService;
 import com.kh.team.util.MapAJaxAdaper;
 import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
@@ -37,10 +35,15 @@ public class MkCinemaController {
 	@Autowired
 	private MovieDBService MovieDBService;
 	
+	@Autowired
+	private GetServerTimeDao getServerTimeDao;
+	
 	@RequestMapping(value = "/cinema", method = RequestMethod.GET)
 	public String createCinema(Model model, RedirectAttributes rttr) {
 		List<String> cinemaCityList = cinemaService.getCinemaCityAddressList();
+		String time = cinemaService.getServerTime();
 		model.addAttribute("cinemaCityList", cinemaCityList);
+		model.addAttribute("serverTime", time);
 		return "cinema/cinemaDB";
 	}
 	
@@ -69,10 +72,12 @@ public class MkCinemaController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getRoomTimelineList", method = RequestMethod.GET)
-	public List<Map<String, Object>> getRoomTimelineList(int room_no){
+	public List<Map<String, Object>> getRoomTimelineList(int room_no, String movie_begin_date){
+		movie_begin_date = movie_begin_date.replace("T", " ");
 		String order_column = "movie_begin_date";
 		String order_type = "desc";
-		List<Map<String, Object>> tempList = cinemaService.getRoomTimelineList(room_no, order_column, order_type);
+		List<Map<String, Object>> tempList = cinemaService.getRoomTimelineList(room_no, "movie_begin_date", movie_begin_date, order_column, order_type);
+		System.out.println(tempList);
 		List<Map<String, Object>> roomTimelineList = MapAJaxAdaper.returnAdapter(tempList);
 		return roomTimelineList;
 	}
@@ -185,11 +190,39 @@ public class MkCinemaController {
 		return "redirect:/mkcinema/cinema"; 
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/createRoom", method = RequestMethod.GET)
-	public String createCinema(CinemaRoomVo cinemaRoomVo, RedirectAttributes rttr) {
+	public String createCinema(CinemaRoomVo cinemaRoomVo) {
 		boolean result = cinemaService.createCinemaRoom(cinemaRoomVo);
-		rttr.addFlashAttribute("createRoom", result);
-		return "redirect:/mkcinema/cinema"; 
+		Object room_no = 0;
+		if (result) {
+			int cinema_no = cinemaRoomVo.getCinema_no();
+			List<Map<String, Object>> roomList = cinemaService.getCinemaRoomList(cinema_no, "room_no", "desc");
+			System.out.println(roomList.get(0).get("room_no"));
+			room_no = roomList.get(0).get("room_no");
+		}
+		return String.valueOf(room_no); 
+	}
+	
+	@RequestMapping(value = "/deleteRoom", method = RequestMethod.GET)
+	public String deleteRoom(int room_no, RedirectAttributes rttr) {
+		System.out.println(room_no);
+		boolean result = false;
+		result = cinemaService.deleteRoomSeat(room_no);
+		if (result) {
+			result = cinemaService.deleteCinemaRoom(room_no);
+		}
+		System.out.println("delete : " + result);
+		rttr.addFlashAttribute("deleteRoomResult", result);
+		return "redirect:/mkcinema/cinema";
+	}
+	
+	@RequestMapping(value = "/createSeat", method = RequestMethod.GET)
+	public String createSeat(int room_no, RedirectAttributes rttr) {
+		if (room_no > 0) {
+			rttr.addFlashAttribute("createSeatResult", true);
+		}
+		return "redirect:/mkcinema/cinema";
 	}
 	
 	@RequestMapping(value = "/createTimeline", method = RequestMethod.GET)
@@ -203,7 +236,7 @@ public class MkCinemaController {
 		roomTimelineVo.setMovie_status(true);
 		System.out.println(roomTimelineVo);
 		boolean result = cinemaService.createRoomTimeline(roomTimelineVo);
-//		rttr.addFlashAttribute("createTimeline", result);
+		rttr.addFlashAttribute("createTimeline", result);
 		return "redirect:/mkcinema/cinema"; 
 	}
 }

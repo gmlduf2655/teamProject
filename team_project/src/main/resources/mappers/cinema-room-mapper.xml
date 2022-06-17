@@ -76,4 +76,10 @@
 		where room_no = #{room_no}
 	</update>
 	
+	<!-- 상영관 삭제 -->
+	<delete id="deleteCinemaRoom">
+		delete from tbl_cinema_room
+		where room_no = #{room_no}
+	</delete>
+	
 </mapper>

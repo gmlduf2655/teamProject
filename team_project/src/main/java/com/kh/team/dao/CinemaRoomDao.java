@@ -32,4 +32,7 @@ public interface CinemaRoomDao {
 	// 상영관 상태 변경
 	public boolean updateCinemaRoomStatus(int room_no, boolean room_status);
 	
+	// 상영관 삭제
+	public boolean deleteCinemaRoom(int room_no);
+	
 }

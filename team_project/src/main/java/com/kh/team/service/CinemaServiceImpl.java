@@ -11,6 +11,7 @@ import com.kh.team.dao.CinemaRoomDao;
 import com.kh.team.dao.RoomSeatDao;
 import com.kh.team.dao.RoomTimelineDao;
 import com.kh.team.dao.RoomTypeDao;
+import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.vo.CinemaRoomVo;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.RoomSeatVo;
@@ -34,6 +35,15 @@ public class CinemaServiceImpl implements CinemaService {
 	
 	@Autowired
 	private RoomTypeDao roomTypeDao;
+	
+	@Autowired
+	private GetServerTimeDao getServerTimeDao;
+	
+	@Override
+	public String getServerTime() {
+		String time = getServerTimeDao.getServerDate();
+		return time;
+	}
 	
 	@Override
 	public List<String> getCinemaCityAddressList() {
@@ -115,6 +125,12 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
+	public boolean deleteCinemaRoom(int room_no) {
+		boolean result = cinemaRoomDao.deleteCinemaRoom(room_no);
+		return result;
+	}
+	
+	@Override
 	public boolean createRoomTimeline(RoomTimelineVo roomTimelineVo) {
 		boolean result = roomtimelineDao.insertRoomTimeline(roomTimelineVo);
 		return result;
@@ -127,8 +143,8 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getRoomTimelineList(int cinema_no, String search_column, Object search_data, String order_column, String order_type) {
-		List<Map<String, Object>> roomTimelineList = roomtimelineDao.selectRoomTimelineList(cinema_no, search_column, search_data, order_column, order_type);
+	public List<Map<String, Object>> getRoomTimelineList(int room_no, String search_column, Object search_data, String order_column, String order_type) {
+		List<Map<String, Object>> roomTimelineList = roomtimelineDao.selectRoomTimelineList(room_no, search_column, search_data, order_column, order_type);
 		return roomTimelineList;
 	}
 
@@ -171,6 +187,12 @@ public class CinemaServiceImpl implements CinemaService {
 	@Override
 	public boolean modifyRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status) {
 		boolean result = roomSeatDao.updateRoomSeatInfo(seat_no, seat_x, seat_y, seat_status);
+		return result;
+	}
+	
+	@Override
+	public boolean deleteRoomSeat(int room_no) {
+		boolean result = roomSeatDao.deleteRoomSeat(room_no);
 		return result;
 	}
 

@@ -66,7 +66,7 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 	// 영화관 별 영화 스케줄 리스트 조회
 	@Override
 	public List<Map<String, Object>> selectRoomTimelineList(
-				int cinema_no, 
+				int room_no, 
 				String search_column, 
 				Object search_data,
 				String order_column, 
@@ -74,13 +74,23 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 			) {
 		
 		Map<String, Object> parameter = new HashMap<>();
-		parameter.put("cinema_no", cinema_no);
+		parameter.put("room_no", room_no);
 		parameter.put("search_column", search_column);
 		parameter.put("search_data", search_data);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
 		
-		List<Map<String, Object>> roomTimelineList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);
+		List<Map<String, Object>> tempList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);
+		List<Map<String, Object>> roomTimelineList = new ArrayList<>();
+		for (Map<String, Object> map : tempList) {
+			Map<String, Object> tempMap = new HashMap<>();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String keys = entry.getKey().toLowerCase();
+				Object values = entry.getValue();
+				tempMap.put(keys, values);
+			}
+			roomTimelineList.add(tempMap);
+		}
 		return roomTimelineList;
 	}
 
