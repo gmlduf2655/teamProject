@@ -145,7 +145,7 @@ $(function(){
 					<input type="file" class="form-control-file" disabled id="file" name="file" data-filename="${movieVo.movie_image_name}"/><br>
 					<c:set var="movie_image_name" value="${movieVo.movie_image_name}"/>
 					<c:if test="${not empty fn:substringAfter(movie_image_name,'_')}">
-						<img id="preview" src="/dbcontrol/displayImage?filename=${movieVo.movie_image_name}" width="200px">
+						<img id="preview" src="/dbcontrol/displayImage?filename=${movieVo.movie_image_name}" width="100px">
 					</c:if>
 					<c:if test="${empty fn:substringAfter(movie_image_name,'_')}">
 						<img id="preview" src="/resources/images/no_image.jpg" width="200px">
@@ -154,6 +154,22 @@ $(function(){
 					<br>
                		<a id="image_delete" style="display: none;">사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
 				</div>
+				<!-- 스틸컷 -->
+				<div class="form-group">
+					<label for="exampleInputFile"> 스틸컷 </label>
+					<input type="file" class="form-control-file" disabled id="file" name="file" data-filename="${movieVo.movie_image_name}"/><br>
+					<c:set var="movie_image_name" value="${movieVo.movie_image_name}"/>
+					<c:if test="${not empty fn:substringAfter(movie_image_name,'_')}">
+						<img id="preview" src="/dbcontrol/displayImage?filename=${movieVo.movie_image_name}" width="100px">
+					</c:if>
+					<c:if test="${empty fn:substringAfter(movie_image_name,'_')}">
+						<img id="preview" src="/resources/images/no_image.jpg" width="200px">
+					</c:if>
+					<br>
+					<br>
+               		<a id="image_delete" style="display: none;">사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
+				</div>
+				<!-- 스틸컷 -->
 				
 				<div class="form-group">
 					<button type="button" id="btnattrAble" class="btn btn-warning">수정</button>

@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.team.dao.PointDao;
 import com.kh.team.dao.UserDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -39,19 +40,35 @@ public class PointDaoTest {
 	// 포인트 목록조회 테스트
 	@Test
 	public void testSelectPointList() {
-		List<PointVo> pointList = pointDao.selectPointList();
+		List<PointVo> pointList = pointDao.selectPointList(null);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointDaoTest, testSelectPointList, pointVo : " + pointVo);
 		}
 	}
 	
+	// 전체 유저 포인트 내역 수 조회 테스트
+	@Test
+	public void testGetCountPointList() {
+		int count = pointDao.getCountPointList();
+		System.out.println("PointDaoTest, testGetCountPointList, count : " + count);
+	}
+	
 	// 아이디로 포인트 목록조회 테스트
 	@Test
 	public void testSelectPointListByUserno() {
-		List<PointVo> pointList = pointDao.selectPointListByUserno(1, null);
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
+		List<PointVo> pointList = pointDao.selectPointListByUserno(1, pagingDto);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointDaoTest, testSelectPointListByUserno, pointVo : " + pointVo);
 		}		
+	}
+	
+	// 특정 유저 포인트 내역 수 조회
+	@Test
+	public void testGetCountPointListByUserno() {
+		int count = pointDao.getCountPointListByUserno(1);
+		System.out.println("PointDaoTest, testGetCountPointListByUserno, count : " + count);		
 	}
 	
 	// 포인트 코드로 포인트 목록조회 테스트
@@ -68,6 +85,15 @@ public class PointDaoTest {
 	public void testSelectPointByPointno() {
 		PointVo pointVo = pointDao.selectPointByPointno(4);
 		System.out.println("PointDaoTest, testSelectPointByPointno, pointVo : " + pointVo);
+	}
+	
+	// 포인트 코드 목록조회 테스트
+	@Test
+	public void testSelectPointCodeList() {
+		List<PointVo> pointCodeList = pointDao.selectPointCodeList();
+		for(PointVo pointVo : pointCodeList) {
+		System.out.println("PointDaoTest, testSelectPointCodeList, pointVo : " + pointVo);
+		}
 	}
 	
 	// 포인트 내역 삭제 테스트

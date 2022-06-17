@@ -24,6 +24,11 @@
 		li>a{
 			color:white;
 		}
+		.product__item {
+		    margin-bottom: 30px;
+		    padding-left: 30px;
+		    padding-right: 30px;
+		}
 	</style>
     <script>
 		$(document).ready(function(){

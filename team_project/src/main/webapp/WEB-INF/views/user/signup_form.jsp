@@ -20,8 +20,10 @@
 		display:none;
 	}
 </style>
+
 <!-- 다음 도로명 주소 api script -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <script>
 	$(document).ready(function(){
 		var userid_dupl = true;
@@ -153,7 +155,7 @@
 	                var sido = data.sido;
 	                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 	                
-	                // 시/도명 풀네임으로 변경
+	                // 시/도명 풀네임으로 변경 (ex. 울산 -> 울산 광역시, 경남 -> 경상남도, 경기-> 경기도)
 	                if( ( fullRoadAddr.includes("울산") ||  fullRoadAddr.includes("부산") ||  fullRoadAddr.includes("대구")
 	                		|| fullRoadAddr.includes("대구") || fullRoadAddr.includes("광주") || fullRoadAddr.includes("대전")
 	                	) && fullRoadAddr.indexOf(sido) == 0){

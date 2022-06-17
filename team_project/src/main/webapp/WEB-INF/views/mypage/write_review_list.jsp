@@ -24,6 +24,19 @@
 		li>a{
 			color:white;
 		}
+		#pagination a{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
+		.move_page{
+			color:white;
+		}
+		.move_page:hover{
+			color:white;
+		}
+		.checked {
+		  color: orange;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -42,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>포인트 내역</h2>
+                        <h2>내가쓴 리뷰</h2>
                     </div>
                 </div>
             </div>
@@ -50,7 +63,7 @@
     </section>
     <!-- 제목 부분 끝 -->
 
-    <!-- 포인트 내역을 보여주는 부분 -->
+    <!-- 리뷰 내역을 보여주는 부분 -->
     <section class="login spad">
     	<div class="row">
         	<div class="col-md-2" style="color:white;padding-left:50px;">
@@ -60,48 +73,96 @@
         		<!-- nav 부분 -->
 				<nav class="row mb-4" >
 					<div class="col-md-4">
-						<h3>포인트 내역</h3>
+						<h3>리뷰 내역</h3>
 					</div>
 					<div class="col-md-3"></div>
 					<div class="col-md-1" style="text-align:right;">
 						<select name="searchType" id="searchType" style="color:black;">
-							<option value="p">포인트</option>
-							<option value="n">이름</option>
-							<option value="d">날짜</option>
+							<option value="">선택</option>
+							<option value="">--------------------</option>
+							<option value="t"
+								<c:if test="${pagingDto.searchType == 't'}">
+									selected
+								</c:if>
+							>제목</option>
+							<option value="c"
+								<c:if test="${pagingDto.searchType == 'c'}">
+									selected
+								</c:if>
+							>내용</option>
+							<option value="w"
+								<c:if test="${pagingDto.searchType == 'w'}">
+									selected
+								</c:if>
+							>작성자</option>
+							<option value="tc"
+								<c:if test="${pagingDto.searchType == 'tc'}">
+									selected
+								</c:if>
+							>제목 + 내용</option>
+							<option value="tcw"
+								<c:if test="${pagingDto.searchType == 'tcw'}">
+									selected
+								</c:if>
+							>제목 + 내용 + 작성자</option>
 						</select>
 					</div>
 					<div class="col-md-3">
 						<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 					</div>
 					<div class="col-md-1" style="padding-left:0px;">
-						<button type="button" class="btn btn-primary" id="search_btn">검색</button>
+						<button type="button" class="site-btn" id="search_btn">검색</button>
 					</div>
 				</nav>
 				<!-- nav 부분 끝-->
+				<!-- 리뷰 내역 테이블 부분 -->
 	    		<div class="row">
 	               	<div class="col-lg-12 ">
 				    	<table class="table" style="color:white;">
 				    		<thead>
 				    			<tr>
-									<th>#</th>    				
-									<th>포인트</th>    				
-									<th>포인트 이름</th>    				
-									<th>포인트 적립일</th>    				
+									<th>번호</th>
+									<th>작성자</th>
+									<th>제목</th>
+									<th>평점</th>
+									<th>작성일</th>
+									<th>조회수</th>	   				
 				    			</tr>
 				    		</thead>
 				    		<tbody>
-								<c:forEach var="pointVo" items="${pointList}">
+								<c:forEach var="reviewVo" items="${reviewList}">
 									<tr>
-										<td>${pointVo.pointno}</td>
-										<td>${pointVo.point}</td>
-										<td>${pointVo.point_name}</td>
-										<td>${pointVo.point_date}</td>
+										<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
+										<td>${reviewVo.review_writer}</td>
+										<td><a style="color:white"
+											href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
+										<td>
+											<span class="fa fa-star
+												<c:if test="${reviewVo.review_star >= 1}">checked</c:if>
+											"></span>
+											<span class="fa fa-star
+												<c:if test="${reviewVo.review_star >= 2}">checked</c:if>
+											"></span>
+											<span class="fa fa-star
+												<c:if test="${reviewVo.review_star >= 3}">checked</c:if>
+											"></span>
+											<span class="fa fa-star
+												<c:if test="${reviewVo.review_star >= 4}">checked</c:if>
+											"></span>
+											<span class="fa fa-star
+												<c:if test="${reviewVo.review_star >= 5}">checked</c:if>
+											"></span>
+										</td>
+										
+										<td>${reviewVo.review_reg_date}</td>
+										<td>${reviewVo.review_viewcnt}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 				    	</table>
 	    	    	</div>
 	            </div>
+	            <!-- 리뷰 내역 테이블 부분 끝-->
 				<!-- 글 목록 페이징 부분-->
 				<div class="row mb-3">
 					<div class="col-md-12">

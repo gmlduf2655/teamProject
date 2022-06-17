@@ -69,6 +69,15 @@ public class MessageServiceTest {
 		System.out.println("MessageServiceTest, testGetReceiverMessageCount, count : " + count);
 	}
 	
+	// 메세지 첨부 파일 저회
+	@Test
+	public void testGetFilenames() {
+		List<String> filenames = messageService.getFilenames(100);
+		for(String filename : filenames) {
+			System.out.println("MessageServiceTest, testGetFilenames, filename : " + filename);
+		}
+	}
+	
 	// 메세지 번호로 메세지 조회 테스트
 	@Test
 	public void testGetMessageByMessageno() {

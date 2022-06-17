@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,19 @@ public class MessageDaoImpl implements MessageDao {
 			return true;
 		}
 		return false;
+	}
+	
+	// 메세지 파일 첨부
+	@Override
+	public boolean insertMessageAttach(int messageno, String filename) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("messageno", messageno);
+		map.put("filename", filename);
+		int count = sqlSession.insert(NAMESPACE + "insertMessageAttach", map);
+		if(count > 0) {
+			return true;
+		}
+		return false;		
 	}
 
 	// 메세지 답장 추가
@@ -57,6 +71,13 @@ public class MessageDaoImpl implements MessageDao {
 		List<MessageVo> receiverMessageList = sqlSession.selectList(NAMESPACE + "selectReceiverMessageList", map);
 		return receiverMessageList;
 	}
+	
+	// 메세지 첨부 파일 조회
+	public List<String> selectFilenameList(int messageno){
+		List<String> filenameList = sqlSession.selectList(NAMESPACE + "selectFilenameList", messageno);
+		return filenameList;
+	}
+	
 	
 	// 보내는 메세지 수 조회
 	@Override

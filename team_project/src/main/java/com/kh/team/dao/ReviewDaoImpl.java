@@ -67,4 +67,13 @@ public class ReviewDaoImpl implements ReviewDao {
 		return count;
 	}
 
+	@Override
+	public boolean adminDelete(ReviewVo reviewVo) {
+		int count = sqlSession.update(NAMESPACE + "adminDelete", reviewVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

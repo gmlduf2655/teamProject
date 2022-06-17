@@ -8,12 +8,16 @@ import com.kh.team.vo.PagingDto;
 public interface MessageDao {
 	// 메세지 내역 추가
 	public boolean insertMessage(MessageVo messageVo);
-	// 답장 메세지 추가
+	// 메세지 파일 첨부
+	public boolean insertMessageAttach(int messageno, String filename);
+	// 답장 메세지 추가	
 	public boolean insertReplyMessage(MessageVo messageVo);
 	// 보내는 메세지 조회
 	public List<MessageVo> selectSenderMessageList(String sender, PagingDto pagingDto);
 	// 받는 메세지 조회
 	public List<MessageVo> selectReceiverMessageList(String receiver, PagingDto pagingDto);
+	// 메세지 첨부 파일 조회
+	public List<String> selectFilenameList(int messageno);
 	// 보내는 메세지 수 조회
 	public int selectSenderMessageCount(String sender);
 	// 받는 메세지 수 조회

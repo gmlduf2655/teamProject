@@ -99,6 +99,7 @@ $(document).ready(function(){
 									data-setbg="/event/displayImage?filename=${eventVo.event_image}"
 								</c:otherwise>
 								</c:choose>
+								style="cursor: pointer;" onclick="location.href='/event/event_read?event_no=${eventVo.event_no}';"
 							>
 								
 								<div class="view">
@@ -119,11 +120,7 @@ $(document).ready(function(){
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-		<div class="float-right">
-			<p>
-				<a class="btn btn-primary btn-large" href="/event/write_form">게시글 쓰기</a>
-			</p>
-		</div>
+		
 </div>
 
 

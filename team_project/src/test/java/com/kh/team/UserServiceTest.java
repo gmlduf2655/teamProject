@@ -115,6 +115,13 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testGetUseridByUsernoAndSnsType, userid : " + userid);
 	}
 	
+	// 회원번호로 회원 아이디 조회 테스트
+	@Test
+	public void testGetUseridByUserno() {
+		String userid = userService.getUseridByUserno(1);
+		System.out.println("UserServiceTest, testGetUseridByUserno, userid : " + userid);
+	}
+	
 	// 회원아이디와 회원타입으로 회원 번호 조회 테스트
 	@Test
 	public void testGetUsernoByUseridAndSnsType() {

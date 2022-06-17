@@ -48,7 +48,6 @@ public class MessageController {
 		int count = 0;
 		
 		pagingDto.setPage(page);
-		System.out.println(pagingDto);
 		if(type.equals("send")) {
 			messageList = messageService.getSenderMessageList(userid, pagingDto);
 			count = messageService.getSenderMessageCount(userid);
@@ -58,6 +57,8 @@ public class MessageController {
 		}else {}
 		
 		pagingDto.setCount(count);
+		
+		System.out.println(pagingDto);
 		
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("pagingDto", pagingDto);
@@ -74,12 +75,12 @@ public class MessageController {
 	@RequestMapping(value="/write_run", method=RequestMethod.POST)
 	public String writeRun(HttpSession session, MessageVo messageVo, RedirectAttributes redirectAttributes) {
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
+		System.out.println("messageVo : " + messageVo);
 		boolean result = messageService.addMessage(messageVo);
 		if(!result) {
 			MyFileUploader.deleteDirectory("/moverattach/message/" + messageVo.getMessageno());
 		}
 		redirectAttributes.addFlashAttribute("add_result", result + "");
-		System.out.println("messageVo : " + messageVo);
 		return "redirect:/message/message_list?page=1&type=receive";
 	}
 	
@@ -107,10 +108,20 @@ public class MessageController {
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	public String read(Model model, int messageno, String type) {
 		MessageVo messageVo = messageService.getMessageByMessageno(messageno);
+		List<String> message_files = messageService.getFilenames(messageno);
+		messageVo.setMessage_files(message_files);
+		List<String> filenames = new ArrayList<>();
+		for(String filename : message_files) {
+			int index = filename.indexOf("_");
+			filename = filename.substring(index + 1);
+			System.out.println(filename);
+			filenames.add(filename);
+		}
 		if(type.equals("receive") && messageVo.getRead_date() == null){
 			messageService.updateReadDate(messageno);
 		}
 		model.addAttribute("messageVo", messageVo);
+		model.addAttribute("filenames", filenames);
 		return "message/read";
 	}
 	

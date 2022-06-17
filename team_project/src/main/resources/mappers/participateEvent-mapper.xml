@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.participateEvent">
+
+	<!-- 글 등록 -->
+	<insert id="insert">
+		insert into tbl_participate_event
+			(participate_no, event_title, event_start_date, event_end_date, userno, event_no)
+		values
+			(seq_participate_event_participateno.nextval, #{event_title}, #{event_start_date}, 
+			#{event_end_date}, #{userno}, #{event_no})
+	</insert>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete">
+		delete from tbl_participate_event
+		where participate_no = #{participate_no}
+	</delete>
+	
+	<!-- 글 전체 목록 -->
+	<select id="list" resultType="ParticipateEventVo">
+		select * from 
+			(select rownum rnum, a.* from
+    			(select * from tbl_participate_event
+    			<include refid="search"></include>
+    			order by event_no desc) a)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+		
+	<!-- 글 갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) from tbl_participate_event
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 검색 조건 -->
+		<sql id="search">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					where event_title like '%' || #{keyword} || '%'
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
+
+</mapper>
