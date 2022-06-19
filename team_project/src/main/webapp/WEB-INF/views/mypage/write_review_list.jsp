@@ -27,6 +27,7 @@
 		#pagination a{
 			background-color:#e53637;
 			border-color:#e53637;
+			color:white;
 		}
 		.move_page{
 			color:white;
@@ -76,7 +77,7 @@
 						<h3>리뷰 내역</h3>
 					</div>
 					<div class="col-md-3"></div>
-					<div class="col-md-1" style="text-align:right;">
+					<div class="col-md-1" style="display:flex;justify-content: flex-end;">
 						<select name="searchType" id="searchType" style="color:black;">
 							<option value="">선택</option>
 							<option value="">--------------------</option>

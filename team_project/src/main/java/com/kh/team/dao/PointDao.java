@@ -26,11 +26,17 @@ public interface PointDao {
 	// 포인트 번호로 포인트 내역조회
 	public PointVo selectPointByPointno(int pointno);
 	// 포인트 코드 목록조회
-	public List<PointVo> selectPointCodeList();
+	public List<PointVo> selectPointCodeList(PagingDto pagingDto);
+	// 포인트 코드 목록 수 조회
+	public int getCountPointCodeList();
+	// 포인트 코드 내역 수정
+	public boolean updatePointCode(PointVo pointVo);
 	// 포인트 내역 삭제
 	public boolean deletePoint(int pointno);
 	// 포인트코드 내역 삭제
 	public boolean deletePointCode(int point_code);
-	// 업데이트
+	// 포인트코드 내역 다수 삭제
+	public boolean multiDeletePointCode(List<Integer> list);
+	// 유저 포인트 수정
 	public boolean updatePoint(PointVo pointVo);
 }

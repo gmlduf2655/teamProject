@@ -237,56 +237,44 @@
 		                        <br>
 	                            <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
 	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;"><br>
+	                            <h3 class="mb-4">${userVo.nickname}(${userVo.username})님</h3>
+	                            <c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
+			            			<button type="button" class="site-btn" id="user_modify_btn">프로필 사진 수정</button>
+			            			<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button>
+			            			<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button>
+		            			</c:if>
+		                    </div>
+		                </div>
+		                <div class="col-lg-6">
 		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follower">${follower}</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
-		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span><br>
+		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span>
 		                    	<c:if test="${loginUserVo.userid != userVo.userid and not empty loginUserVo}">
 		                    		<button type="button" class="site-btn" id="follow_btn" style="font-size:18px;">
 		                    			<i class="bi bi-person-check-fill mr-3" id="follow_icon"></i>팔로우
 		                    		</button>
 		                    	</c:if>
-		                    </div>
-		                </div>
-		                <div class="col-lg-6">
-		                    <div class="login__register">
-		                        <h3>내 정보</h3>
-		                        <h4>이름 : ${userVo.username}</h4>
-		                        <h4>별명 : ${userVo.nickname}</h4>
-		                        <h4 id="nickname_label" style="display:none;">
-		                        	별명 : <input type="text" name="nickname" id="nickname" value="${userVo.nickname}">
-		                        </h4>
-		                        <h4>이메일 : ${userVo.email}</h4>
-		                        <h4 id="email_label" style="display:none;">
-		                        	이메일 : <input type="email" name="email" id="email" value="${userVo.email}">
-		                        </h4>
-		                        <h4>휴대폰번호: ${userVo.cellphone}</h4>
-		                        <h4 id="cellphone_label" style="display:none;">
-		                        	휴대폰번호 : <input type="text" name="cellphone" id="cellphone" value="${userVo.cellphone}">
-		                        </h4>
-		                        <h4>주소: ${userVo.address}</h4>
-		                        <h4 id="address_label" style="display:none;">
-		                        	주소 : <input type="text" name="address" id="address" value="${userVo.address}">
-		                        </h4>
-		                        <h4>포인트 : ${userVo.point}</h4>
-		                        <c:choose>
-				                	<c:when test="${empty userVo.sns_type}">
-				                        <h4>가입일 : ${userVo.reg_date}</h4>
-				                    </c:when>
-				                    <c:otherwise>
-				                        <h4>연동일 : ${userVo.sns_connect_date}</h4>
-				                    </c:otherwise>
-				                </c:choose>
-		                    </div>
+		                    	<br>
+		                    	<h3 class="mt-3">포인트 : ${userVo.point}P</h3>
+<!-- 		                    <div class="login__register"> -->
+<!-- 		                        <h3>내 정보</h3> -->
+<%-- 		                        <h4>이름 : ${userVo.username}</h4> --%>
+<%-- 		                        <h4>별명 : ${userVo.nickname}</h4> --%>
+<!-- 		                        <h4 id="nickname_label" style="display:none;"> -->
+<%-- 		                        	별명 : <input type="text" name="nickname" id="nickname" value="${userVo.nickname}"> --%>
+<!-- 		                        </h4> -->
+<%-- 		                        <h4>포인트 : ${userVo.point}</h4> --%>
+<!-- 		                    </div> -->
 		                </div>
 	            	</div>
 		            <div class="row">
 		            	<div class="col-lg-12" style="text-align:center;">
-		            		<c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
-			            		<button type="button" class="site-btn" id="user_modify_btn">수정</button>
-			            		<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button>
-			            		<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button>
-		            		</c:if>
+<%-- 		            		<c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}"> --%>
+<!-- 			            		<button type="button" class="site-btn" id="user_modify_btn">수정</button> -->
+<!-- 			            		<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button> -->
+<!-- 			            		<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button> -->
+<%-- 		            		</c:if> --%>
 		            	</div>
 		            </div>
 	            </form>

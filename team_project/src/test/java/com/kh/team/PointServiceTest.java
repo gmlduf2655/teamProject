@@ -84,10 +84,17 @@ public class PointServiceTest {
 	// 포인트 코드 목록조회 테스트
 	@Test
 	public void testGetPointCodeList() {
-		List<PointVo> pointCodeList = pointService.getPointCodeList();
+		List<PointVo> pointCodeList = pointService.getPointCodeList(null);
 		for(PointVo pointVo : pointCodeList) {
 			System.out.println("PointServiceTest, testGetPointCodeList, pointVo : " + pointVo);
 		}
+	}
+	
+	// 포인트 코드 목록 조회 수 테스트
+	@Test
+	public void testGetCountPointCodeList() {
+		int count = pointService.getCountPointCodeList();
+		System.out.println("PointServiceTest, testGetCountPointCodeList, count : " + count);
 	}
 	
 	// 포인트 내역 삭제 테스트

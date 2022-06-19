@@ -83,9 +83,26 @@ public class PointDaoImpl implements PointDao {
 	
 	// 포인트 코드 목록조회
 	@Override
-	public List<PointVo> selectPointCodeList() {
-		List<PointVo> pointCodeList = sqlSession.selectList(NAMESPACE + "selectPointCodeList");
+	public List<PointVo> selectPointCodeList(PagingDto pagingDto) {
+		List<PointVo> pointCodeList = sqlSession.selectList(NAMESPACE + "selectPointCodeList", pagingDto);
 		return pointCodeList;
+	}
+	
+	// 포인트 코드 목록 수 조회
+	@Override
+	public int getCountPointCodeList() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountPointCodeList");
+		return count;
+	}
+	
+	// 포인트 코드 내역 수정
+	@Override
+	public boolean updatePointCode(PointVo pointVo) {
+		int count = sqlSession.update(NAMESPACE + "updatePointCode", pointVo);
+		if(count > 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	// 포인트 내역 삭제
@@ -107,7 +124,18 @@ public class PointDaoImpl implements PointDao {
 		}
 		return false;
 	}
+	
+	// 포인트코드 내역 다수 삭제
+	@Override
+	public boolean multiDeletePointCode(List<Integer> list) {
+		int count = sqlSession.delete(NAMESPACE + "multiDeletePointCode", list);
+		if(count > 0) {
+			return true;
+		}		
+		return false;
+	}
 
+	// 유저 포인트 수정
 	@Override
 	public boolean updatePoint(PointVo pointVo) {
 		int count = sqlSession.update(NAMESPACE + "updatePoint", pointVo);
