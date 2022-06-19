@@ -35,6 +35,7 @@
 		<h3 class="mb-3"><a class="mypage_menu">영화 예매</a></h3>
 		<ul style="padding-left:50px;">
 			<li><a href="/mypage/ticket_movie_list?userno=${loginUserVo.userno}">영화 예매 내역</a></li>
+			<li><a href="/mypage/like_movie_list?userno=${loginUserVo.userno}">좋아요 누른 영화</a></li>
 		</ul>
 	</div>
 	<hr>
