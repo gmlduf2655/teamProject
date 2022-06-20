@@ -103,35 +103,6 @@ $(function(){
 			alert("사용자가 다릅니다");
 		}
 	});
-	//댓글 리스트 불러오기
-	/* function getCommentList(){
-		var url = "/moviecomment/commentList";
-		var movie_code = "${movieVo.movie_code}";
-		sData = {
-				"movie_code" : movie_code
-		};
-		 $.get(url, sData, function(rData){
-			 console.log(rData);
-			 $("#commentTable tr:gt(0)").remove();
-			 $.each(rData, function(){
-				var tr = $("#cloneTable tr").clone();
-				var tds = tr.find("td");
-				tds.eq(0).text(this.userid);
-				tds.eq(1).find(".commentInput").val(this.movie_comment);
-				tds.eq(2).text(this.regdate);
-				tds.find(".commentDelete").attr("data-cno",this.cno);
-				tds.find(".commentUpdateSubmit").attr("data-cno",this.cno);
-				if("${loginUserVo.userid}" == this.userid){
-					tds.eq(3).show();
-					tds.eq(4).show();
-				} else {
-					tds.eq(3).hide();
-					tds.eq(4).hide();
-				} 
-				$("#commentTable").append(tr);
-			});
-		});
-	};  */
 	//댓글 불러오기
 	function getCommentList(){
 		var url = "/moviecomment/commentList";
@@ -227,15 +198,15 @@ $(function(){
 	
 });
 </script>
+<!-- 나중에 지우기 -->
 ${loginUserVo.userid}
 <!-- <section class="anime-details spad"> -->
         <div class="container">
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}" style="background-image: url(&quot;img/anime/details-pic.jpg&quot;);">
-                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                        <div class="anime__details__pic set-bg"  data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}" 
+                      	  style="background-image: url(&quot;img/anime/details-pic.jpg&quot;); cursor: pointer;" onclick="window.open('/movie/poster?filename=${movieVo.movie_image_name}','', 'width=100%')">
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -310,8 +281,10 @@ ${loginUserVo.userid}
                 	 <div class="col-lg-4 col-md-4">
                 	 	<!-- 스틸컷 자리 -->
                 	 	<c:forEach items="${stillcutlist}" var="stillcutlist" varStatus="status">
-                	 		<img src="/movie/displayImage?filename=${stillcutlist.still_cut_name}"
-                	 			style="width: 150px;'">
+                	 			 <img onclick="window.open('/movie/poster?filename=${stillcutlist.still_cut_name}','', 'width=100%')" 
+                	 			 	src="/movie/displayImage?filename=${stillcutlist.still_cut_name}"
+                	 				style="width: 150px; cursor: pointer;">
+                	 			
                 	 	</c:forEach>
                 	 </div>
                 </div>

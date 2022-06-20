@@ -89,5 +89,11 @@ public class MovieController {
 		return data;
 	}
 	
+	//사진 원본 보기
+	@RequestMapping(value="/poster", method = RequestMethod.GET)
+	public String movieposter(String filename,Model model) {
+		model.addAttribute("image_name", filename);
+		return "movie/poster";
+	}
 	
 }
