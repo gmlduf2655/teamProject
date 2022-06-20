@@ -11,17 +11,17 @@
 	}section.product {
 		padding : 0;
 	}
-	
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
 </style>
 <script>
 	$(document).ready(function(){
+		// 검색 버튼 눌렀을 떄
 		$("#search_btn").click(function(){
 			var keyword = $("#keyword").val();
 			var searchType = $("#searchType").val();
-			location.href = "/admin/total_point_list?userno=${param.userno}&page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
+			location.href = "/admin/total_point_list?page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
 		});
 	});
 </script>
@@ -73,6 +73,7 @@
 							</div>
 						</nav>
 						<!-- nav 부분 끝-->
+						<!-- 모든 유저 포인트 내역 테이블 부분 -->
 			    		<div class="row">
 			               	<div class="col-lg-12 ">
 						    	<table class="table" >
@@ -99,7 +100,10 @@
 						    	</table>
 			    	    	</div>
 			            </div>
+			            <!-- 모든 유저 포인트 내역 테이블 부분 끝-->
+			            <!-- 목록 페이징 부분 -->
 						<jsp:include page="/WEB-INF/views/include/list_paging.jsp" />
+			            <!-- 목록 페이징 부분 끝-->
 		        	</div>
 		        </div>
 		    </section>

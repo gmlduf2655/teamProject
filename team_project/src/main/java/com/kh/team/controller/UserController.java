@@ -116,7 +116,17 @@ public class UserController {
 		boolean result = userService.signUp(userVo);
 		redirectAttributes.addFlashAttribute("signup_result", result + "");
 		return "redirect:/user/login_form";
-	}	
+	}
+	
+	// 테스트 유저 만들기
+	@RequestMapping(value="/create_test_user", method=RequestMethod.POST)
+	public String signupRun(UserVo userVo, RedirectAttributes redirectAttributes) throws IOException {
+		System.out.println("userVo : " + userVo);
+		boolean result = userService.signUp(userVo);
+		redirectAttributes.addFlashAttribute("create_result", result + "");
+		return "redirect:/admin/origin_user_list";
+	}
+	
 	
 	// 네이버 로그인 성공시 콜백 페이지
 	@RequestMapping(value="/naver_login_callback", method=RequestMethod.GET)
@@ -290,10 +300,10 @@ public class UserController {
 	// 유저 목록 페이지 이동 (관리자용)
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String userList(HttpSession session) {
-		List<UserVo> originUserList = userService.getOriginUserList();
-		List<UserVo> snsUserList = userService.getSnsUserList();
-		session.setAttribute("originUserList", originUserList);
-		session.setAttribute("snsUserList", snsUserList);
+//		List<UserVo> originUserList = userService.getOriginUserList();
+//		List<UserVo> snsUserList = userService.getSnsUserList();
+//		session.setAttribute("originUserList", originUserList);
+//		session.setAttribute("snsUserList", snsUserList);
 		return "user/list";
 	}
 }

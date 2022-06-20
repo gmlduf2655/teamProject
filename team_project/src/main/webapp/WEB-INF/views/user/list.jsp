@@ -1,30 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-    
-    
-<!--     제목 부분 -->
-<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
-<!--         <div class="container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-12 text-center"> -->
-<!--                     <div class="normal__breadcrumb__text"> -->
-<!--                         <h2>유저 정보</h2> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </section> -->
-<!--     제목 부분 끝 -->
-
     <!-- 유저 목록을 보여주는 부분 -->
     <section class="login spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 ">
-                	<h3 class="mb-4" >기존 회원</h3>
-                	<div style="overflow-x:scroll">
+                	<h3 class="mb-4">기존 회원</h3>
+                	<div class="mb-3" style="overflow-x:scroll">
+                		<!-- 기존 회원 테이블 부분 -->
 				    	<table class="table" style="width:1600px;">
 				    		<thead>
 				    			<tr>
@@ -57,10 +41,14 @@
 								</c:forEach>
 							</tbody>
 				    	</table>
+				    	<!-- 기존 회원 테이블 부분 끝 -->
 			    	</div>
-			    	<hr style="background-color:black">
+			    	<!-- 기존 회원 글 목록 페이징 부분 -->
+				    <jsp:include page="/WEB-INF/views/include/list_paging.jsp" />
+			    	<!-- 기존 회원 글 목록 페이징 부분 끝-->
 			    	<h3 class="mb-4">간편로그인 회원</h3>
-			    	<div style="overflow-x:scroll">
+			    	<div>
+			    		<!-- 간편로그인(sns) 회원 테이블 부분 -->
 				    	<table class="table" >
 				    		<thead>
 				    			<tr>
@@ -89,13 +77,14 @@
 								</c:forEach>
 							</tbody>
 				    	</table>
+				    	<!-- 간편로그인(sns) 회원 테이블 부분 끝-->
 				    </div>
+				    <!-- 간편로그인(sns) 회원 글 목록 페이징 부분 -->
+					<jsp:include page="/WEB-INF/views/include/list_paging.jsp" />
+				    <!-- 간편로그인(sns) 회원 글 목록 페이징 부분 끝 -->
 				</div>
     		</div>
     	</div>
-<!--         <div style="text-align:center;"> -->
-<%-- 	        <a href="/user/mypage?userno=${param.userno}" class="site-btn">마이페이지로</a> --%>
-<!--         </div> -->
     </section>
     <!-- 유저 목록을 보여주는 부분 끝 -->
 	

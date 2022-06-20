@@ -2,6 +2,7 @@ package com.kh.team.dao;
 
 import java.util.List;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.UserVo;
 
 public interface UserDao {
@@ -27,10 +28,14 @@ public interface UserDao {
 	public UserVo selectUserByUsernoAndUserpw(int userno, String userpw);
 	// 회원 목록 조회
 	public List<UserVo> userList();
-	// 기존회원 목록 조회
-	public List<UserVo> originUserList();
+	// 기존 회원 목록 조회
+	public List<UserVo> originUserList(PagingDto pagingDto);
+	// 기존 회원수 조회
+	public int getCountOriginUserList();
 	// 간편로그인 회원 목록 조회
-	public List<UserVo> snsUserList();
+	public List<UserVo> snsUserList(PagingDto pagingDto);
+	// 간편로그인 회원수 조회
+	public int getCountSnsUserList();
 	// 회원 수정
 	public boolean updateUser(UserVo userVo);
 	// 유저 비밀번호 수정

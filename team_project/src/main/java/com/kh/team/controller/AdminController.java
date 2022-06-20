@@ -53,13 +53,35 @@ public class AdminController {
 		
 	// 유저 관리
 	@RequestMapping(value="/user_list", method=RequestMethod.GET)
-	public String userList(Model model) throws ParseException {
-		List<UserVo> originUserList = userService.getOriginUserList();
-		List<UserVo> snsUserList = userService.getSnsUserList();
-		String str = snsUserList.toString();
-		model.addAttribute("originUserList", originUserList);
-		model.addAttribute("snsUserList", snsUserList);
+	public String userList(Model model) {
+//		List<UserVo> originUserList = userService.getOriginUserList();
+//		List<UserVo> snsUserList = userService.getSnsUserList();
+//		String str = snsUserList.toString();
+//		model.addAttribute("originUserList", originUserList);
+//		model.addAttribute("snsUserList", snsUserList);
 		return "admin/user_list";
+	}
+	
+	// 기존 유저 목록
+	@RequestMapping(value="/origin_user_list", method=RequestMethod.GET)
+	public String originUserList(Model model, PagingDto pagingDto){
+		int count = userService.getCountOriginUserList();
+		pagingDto.setPage(pagingDto.getPage());
+		List<UserVo> originUserList = userService.getOriginUserList(pagingDto);
+		pagingDto.setCount(count);
+		model.addAttribute("originUserList", originUserList);
+		return "admin/origin_user_list";
+	}
+	
+	// 간편로그인 유저 목록
+	@RequestMapping(value="/sns_user_list", method=RequestMethod.GET)
+	public String snsUserList(Model model, PagingDto pagingDto){
+		int count = userService.getCountSnsUserList();
+		pagingDto.setPage(pagingDto.getPage());
+		List<UserVo> snsUserList = userService.getSnsUserList(pagingDto);
+		pagingDto.setCount(count);
+		model.addAttribute("snsUserList", snsUserList);
+		return "admin/sns_user_list";
 	}
 	
 	// 전체 유저 포인트 내역
@@ -77,15 +99,15 @@ public class AdminController {
 		return "admin/total_point_list";
 	}
 	
-	// 포인트 코드 생성기
-	@RequestMapping(value="/create_point_code", method=RequestMethod.GET)
+	// 포인트 코드 관리 페이지 이동
+	@RequestMapping(value="/manage_point_code", method=RequestMethod.GET)
 	public String createPointCode(Model model, int page, PagingDto pagingDto) {
 		pagingDto.setPage(page);
 		List<PointVo> pointCodeList = pointService.getPointCodeList(pagingDto);
 		int count = pointService.getCountPointCodeList();
 		pagingDto.setCount(count);
 		model.addAttribute("pointCodeList", pointCodeList);
-		return "admin/create_point_code";
+		return "admin/manage_point_code";
 	}
 	
 	// 관리자 페이지 이벤트 관리 - 이벤트 목록 -> 이벤트 읽기(수정, 삭제)

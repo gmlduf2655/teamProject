@@ -2,6 +2,7 @@ package com.kh.team.service;
 
 import java.util.List;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.UserVo;
 
 // 기능 15개 ㄷㄷ
@@ -17,9 +18,13 @@ public interface UserService {
 	// 회원 목록 조회
 	public List<UserVo> getUserList();
 	// 기존회원 목록 조회
-	public List<UserVo> getOriginUserList();
+	public List<UserVo> getOriginUserList(PagingDto pagingDto);
+	// 기존 회원수 조회
+	public int getCountOriginUserList();	
 	// 간편로그인회원 목록 조회
-	public List<UserVo> getSnsUserList();
+	public List<UserVo> getSnsUserList(PagingDto pagingDto);
+	// 간편로그인 회원수 조회
+	public int getCountSnsUserList();
 	// 아이디 중복 체크
 	public boolean useridDuplCheck(String userid);
 	// 닉네임 중복체크
