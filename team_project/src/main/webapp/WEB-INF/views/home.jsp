@@ -10,6 +10,10 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <script>
+	//유수연 : 박스오피스 정보 우리 서버 없을시 알림
+	var movieInfoByMovieCodeExist = "${movieInfoByMovieCodeExist}";
+	if (movieInfoByMovieCodeExist == "false"){
+		alert("정보가 없습니다\n 빠른시일내에 준비하도록 하겠습니다");
 	$(document).ready(function(){
 		// 임희열 : 회원 탈퇴시 회원 탈퇴 성공여부 확인
 		var unregister_result = "${unregister_result}";
