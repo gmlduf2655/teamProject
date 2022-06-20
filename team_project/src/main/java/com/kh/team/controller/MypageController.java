@@ -143,7 +143,7 @@ public class MypageController {
 	// 내가 쓴 리뷰 내역 페이지 이동
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
 	public String writeRiewList(Model model, int userno) {
-		ReviewPagingDto pagingDto = new ReviewPagingDto();
+		PagingDto pagingDto = new PagingDto();
 		pagingDto.setPage(1);
 		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
 		System.out.println(myReviewList);
