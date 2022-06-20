@@ -68,7 +68,7 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		
-			String event_image = EventFileUploader.uploadFile("//192.168.0.63/boardattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.67/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
@@ -121,7 +121,7 @@ public class EventController {
 		} else {
 			String originalFilename = file.getOriginalFilename();
 			byte[] fileData = file.getBytes();
-				String event_image = EventFileUploader.uploadFile("//.168.0.63/boardattach", file.getOriginalFilename(), fileData);
+				String event_image = EventFileUploader.uploadFile("//.168.0.67/boardattach", file.getOriginalFilename(), fileData);
 				eventVo.setEvent_image(event_image);
 			boolean result2 = eventService.modify(eventVo);
 			System.out.println("result2:"+result2);

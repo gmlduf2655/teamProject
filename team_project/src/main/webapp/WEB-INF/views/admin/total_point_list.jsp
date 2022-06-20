@@ -49,21 +49,27 @@
 								<h3>포인트 내역</h3>
 							</div>
 							<div class="col-md-2"></div>
-							<div class="col-md-1" style="text-align:right;">
+							<div class="col-md-1" style="display:flex;justify-content: flex-end;">
 								<select name="searchType" id="searchType" style="color:black;">
 									<option value="p" 
 										<c:if test="${param.searchType == '' or param.searchType == 'p'}">selected</c:if>
 									>포인트</option>
-									<option value="n" <c:if test="${param.searchType == 'n'}">selected</c:if>>이름</option>
-									<option value="u" <c:if test="${param.searchType == 'u'}">selected</c:if>>유저 번호</option>
-									<option value="d" <c:if test="${param.searchType == 'd'}">selected</c:if>>날짜</option>
+									<option value="n" 
+										<c:if test="${param.searchType == 'n'}">selected</c:if>
+									>이름</option>
+									<option value="u" 
+										<c:if test="${param.searchType == 'u'}">selected</c:if>
+									>아이디</option>
+									<option value="d" 
+										<c:if test="${param.searchType == 'd'}">selected</c:if>
+									>날짜</option>
 								</select>
 							</div>
 							<div class="col-md-3">
 								<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 							</div>
 							<div class="col-md-2" style="padding-left:0px;">
-								<button type="button" class="site-btn" id="search_btn">검색</button>
+								<button type="button" class="btn btn-primary" id="search_btn">검색</button>
 							</div>
 						</nav>
 						<!-- nav 부분 끝-->
@@ -73,7 +79,6 @@
 						    		<thead>
 						    			<tr>
 											<th>#</th>    			
-											<th>유저번호</th>	
 											<th>아이디</th>
 											<th>포인트</th>    				
 											<th>포인트 이름</th>    				
@@ -84,7 +89,6 @@
 										<c:forEach var="pointVo" items="${pointList}">
 											<tr>
 												<td>${pointVo.pointno}</td>
-												<td>${pointVo.userno}</td>
 												<td>${pointVo.userid}</td>
 												<td>${pointVo.point}</td>
 												<td>${pointVo.point_name}</td>
@@ -95,45 +99,7 @@
 						    	</table>
 			    	    	</div>
 			            </div>
-						<!-- 글 목록 페이징 부분-->
-						<div class="row mb-3">
-							<div class="col-md-12">
-								<nav>
-									<ul class="pagination justify-content-center" id="pagination">
-										<c:if test="${pagingDto.startPage > 1}">
-											<li class="page-item"><a class="page-link move_page"
-												href="/point/point_list?userno=1&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
-											<li class="page-item"><a class="page-link move_page"
-												href="/point/point_list?userno=${pagigDto.startPage-1}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
-										</c:if>
-										<c:forEach var="i" begin="${pagingDto.startPage}"
-											end="${pagingDto.endPage}">
-											<li
-												<c:choose>
-													<c:when test="${i == pagingDto.page}">
-														class="page-item active"
-													</c:when>
-													<c:otherwise>
-														class="page-item"		
-													</c:otherwise>
-												</c:choose>>
-												<a class="page-link move_page" href="/point/point_list?userno=${param.page}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
-											</li>
-										</c:forEach>
-										<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
-											<li class="page-item"><a class="page-link move_page"
-												href="/point/point_list?userno=${pagigDto.endPage+1}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
-											<li class="page-item"><a class="page-link move_page"
-												href="/point/point_list?userno=${pagigDto.totalPage}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
-										</c:if>
-									</ul>
-								</nav>
-							</div>
-						</div>
-						<!-- 글 목록 페이징 부분 끝 -->
-				        <div style="text-align:center;">
-					        <a href="/mypage/main?userno=${param.userno}" class="site-btn">마이페이지로</a>
-				        </div>
+						<jsp:include page="/WEB-INF/views/include/list_paging.jsp" />
 		        	</div>
 		        </div>
 		    </section>

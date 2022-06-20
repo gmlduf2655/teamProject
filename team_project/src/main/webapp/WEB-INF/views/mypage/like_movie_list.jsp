@@ -63,26 +63,22 @@
 	            <!-- 유저 영화 예매 내역 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
-						<h3 class="mb-4">영화 예매내역</h3>
+						<h3 class="mb-4">좋아요 누른 영화</h3>
 						<div class="row">
-						<c:forEach var="ticketUserVo" items="${ticketUserList}" varStatus="status">
+						<c:forEach var="movieVo" items="${movieLikeList}" varStatus="status">
 							<c:if test="true">
 							<div class="col-md-3">
 								<div class="product__item">
 									<div class="product__item__pic set-bg" 
-										<c:choose>
-											<c:when test="${empty ticketUserVo.movie_image_name}">
+											<c:choose>
+											<c:when test="${empty movieVo.movie_image_name}">
 												data-setbg="/resources/images/no_image.jpg" 
 											</c:when>
 											<c:otherwise>
-												data-setbg="/movie/displayImage?filename=${ticketUserVo.movie_image_name}"
+												data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
 											</c:otherwise>
-										</c:choose>
-										style="cursor: pointer;" 
-										<c:if test="${loginUserVo.userno == param.userno}">
-											onclick="location.href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}';"	
-										</c:if>
-									>							
+											</c:choose>
+											style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">								
 									</div>
 									<div class="product__item__text">
 										<ul>
@@ -90,11 +86,7 @@
 											<li>영화</li>
 										</ul>
 										<h5>
-											<a class="text-white"
-												<c:if test="${loginUserVo.userno == param.userno}">
-													href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}'
-												</c:if>
-											>${movieVo.movie_name}</a>
+											<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
 										</h5>
 									</div>
 								</div>

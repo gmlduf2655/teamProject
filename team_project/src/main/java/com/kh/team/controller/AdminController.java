@@ -69,8 +69,7 @@ public class AdminController {
 		pagingDto.setPage(pagingDto.getPage());
 		List<PointVo> pointList = pointService.getPointList(pagingDto);
 		for(PointVo pointVo : pointList) {
-			String userid = userService.getUseridByUserno(pointVo.getUserno());
-			pointVo.setUserid(userid);
+			System.out.println("pointVo : " + pointList);
 		}
 		pagingDto.setCount(count);
 		model.addAttribute("pointList", pointList);
@@ -80,8 +79,11 @@ public class AdminController {
 	
 	// 포인트 코드 생성기
 	@RequestMapping(value="/create_point_code", method=RequestMethod.GET)
-	public String createPointCode(Model model, int page) {
-		List<PointVo> pointCodeList = pointService.getPointCodeList();
+	public String createPointCode(Model model, int page, PagingDto pagingDto) {
+		pagingDto.setPage(page);
+		List<PointVo> pointCodeList = pointService.getPointCodeList(pagingDto);
+		int count = pointService.getCountPointCodeList();
+		pagingDto.setCount(count);
 		model.addAttribute("pointCodeList", pointCodeList);
 		return "admin/create_point_code";
 	}

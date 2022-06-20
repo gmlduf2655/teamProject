@@ -26,4 +26,11 @@
 		where userid = #{userid} and movie_no = #{movie_no}
 	</delete>
 
+	<!-- 임희열 : 유저가 좋아요 누른 영화 조회 -->
+	<select id="selectLikeMovieListByuserid" resultType="MovieVo">
+		select a.*
+		from tbl_movie a, tbl_movie_like b
+		where a.movie_no = b.movie_no
+		and b.userid = #{userid}
+	</select>
 </mapper>

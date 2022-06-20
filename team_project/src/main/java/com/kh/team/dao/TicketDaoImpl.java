@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.team.vo.TicketUserVo;
 import com.kh.team.vo.TicketVo;
 
 @Repository
@@ -91,6 +92,23 @@ public class TicketDaoImpl implements TicketDao {
 			return true;
 		}
 		return false;
+	}
+
+	// 임희열 : 유저 영화 예매 정보 목록 조회
+	@Override
+	public List<TicketUserVo> selectTicketUserList(int userno) {
+		List<TicketUserVo> ticketUserList = sqlSession.selectList(NAMESPACE + "selectTicketUserList", userno);
+		return ticketUserList;
+	}
+
+	// 임희열 : 티켓번호로 유저 영화 예매 정보 조회
+	@Override
+	public TicketUserVo selectTicketUserVoByTicketno(int user_no, String ticket_no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_no", user_no);
+		map.put("ticket_no", ticket_no);
+		TicketUserVo ticketUserVo = sqlSession.selectOne(NAMESPACE + "selectTicketUserListByTicketno", map);
+		return ticketUserVo;
 	}
 
 }

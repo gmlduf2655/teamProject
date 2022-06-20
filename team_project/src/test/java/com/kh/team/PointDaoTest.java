@@ -90,10 +90,17 @@ public class PointDaoTest {
 	// 포인트 코드 목록조회 테스트
 	@Test
 	public void testSelectPointCodeList() {
-		List<PointVo> pointCodeList = pointDao.selectPointCodeList();
+		List<PointVo> pointCodeList = pointDao.selectPointCodeList(null);
 		for(PointVo pointVo : pointCodeList) {
 		System.out.println("PointDaoTest, testSelectPointCodeList, pointVo : " + pointVo);
 		}
+	}
+	
+	// 포인트 코드 목록 수 조회 테스트
+	@Test
+	public void testGetCountPointCodeList() {
+		int count = pointDao.getCountPointCodeList();
+		System.out.println("PointDaoTest, testGetCountPointCodeList, count : " + count);
 	}
 	
 	// 포인트 내역 삭제 테스트

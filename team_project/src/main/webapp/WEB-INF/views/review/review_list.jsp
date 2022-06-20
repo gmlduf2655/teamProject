@@ -145,7 +145,10 @@ $(document).ready(function(){
 					<c:choose>
 					
 					<c:when test="${reviewVo.admin_delete == 'y'}">
-						<tr><td colspan="7" align="center">관리자가 삭제한 게시글 입니다.</td></tr>
+						<tr>
+						<td>${reviewVo.review_no}</td>
+						<td colspan="6" align="center">관리자가 삭제한 게시글 입니다.</td>
+						</tr>
 					</c:when>
 					
 					<c:otherwise>
@@ -223,12 +226,13 @@ $(document).ready(function(){
 	
 	
 	<!-- 글 쓰기 버튼 -->
+	<c:if test="${not empty loginUserVo.userid}"> <!-- 로그인 안했으면 게시글 쓰기 버튼 안보이게 하기 -->
 	<div class="float-right">
 	<p>
 		<a class="btn btn-primary btn-large" href="/review/review_form">게시글 쓰기</a>
 	</p>
 </div>
-	
+	</c:if>
 	<!-- 페이지 -->
 	
 	<div class="row">

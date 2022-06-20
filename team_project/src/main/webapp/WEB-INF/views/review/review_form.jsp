@@ -73,7 +73,8 @@ if (insert_result == "true"){
 	<input type="hidden" name="userno" value="${loginUserVo.userno}"/>
 	
 	<label for="review_writer"> 작성자 </label> 
-	<input type="text" class="form-control" id="review_writer" name="review_writer"/>
+	<input type="text" class="form-control" id="review_writer" name="review_writer" 
+		value="${loginUserVo.userid}" readonly/>
 	
 	<label for="review_title"> 제목 </label> 
 	<input type="text" class="form-control" id="review_title" name="review_title"/>

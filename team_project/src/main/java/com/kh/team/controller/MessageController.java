@@ -135,31 +135,19 @@ public class MessageController {
 	
 	// 메세지 다중 삭제
 	@RequestMapping(value="/multi_message_delete_run", method=RequestMethod.POST)
-	@ResponseBody
-	public List<MessageVo> multiMessageDeleteRun(String sData, HttpSession session) throws ParseException {
-		JSONParser parser = new JSONParser();
-		Map<String, Object> map = (Map<String, Object>)parser.parse(sData);
-		
-		String type = (String) map.get("type");
-		String userid = (String) map.get("userid");
-		String pageStr = (String) map.get("page");
-		int page = Integer.parseInt(pageStr);
+	public String multiMessageDeleteRun(Model model, String[] sData, String type, String userid, 
+										PagingDto pagingDto, RedirectAttributes redirectAttributes) {
 		List<Integer>messagenos = new ArrayList<>();
-		List<String> tempList = (List<String>) map.get("messagenos");
-		for(String temp : tempList) {
-			messagenos.add(Integer.parseInt(temp));
+		System.out.println("length : " + sData.length);
+		for(String messagenoStr : sData) {
+			System.out.println("messageno : " + messagenoStr);
+			messagenos.add(Integer.parseInt(messagenoStr));
 		}
 		boolean result = messageService.deleteMultiMessage(messagenos, type);
 		
-		PagingDto pagingDto = new PagingDto();
-		pagingDto.setPage(page);
-		List<MessageVo> messageList = null;
-		if(type.equals("send")) {
-			messageList = messageService.getSenderMessageList(userid, pagingDto);
-		}else if(type.equals("receive")) {
-			messageList = messageService.getReceiverMessageList(userid, pagingDto);
-		}else {}
-		return messageList;
+		redirectAttributes.addFlashAttribute("delete_result", result);
+		return "redirect:/message/message_list?page="+ pagingDto.getPage() +"&type=" + type + 
+				"&searchType=" + pagingDto.getSearchType() + "&keyword=" + pagingDto.getKeyword();
 	}
 	
 	// 파일업로드

@@ -75,7 +75,7 @@
 										</c:otherwise>
 									</c:choose>
 								</a><br>
-								<a href="/mypage/main?userno=${loginUserVo.userno}">포인트 : ${loginUserVo.point}점</a>
+								<a href="/mypage/main?userno=${loginUserVo.userno}">포인트 : ${loginUserVo.point}P</a>
 							</c:otherwise>
 						</c:choose>
 					</h5>

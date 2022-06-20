@@ -73,11 +73,25 @@ public class PointServiceImpl implements PointService {
 	
 	// 포인트 코드 목록조회
 	@Override
-	public List<PointVo> getPointCodeList() {
-		List<PointVo> pointCodeList = pointDao.selectPointCodeList();
+	public List<PointVo> getPointCodeList(PagingDto pagingDto) {
+		List<PointVo> pointCodeList = pointDao.selectPointCodeList(pagingDto);
 		return pointCodeList;
 	}
-
+	
+	// 포인트 코드 목록 수 조회
+	@Override
+	public int getCountPointCodeList() {
+		int count = pointDao.getCountPointCodeList();
+		return count;
+	}
+	
+	// 포인트 코드 내역 수정
+	@Override
+	public boolean updatePointCode(PointVo pointVo) {
+		boolean result = pointDao.updatePointCode(pointVo);
+		return result;
+	}
+	
 	// 포인트 내역 삭제
 	@Override
 	@Transactional
@@ -91,7 +105,14 @@ public class PointServiceImpl implements PointService {
 		boolean result = result1 && result2;
 		return result;
 	}
-
+	
+	// 포인트코드 내역 다수 삭제
+	@Override
+	public boolean multiDeletePointCode(List<Integer> pointCodes) {
+		boolean result = pointDao.multiDeletePointCode(pointCodes);
+		return result;
+	}
+	
 	// 포인트코드 내역 삭제
 	@Override
 	public boolean deletePointCode(int point_code) {

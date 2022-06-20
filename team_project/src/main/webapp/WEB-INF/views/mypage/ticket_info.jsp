@@ -63,10 +63,8 @@
 	            <!-- 유저 영화 예매 내역 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
-						<h3 class="mb-4">영화 예매내역</h3>
+						<h3 class="mb-4" style="padding-left:30px;">예매한 영화 정보</h3>
 						<div class="row">
-						<c:forEach var="ticketUserVo" items="${ticketUserList}" varStatus="status">
-							<c:if test="true">
 							<div class="col-md-3">
 								<div class="product__item">
 									<div class="product__item__pic set-bg" 
@@ -78,29 +76,23 @@
 												data-setbg="/movie/displayImage?filename=${ticketUserVo.movie_image_name}"
 											</c:otherwise>
 										</c:choose>
-										style="cursor: pointer;" 
-										<c:if test="${loginUserVo.userno == param.userno}">
-											onclick="location.href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}';"	
-										</c:if>
-									>							
+										style="cursor: pointer;">									
 									</div>
 									<div class="product__item__text">
 										<ul>
 											<li>액션이 죽이는</li>
 											<li>영화</li>
 										</ul>
-										<h5>
-											<a class="text-white"
-												<c:if test="${loginUserVo.userno == param.userno}">
-													href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}'
-												</c:if>
-											>${movieVo.movie_name}</a>
-										</h5>
 									</div>
 								</div>
 							</div>
-							</c:if>
-						</c:forEach>
+							<div class="col-md-9">
+								<h4>영화 코드 번호 : ${ticketUserVo.ticket_no}</h4>
+								<h4>영화 이름 : ${ticketUserVo.movie_name}</h4>
+								<h4>상영 장소 : ${ticketUserVo.cinema_name}  ${ticketUserVo.room_floor}  ${ticketUserVo.room_name} 
+								${ticketUserVo.seat_x}${ticketUserVo.seat_y} ${ticketUserVo.room_type_name}</h4>
+								<h4>상영 시간 : ${ticketUserVo.movie_begin_date} ~ ${ticketUserVo.movie_finish_date}</h4>
+							</div>
 						</div>
 	            	</div>
 	            </div>

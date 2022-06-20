@@ -32,7 +32,7 @@ public class MessageDaoTest {
 	@Test
 	public void addTestData() {
 		for(int i=1 ; i <=10 ; i++) {
-			MessageVo messageVo = new MessageVo(i, "user01", "gmlduf2655", null, null, 0, 0, 0, "제목 " + i, "내용 " + i);
+			MessageVo messageVo = new MessageVo(i, "gmlduf2655", "user01", null, null, 0, 0, 0, "제목 " + i, "내용 " + i);
 			boolean result = messageDao.insertMessage(messageVo);
 			System.out.println("MessageDaoTest, testInsertMessage, result : " + result);		
 		}
