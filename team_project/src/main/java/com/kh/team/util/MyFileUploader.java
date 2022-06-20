@@ -12,7 +12,7 @@ public class MyFileUploader {
 	// 임희열 : 이미지 컬럼명 앞에 "C:/" 생략하기 위해서 만든 변수
 	public static final String C_DRIVER = "C:/";
 	// 임희열 : 공유폴더 내에 넣기 위한 변수
-	public static final String MY_IP = "//192.168.0.62/";
+	public static final String MY_IP = "//192.168.0.63/";
 	// 임희열 : 사진을 잠시 업로드 하기 위한 임시디렉토리
 	public static final String TEMP_DIR = "/moverattach/message/temp";
 	

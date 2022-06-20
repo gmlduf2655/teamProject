@@ -21,17 +21,22 @@ public class FollowController {
 
 	@RequestMapping(value="/follow_user", method=RequestMethod.POST)
 	@ResponseBody
-	@Transactional
-	public int followUser(int follower, int follow) {
+	public boolean followUser(int follower, int follow) {
 		boolean result = false;
-		if(followService.isFollowed(follower, follow)) {
+		boolean isFollowed = followService.isFollowed(follower, follow);
+		if(isFollowed) {
 			result = followService.deleteFollow(follower, follow);
 		}else {
 			result = followService.insertFollow(follower, follow);
 		}
-		
-		int followerCount = followService.selectFollowerNumber(follower);
 			
-		return followerCount;
+		return isFollowed;
+	}
+	
+	@RequestMapping(value="/check_follow", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean checkFollow(int follower, int follow) {
+		boolean result = followService.isFollowed(follower, follow);
+		return result;
 	}
 }

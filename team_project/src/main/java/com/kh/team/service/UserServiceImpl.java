@@ -139,6 +139,11 @@ public class UserServiceImpl implements UserService {
 		UserVo userVo = userDao.selectUserByUsernameAndEmail(username, email);
 		return userVo.getUserid();
 	}
+	// 회원번호로 회원 아이디 조회
+	public String getUseridByUserno(int userno) {
+		UserVo userVo = userDao.selectUserByUserno(userno);
+		return userVo.getUserid();
+	}
 	
 	// 유저 번호와 비밀번호로 유저 조회
 	@Override

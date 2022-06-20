@@ -147,7 +147,7 @@
                     <div class="header__right">
                         <a href="#" class="search-switch"><i class="bi bi-search"></i></a>
                         <!-- 쪽지함 추가했습니다 -->
-                        <a href="/message/message_list?page=1&type=receive"><i class="bi bi-chat-left"></i></a>
+                        <a href="/message/message_list?page=1&type=receive"><i class="bi bi-envelope"></i></a>
                         <!-- 임희열 : 로그인 되어있지 않을 때는 마이페이지를 누르면 로그인페이지로 이동하게함 -->
                         <a 
                         <c:choose>

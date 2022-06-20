@@ -109,6 +109,16 @@ public class RoomSeatDaoImpl implements RoomSeatDao {
 			return true;
 		}
 		return false;
+	}
+
+	// 좌석 삭제
+	@Override
+	public boolean deleteRoomSeat(int room_no) {
+		int count = sqlSession.delete(NAMESPACE + "deleteRoomSeat", room_no);
+		if (count > 0) {
+			return true;
+		}
+		return false;
 	};
 	
 

@@ -140,4 +140,14 @@ public class CinemaRoomDaoImpl implements CinemaRoomDao {
 		return false;
 	}
 
+	// 상영관 삭제
+	@Override
+	public boolean deleteCinemaRoom(int room_no) {
+		int count = sqlSession.delete(NAMESPACE +"deleteCinemaRoom", room_no);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

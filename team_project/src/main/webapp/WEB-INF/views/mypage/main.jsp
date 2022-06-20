@@ -51,6 +51,28 @@
 				alert("포인트 충전 실패");
 			}else {}
 			
+			// 팔로우 체크 여부 확인
+			if("${loginUserVo}" != ""){
+				$.ajax({
+					type : "post",
+					async : "true",
+					url : "/follow/check_follow",
+					data : {
+						follower : "${userVo.userno}",
+						follow : "${loginUserVo.userno}"
+					},
+					success: function(rData){
+						console.log(rData)
+						if(rData){
+							$("#follow_icon").attr("class", "bi-person-check-fill mr-3");
+						}else {
+							$("#follow_icon").attr("class", "bi-person-plus-fill mr-3");
+						}
+					}
+					
+				});
+			}
+			
 			// 수정 버튼을 눌렀을 떄
 			$("#user_modify_btn").click(function(){
 				$("#nickname_label").show();
@@ -121,8 +143,15 @@
 						follower : "${userVo.userno}"
 					},
 					success : function(rData){
-						console.log(rData);
-						$("#follower").text(rData);
+						var follower = parseInt($("#follower").text());
+						if(rData){
+							$("#follow_icon").attr("class", "bi-person-plus-fill mr-3");
+							follower = follower - 1;
+						}else {
+							$("#follow_icon").attr("class", "bi-person-check-fill mr-3");
+							follower = follower + 1;
+						}
+						$("#follower").text(follower);
 					}
 				});
 			});
@@ -167,7 +196,7 @@
     <section class="login spad">
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
-    		<div class="col-md-2" style="color:white;padding-left:50px;">
+    		<div class="col-md-2" style="color:white;" >
     			<div class="menu">
 	    			<c:if test="${loginUserVo.userno == userVo.userno}">
 						<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
@@ -208,111 +237,88 @@
 		                        <br>
 	                            <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
 	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;"><br>
-		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
-		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follower">${follower}</span>
-		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
-		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span><br>
-		                    	<c:if test="${loginUserVo.userid != userVo.userid and not empty loginUserVo}">
-		                    		<button type="button" class="site-btn" id="follow_btn">팔로우</button>
-		                    	</c:if>
+	                            <h3 class="mb-4">${userVo.nickname}(${userVo.username})님</h3>
+	                            <c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
+			            			<button type="button" class="site-btn" id="user_modify_btn">프로필 사진 수정</button>
+			            			<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button>
+			            			<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button>
+		            			</c:if>
 		                    </div>
 		                </div>
 		                <div class="col-lg-6">
-		                    <div class="login__register">
-		                        <h3>내 정보</h3>
-		                        <h4>이름 : ${userVo.username}</h4>
-		                        <h4>별명 : ${userVo.nickname}</h4>
-		                        <h4 id="nickname_label" style="display:none;">
-		                        	별명 : <input type="text" name="nickname" id="nickname" value="${userVo.nickname}">
-		                        </h4>
-		                        <h4>이메일 : ${userVo.email}</h4>
-		                        <h4 id="email_label" style="display:none;">
-		                        	이메일 : <input type="email" name="email" id="email" value="${userVo.email}">
-		                        </h4>
-		                        <h4>휴대폰번호: ${userVo.cellphone}</h4>
-		                        <h4 id="cellphone_label" style="display:none;">
-		                        	휴대폰번호 : <input type="text" name="cellphone" id="cellphone" value="${userVo.cellphone}">
-		                        </h4>
-		                        <h4>주소: ${userVo.address}</h4>
-		                        <h4 id="address_label" style="display:none;">
-		                        	주소 : <input type="text" name="address" id="address" value="${userVo.address}">
-		                        </h4>
-		                        <h4>포인트 : ${userVo.point}</h4>
-		                        <c:choose>
-				                	<c:when test="${empty userVo.sns_type}">
-				                        <h4>가입일 : ${userVo.reg_date}</h4>
-				                    </c:when>
-				                    <c:otherwise>
-				                        <h4>연동일 : ${userVo.sns_connect_date}</h4>
-				                    </c:otherwise>
-				                </c:choose>
-		                    </div>
+		                    <span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
+		                    <span style="color:white;font-size:30px;margin-right:15px;" id="follower">${follower}</span>
+		                    <span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
+		                    <span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span>
+		                    <c:if test="${loginUserVo.userid != userVo.userid and not empty loginUserVo}">
+		                    	<button type="button" class="site-btn" id="follow_btn" style="font-size:18px;">
+		                    		<i class="bi bi-person-check-fill mr-3" id="follow_icon"></i>팔로우
+		                    	</button>
+		                    </c:if>
+		                    <br>
+		                    <h3 class="mt-3">포인트 : ${userVo.point}P</h3>
 		                </div>
 	            	</div>
-		            <div class="row">
-		            	<div class="col-lg-12" style="text-align:center;">
-		            		<c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
-			            		<button type="button" class="site-btn" id="user_modify_btn">수정</button>
-			            		<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button>
-			            		<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button>
-		            		</c:if>
-		            	</div>
-		            </div>
 	            </form>
 	            <!-- 유저 프로필 부분 끝 -->
-	            <hr>
-	            <!-- 유저 포인트 내역 부분 -->
-	            <div class="row d-flex justify-content-center">
-	                <div class="col-lg-12">
-						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">포인트 내역</a></h3>
-						<table class="table" style="color:white;">
-				    		<thead>
-				    			<tr>
-									<th>#</th>    				
-									<th>유저 아이디</th>    				
-									<th>포인트</th>    				
-									<th>포인트 이름</th>    				
-									<th>포인트 적립일</th>    				
-				    			</tr>
-				    		</thead>
-				    		<tbody>
-								<c:forEach var="pointVo" items="${pointList}" varStatus="status">
-									<c:if test="${status.index < 5}">
-										<tr>
-											<td>${pointVo.pointno}</td>
-											<td>
-											<c:choose>
-												<c:when test="${not empty userVo.userid }">
-													${userVo.userid}
-												</c:when>
-												<c:otherwise>
-													${userVo.sns_id}
-												</c:otherwise>
-											</c:choose>
-											</td>
-											<td>${pointVo.point}</td>
-											<td>${pointVo.point_name}</td>
-											<td>${pointVo.point_date}</td>
-										</tr>
-									</c:if>
-								</c:forEach>
-							</tbody>
-				    	</table>
-	            	</div>
-	            	<div class="row">
-		            	<div class="col-lg-12" style="text-align:center;">
-			            	<a class="site-btn" href="/point/point_list?userno=${userVo.userno}&page=1">더보기</a>
-		            	</div>
-		            </div>
-	            </div>
-	            <!-- 유저 포인트 내역 부분 끝-->
 	            <hr>
 	            <!-- 유저 영화 예매 내역 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
 						<h3 class="mb-4">영화 예매내역</h3>
 						<div class="row">
-						<c:forEach var="movieVo" items="${movieList}" varStatus="status">
+						<c:forEach var="ticketUserVo" items="${ticketUserList}" varStatus="status">
+							<c:if test="${status.count <=4}">
+							<div class="col-lg-3 col-md-6 col-sm-6">
+								<div class="product__item">
+									<div class="product__item__pic set-bg" 
+										<c:choose>
+											<c:when test="${empty ticketUserVo.movie_image_name}">
+												data-setbg="/resources/images/no_image.jpg" 
+											</c:when>
+											<c:otherwise>
+												data-setbg="/movie/displayImage?filename=${ticketUserVo.movie_image_name}"
+											</c:otherwise>
+										</c:choose>
+										style="cursor: pointer;" 
+										<c:if test="${loginUserVo.userno == param.userno}">
+											onclick="location.href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}';"	
+										</c:if>
+									>								
+									</div>
+									<div class="product__item__text">
+										<ul>
+											<li>액션이 죽이는</li>
+											<li>영화</li>
+										</ul>
+										<h5>
+											<a class="text-white"
+												<c:if test="${loginUserVo.userno == param.userno}">
+													href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}'
+												</c:if>
+											>${movieVo.movie_name}</a>
+										</h5>
+									</div>
+								</div>
+							</div>
+							</c:if>
+						</c:forEach>
+						</div>
+						<div class="row">
+			            	<div class="col-lg-12" style="text-align:center;">
+				            	<a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
+			            	</div>
+		            	</div>				
+	            	</div>
+	            </div>
+	            <!-- 유저 영화 예매 내역 부분 끝-->
+	            <hr>
+	            <!-- 유저 좋아요 누른 영화 부분 -->
+	            <div class="row d-flex justify-content-center">
+	                <div class="col-lg-12">
+						<h3 class="mb-4">좋아요 누른 영화</h3>
+						<div class="row">
+						<c:forEach var="movieVo" items="${movieLikeList}" varStatus="status">
 							<c:if test="${status.count <=4}">
 							<div class="col-lg-3 col-md-6 col-sm-6">
 								<div class="product__item">
@@ -343,12 +349,12 @@
 						</div>
 						<div class="row">
 			            	<div class="col-lg-12" style="text-align:center;">
-				            	<a class="site-btn" href="/mypage/ticket_movie_list?userno=${userVo.userno}">더보기</a>
+				            	<a class="site-btn" href="/mypage/like_movie_list?userno=${userVo.userno}">더보기</a>
 			            	</div>
 		            	</div>				
 	            	</div>
 	            </div>
-	            <!-- 유저 영화 예매 내역 부분 끝-->
+	            <!-- 유저  좋아요 누른 영화 부분 끝-->
 	            <hr>
 	            <!-- 유저 영화 리뷰 부분 -->
 	            <div class="row d-flex justify-content-center">

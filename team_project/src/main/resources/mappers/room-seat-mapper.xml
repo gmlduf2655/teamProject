@@ -68,4 +68,10 @@
 			ticket_no = #{ticket_no, jdbcType=VARCHAR}
 		where seat_no = #{seat_no}
 	</update>
+	
+	<!-- 좌석 삭제 -->
+	<delete id="deleteRoomSeat">
+		delete from tbl_room_seat
+		where room_no = #{room_no}
+	</delete>
 </mapper>

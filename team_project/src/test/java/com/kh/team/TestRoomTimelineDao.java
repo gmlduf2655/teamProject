@@ -49,14 +49,13 @@ public class TestRoomTimelineDao {
 	public void selectRoomTimelineListTest() {
 		
 		int room_no				= 1;
-//		int cinema_no			= 1;
-//		String search_column	= "movie_code";
-//		String search_data		= "20225365";
+		String search_column	= "movie_begin_date";
+		String search_data		= "2022-06-02";
 		String order_column		= "room_no";
 		String order_type		= "desc";
 		
-		List<Map<String, Object>> roomTimelineList = roomTimelineDao.selectRoomTimelineList(room_no, order_column, order_type);
-//		List<RoomTimelineVo> roomTimelineList = roomTimelineDao.selectRoomTimelineList(cinema_no, search_column, search_data, order_column, order_type);
+//		List<Map<String, Object>> roomTimelineList = roomTimelineDao.selectRoomTimelineList(room_no, order_column, order_type);
+		List<Map<String, Object>> roomTimelineList = roomTimelineDao.selectRoomTimelineList(room_no, search_column, search_data, order_column, order_type);
 		
 		for (Map<String, Object> roomTimelineInfo : roomTimelineList) {
 			System.out.println("roomTimelineList : " + roomTimelineInfo);

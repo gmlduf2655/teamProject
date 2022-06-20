@@ -78,6 +78,7 @@
 			});
 		});
 		
+		// 첨부 파일 삭제 클릭시
 		$("#attach_files").on("click", ".a_filename", function(e){
 			e.preventDefault();
 			var filename = $(this).attr("data-filename");

@@ -5,7 +5,6 @@
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<style>
-		
 	</style>
     <script>
 		$(document).ready(function(){

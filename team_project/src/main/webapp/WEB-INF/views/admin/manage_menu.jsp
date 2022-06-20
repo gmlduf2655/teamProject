@@ -14,8 +14,9 @@
 				<h5 style="color : black;">회원 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">회원목록</a></h6>
-				<h6><a id="" href="#">회원목록</a></h6>
+				<h6><a id="" href="/admin/user_list">회원목록</a></h6>
+				<h6><a id="" href="/admin/total_point_list?page=1">회원 포인트 내역</a></h6>
+				<h6><a id="" href="/admin/create_point_code?page=1">포인트 코드 생성기</a></h6>
 			</div>
 		</div>
 		

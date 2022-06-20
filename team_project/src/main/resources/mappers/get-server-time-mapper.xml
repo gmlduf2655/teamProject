@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.get-time">
+	
+	<!-- 서버 기준 시간 얻어내기 -->
+	<select id="getServerDate" resultType="String">
+		select sysdate from dual
+	</select>
+	
+</mapper>

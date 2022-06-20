@@ -6,6 +6,12 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <style>
+	h3,h4{
+		color:white;
+	}
+	hr{
+		background-color:white;
+	}
 	option:hover{
 		background-color:lightgray;
 	}
@@ -19,6 +25,7 @@
 	#pagination a{
 		background-color:#e53637;
 		border-color:#e53637;
+		color:white;
 	}
 	.nav-link{
 		color:white;
@@ -58,57 +65,73 @@
 			}
 		});
 		
-		// 삭제 버튼 눌렀을 때
+// 		// 삭제 버튼 눌렀을 때(비동기로 구현하려고 했으나 페이징 부분과 on() 메서드 사용 곤란으로 구현하지는 않음)
+// 		$("#form_btn").click(function(){
+// 			var messages = $(".messages");
+// 			var type = "${param.type}";
+// 			var messagenos = [];
+// 			// 삭제할 메세지를 messagenos변수에 담음
+// 			$.each(messages , function(i,v){
+// 				if($(this).is(":checked")){
+// 					messagenos.push($(this).val());
+// 				}
+// 			});
+// 			var sData = {
+// 				"messagenos" : messagenos,
+// 				"type" : type,
+// 				"userid" : "${loginUserVo.userid}",
+// 				"page" : "${param.page}"
+// 			};
+// 			// 메세지를 삭제 한후 데이터를 다시 조회해서 보여줌
+// 			$.ajax({
+// 				type : "post",
+// 				async : "true",
+// 				url : "/message/multi_message_delete_run",
+// 				data : {
+// 					sData : JSON.stringify(sData)
+// 				},
+// 				success : function(rData){
+// 					console.log(rData);
+// 					$("#tbody").html("");
+// 					$.each(rData, function(i,v){
+// 						console.log(v);
+// 						console.log(v.messageno);
+// 						var html = "";
+// 						html += "<tr class='tr_link' data-messageno='"+ v.messageno +"'>";
+// 						html += "<td><input type='checkbox' class='messages' name='messages' value='"+ v.messageno +"'></td>"
+// 						html += "<td>"+ v.messageno +"</td>"
+// 						html += "<td class='td_link' data-messageno='"+ v.messageno +"'>"+ v.message_title +"</td>"
+// 						html += "<td>"+ v.sender +"</td>"
+// 						html += "<td>"+ v.receiver +"</td>"
+// 						html += "<td>"+ v.message_date +"</td>"
+// 						if(v.read_date == null){
+// 							html += "<td>읽지 않음</td>";
+// 						}else {
+// 							html += "<td>"+ v.read_date +"</td>";
+// 						}
+// 						html += "</tr>";
+// 						$("#tbody").append(html);
+// 						$("#select_all").prop("checked", false);
+// 					});
+// 				}
+// 			});
+			
+// 		});
+
+		// 삭제 버튼 눌렀을 때(동기로 구현)
 		$("#form_btn").click(function(){
 			var messages = $(".messages");
-			var type = "${param.type}";
 			var messagenos = [];
 			// 삭제할 메세지를 messagenos변수에 담음
 			$.each(messages , function(i,v){
 				if($(this).is(":checked")){
 					messagenos.push($(this).val());
+					$("#multi_delete_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>");
 				}
 			});
-			var sData = {
-				"messagenos" : messagenos,
-				"type" : type,
-				"userid" : "${loginUserVo.userid}",
-				"page" : "${param.page}"
-			};
-			// 메세지를 삭제 한후 데이터를 다시 조회해서 보여줌
-			$.ajax({
-				type : "post",
-				async : "true",
-				url : "/message/multi_message_delete_run",
-				data : {
-					sData : JSON.stringify(sData)
-				},
-				success : function(rData){
-					console.log(rData);
-					$("#tbody").html("");
-					$.each(rData, function(i,v){
-						console.log(v);
-						console.log(v.messageno);
-						var html = "";
-						html += "<tr class='tr_link' data-messageno='"+ v.messageno +"'>";
-						html += "<td><input type='checkbox' class='messages' name='messages' value='"+ v.messageno +"'></td>"
-						html += "<td>"+ v.messageno +"</td>"
-						html += "<td class='td_link' data-messageno='"+ v.messageno +"'>"+ v.message_title +"</td>"
-						html += "<td>"+ v.sender +"</td>"
-						html += "<td>"+ v.receiver +"</td>"
-						html += "<td>"+ v.message_date +"</td>"
-						if(v.read_date == null){
-							html += "<td>읽지 않음</td>";
-						}else {
-							html += "<td>"+ v.read_date +"</td>";
-						}
-						html += "</tr>";
-						$("#tbody").append(html);
-						$("#select_all").prop("checked", false);
-					});
-				}
-			});
-			
+			if(messagenos.length > 0){
+				$("#multi_delete_form").submit();
+			}
 		});
 		
 		// 검색 버튼 눌렀을 때
@@ -160,31 +183,60 @@
     <section class="signup spad">
 		<!-- 메세지 목록 부분 -->
 		<div class="row" style="color:white">
-			<div class="col-md-2"></div>
+			<!-- 메뉴 부분 -->
+			<div class="col-md-2">
+				<div style="padding:15px 0px;color:white;" class="menubar">
+					<h3 style="color:white;" class="mb-4">
+						<a href="/message/write_form?page=${param.page}&receiver=" style="color:white;">쪽지 보내기</a>
+					</h3>
+					<hr>
+					<div class="mb-4">
+						<h4 class="mb-3">
+							<a class="nav_link text-white" href="/message/message_list?page=1&type=receive" style="color:white">받는 쪽지함</a>
+						</h4>
+					</div>
+					<div class="mb-4">
+						<h4 class="mb-3"><a class="nav_link text-white" href="/message/message_list?page=1&type=send">보낸 쪽지함</a></h4>
+					</div>
+				</div>			
+			</div>
+			<!-- 메뉴 부분 끝 -->
 			<div class="col-md-8">
 				<!-- nav 부분 -->
 				<nav class="row mb-3" >
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<div>
-							<ul class="nav">
-								<li class="nav-item"><a
-									class="nav-link"
-									<c:if test="${param.type == 'receive'}">style="color:#007bff;"</c:if>
-									href="/message/message_list?page=1&type=receive">받는쪽지함</a></li>
-								<li class="nav-item"><a
-									class="nav-link "
-											<c:if test="${param.type == 'send'}">style="color:#007bff;"</c:if>
-									 href="/message/message_list?page=1&type=send">보낸쪽지함</a></li>
-							</ul>
+							<h3>
+								<c:choose>
+									<c:when test="${param.type == 'receive'}">받는 쪽지함</c:when>
+									<c:when test="${param.type == 'send'}">보낸 쪽지함</c:when>
+								</c:choose>
+							</h3>
 						</div>
 					</div>
-					<div class="col-md-3"></div>
-					<div class="col-md-1" style="text-align:right;">
+					<div class="col-md-4">
+						<form id="multi_delete_form" method="post" action="/message/multi_message_delete_run">
+							<input type="hidden" name="type" value="${param.type}">
+							<input type="hidden" name="searchType" value="${param.searchType}">
+							<input type="hidden" name="keyword" value="${param.keyword}">
+							<input type="hidden" name="userid" value="${loginUserVo.userid}">
+							<button type="button" class="site-btn" id="form_btn">선택 내용 삭제</button>
+						</form>
+					</div>
+					<div class="col-md-2" style="display:flex;justify-content: flex-end;">
 						<select name="searchType" id="searchType" style="color:black;">
-							<option value="t">제목</option>
-							<option value="c">내용</option>
-							<option value="u">유저</option>
-							<option value="tcu">모두 포함</option>
+							<option value="t"
+								<c:if test="${pagingDto.searchType == 't'}">selected</c:if>
+							>제목</option>
+							<option value="c"
+								<c:if test="${pagingDto.searchType == 'c'}">selected</c:if>
+							>내용</option>
+							<option value="u"
+								<c:if test="${pagingDto.searchType == 'u'}">selected</c:if>
+							>유저</option>
+							<option value="tcu"
+								<c:if test="${pagingDto.searchType == 'd'}">selected</c:if>
+							>모두 포함</option>
 						</select>
 					</div>
 					<div class="col-md-3">
@@ -314,8 +366,8 @@
 		<!-- 글 목록 페이징 부분 끝 -->
 		<!-- 메세지 다중 삭제 버튼 -->
 		<div style="text-align: center">
-			<a class="site-btn" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a>
-			<button type="button" class="site-btn" id="form_btn">삭제하기</button>
+<%-- 			<a class="site-btn" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a> --%>
+<!-- 			<button type="button" class="site-btn" id="form_btn">삭제하기</button> -->
 		</div>
 		<!-- 메세지 다중 삭제 버튼 끝-->
     </section>

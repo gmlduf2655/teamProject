@@ -226,7 +226,7 @@ public class UserController {
 			session.setAttribute("loginUserVo", loginUserVo);
 		}
 		redirectAttributes.addFlashAttribute("modify_result", result);
-		return "redirect:/user/mypage?userno=1";
+		return "redirect:/mypage/userinfo?userno=" + userVo.getUserno();
 	}
 	
 	// 구글 로그인 후 인증

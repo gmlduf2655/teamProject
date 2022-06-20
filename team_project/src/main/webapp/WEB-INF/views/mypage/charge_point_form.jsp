@@ -63,6 +63,7 @@
 				var point_code = 1008;
 				console.log(point_code);
 				$("#point_code").val(point_code);
+				$("#exit_btn").trigger("click");
 			});
 			
 			// 금액, 포인트와 관련된 것을 input 태그에 넣기 위한 함수
@@ -95,7 +96,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" id="save_btn">저장</button> 
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="exit_btn">취소</button>
 				</div>
 			</div>
 		</div>

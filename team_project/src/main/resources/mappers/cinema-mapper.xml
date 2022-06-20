@@ -56,7 +56,7 @@
 				and 
 			</otherwise>
 		</choose>
-		cinema_status = 1
+		cinema_status = 1 or cinema_status is null
 		order by ${order_column} ${order_type}
 	</select>
 	

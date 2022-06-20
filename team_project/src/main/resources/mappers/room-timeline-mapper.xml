@@ -42,10 +42,17 @@
 			<when test="search_column == null">
 				where room_no = #{room_no}
 			</when>
-			<when test="search_column == 'movie_code'">
-				where cinema_no	= #{cinema_no}
-				and ${search_column} = #{search_data}
+			<when test="search_column == 'movie_begin_date'">
+				where room_no = #{room_no}
+				<![CDATA[
+				and movie_begin_date <= to_timestamp(#{search_data},'YYYY-MM-DD HH24:MI:SS')
+				and movie_finish_date >= to_timestamp(#{search_data},'YYYY-MM-DD HH24:MI:SS')
+				]]>
 			</when>
+			<otherwise>
+				where room_no = #{room_no}
+				and ${search_column} = #{search_data}
+			</otherwise>
 		</choose>
 		order by ${order_column} ${order_type}
 	</select>
