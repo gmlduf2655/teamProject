@@ -18,7 +18,11 @@
 	</div>
 </section>
 <!-- Normal Breadcrumb End -->
-
+<style>
+label{
+color: white;
+}
+</style>
 <script>
 	// 평점 별
 	$(function() {
@@ -212,13 +216,18 @@
 	<input type="hidden" name="review_no" value="0">
 </form>
 
+<div class="container">
 <br><div class="anime__details__review">
 				<div class="section-title">
 					<h5>게시글</h5>
 				</div>
 			</div>
+
+</div>
 <body>
-<div class="container" style="background-color: white">
+<div class="container" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
+
+
 
 <form role="writeForm" action="/review/review_writeRun" method="post" id="frmCreate" enctype="multipart/form-data">
 	<input type="hidden" name="review_star" id="review_star" value="${reviewVo.review_star}"/>
@@ -244,12 +253,13 @@
 		</div>
 	<hr>
 	<label>내용</label><br>
-		<div>${reviewVo.review_content}</div>
+		<div style="background-color:white; border-radius:5px;">
+		 ${reviewVo.review_content}</div>
 	<hr>
 	<label id="good" data-rno="${reviewVo.review_no}">좋아요<i class="fa fa-heart"></i><span id="likeCount">0</span></label>
 	<hr>
 	
-	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
+	
 	
 	<c:if test="${loginUserVo.userid == reviewVo.review_writer}">
 	<a href="/review/review_modifyForm?review_no=${reviewVo.review_no}" class="btn btn-sm btn-warning">수정</a>
@@ -262,7 +272,9 @@
 
 
 	</div>
-	
+	<div class="container">
+	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
+	</div>
 <!-- 댓글 -->	
 	
 <div class="row">

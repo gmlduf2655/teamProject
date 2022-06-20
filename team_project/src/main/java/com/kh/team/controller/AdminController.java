@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.kh.team.service.EventService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
+import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
+import com.kh.team.vo.WinnerPagingDto;
+import com.kh.team.vo.WinnerVo;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
@@ -33,6 +36,8 @@ public class AdminController {
 	private PointService pointService;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private WinnerService winnerService;
 
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String adminPage() {
@@ -135,5 +140,46 @@ public class AdminController {
 			boolean result = reviewService.adminDelete(reviewVo);
 			return "redirect:/admin/event_admin_reviewList";
 		
+		}
+	
+	// 이벤트 당첨자 목록
+		@RequestMapping(value = "/event_winner_list", method = RequestMethod.GET)
+		public String eventwinnerlist(Model model, WinnerPagingDto pagingDto) {
+			pagingDto.setCount(winnerService.getCount(pagingDto));
+			pagingDto.setPage(pagingDto.getPage());
+			List<WinnerVo> winnerList = winnerService.list(pagingDto);
+			model.addAttribute("winnerList", winnerList);
+			model.addAttribute("pagingDto", pagingDto);
+			return "admin/event_winner_list";
+		}
+	
+	// 이벤트 당첨자 게시글 읽기
+		@RequestMapping(value = "/admin_winner_read", method = RequestMethod.GET)
+		public String adminWinnerRead(int winner_no, Model model) {
+			WinnerVo winnerVo = winnerService.readContent(winner_no);
+			model.addAttribute("winnerVo", winnerVo);
+			return "admin/admin_winner_read";
+		}
+	
+	// 이벤트 당첨자 게시글 수정
+		@RequestMapping(value = "/admin_winner_modify", method = RequestMethod.GET)
+		public String adminWinnerModify(int winner_no, Model model) {
+			WinnerVo winnerVo = winnerService.readContent(winner_no);
+			model.addAttribute("winnerVo", winnerVo);
+			return "admin/admin_winner_modify";
+		}
+	
+	// 이벤트 당첨자 게시글 수정
+		@RequestMapping(value = "/admin_winner_modifyRun", method = RequestMethod.POST)
+		public String adminWinnerModifyRun(WinnerVo winnerVo, int winner_no) {
+			boolean result = winnerService.modify(winnerVo);
+			return "redirect:/admin/admin_winner_read?winner_no=" + winner_no;
+		}
+	
+	// 이벤트 당첨자 삭제
+		@RequestMapping(value = "/winner_delete", method = RequestMethod.GET)
+		public String winnerDelete(int winner_no) {
+			boolean result = winnerService.delete(winner_no);
+			return "redirect:/admin/event_winner_list";
 		}
 }

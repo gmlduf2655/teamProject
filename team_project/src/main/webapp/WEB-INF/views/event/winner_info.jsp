@@ -11,7 +11,11 @@
  }
  
  tr.tr_list:hover {
- 	background-color: #FFCCCB;
+ 	background-color: rgba(255, 255, 255, 0.1);
+ }
+ 
+ .table{
+ color: white;
  }
 </style>
 
@@ -70,7 +74,7 @@ $(document).ready(function(){
 
 	
 
-<div class="container-fluid" style="background-color: white">
+<div class="container-fluid">
 
 
 
@@ -186,11 +190,6 @@ $(document).ready(function(){
 	
 	
 	
-</div>
-<div class="float-right">
-	<p>
-		<a class="btn btn-primary btn-large" href="/event/winner_writeForm">게시글 쓰기</a>
-	</p>
 </div>
 
 

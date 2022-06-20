@@ -17,11 +17,15 @@
  }
  
  tr.tr_list:hover {
- 	background-color: #FFCCCB;
+ 	background-color: rgba(255, 255, 255, 0.1);
  }
  
  .review_content {
  	display: none;
+ }
+ 
+ .table {
+ color: white;
  }
 </style>  
 
@@ -78,7 +82,7 @@ $(document).ready(function(){
     <!-- Normal Breadcrumb End -->
     
     
-    <div class="container-fluid" style="background-color: white">
+    <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">

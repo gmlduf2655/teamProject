@@ -65,7 +65,9 @@
 			</div>
 			<div class="h6li">
 				<h6><a id="" href="/event/write_form">이벤트 등록</a></h6>
-				<h6><a id="" href="/admin/event_admin_list">이벤트 목록</a></h6>
+				<h6><a id="" href="/admin/event_admin_list">이벤트 목록</a></h6>				
+				<h6><a id="" href="/event/winner_writeForm">이벤트 당첨자 등록</a></h6>
+				<h6><a id="" href="/admin/event_winner_list">이벤트 당첨자 목록</a></h6>
 			</div>
 		</div>	
 		
