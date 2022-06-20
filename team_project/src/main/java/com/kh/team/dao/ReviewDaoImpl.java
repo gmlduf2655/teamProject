@@ -79,9 +79,9 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public List<ReviewVo> myReviewList(String review_writer, ReviewPagingDto pagingDto) {
+	public List<ReviewVo> myReviewList(int userno, ReviewPagingDto pagingDto) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
-		parameter.put("review_writer", review_writer);
+		parameter.put("userno", userno);
 		parameter.put("pagingDto", pagingDto);
 		List<ReviewVo> myReviewList = sqlSession.selectList(NAMESPACE + "myReviewList", parameter);
 		return myReviewList;

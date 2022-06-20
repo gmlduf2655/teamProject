@@ -145,12 +145,12 @@ public class MypageController {
 	public String writeRiewList(Model model, int userno) {
 		ReviewPagingDto pagingDto = new ReviewPagingDto();
 		pagingDto.setPage(1);
-		List<ReviewVo> reviewList = reviewService.list(pagingDto);
-		int count = reviewList.size();
+		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
+		System.out.println(myReviewList);
+		int count = myReviewList.size();
 		pagingDto.setCount(count);
 		pagingDto.setPage(1);
-		System.out.println(reviewList);
-		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewList", myReviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/write_review_list";
 	}

@@ -97,9 +97,9 @@
 		select * from 
     		(select rownum rnum, a.* from
         		(select * from tbl_review
-        		where review_writer = ${review_writer}
+        		where userno = #{userno}
         		<include refid="search2"></include>) a)
-		where rnum between #{startRow} and #{endRow}
+		where rnum between 1 and 5
 	</select>
 
 		<!-- 검색 조건2 -->

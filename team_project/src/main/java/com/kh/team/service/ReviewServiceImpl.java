@@ -72,9 +72,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<ReviewVo> myReviewList(String review_writer, ReviewPagingDto pagingDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReviewVo> myReviewList(int userno, ReviewPagingDto pagingDto) {
+		List<ReviewVo> myReviewList = reviewDao.myReviewList(userno, pagingDto);
+		return myReviewList;
 	}
 
 
