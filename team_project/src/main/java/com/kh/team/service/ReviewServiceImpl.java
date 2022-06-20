@@ -71,5 +71,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return result;
 	}
 
+	@Override
+	public List<ReviewVo> myReviewList(String review_writer, ReviewPagingDto pagingDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
