@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,7 @@ public class ReviewDaoImpl implements ReviewDao {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("userno", userno);
 		parameter.put("pagingDto", pagingDto);
+		System.out.println("parameter:"+parameter);
 		List<ReviewVo> myReviewList = sqlSession.selectList(NAMESPACE + "myReviewList", parameter);
 		return myReviewList;
 	}

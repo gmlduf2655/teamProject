@@ -144,12 +144,10 @@ public class MypageController {
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
 	public String writeRiewList(Model model, int userno) {
 		PagingDto pagingDto = new PagingDto();
-		pagingDto.setPage(1);
 		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
-		System.out.println(myReviewList);
+		pagingDto.setPage(1);
 		int count = myReviewList.size();
 		pagingDto.setCount(count);
-		pagingDto.setPage(1);
 		model.addAttribute("reviewList", myReviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/write_review_list";

@@ -62,21 +62,26 @@
     			<choose>
     				<when test='searchType == "t"'>
     					where review_title like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
     				</when>
     				<when test='searchType == "c"'>
     					where review_content like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
     				</when>
     				<when test='searchType == "w"'>
     					where review_writer like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
     				</when>
     				<when test='searchType == "tc"'>
     					where review_title like '%' || #{keyword} || '%'
     					or    review_content like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
     				</when>
     				<when test='searchType == "tcw"'>
     					where review_title like '%' || #{keyword} || '%'
     					or    review_content like '%' || #{keyword} || '%'
     					or    review_writer like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
     				</when>
     			</choose>
     		</if> 
@@ -99,7 +104,7 @@
         		(select * from tbl_review
         		where userno = #{userno}
         		<include refid="search2"></include>) a)
-		where rnum between 1 and 5
+		where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}
 	</select>
 
 		<!-- 검색 조건2 -->
