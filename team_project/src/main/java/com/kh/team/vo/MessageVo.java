@@ -1,13 +1,14 @@
 package com.kh.team.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class MessageVo {
 	private int messageno; // 메세지 번호
 	private String sender; // 보내는 이
 	private String receiver; // 받는 이
 	private Date message_date; // 메세지 보낸 날짜
-	private String message_file; // 메세지 첨부파일
+	private List<String> message_files; // 메세지 첨부파일
 	private int groupno; // 메세지 그룹번호
 	private int re_seq; // 메세지 그룹순서
 	private int re_level; // 메세지 그룹레벨
@@ -23,14 +24,14 @@ public class MessageVo {
 	}
 
 	// 필드생성자
-	public MessageVo(int messageno, String sender, String receiver, Date message_date, String message_file, int groupno,
+	public MessageVo(int messageno, String sender, String receiver, Date message_date, List<String> message_files, int groupno,
 			int re_seq, int re_level, String message_title, String message_content) {
 		super();
 		this.messageno = messageno;
 		this.sender = sender;
 		this.receiver = receiver;
 		this.message_date = message_date;
-		this.message_file = message_file;
+		this.message_files = message_files;
 		this.groupno = groupno;
 		this.re_seq = re_seq;
 		this.re_level = re_level;
@@ -71,12 +72,12 @@ public class MessageVo {
 		this.message_date = message_date;
 	}
 
-	public String getMessage_file() {
-		return message_file;
+	public List<String> getMessage_files() {
+		return message_files;
 	}
 
-	public void setMessage_file(String message_file) {
-		this.message_file = message_file;
+	public void setMessage_files(List<String> message_files) {
+		this.message_files = message_files;
 	}
 
 	public int getGroupno() {
@@ -146,7 +147,7 @@ public class MessageVo {
 	@Override
 	public String toString() {
 		return "MessageVo [messageno=" + messageno + ", sender=" + sender + ", receiver=" + receiver + ", message_date="
-				+ message_date + ", message_file=" + message_file + ", groupno=" + groupno + ", re_seq=" + re_seq
+				+ message_date + ", message_files=" + message_files + ", groupno=" + groupno + ", re_seq=" + re_seq
 				+ ", re_level=" + re_level + ", message_title=" + message_title + ", message_content=" + message_content
 				+ ", read_date=" + read_date + ", sender_delete=" + sender_delete + ", receiver_delete="
 				+ receiver_delete + "]";

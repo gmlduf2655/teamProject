@@ -11,6 +11,9 @@ import com.kh.team.vo.RoomTypeVo;
 
 public interface CinemaService {
 	
+	// 서버 시간 얻어내기
+	public String getServerTime();
+	
 	// 영화관 생성
 	public boolean createCinema(CinemaVo cinemaVo);
 	
@@ -55,6 +58,9 @@ public interface CinemaService {
 	// 상영관 상태 변경
 	public boolean modifyCinemaRoomStatus(int room_no, boolean room_status);
 	
+	// 상영관 삭제
+	public boolean deleteCinemaRoom(int room_no);
+	
 	
 
 	// ------------------
@@ -68,7 +74,7 @@ public interface CinemaService {
 	public List<Map<String, Object>> getRoomTimelineList(int room_no, String order_column, String order_type);
 	
 	// 상영 스케줄 리스트 조회
-	public List<Map<String, Object>> getRoomTimelineList(int cinema_no, String search_column, Object search_data, String order_column, String order_type);
+	public List<Map<String, Object>> getRoomTimelineList(int room_no, String search_column, Object search_data, String order_column, String order_type);
 	
 	// 상영 스케줄 정보 조회
 	public Map<String, Object> getRoomTimeline(int timeline_no);
@@ -104,6 +110,8 @@ public interface CinemaService {
 	// 좌석 정보 수정
 	public boolean modifyRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status);
 	
+	// 좌석 삭제
+	public boolean deleteRoomSeat(int room_no);
 	
 	
 	

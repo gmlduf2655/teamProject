@@ -30,6 +30,8 @@ public interface UserService {
 	public UserVo getUserBySnsIdAndType(String sns_id, String sns_type);
 	// 회원번호와 회원타입으로 회원 아이디 조회
 	public String getUseridByUsernoAndSnsType(int userno, String sns_type);
+	// 회원번호로 회원 아이디 조회
+	public String getUseridByUserno(int userno);
 	// 회원아이디와 회원타입으로 회원 번호 조회
 	public int getUsernoByUseridAndSnsType(String userid, String sns_type);
 	// 회원아이디로 회원 번호 조회

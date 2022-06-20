@@ -44,6 +44,26 @@
 				 frmSearch.submit();
 				
 			});
+			
+			// 새로고침
+			function refreshMemList(){
+				location.reload();
+			}
+			
+			// 이벤트 참가 취소
+			$(".table").on("click", ".btnEventCancel", function(){
+				var url = "/mypage/participate_event_cancel";
+				var participate_no = $(this).attr("value");
+				var sData = {
+						"participate_no" : participate_no
+				}
+				console.log("participate_no:", participate_no); 
+				console.log("participate_no:", participate_no); 
+				$.get(url, sData, function(rData){
+					console.log("rData", rData);
+					refreshMemList();
+				});
+			});
 		});
     </script>
     
@@ -97,7 +117,8 @@
 	               	<div class="col-lg-12 ">
 				    	<table class="table" style="color:white;">
 				    		<thead>
-				    			<tr>				
+				    			<tr>		
+				    				<th></th>		
 									<th>이벤트 제목</th>    				
 									<th>이벤트 시작일</th>    				
 									<th>이벤트 종료일</th>		
@@ -105,14 +126,22 @@
 				    			</tr>
 				    		</thead>
 				    		<tbody>
+				    		
 								<c:forEach var="eventVo" items="${eventList}" varStatus="status">
-										<tr>
-											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
-											<td>${eventVo.event_start_date}~</td>
+										<c:choose>
+								<c:when test ="${eventVo.userno == param.userno}">
+									<tr>
+											<td><input type="hidden" id="participate_no" value="${eventVo.participate_no}"></td>
+											<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}">${eventVo.event_title}</a></td>
+											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
-											<td></td>
+											<td><button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button></td>
 										</tr>
+									</c:when>
+									
+								</c:choose>
 								</c:forEach>
+							
 							</tbody>
 				    	</table>
 	    	    	</div>

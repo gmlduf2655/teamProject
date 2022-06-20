@@ -115,5 +115,12 @@ public class TestRoomSeatDao {
 		boolean result = roomSeatDao.updateRoomSeatTicket(seat_no, ticket_no);
 		System.out.println("updateRoomSeatTicket, result : "+ result);
 	}
+	
+	// 좌석 삭제
+	@Test
+	public void deleteRoomSeatTest() {
+		boolean result = roomSeatDao.deleteRoomSeat(130);
+		System.out.println(result);
+	}
 
 }

@@ -24,7 +24,7 @@ public interface RoomTimelineDao {
 	
 	// 영화관별 영화 스케줄 리스트 조회
 	public List<Map<String, Object>> selectRoomTimelineList(
-				int cinema_no,
+				int room_no,
 				String search_column, 
 				Object search_data, 
 				String order_column, 

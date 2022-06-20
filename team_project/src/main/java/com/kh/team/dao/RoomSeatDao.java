@@ -27,4 +27,7 @@ public interface RoomSeatDao {
 	// 좌석 예약 상태 변경
 	public boolean updateRoomSeatTicket(int seat_no, String ticket_no);
 	
+	// 좌석 삭제
+	public boolean deleteRoomSeat(int room_no);
+	
 }

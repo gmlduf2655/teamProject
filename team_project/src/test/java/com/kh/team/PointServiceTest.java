@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kh.team.dao.PointDao;
 import com.kh.team.dao.UserDao;
 import com.kh.team.service.PointService;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
@@ -25,7 +26,7 @@ public class PointServiceTest {
 	@Test
 	public void testAddPoint() {
 		PointVo pointVo = new PointVo(0, 10, 1, null, 1001, null, null);
-		boolean result = pointService.addPoint(pointVo, 1);
+		boolean result = pointService.addPoint(pointVo);
 		System.out.println("PointServiceTest, testAddPoint, result : " + result);
 	}
 	
@@ -40,19 +41,35 @@ public class PointServiceTest {
 	// 포인트 목록 조회 테스트
 	@Test
 	public void testGetPointList() {
-		List<PointVo> pointList = pointService.getPointList();
+		List<PointVo> pointList = pointService.getPointList(null);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointServiceTest, testGetPointList, pointVo : " + pointVo);
 		}
 	}
 	
+	// 전체 유저 포인트 내역 수 조회 테스트
+	@Test
+	public void testGetCountPointList() {
+		int count = pointService.getCountPointList();
+		System.out.println("PointServiceTest, testGetCountPointList, count : " + count);
+	}
+	
 	// 아이디로 포인트 목록 조회 테스트
 	@Test
 	public void testGetPointListByUserno() {
-		List<PointVo> pointList = pointService.getPointListByUserno(1, null);
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
+		List<PointVo> pointList = pointService.getPointListByUserno(1, pagingDto);
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointServiceTest, testGetPointListByUserno, pointVo : " + pointVo);
 		}		
+	}
+	
+	// 특정 유저 포인트 내역 수 조회 테스트
+	@Test
+	public void testGetCountPointListByUserno() {
+		int count = pointService.getCountPointListByUserno(1);
+		System.out.println("PointServiceTest, testGetCountPointListByUserno, count : " + count);		
 	}
 	
 	// 포인트 코드로 포인트 목록 조회 테스트
@@ -62,6 +79,22 @@ public class PointServiceTest {
 		for(PointVo pointVo : pointList) {
 			System.out.println("PointServiceTest, testGetPointListByPointCode, pointVo : " + pointVo);
 		}		
+	}
+	
+	// 포인트 코드 목록조회 테스트
+	@Test
+	public void testGetPointCodeList() {
+		List<PointVo> pointCodeList = pointService.getPointCodeList(null);
+		for(PointVo pointVo : pointCodeList) {
+			System.out.println("PointServiceTest, testGetPointCodeList, pointVo : " + pointVo);
+		}
+	}
+	
+	// 포인트 코드 목록 조회 수 테스트
+	@Test
+	public void testGetCountPointCodeList() {
+		int count = pointService.getCountPointCodeList();
+		System.out.println("PointServiceTest, testGetCountPointCodeList, count : " + count);
 	}
 	
 	// 포인트 내역 삭제 테스트

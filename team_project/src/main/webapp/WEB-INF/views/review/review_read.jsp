@@ -243,8 +243,12 @@
 	<hr>
 	
 	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
+	
+	<c:if test="${loginUserVo.userid == reviewVo.review_writer}">
 	<a href="/review/review_modifyForm?review_no=${reviewVo.review_no}" class="btn btn-sm btn-warning">수정</a>
 	<a href="${reviewVo.review_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
+	</c:if>
+	
 </form>
 
 
@@ -264,7 +268,7 @@
 						<h5>댓글 달기</h5>
 					</div>
 					<form>
-						<input type="text" id="userid" name="userid">
+						<input type="hidden" id="userid" name="userid" value="${loginUserVo.userid}">
 						<textarea name="comment_content" id="comment_content" placeholder="댓글을 입력해 주세요"></textarea>
 						<button type="button" class="btn btn-sm btn-primary" id="btnCommentInsert">
 							<i class="fa fa-location-arrow"></i> 저장 </button><br>

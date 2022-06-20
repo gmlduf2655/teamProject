@@ -27,6 +27,7 @@
 		#pagination a{
 			background-color:#e53637;
 			border-color:#e53637;
+			color:white;
 		}
 	</style>
     <script>
@@ -66,12 +67,18 @@
 					<div class="col-md-4">
 						<h3>포인트 내역</h3>
 					</div>
-					<div class="col-md-3"></div>
-					<div class="col-md-1" style="text-align:right;">
+					<div class="col-md-2"></div>
+					<div class="col-md-2" style="display:flex;justify-content: flex-end;">
 						<select name="searchType" id="searchType" style="color:black;">
-							<option value="p">포인트</option>
-							<option value="n">이름</option>
-							<option value="d">날짜</option>
+							<option value="p"
+								<c:if test="${pagingDto.searchType == 'p'}">selected</c:if>
+							>포인트</option>
+							<option value="n"
+								<c:if test="${pagingDto.searchType == 'u'}">selected</c:if>
+							>이름</option>
+							<option value="d"
+								<c:if test="${pagingDto.searchType == 'd'}">selected</c:if>
+							>날짜</option>
 						</select>
 					</div>
 					<div class="col-md-3">
@@ -117,8 +124,7 @@
 									<li class="page-item"><a class="page-link move_page"
 										href="/point/point_list?userno=${pagigDto.startPage-1}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
 								</c:if>
-								<c:forEach var="i" begin="${pagingDto.startPage}"
-									end="${pagingDto.endPage}">
+								<c:forEach var="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
 									<li
 										<c:choose>
 											<c:when test="${i == pagingDto.page}">

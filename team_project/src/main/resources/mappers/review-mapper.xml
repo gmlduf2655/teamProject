@@ -81,5 +81,21 @@
     			</choose>
     		</if> 
 		</sql>
+		
+		<!-- 관리자 게시글 삭제 -->
+		<update id="adminDelete">
+		update tbl_review set
+			review_title = #{review_title},
+			review_content = #{review_content},
+			review_star = #{review_star},
+			admin_delete = #{admin_delete}
+		where review_no = #{review_no}
+	</update>
+	
+		<!-- 내가 참여한 리뷰 게시글만 보이게 하기 -->
+	<select id="myReviewList" resultType="ReviewVo">
+		select * from tbl_review
+		where review_writer = #{review_writer}
+	</select>
 
 </mapper>

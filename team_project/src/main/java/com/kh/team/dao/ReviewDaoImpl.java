@@ -1,6 +1,8 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,24 @@ public class ReviewDaoImpl implements ReviewDao {
 	public int getCount(ReviewPagingDto pagingDto) {
 		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
 		return count;
+	}
+
+	@Override
+	public boolean adminDelete(ReviewVo reviewVo) {
+		int count = sqlSession.update(NAMESPACE + "adminDelete", reviewVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public List<ReviewVo> myReviewList(String review_writer, ReviewPagingDto pagingDto) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("review_writer", review_writer);
+		parameter.put("pagingDto", pagingDto);
+		List<ReviewVo> myReviewList = sqlSession.selectList(NAMESPACE + "myReviewList", parameter);
+		return myReviewList;
 	}
 
 }

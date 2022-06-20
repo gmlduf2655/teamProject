@@ -95,7 +95,7 @@ public class ReviewController {
 		@ResponseBody
 		public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 			
-			String uploadPath = "//192.168.0.62/boardattach";
+			String uploadPath = "//192.168.0.67/boardattach";
 			String originalFilename = multipartFile.getOriginalFilename();
 			
 			String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());

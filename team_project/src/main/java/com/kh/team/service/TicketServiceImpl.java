@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.RoomSeatDao;
 import com.kh.team.dao.TicketDao;
+import com.kh.team.vo.TicketUserVo;
 import com.kh.team.vo.TicketVo;
 
+@Service
 public class TicketServiceImpl implements TicketService {
 
 	@Autowired
@@ -47,6 +50,20 @@ public class TicketServiceImpl implements TicketService {
 	public boolean modifyRoomSeatTicket(int seat_no, String ticket_no) {
 		boolean result = roomSeatDao.updateRoomSeatTicket(seat_no, ticket_no);
 		return result;
+	}
+
+	// 임희열 : 유저 영화 예매 정보 조회
+	@Override
+	public List<TicketUserVo> getTicketUserList(int userno) {
+		List<TicketUserVo> ticketUserList = ticketDao.selectTicketUserList(userno);
+		return ticketUserList;
+	}
+
+	// 임희열 : 티켓번호로 유저 영화 예매 정보 조회
+	@Override
+	public TicketUserVo getTicketUserVoByTicketno(int userno, String ticket_no) {
+		TicketUserVo ticketUserVo = ticketDao.selectTicketUserVoByTicketno(userno, ticket_no);
+		return ticketUserVo;
 	}
 
 }

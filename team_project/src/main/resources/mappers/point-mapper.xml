@@ -22,19 +22,44 @@
 
 	<!-- 포인트 목록 조회 -->
 	<select id="selectPointList" resultType="PointVo">
-		select pointno, a.point, userno, b.point_code, b.point_name, b.point_desc
-		from tbl_point a, tbl_point_code b
-		where a.point_code = b.point_code
+		select * from (
+			select rownum rnum, d.* from (
+				select pointno, a.point, a.userno, point_date, b.point_code, b.point_name, b.point_desc, c.userid
+				from tbl_point a, tbl_point_code b, tbl_user c
+				where a.point_code = b.point_code and a.userno = c.userno
+				<if test='searchType != null and searchType != "" and keyword != null and keyword != ""'>
+					<choose>
+						<when test='searchType == "p"'>
+							and a.point like '%' || #{keyword} || '%'	
+						</when>
+						<when test='searchType == "n"'>
+							and point_name like '%' || #{keyword} || '%'
+						</when>
+						<when test='searchType == "u"'>
+							and userid like '%' || #{keyword} || '%'
+						</when>
+						<when test='searchType == "d"'>
+							and point_date like '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</if>
+				order by point_date desc
+			) d
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	<!-- 전체 유저 포인트 내역 수 조회 -->
+	<select id="getCountPointList" resultType="int">
+		select count(*) from tbl_point
 	</select>
 	
 	<!-- 아이디로 포인트 목록조회 -->
 	<select id="selectPointListByUserno" resultType="PointVo">
 		select * from (
-			select rownum rnum, c.* from (
-				select pointno, a.point, userno, point_date, b.point_code, b.point_name, b.point_desc
-				from tbl_point a, tbl_point_code b
+			select rownum rnum, d.* from (
+				select pointno, a.point, a.userno, point_date, b.point_code, b.point_name, b.point_desc, c.userid
+				from tbl_point a, tbl_point_code b, tbl_user c
 				where a.point_code = b.point_code
-				and a.userno = #{userno}
+				and a.userno = #{userno} and  a.userno = c.userno
 				<if test='pagingDto.searchType != null and pagingDto.searchType != "" and pagingDto.keyword != null and pagingDto.keyword != ""'>
 					<choose>
 						<when test='pagingDto.searchType == "p"'>
@@ -48,10 +73,17 @@
 						</when>
 					</choose>
 				</if>
-				) c	
+				order by point_date desc
+				) d	
 		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow} 
-			
 	</select>
+	
+	<!-- 특정 유저 포인트 내역 수 조회 -->
+	<select id="getCountPointListByUserno" resultType="int">
+		select count(*) from tbl_point 
+		where userno = #{userno}
+	</select>
+	
 	
 	<!-- 포인트 코드로 포인트 목록조회 -->
 	<select id="selectPointListByPointCode" resultType="PointVo">
@@ -69,6 +101,40 @@
 		and a.pointno = #{pointno}		
 	</select>
 	
+	<!-- 포인트 코드 목록 조회 -->
+	<select id="selectPointCodeList" resultType="PointVo">
+		select * from (
+			select rownum rnum, a.* from(
+				select * from tbl_point_code 
+				<if test='searchType != null and searchType != "" and keyword != null and keyword != ""'>
+					<choose>
+						<when test='searchType == "p"'>
+							where point = #{keyword}	
+						</when>
+						<when test='searchType == "n"'>
+							where point_name like '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</if>
+				order by point_code asc
+			) a
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 포인트 코드 목록 수 조회 -->
+	<select id="getCountPointCodeList" resultType="int">
+		select count(*) from tbl_point_code
+	</select>
+	
+	<!-- 포인트 코드 내역 수정 -->
+	<update id="updatePointCode">
+		update tbl_point_code set
+			point = #{point},
+			point_name = #{point_name},
+			point_desc = #{point_desc}
+		where point_code = #{point_code}
+	</update>
+	
 	<!-- 포인트 내역 삭제 -->
 	<delete id="deletePoint">
 		delete from tbl_point
@@ -81,9 +147,19 @@
 		where point_code= #{point_code}
 	</delete>
 	
+	<!-- 포인트코드 내역 다수 삭제 -->
+	<delete id="multiDeletePointCode">
+		delete from tbl_point_code
+		where point_code in
+		<foreach open="(" close=")" collection="list" item="item" separator=", ">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 유저 포인트 수정 -->
 	<update id="updatePoint">
 		update tbl_user set
-			point = #{point}
+			point = point + #{point}
 		where userno = #{userno}
 	</update>
 </mapper>

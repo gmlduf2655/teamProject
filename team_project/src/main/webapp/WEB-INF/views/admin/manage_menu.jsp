@@ -14,8 +14,9 @@
 				<h5 style="color : black;">회원 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">회원목록</a></h6>
-				<h6><a id="" href="#">회원목록</a></h6>
+				<h6><a id="" href="/admin/user_list">회원목록</a></h6>
+				<h6><a id="" href="/admin/total_point_list?page=1">회원 포인트 내역</a></h6>
+				<h6><a id="" href="/admin/create_point_code?page=1">포인트 코드 생성기</a></h6>
 			</div>
 		</div>
 		
@@ -41,11 +42,10 @@
 		
 		<div class="product__page__title">
 			<div class="section-title">
-				<h5 style="color : black;">리뷰 관리</h5>
+				<h5 style="color : black;">평점/리뷰 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">리뷰목록</a></h6>
-				<h6><a id="" href="#">리뷰목록</a></h6>
+				<h6><a id="" href="/admin/event_admin_reviewList">평점/리뷰 목록</a></h6>
 			</div>
 		</div>	
 		
@@ -54,8 +54,8 @@
 				<h5 style="color : black;">이벤트 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">이벤트 목록</a></h6>
-				<h6><a id="" href="#">이벤트 목록</a></h6>
+				<h6><a id="" href="/event/write_form">이벤트 등록</a></h6>
+				<h6><a id="" href="/admin/event_admin_list">이벤트 목록</a></h6>
 			</div>
 		</div>	
 		

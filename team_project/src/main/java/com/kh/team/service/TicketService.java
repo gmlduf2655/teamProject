@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.team.vo.TicketUserVo;
 import com.kh.team.vo.TicketVo;
 
 public interface TicketService {
@@ -24,4 +25,9 @@ public interface TicketService {
 	// 좌석 예약 정보 변경
 	public boolean modifyRoomSeatTicket(int seat_no, String ticket_no);
 	
+	// 임희열 : 유저 영화 예매 정보 조회
+	public List<TicketUserVo> getTicketUserList(int userno);
+	
+	// 임희열 : 티켓번호로 유저 영화 예매 정보 조회
+	public TicketUserVo getTicketUserVoByTicketno(int userno, String ticket_no);
 }

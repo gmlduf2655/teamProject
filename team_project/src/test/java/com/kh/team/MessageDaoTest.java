@@ -32,10 +32,17 @@ public class MessageDaoTest {
 	@Test
 	public void addTestData() {
 		for(int i=1 ; i <=10 ; i++) {
-			MessageVo messageVo = new MessageVo(i, "user01", "gmlduf2655", null, null, 0, 0, 0, "제목 " + i, "내용 " + i);
+			MessageVo messageVo = new MessageVo(i, "gmlduf2655", "user01", null, null, 0, 0, 0, "제목 " + i, "내용 " + i);
 			boolean result = messageDao.insertMessage(messageVo);
 			System.out.println("MessageDaoTest, testInsertMessage, result : " + result);		
 		}
+	}
+	
+	// 메세지 파일 첨부 테스트
+	@Test
+	public void testInsertMessageAttach() {
+		boolean result = messageDao.insertMessageAttach(103, "ㅎㅎ");
+		System.out.println("MessageDaoTest, testInsertMessageAttach, result : " + result);
 	}
 	
 	// 메세지 답장 추가 테스트
@@ -61,6 +68,15 @@ public class MessageDaoTest {
 		List<MessageVo> receiverMessageList = messageDao.selectReceiverMessageList("gmlduf2655", null);
 		for(MessageVo messageVo : receiverMessageList) {
 			System.out.println("MessageDaoTest, testSelectReceiverMessageList, messageVo : " + messageVo);
+		}
+	}
+	
+	// 메세지 첨부 파일 조회 테스트
+	@Test
+	public void testSelectFilenameList() {
+		List<String> filenameList = messageDao.selectFilenameList(100);
+		for(String filename : filenameList) {
+			System.out.println("MessageDaoTest, testSelectFilenameList, filename : " + filename);
 		}
 	}
 	

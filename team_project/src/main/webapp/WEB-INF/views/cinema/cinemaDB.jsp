@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
-	table {
-		table-layout: fixed;
+	table.table {
+ 		table-layout: fixed;
 	}
 	
 	table * {
@@ -32,15 +33,44 @@
 	}
 	
 	.modal-content table {
-		margin: 0 auto 0 2em;
-		width: 95%;
+		margin: 0 auto;
+		width: 100%;
 	}
+	
+	.modal-xl {
+		min-width: 768px;
+	}
+	
+	.card-body table th {
+		width: 0em;
+	}
+	
+	.card-body table td {
+		width: 2em;
+		border-radius: 50%;
+	}
+	
+	.card-body table tr:nth-child(2) td:last-child {
+		background: none;
+		border: none;
+		width: 0em;
+	}
+	
+	.cinema_address {
+		float: none;
+	}
+	
+	.cinema_address > * {
+		right: 0;
+	}
+	
 	
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function(){
 		
+
 		var btnEdit = "<a class='btn btn-sm btn-info' href='#modal-container-339736' role='button' class='btn' data-toggle='modal'>수정</a>";
 		var btnNewCreate = "<li><a class='btn btn-primary btnNewInsert' href='#modal-container-339736' role='button' class='btn' data-toggle='modal'>등록</a></li>";
 		
@@ -48,13 +78,66 @@
 		var cinemaRoomListViewer = $(".cinemaRoomListViewer");
 		var roomTimelineListViewer = $(".roomTimelineListViewer");
 		
-		/* 영화관 도시명 select선택 시 이벤트 */
-		$("select[name=cinema_address]").change(function(){
-			$(".cinemaListViewer").text("");
-			$(".cinemaRoomListViewer").text("");
-			$(".roomTimelineListViewer").text("");
+		
+		
+		
+		function getSeatTable(room_no) {
+			var url = "/mkcinema/getSeatList";
+			var sData = {
+					"room_no" : room_no
+			}
+			$.get(url, sData, function(rData){
+				var arry = [];
+				var attrx = [];
+				console.log(attrx);
+				$.each(rData, function(){
+					arry.push(this.seat_y.charCodeAt());
+					attrx.push(this.seat_x);
+					console.log("seat_y",this.seat_y);
+					console.log("seat_x",this.seat_x);
+				});
+				
+				$(".card-body").text("");
+				var startCodeNum = Math.min.apply(null, arry);
+				var endCodeNum = Math.max.apply(null, arry);
+				var spanCount = Math.max.apply(null, attrx);
+				
+				var seatTableHtml = `
+					<table>
+						<thead>
+							<tr>
+								<th colspan=` + (spanCount + 1) + `>스크린</th>
+							</tr>`;
+						
+				for (var j = startCodeNum; j <= endCodeNum; j++) {
+					var inputString = String.fromCharCode(j);
+					seatTableHtml += "<tr><th>" + inputString + " </th>";
+					for (var i = 1; i <= spanCount; i++) {
+						if (i == spanCount && j == startCodeNum){
+							seatTableHtml += "<td><a href='#'>" + i + "</a></td>";
+							seatTableHtml += "<td rowspan='" + (endCodeNum - startCodeNum + 1) + "'><a class='btn btn-sm btn-outline-info' id='addX' data-room_no=" + room_no + " > + </a><br><a class='btn btn-sm btn-outline-danger' id='subX' data-room_no=" + room_no + "> - </a></td>";
+						} else {
+							seatTableHtml += "<td><a href='#'>" + i + "</a></td>";
+						}
+					}
+					seatTableHtml += "</tr>";
+				}
+					seatTableHtml += `
+							<tr>
+								<th colspan=` + (spanCount + 1) + `><a class='btn btn-sm btn-outline-info' id='addY' data-room_no=` + room_no + `> + </a><a class='btn btn-sm btn-outline-danger' id='subY' data-room_no=` + room_no + `> - </a></th>
+							</tr>
+						</thead>
+					</table>
+					
+				`;
+				$(".card-body").append(seatTableHtml);
+
+
+			});
+		}
+		
+		function selectChoiseGetCinema(cinema_address){
 			$(".cinemaListViewer").prepend(btnNewCreate);
-			var cinema_address = $(this).val();
 			var url = "/mkcinema/getCinemaList";
 			var sData = {
 					"cinema_address" : cinema_address
@@ -66,6 +149,53 @@
 					useData = null;
 				})
 			})
+		}
+		
+		
+		
+		
+		function showTimelineList(room_no, movie_begin_date){
+			var url = "/mkcinema/getRoomTimelineList";
+			var sData = {
+					"room_no" : room_no,
+					"movie_begin_date" : movie_begin_date
+			};
+			
+			$.get(url, sData, function(rData){
+				$(".roomTimelineListViewer").text("");
+				$.each(rData, function(){
+					var date = this.movie_begin_date.substr(11,5);
+					var insertHtml = "<li><a class='btn btn-sm btn-light' data-timeline_no=" + this.timeline_no + ">" + date + " - " + this.movie_name + "</a class='btn btn-info'>" + btnEdit + "</li>";
+					$(".roomTimelineListViewer").prepend(insertHtml);
+					
+				});
+				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-room_no", room_no);
+				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-cinema_no", cinema_no);
+				
+			});
+		}
+		
+		
+		
+		
+		
+		var cinema_address = $("select[name=cinema_address]").val();
+		if (cinema_address == null) {
+			$(".cinemaListViewer").html("<li style='color: white;'>영화관 지역을 선택해주세요</li>");
+		} else {
+			selectChoiseGetCinema(cinema_address);
+		}
+		
+		
+		/* 영화관 도시명 select선택 시 이벤트 */
+		$("select[name=cinema_address]").change(function(){
+				$(".cinemaListViewer").text("");
+				$(".cinemaRoomListViewer").text("");
+				$(".roomTimelineListViewer").text("");
+				var cinema_address = $(this).val();
+				
+				selectChoiseGetCinema(cinema_address);
+				
 		});
 		
 		/* 조회된 영화관 목록 선택 시 */
@@ -91,34 +221,30 @@
 		
 		/* 조회된 상영관 리스트 선택 시 */
 		$(".cinemaRoomListViewer").on("click", "*[data-cinema_room_no]", function(){
-			$(".cinemaRoomListViewer").find("a").css("background","");
-			$(this).css("background","skyblue").css("boarder","skyblue");
-			$(".roomTimelineListViewer").text("");
-			$(".roomTimelineListViewer").prepend(btnNewCreate);
 			var room_no = $(this).attr("data-cinema_room_no");
 			var cinema_no = $(this).parent("li").nextAll().last().find(".btnNewInsert").attr("data-cinema_no");
-			console.log(cinema_no);
-			var url = "/mkcinema/getRoomTimelineList";
-			var sData = {
-					"room_no" : room_no
-			};
+			var movie_begin_date = $(".movie_begin_date").val();
+			$(".cinemaRoomListViewer").find("a").css("background","");
+			$(this).css("background","skyblue").css("boarder","skyblue");
 			
-			$.get(url, sData, function(rData){
-				$.each(rData, function(){
-					var date = this.movie_begin_date.substr(11,5);
-					var insertHtml = "<li><a class='btn btn-sm btn-light' data-timeline_no=" + this.timeline_no + ">" + date + " - " + this.movie_name + "</a class='btn btn-info'>" + btnEdit + "</li>";
-					$(".roomTimelineListViewer").prepend(insertHtml);
-					
-				});
-				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-room_no", room_no);
-				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-cinema_no", cinema_no);
-				
-			});
+			$(".roomTimelineListViewer").prepend(btnNewCreate);
+			$(".movie_begin_date").attr("data-room_no", room_no);
+			console.log(cinema_no);
+			console.log(movie_begin_date);
+			
+			showTimelineList(room_no, movie_begin_date);
+			
 		});
 		
-		/* 수정 버튼 클릭 시 모달창 띄우기 */
-		$(".cinemaNavTable").on("click", "button, a", function(e){
-			console.log("who:", $(this));
+		$(".movie_begin_date").change(function(){
+			var room_no = $(this).attr("data-room_no");
+			var movie_begin_date = $(this).val();
+			
+			showTimelineList(room_no, movie_begin_date);
+		});
+		
+		/* 영화관 정보 테이블 버튼 모두 */
+		$(".cinemaNavTable").on("click", "button, a", function(){
 			
 			var btnText = $(this).text();
 			var getClickNo = $(this).prev();
@@ -154,14 +280,14 @@
 					}
 						insertHtml += `
 								>영업중</option>
-								<option value='0'`;
-					if (rData.cinema_status == 0){
+								<option value=''`;
+					if (rData.cinema_status == null){
 						insertHtml += "selected";
 					}
 						insertHtml += `
 								>영업 준비중</option>
-								<option value=''`;
-					if (rData.cinema_status == null){
+								<option value='0'`;
+					if (rData.cinema_status == 0){
 						insertHtml += "selected";
 					}
 								
@@ -187,7 +313,7 @@
 					$(".modal-title").text(rData.room_name + " 정보 " + btnText);
 					var roomBeginTime = rData.room_begin_time.substr(11,5);
 					var roomFinishTime = rData.room_finish_time.substr(11,5);
-
+					
 					var insertHtml = `
 						<input type='hidden' name='room_no' value='` + rData.room_no + `' />
 						<div><label>상영관 이름 : <input type='text' name='room_name' value='` + rData.room_name + `' /></label></div>
@@ -209,57 +335,7 @@
 					`;
 					$(".modal-body").append(insertHtml);
 					
-					var url = "/mkcinema/getSeatList";
-					var sData = {
-							"room_no" : room_no
-					}
-					$.get(url, sData, function(rData){
-						var arry = [];
-						var attrx = [];
-						console.log(attrx);
-						$.each(rData, function(){
-							arry.push(this.seat_y.charCodeAt());
-							attrx.push(this.seat_x);
-							console.log("seat_y",this.seat_y);
-							console.log("seat_x",this.seat_x);
-						});
-						
-						$(".card-body").text("");
-						var startCodeNum = Math.min.apply(null, arry);
-						var endCodeNum = Math.max.apply(null, arry);
-						var spanCount = Math.max.apply(null, attrx);
-						
-						var seatTableHtml = `
-							<table>
-								<thead>
-									<tr>
-										<th colspan=` + (spanCount + 1) + `>스크린</th>
-									</tr>`;
-								
-						for (var j = startCodeNum; j <= endCodeNum; j++) {
-							var inputString = String.fromCharCode(j);
-							seatTableHtml += "<tr><th>" + inputString + " - </th>";
-							for (var i = 1; i <= spanCount; i++) {
-								if (i == spanCount && j == startCodeNum){
-									seatTableHtml += "<td><a href='#'>" + i + "</a></td>";
-									seatTableHtml += "<td rowspan='" + (endCodeNum - startCodeNum + 1) + "'><a class='btn btn-sm btn-outline-info' id='addX' data-room_no=" + room_no + " > + </a></td>";
-								} else {
-									seatTableHtml += "<td><a href='#'>" + i + "</a></td>";
-								}
-							}
-							seatTableHtml += "</tr>";
-						}
-							seatTableHtml += `
-									<tr>
-										<th colspan=` + (spanCount + 1) + `><a class='btn btn-sm btn-outline-info' id='addY' data-room_no=` + room_no + `> + </a></th>
-									</tr>
-								</thead>
-							</table>
-						`;
-						$(".card-body").append(seatTableHtml);
-
-
-					});
+					getSeatTable(room_no);
 					
 				});
 				break;
@@ -319,6 +395,7 @@
 				
 				$(".modal-title").text(columnTitle + " " + btnText + "하기");
 				var createForm = $(".modal-body").parents("form");
+				
 				switch (columnTitle) {
 				case "영화관":
 					console.log("영화관");
@@ -356,7 +433,8 @@
 					break;
 				case "상영 스케줄":
 					var room_no = $(this).attr("data-room_no");
-					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + room_no + "' />");
+					var cinema_no = $(this).attr("data-cinema_no");
+					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + cinema_no + "' />");
 					$(".modal-body").append("<input type='hidden' name='room_no' value='" + room_no + "' />");
 					$(".modal-body").append("<div><label>상영 영화 : <input type='text' name='movie_code' readonly /><input type='text' id='movie_name' class='form-control' list='datalistOptions' value='' /><button type='button' id='btnMovieSearch'>검색</button></label></div>");
 					$(".modal-body").append("<datalist id='datalistOptions'></datalist>");
@@ -426,8 +504,61 @@
 				var timeline_no = $(this).attr("data-timeline_no");
 				var createCinema = $(this).attr("data-createCinema");
 				var createRoom = $(this).attr("data-createRoom");
+				var createSeat = $(this).attr("data-createSeat");
 				var createTimeline = $(this).attr("data-createTimeline");
 				switch (true) {
+				case createCinema != null:
+					form.attr("method", "get");
+					form.attr("action", "/mkcinema/createCinema");
+					form.submit();
+					break;
+				case createRoom != null:
+					$("#btnModalCancel").attr("data-rollbackCreateRoom", "true");
+					$("#btnModalSuccess").removeAttr("data-createroom");
+					$("#btnModalSuccess").attr("data-createSeat", "true");
+					var url = "/mkcinema/createRoom";
+					var sData = $(this).parents("form");
+					$.get(url, sData.serialize(), function(rData){
+						var room_no = parseInt(rData);
+						if (rData != null){
+							$(".modal-header").html(sData.find("input[name=room_name]").val() + " 내부 좌석 생성");
+							$(".modal-body").text("");
+							
+				
+							var insertHtml = `
+								<div id="btnRoomSeat">
+									<div class="card">
+										<div class="card-header">
+											 <a class="card-link" data-toggle="collapse" data-parent="#btnRoomSeat" href="#seatViewer">상영관 좌석 보기</a>
+											<input type="hidden" name="room_no" value="` + room_no + `"/>
+										</div>
+										<div id="seatViewer" class="collapse show">
+											<div class="card-body">
+												Anim pariatur cliche...
+											</div>
+										</div>
+									</div>
+								</div>
+							`;
+							$(".modal-body").append(insertHtml);
+							
+							getSeatTable(room_no);
+							
+		 				
+							
+						}
+					});
+					break;
+				case createSeat != null:
+					form.attr("method", "get");
+ 					form.attr("action", "/mkcinema/createSeat");
+ 					form.submit();
+					break;
+				case createTimeline != null:
+					form.attr("method", "get");
+					form.attr("action", "/mkcinema/createTimeline");
+					form.submit();
+					break;
 				case cinema_no != null:
 					form.attr("method", "get");
 					form.attr("action", "/mkcinema/modifyCinema");
@@ -443,22 +574,17 @@
 					form.attr("action", "/mkcinema/modifyTimeline");
 					form.submit();
 					break;
-				case createCinema != null:
-					form.attr("method", "get");
-					form.attr("action", "/mkcinema/createCinema");
-					form.submit();
-					break;
-				case createRoom != null:
-					form.attr("method", "get");
-					form.attr("action", "/mkcinema/createRoom");
-					form.submit();
-					break;
-				case createTimeline != null:
-					form.attr("method", "get");
-					form.attr("action", "/mkcinema/createTimeline");
-					form.submit();
-					break;
+				
 
+				}
+				break;
+				
+			case "btnModalCancel":
+				if ($(this).attr("data-rollbackCreateRoom") != null){
+					var form = $(this).parents("form");
+					form.attr("method", "get");
+					form.attr("action", "/mkcinema/deleteRoom");
+					form.submit();
 				}
 				break;
 				
@@ -479,11 +605,7 @@
 				}
 				$.get(url, sData, function(rData){
 					if (rData == true){
-						var targetColumn = $(".card-body > table").find("tr").not("tr:first-child").not("tr:last-child");
-						console.log(targetColumn);
-						$.each(targetColumn, function(){
-							$(this).find("td").not("td[rowspan]").last().after("<td><a href='#'>" + seat_x + "</a></td>");
-						});
+						getSeatTable(room_no);
 					}
 				});
 				break;
@@ -513,19 +635,17 @@
 				}
 				$.get(url, sData, function(rData){
 					if (rData == true){
-						var targetColumn = $(".card-body > table").find("tr").not("tr:first-child").not("tr:last-child").last();
-						console.log(targetColumn);
-						var insertHtml = `
-							<tr>
-								<th>` + seat_y + ` - </th>`;
-						for (var i = 0; i < xNum.length; i++) {
-							insertHtml += `
-								<td><a href='#'>` + xNum[i] + `</a></td>`;
-						};
-						insertHtml += `</tr>`;
-						targetColumn.after(insertHtml);
+						getSeatTable(room_no);
 					}
 				});
+				break;
+				
+			case "subX":
+				alert("좌석 X줄 빼기");
+				break;
+				
+			case "subY":
+				alert("좌석 Y줄 빼기");
 				break;
 			}
 		});
@@ -552,49 +672,55 @@
 	
 	
 </script>
-<div class="row">
-	<div class="col-lg-2"></div>
-	<div class="col-lg-8">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>
-						<h5>영화관</h5>
-						<select name="cinema_address">
-							<option selected disabled>지역 선택</option>
-							<c:forEach items="${cinemaCityList}" var="cityName">
-								<option value="${cityName}">${cityName}</option>
-							</c:forEach>
-						</select>
-					</th>
-					<th>
-						<h5>상영관</h5>
-					</th>
-					<th>
-						<h5>상영 스케줄</h5>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="cinemaNavTable">
-					<td>
-						<ul class="cinemaListViewer">
-							<li style="color: white;">영화관 지역을 선택해주세요</li>
-						</ul>
-					</td>
-					<td>
-						<ul class="cinemaRoomListViewer">
-						</ul>
-					</td>
-					<td>
-						<ul class="roomTimelineListViewer">
-						</ul>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>
+							<h5>영화관</h5>
+							<select class="form-select justify-center cinema_address" name="cinema_address">
+								<option selected disabled>지역 선택</option>
+								<c:forEach items="${cinemaCityList}" var="cityName">
+									<option value="${cityName}"
+										<c:if test="${fn:substring(sessionScope.loginUserVo.address, '0', '2') == cityName}">
+											selected
+										</c:if>
+									>${cityName}</option>
+								</c:forEach>
+							</select>
+						</th>
+						<th>
+							<h5>상영관</h5>
+						</th>
+						<th>
+							<h5>상영 스케줄</h5>
+							<input class="movie_begin_date form-control" type="datetime-local" value="${fn:replace(serverTime,' ', 'T')}"/>
+							
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="cinemaNavTable">
+						<td>
+							<ul class="cinemaListViewer">
+								
+							</ul>
+						</td>
+						<td>
+							<ul class="cinemaRoomListViewer">
+							</ul>
+						</td>
+						<td>
+							<ul class="roomTimelineListViewer">
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div class="col-lg-2"></div>
 </div>
 
 
@@ -604,7 +730,7 @@
 		<div class="col-md-12">
 			<form>
 				<div class="modal fade" id="modal-container-339736" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
+					<div class="modal-dialog modal-xl" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="myModalLabel">
@@ -622,7 +748,7 @@
 								<button type="button" id="btnModalSuccess" class="btn btn-primary">
 									완료
 								</button> 
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								<button type="button" id="btnModalCancel" class="btn btn-secondary" data-dismiss="modal">
 									취소
 								</button>
 							</div>

@@ -80,7 +80,7 @@ public class TestCinemaRoomDao {
 		
 	}
 	
-	// 영화관 상태 변경
+	// 상영관 상태 변경
 	@Test
 	public void updateCinemaRoomStatusTest() {
 		
@@ -88,6 +88,14 @@ public class TestCinemaRoomDao {
 		boolean room_status	= true;
 		
 		boolean result = cinemaRoomDao.updateCinemaRoomStatus(room_no, room_status);
+		System.out.println(result);
+	}
+	
+	// 상영관 삭제
+	@Test
+	public void deleteCinemaRoom() {
+		int room_no = 130;
+		boolean result = cinemaRoomDao.deleteCinemaRoom(room_no);
 		System.out.println(result);
 	}
 }

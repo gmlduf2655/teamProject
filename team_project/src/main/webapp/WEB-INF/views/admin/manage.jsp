@@ -7,6 +7,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <style>
 	body {
+		background:#eeeeee;
 		background-color: #eeeeee;
 	}section.product {
 		padding : 0;

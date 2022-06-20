@@ -16,6 +16,9 @@
 	.note-editable{
 		background-color:white;
 	}
+	.delete_file{
+		cursor:pointer;
+	}
 </style>
 <script>
 	$(document).ready(function(){
@@ -52,11 +55,45 @@
 
 		});
 		
+		// 파일 첨부
+		$("#message_file").change(function(e){
+			console.log(e.target.files[0]);
+			var file = e.target.files[0];
+			var filename = file.name;
+			console.log(filename);
+			var formData = new FormData();
+			formData.append("file", file);
+			
+			$.ajax({
+				processData : false,
+				contentType : false,
+				type : "post",
+				async : "true",
+				url : "/message/uploadFile",
+				data : formData,
+				success : function(rData){
+					console.log("rData : " + rData);
+					$("#attach_files").append("<div><span class='mr-3'>"+ filename +"</span><a class='a_filename' data-filename="+ rData +">x삭제</a></div>");	
+				}
+			});
+		});
+		
+		// 첨부 파일 삭제 클릭시
+		$("#attach_files").on("click", ".a_filename", function(e){
+			e.preventDefault();
+			var filename = $(this).attr("data-filename");
+			$(this).parent("div").replaceWith("");
+			console.log($(this).parent("div"))
+			console.log(filename);
+		});
+		
 		// 메세지 전송
 		$("#form_btn").click(function(){
 			console.log($(".note-editable").find("img"));
 			console.log($("#sns_type").val());
 			var imgs = $(".note-editable").find("img");
+			var a_filenames = $("#attach_files").find(".a_filename");
+			console.log(a_filenames);
 			filenames = [];
 			$.each(imgs, function(i,v){
 				console.log(i);
@@ -66,6 +103,13 @@
 				var index = img_src.indexOf("=");
 				var src = img_src.substring(index + 1);
 				filenames.push(src);
+			});
+			$.each(a_filenames, function(){
+				var filename = $(this).attr("data-filename");
+				var html = "<input type='hidden' name='message_files' value='"+ filename +"'>";
+				$("#message_form").append(html);
+				filenames.push(filename);
+				console.log("1");
 			});
 			var fileData = {"filenames" : filenames};
 			console.log(fileData);
@@ -84,6 +128,7 @@
 						console.log($(this).attr("src"));
 					});
 					$("#message_content").val($(".note-editable").html());
+					console.log("2");
 					$("#message_form").submit();
 				}
 			});
@@ -111,7 +156,7 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<form id="message_form" role="form" method="post" action="/message/write_run" encType="multipart/form-data">
+				<form id="message_form" role="form" method="post" action="/message/write_run" >
 					<input type="hidden" name="message_content" id="message_content" >
 					<div class="form-group">
 						<label for="sender"> 보내는 이 </label> 
@@ -127,14 +172,16 @@
 						<input type="text" class="form-control" name="message_title" id="message_title" />
 					</div>
 					<div class="form-group">
-						<label for="message_title"> 내용 </label> 
-						<textarea rows="10" class="form-control summernote" ></textarea>
+						<label style="color:white;">첨부파일</label><br>
+						<label class="btn btn-primary" for="message_file"> 첨부파일 </label> 
+						<input type="file" class="form-control-file" id="message_file" style="display:none;"/>
+						<div class="help-block form-control" style="height:100px;" id="attach_files">
+							<span>여기에 파일이 들어갑니다</span>
+						</div>
 					</div>
 					<div class="form-group">
-						<span class="mb-4" style="color:white;">파일첨부</span><br>
-						<label class="btn btn-primary" for="message_file"> 파일첨부 </label> 
-						<input type="file" class="form-control-file" id="message_file" style="display:none;"/>
-						<div class="help-block" style="color:white;">여기에 파일이 들어갑니다</div>
+						<label for="message_title"> 내용 </label> 
+						<textarea rows="10" class="form-control summernote" ></textarea>
 					</div>
 					<button type="button" class="btn btn-primary" id="form_btn">전송</button>
 				</form>

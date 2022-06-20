@@ -25,7 +25,7 @@
 			color:white;
 		}
 		input.form-control{
-			width:30%;
+			width:80%;
 		}
 		span{
 			color:white;
@@ -88,23 +88,28 @@
     		<!-- 마이페이지 메뉴 부분 끝 -->
 	    	<!-- 유저 프로필 부분 -->
     		<div class="col-md-8" >
-				<div id="check_pw">
-					<h3 class="mb-4">기존 비밀번호 확인</h3>
-					<span class="mb-4" style="color:white;">기존 비밀번호</span>
-                    <input class="form-control mt-4 mb-3" type="password" placeholder="비밀번호" name="userpw" id="userpw">
-                    <button type="button" class="site-btn" id="check_pw_btn">입력</button>
-                    <span class="ml-3" id="check_result" style="display:none">비밀번호 확인 메세지</span>
-				</div>
-				<div id="change_pw" style="display:none;">
-					<h3 class="mb-4">회원탈퇴</h3>
-					<form action="/mypage/unregister_run" method="post" id="change_pw_form">
-						<input type="hidden" name="userno" value="${loginUserVo.userno}">
-						<span>회원 탈퇴할 시 현재 남아있는 포인트는 보상되지 않으며 </span>
-						<br>
-						<span>탈퇴한 이후로는 아이디 정보를 복구할 수 없습니다 그래도 탈퇴 하시겠습니까?</span>
-						<br>
-	                    <button type="submit" class="site-btn mt-3" id="change_pw_btn">탈퇴하기</button>
-                    </form>
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<div id="check_pw">
+							<h3 class="mb-4">비밀번호 확인</h3>
+		                    <input class="form-control mt-4 mb-3" type="password" placeholder="비밀번호" name="userpw" id="userpw">
+		                    <button type="button" class="site-btn" id="check_pw_btn">입력</button>
+		                    <span class="ml-3" id="check_result" style="display:none">비밀번호 확인 메세지</span>
+						</div>
+						<div id="change_pw" style="display:none;">
+							<h3 class="mb-4">회원탈퇴</h3>
+							<form action="/mypage/unregister_run" method="post" id="change_pw_form">
+								<input type="hidden" name="userno" value="${loginUserVo.userno}">
+								<span>회원 탈퇴할 시 현재 남아있는 포인트는 보상되지 않으며 </span>
+								<br>
+								<span>탈퇴한 이후로는 아이디 정보를 복구할 수 없습니다 그래도 탈퇴 하시겠습니까?</span>
+								<br>
+			                    <button type="submit" class="site-btn mt-3" id="change_pw_btn">탈퇴하기</button>
+		                    </form>
+						</div>
+					</div>
+					<div class="col-md-3"></div>
 				</div>	            
     		</div>
     		<div class="col-md-2"></div>

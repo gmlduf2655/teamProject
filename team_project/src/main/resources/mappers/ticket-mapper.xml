@@ -68,6 +68,7 @@
 		where ticket.ticket_no = #{ticket_no}
 	</select>
 	
+	
 	<!-- 티켓 예약 수정 -->
 	<update id="updateTicketStatus">
 		update tbl_ticket set
@@ -75,4 +76,52 @@
 		where ticket_no = #{ticket_no}
 	</update>
 	
+	<!-- 임희열 : 유저 영화 예매 정보 목록조회 -->
+	<select id="selectTicketUserList" resultType="TicketUserVo">
+		select 
+			a.ticket_no, a.user_no, a.ticket_regdate , 
+			b.movie_begin_date, b.movie_finish_date, b.movie_code,
+			c.cinema_name, 
+			d.seat_x, d.seat_y,
+			e.room_type_name,
+			f.room_name, f.room_floor,
+			g.movie_name, g.movie_image_name
+		from 
+			tbl_ticket a, tbl_room_timeline b, tbl_cinema c, tbl_room_seat d, 
+			tbl_room_type e, tbl_cinema_room f, tbl_movie g
+		where 
+			a.ticket_no = b.ticket_no 
+			and b.cinema_no = c.cinema_no
+			and b.room_no = d.room_no 
+			and b.room_type_code = e.room_type_code
+			and b.cinema_no = f.cinema_no
+			and b.room_no = f.room_no
+			and b.movie_code = g.movie_code
+			and a.user_no = #{user_no}
+	</select>
+	
+	<!-- 임희열 : 티켓번호로 유저 영화 예매 정보 조회 -->
+	<select id="selectTicketUserListByTicketno" resultType="TicketUserVo">
+		select 
+			a.ticket_no, a.user_no, a.ticket_regdate , 
+			b.movie_begin_date, b.movie_finish_date, b.movie_code,
+			c.cinema_name, 
+			d.seat_x, d.seat_y,
+			e.room_type_name,
+			f.room_name, f.room_floor,
+			g.movie_name, g.movie_image_name
+		from 
+			tbl_ticket a, tbl_room_timeline b, tbl_cinema c, tbl_room_seat d, 
+			tbl_room_type e, tbl_cinema_room f, tbl_movie g
+		where 
+			a.ticket_no = b.ticket_no 
+			and b.cinema_no = c.cinema_no
+			and b.room_no = d.room_no 
+			and b.room_type_code = e.room_type_code
+			and b.cinema_no = f.cinema_no
+			and b.room_no = f.room_no
+			and b.movie_code = g.movie_code
+			and a.user_no = #{user_no} 
+			and a.ticket_no = #{ticket_no}
+	</select>
 </mapper>

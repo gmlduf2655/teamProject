@@ -120,11 +120,7 @@ $(document).ready(function(){
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-		<div class="float-right">
-			<p>
-				<a class="btn btn-primary btn-large" href="/event/write_form">게시글 쓰기</a>
-			</p>
-		</div>
+		
 </div>
 
 
