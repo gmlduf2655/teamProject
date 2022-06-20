@@ -309,7 +309,10 @@ ${loginUserVo.userid}
                 	</div>
                 	 <div class="col-lg-4 col-md-4">
                 	 	<!-- 스틸컷 자리 -->
-                	 
+                	 	<c:forEach items="${stillcutlist}" var="stillcutlist" varStatus="status">
+                	 		<img src="/movie/displayImage?filename=${stillcutlist.still_cut_name}"
+                	 			style="width: 150px;'">
+                	 	</c:forEach>
                 	 </div>
                 </div>
                  <!-- 예고편, 스틸컷  -->

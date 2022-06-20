@@ -11,7 +11,7 @@ public interface MovieDBService {
 	public List<MovieVo> movieListend();
 	public boolean insertMovie(MovieVo movieVo);
 	public boolean updateMovie(MovieVo movieVo);
-	public boolean deleteMovie(String movie_code,int sno);
+	public boolean deleteMovie(String movie_code);
 	public List<MovieVo> dbSearchMovie(String sType, String sKeyword);
 	public MovieVo dbsearchBymoviecode(String movie_code);
 }

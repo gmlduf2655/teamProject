@@ -33,9 +33,15 @@ public class MovieStillcutServiceImpl implements MovieStillcutService {
 	}
 
 	@Override
-	public boolean deleteMovie(String movie_code, int sno) {
-		boolean result = stillcutDao.deleteMovie(movie_code, sno);
+	public boolean deleteMovie(int sno) {
+		boolean result = stillcutDao.deleteMovie(sno);
 		return result;
+	}
+
+	@Override
+	public int searchbymoviecodeforstill(String still_cut_name) {
+		int sno = stillcutDao.searchbymoviecodeforstill(still_cut_name);
+		return sno;
 	}
 
 }

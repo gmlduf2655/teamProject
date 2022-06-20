@@ -124,11 +124,12 @@ $(document).ready(function(){
 });
 	
 });//dbSearch
-//진흥원 api 스틸컷 추가
+//진흥원 api 스틸컷 추가 파일 드롭 이동 방지
 $("#fileDrop").on("dragenter dragover", function(e){
 	e.preventDefault();
 	
 });
+//스틸샷 첨부파일 등록
 $("#fileDrop").on("drop", function(e){
 	e.preventDefault();
 	var file = e.originalEvent.dataTransfer.files[0]; //콘솔에서 확인가능
@@ -158,6 +159,23 @@ $("#fileDrop").on("drop", function(e){
 			cloneDiv.appendTo($("#uploadedList")).show();
 		}
 	}); 
+});
+ 
+//스틸샷 업로드 취소
+$("#uploadedList").on("click" , ".a_delete", function(e){
+	var that = $(this);
+	e.preventDefault();
+	var filename = that.attr("data-filename");
+	var url = "/dbcontrol/deleteFile";
+	var sData = {
+			"filename" : filename
+	};
+	$.get(url, sData, function(rData){
+		console.log("rData" , rData);
+		if(rData == "true"){
+			that.parent().remove();
+		}
+	});
 });
  
 });
