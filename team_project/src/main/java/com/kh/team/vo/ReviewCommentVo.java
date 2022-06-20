@@ -9,6 +9,7 @@ public class ReviewCommentVo {
 	private String userid;
 	private String comment_content;
 	private Date comment_reg_date;
+	private String profile_image;
 	
 	public ReviewCommentVo() {
 		super();
@@ -29,6 +30,22 @@ public class ReviewCommentVo {
 		this.review_no = review_no;
 		this.userid = userid;
 		this.comment_content = comment_content;
+	}
+
+	public ReviewCommentVo(int review_no, String userid, String comment_content, String profile_image) {
+		super();
+		this.review_no = review_no;
+		this.userid = userid;
+		this.comment_content = comment_content;
+		this.profile_image = profile_image;
+	}
+
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
 	}
 
 	public int getComment_no() {
@@ -74,7 +91,8 @@ public class ReviewCommentVo {
 	@Override
 	public String toString() {
 		return "ReviewCommentVo [comment_no=" + comment_no + ", review_no=" + review_no + ", userid=" + userid
-				+ ", comment_content=" + comment_content + ", comment_reg_date=" + comment_reg_date + "]";
+				+ ", comment_content=" + comment_content + ", comment_reg_date=" + comment_reg_date + ", profile_image="
+				+ profile_image + "]";
 	}
 
 }
