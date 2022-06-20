@@ -34,16 +34,19 @@
 		countLike();
 
 		// 좋아요 클릭(삭제)
-		$("#good").click(function() {
-			var review_no = $(this).attr("data-rno");
-			var userid = "${loginUserVo.userid}";
+		$("#good").click(function(e){
+			e.preventDefault();
+			console.log("좋아요 클릭");
 			var url = "/review/createLike";
+			var review_no = "${reviewVo.review_no}";
+			var userid = "${loginUserVo.userid}";
 			var sData = {
-				"review_no" : review_no,
-				"userid" : userid
-			};
+					"review_no" : review_no,
+					"userid" : userid
+				};
+			console.log("좋아요 클릭 sData:", sData);
 			$.post(url, sData, function(rData) {
-				console.log("good click, rData:", rData);
+				console.log("좋아요 클릭 rData:", rData);
 				isLike();
 				countLike();
 			});
@@ -100,7 +103,9 @@
 //		console.log(comment_content);
 		var userid = $("#userid").val();
 		var review_no = "${reviewVo.review_no}";
+		var profile_image = "${loginUserVo.profile_image}";
 		var sData = {
+			"profile_image": profile_image,
 			"comment_content" : comment_content,
 			"review_no" : review_no,
 			"userid" : userid
@@ -133,9 +138,11 @@
 	name.text(this.userid);
 	regDate.text(this.comment_reg_date);
 	content.text(this.comment_content);
-		if (this.profile_image != null) {
-			$("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
-		}
+	if (this.profile_image != null) {
+		clone.find("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
+	} else if (this.profile_image == null) {
+		clone.find("#userprofile").attr("src", "/resources/images/usernoimage.JPG");
+	}
 	clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
 	clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
 	clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
@@ -284,7 +291,7 @@
 				<!-- clone table -->
 				<div class="anime__review__item" style="display:none;" id="clone" >
 					<div class="anime__review__item__pic">
-						<img src="/resources/images/usernoimage.JPG" id="userprofile">
+						<img src="" id="userprofile">
 					</div>
 					<div class="anime__review__item__text">
 						<h6> </h6>

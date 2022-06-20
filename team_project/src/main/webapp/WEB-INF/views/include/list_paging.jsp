@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 임희열 : 리스트 페이징 부분 겹치게 쓰는 부분이 많아서 include로 넣었습니당 -->
+<!-- 임희열 : 리스트 페이징 부분 겹치게 쓰는 부분이 많아서 include로 넣었습니다 -->
 <!-- 글 목록 페이징 부분-->
 <div class="row mb-3">
 	<div class="col-md-12">

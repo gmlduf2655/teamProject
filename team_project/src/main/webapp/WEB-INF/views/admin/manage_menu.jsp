@@ -14,9 +14,19 @@
 				<h5 style="color : black;">회원 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="/admin/user_list">회원목록</a></h6>
+				<h6><a id="" href="/admin/origin_user_list?page=1">기존 회원 관리</a></h6>
+				<h6><a id="" href="/admin/sns_user_list?page=1">간편로그인 회원 관리</a></h6>
+			</div>
+		</div>
+		
+		<!-- 임희열 : 포인트 관리 메뉴 추가했습니다 -->
+		<div class="product__page__title">
+			<div class="section-title">
+				<h5 style="color : black;">포인트 관리</h5>
+			</div>
+			<div class="h6li">
 				<h6><a id="" href="/admin/total_point_list?page=1">회원 포인트 내역</a></h6>
-				<h6><a id="" href="/admin/create_point_code?page=1">포인트 코드 생성기</a></h6>
+				<h6><a id="" href="/admin/manage_point_code?page=1">포인트 코드 관리</a></h6>
 			</div>
 		</div>
 		

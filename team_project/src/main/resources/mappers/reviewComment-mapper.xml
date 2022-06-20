@@ -8,9 +8,9 @@
 	
 	<insert id="insertComment">
 		insert into tbl_review_comment
-			(comment_no, review_no, userid, comment_content)
+			(comment_no, review_no, userid, comment_content, profile_image)
 		values
-			(seq_review_comment_reviewno.nextval, #{review_no}, #{userid}, #{comment_content})
+			(seq_review_comment_reviewno.nextval, #{review_no}, #{userid}, #{comment_content}, #{profile_image, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 댓글 목록 -->

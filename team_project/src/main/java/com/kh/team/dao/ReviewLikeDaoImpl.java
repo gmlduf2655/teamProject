@@ -43,7 +43,7 @@ public class ReviewLikeDaoImpl implements ReviewLikeDao {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("review_no", review_no);
 		parameter.put("userid", userid);
-		int count = sqlSession.selectOne(NAMESPACE + "deleteLike", parameter);
+		int count = sqlSession.delete(NAMESPACE + "deleteLike", parameter);
 		if (count > 0) {
 			return true;
 		}

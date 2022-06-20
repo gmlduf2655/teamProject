@@ -79,7 +79,7 @@ public class MypageController {
 //		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로함)
 //		List<EventVo> eventList = eventService.list(pagingDto);
 		// reviewPagingDto로 리뷰 목록 얻어옴 (페이지는 1페이지로함)
-		List<ReviewVo> reviewList = reviewService.list(reviewPagingDto);
+		List<ReviewVo> reviewList = reviewService.myReviewList(userno, pagingDto);
 		
 		List<TicketUserVo> ticketUserList = ticketService.getTicketUserList(userno);
 		
@@ -143,14 +143,12 @@ public class MypageController {
 	// 내가 쓴 리뷰 내역 페이지 이동
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
 	public String writeRiewList(Model model, int userno) {
-		ReviewPagingDto pagingDto = new ReviewPagingDto();
+		PagingDto pagingDto = new PagingDto();
 		pagingDto.setPage(1);
-		List<ReviewVo> reviewList = reviewService.list(pagingDto);
-		int count = reviewList.size();
+		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
+		int count = myReviewList.size();
 		pagingDto.setCount(count);
-		pagingDto.setPage(1);
-		System.out.println(reviewList);
-		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewList", myReviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/write_review_list";
 	}

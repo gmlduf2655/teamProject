@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
@@ -77,12 +79,14 @@ public class ReviewDaoImpl implements ReviewDao {
 		}
 		return false;
 	}
+	
 
 	@Override
-	public List<ReviewVo> myReviewList(String review_writer, ReviewPagingDto pagingDto) {
+	public List<ReviewVo> myReviewList(int userno, PagingDto pagingDto) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
-		parameter.put("review_writer", review_writer);
+		parameter.put("userno", userno);
 		parameter.put("pagingDto", pagingDto);
+		System.out.println("parameter:"+parameter);
 		List<ReviewVo> myReviewList = sqlSession.selectList(NAMESPACE + "myReviewList", parameter);
 		return myReviewList;
 	}

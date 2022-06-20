@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.UserDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.UserVo;
 
 @Service
@@ -52,17 +53,29 @@ public class UserServiceImpl implements UserService {
 	
 	// 기존회원 목록 조회
 	@Override
-	public List<UserVo> getOriginUserList() {
-		List<UserVo> originUserList = userDao.originUserList();
+	public List<UserVo> getOriginUserList(PagingDto pagingDto) {
+		List<UserVo> originUserList = userDao.originUserList(pagingDto);
 		return originUserList;
+	}
+	
+	// 기존 회원수 조회
+	public int getCountOriginUserList() {
+		int count = userDao.getCountOriginUserList();
+		return count;
 	}
 
 	// 간편로그인회원 목록 조회
 	@Override
-	public List<UserVo> getSnsUserList() {
-		List<UserVo> snsUserList = userDao.snsUserList();
+	public List<UserVo> getSnsUserList(PagingDto pagingDto) {
+		List<UserVo> snsUserList = userDao.snsUserList(pagingDto);
 		return snsUserList;
 	}
+
+	// 간편로그인 회원수 조회
+	public int getCountSnsUserList() {
+		int count = userDao.getCountSnsUserList();
+		return count;
+	}	
 	
 	// 아이디 중복체크
 	@Override
