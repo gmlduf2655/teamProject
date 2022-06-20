@@ -144,8 +144,8 @@ public class MypageController {
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
 	public String writeRiewList(Model model, int userno) {
 		PagingDto pagingDto = new PagingDto();
-		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
 		pagingDto.setPage(1);
+		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
 		int count = myReviewList.size();
 		pagingDto.setCount(count);
 		model.addAttribute("reviewList", myReviewList);

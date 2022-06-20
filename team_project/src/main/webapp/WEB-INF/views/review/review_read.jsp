@@ -34,16 +34,19 @@
 		countLike();
 
 		// 좋아요 클릭(삭제)
-		$("#good").click(function() {
-			var review_no = $(this).attr("data-rno");
-			var userid = "${loginUserVo.userid}";
+		$("#good").click(function(e){
+			e.preventDefault();
+			console.log("좋아요 클릭");
 			var url = "/review/createLike";
+			var review_no = "${reviewVo.review_no}";
+			var userid = "${loginUserVo.userid}";
 			var sData = {
-				"review_no" : review_no,
-				"userid" : userid
-			};
+					"review_no" : review_no,
+					"userid" : userid
+				};
+			console.log("좋아요 클릭 sData:", sData);
 			$.post(url, sData, function(rData) {
-				console.log("good click, rData:", rData);
+				console.log("좋아요 클릭 rData:", rData);
 				isLike();
 				countLike();
 			});

@@ -108,18 +108,18 @@ public class ReviewController {
 		@Transactional
 		@ResponseBody
 		public String createLike(ReviewLikeVo reviewLikeVo) {
-			System.out.println("createLike, reviewLikeVo:"+reviewLikeVo);
-			boolean result = false;
+			System.out.println("createLike, reviewLikeVo: "+reviewLikeVo);
 			boolean result1 = false;
+			boolean result2 = false;
 			if(reviewLikeVo.getUserid() != null && !reviewLikeVo.getUserid().equals("")) {
-				result1 = reviewLikeService.isLike(reviewLikeVo.getReview_no(), reviewLikeVo.getUserid());
-				if(result1 == false) {
-					result = reviewLikeService.createLike(reviewLikeVo);
-				} else if (result1 == true) {
-					result = reviewLikeService.deleteLike(reviewLikeVo.getReview_no(), reviewLikeVo.getUserid());
+				result2 = reviewLikeService.isLike(reviewLikeVo.getReview_no(), reviewLikeVo.getUserid());
+				if (result2 == false) {
+					result1 = reviewLikeService.createLike(reviewLikeVo);
+				} else if (result2 == true) {
+					result1 = reviewLikeService.deleteLike(reviewLikeVo.getReview_no(), reviewLikeVo.getUserid());
 				}
-			}
-			return String.valueOf(result);
+			} 
+			return String.valueOf(result1);
 		}
 		
 		@RequestMapping(value="/isLike", method = RequestMethod.GET)

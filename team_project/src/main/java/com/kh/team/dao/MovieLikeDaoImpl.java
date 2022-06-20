@@ -20,8 +20,7 @@ public class MovieLikeDaoImpl implements MovieLikeDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public boolean insertLike(MovieLikeVo movieLikeVo ) {
-			
+	public boolean insertLike(MovieLikeVo movieLikeVo) {
 		int count = sqlSession.insert(namespace + "insertLike", movieLikeVo);
 		if(count > 0) {
 			return true;
