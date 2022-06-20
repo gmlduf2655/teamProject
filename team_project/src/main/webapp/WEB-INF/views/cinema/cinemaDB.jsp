@@ -136,19 +136,21 @@
 			});
 		}
 		
+		
+		
+		
 		function selectChoiseGetCinema(cinema_address){
-			$(".cinemaListViewer").prepend(btnNewCreate);
 			var url = "/mkcinema/getCinemaList";
 			var sData = {
 					"cinema_address" : cinema_address
-			};
+			}
 			$.get(url, sData, function(rData){
 				$.each(rData, function(){
 					var insertHtml = "<li><a class='btn btn-sm btn-light' data-cinema_no=" + this.cinema_no + ">" + this.cinema_name + "</a>" + btnEdit + "</li>";
-					$(".cinemaListViewer").prepend(insertHtml);
-					useData = null;
+					$(".cinemaListViewer").append(insertHtml);
 				})
-			})
+				$(".cinemaListViewer").append(btnNewCreate);
+			});
 		}
 		
 		
@@ -166,12 +168,11 @@
 				$.each(rData, function(){
 					var date = this.movie_begin_date.substr(11,5);
 					var insertHtml = "<li><a class='btn btn-sm btn-light' data-timeline_no=" + this.timeline_no + ">" + date + " - " + this.movie_name + "</a class='btn btn-info'>" + btnEdit + "</li>";
-					$(".roomTimelineListViewer").prepend(insertHtml);
-					
+					$(".roomTimelineListViewer").append(insertHtml);
 				});
+				$(".roomTimelineListViewer").append(btnNewCreate);
 				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-room_no", room_no);
 				$("tbody").find("td").eq(2).find(".btnNewInsert").attr("data-cinema_no", cinema_no);
-				
 			});
 		}
 		
@@ -227,13 +228,12 @@
 			$(".cinemaRoomListViewer").find("a").css("background","");
 			$(this).css("background","skyblue").css("boarder","skyblue");
 			
-			$(".roomTimelineListViewer").prepend(btnNewCreate);
 			$(".movie_begin_date").attr("data-room_no", room_no);
 			console.log(cinema_no);
 			console.log(movie_begin_date);
 			
 			showTimelineList(room_no, movie_begin_date);
-			
+			$(".roomTimelineListViewer").prepend(btnNewCreate);
 		});
 		
 		$(".movie_begin_date").change(function(){
@@ -434,10 +434,49 @@
 				case "상영 스케줄":
 					var room_no = $(this).attr("data-room_no");
 					var cinema_no = $(this).attr("data-cinema_no");
-					$(".modal-body").append("<input type='hidden' name='cinema_no' value='" + cinema_no + "' />");
-					$(".modal-body").append("<input type='hidden' name='room_no' value='" + room_no + "' />");
-					$(".modal-body").append("<div><label>상영 영화 : <input type='text' name='movie_code' readonly /><input type='text' id='movie_name' class='form-control' list='datalistOptions' value='' /><button type='button' id='btnMovieSearch'>검색</button></label></div>");
-					$(".modal-body").append("<datalist id='datalistOptions'></datalist>");
+					
+					var inputHtml = `
+						<input type='hidden' name='cinema_no' value='` + cinema_no + `' />
+						<input type='hidden' name='room_no' value='` + room_no + `' />
+						<div>
+							<label>
+								상영 영화 : 
+								<input type='text' name='movie_code' readonly />
+								<input type='text' id='movie_name' class='form-control' list='datalistOptions' value='' />
+								<button type='button' id='btnMovieSearch'>검색</button>
+								<datalist id='datalistOptions'></datalist>	
+							</label>
+						</div>
+						<div>
+							<label>
+								영화 타입 : 
+								<select name='room_type_code'></select>
+							</label>
+						</div>
+						<div>
+							<label>
+								영화 시작일 : 
+								<input type='datetime-local' name='movie_begin_date' value='${fn:replace(serverTime," ", "T")}' />
+							</label>
+						</div>
+						<div>
+							<label>
+								영화 종료일 : 
+								<input type='datetime-local' name='movie_finish_date' />
+							</label>
+						</div>
+					`;
+					
+					$(".modal-body").append(inputHtml);
+
+					$.get("/mkcinema/getRoomTypeCodeList",function(rData){
+						console.log(rData);
+						$.each(rData, function(){
+							$("select[name=room_type_code]").append("<option value='" + this.room_type_code + "'" + ">" + this.room_type_name + "</option>");
+						});
+					});
+					
+					/* 영화이름 검색 시 자동 검색 */
 					$("#movie_name").keyup(function(){
 						var searchData = $(this).val();
 						$.get("/mkcinema/searchMovie", {"movie_name" : searchData}, function(rData){
@@ -447,17 +486,8 @@
 								$("#datalistOptions").append("<option value='" + this.movie_name + "'>");
 							});
 						});
-						
 					});
-					$(".modal-body").append("<div><label>영화 타입 : <select name='room_type_code'></select></label></div>");
-					$.get("/mkcinema/getRoomTypeCodeList",function(rData){
-						console.log(rData);
-						$.each(rData, function(){
-							$("select[name=room_type_code]").append("<option value='" + this.room_type_code + "'" + ">" + this.room_type_name + "</option>");
-						});
-					});
-					$(".modal-body").append("<div><label>영화 시작일 : <input type='datetime-local' name='movie_begin_date' /></label></div>");
-					$(".modal-body").append("<div><label>영화 종료일 : <input type='datetime-local' name='movie_finish_date' /></label></div>");
+					
 					$("#btnModalSuccess").removeAttr("data-cinema_no").removeAttr("data-room_no").removeAttr("data-timeline_no");
 					$("#btnModalSuccess").attr("data-createTimeline", "true");
 					break;
@@ -641,6 +671,14 @@
 				break;
 				
 			case "subX":
+				var room_no = $(this).attr("data-room_no");
+				var seat_x = parseInt($(this).parent("td").prev().find("a").text()) + 1;
+				var arryChar = $(this).parent().parent().prev().nextAll("tr").children("th").not("th[colspan]");
+				var yNum = new Array();
+				console.log("room_no : " + room_no + ", temp_y : " + seat_x);
+				for ( var i in arryChar) {
+					console.log( + "arryChar : " + i);
+				}
 				alert("좌석 X줄 빼기");
 				break;
 				

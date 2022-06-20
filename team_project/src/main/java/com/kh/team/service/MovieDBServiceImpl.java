@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.MovieDBDao;
+import com.kh.team.dao.MovieStillCutDao;
 import com.kh.team.vo.MovieVo;
 
 @Service
@@ -14,6 +15,8 @@ public class MovieDBServiceImpl implements MovieDBService {
 
 	@Autowired
 	private MovieDBDao movieDBDao;
+	@Autowired
+	private MovieStillCutDao stillcutDao;
 	
 	@Override
 	@Transactional
@@ -33,6 +36,7 @@ public class MovieDBServiceImpl implements MovieDBService {
 		boolean result1 = movieDBDao.existMovie(movieVo.getMovie_code());
 		System.out.println("existMovie, result1 : " + result1);
 		if(result1 == true) {
+			System.out.println("updateMovie, stillCutVo" );
 			result = movieDBDao.updateMovie(movieVo);
 		}
 		
@@ -41,7 +45,9 @@ public class MovieDBServiceImpl implements MovieDBService {
 	}
 
 	@Override
-	public boolean deleteMovie(String movie_code) {
+	@Transactional
+	public boolean deleteMovie(String movie_code, int sno) {
+		stillcutDao.deleteMovie(movie_code, sno);
 		boolean result = movieDBDao.deleteMovie(movie_code);
 		return result;
 	}
@@ -55,8 +61,6 @@ public class MovieDBServiceImpl implements MovieDBService {
 		return list;
 		
 	}
-
-
 
 	@Override
 	public MovieVo dbsearchBymoviecode(String movie_code) {
@@ -83,6 +87,8 @@ public class MovieDBServiceImpl implements MovieDBService {
 		List<MovieVo> list = movieDBDao.movieListend();
 		return list;
 	}
+
+	
 
 
 

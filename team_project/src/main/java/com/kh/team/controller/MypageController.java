@@ -79,7 +79,7 @@ public class MypageController {
 //		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로함)
 //		List<EventVo> eventList = eventService.list(pagingDto);
 		// reviewPagingDto로 리뷰 목록 얻어옴 (페이지는 1페이지로함)
-		List<ReviewVo> reviewList = reviewService.list(reviewPagingDto);
+		List<ReviewVo> reviewList = reviewService.myReviewList(userno, pagingDto);
 		
 		List<TicketUserVo> ticketUserList = ticketService.getTicketUserList(userno);
 		

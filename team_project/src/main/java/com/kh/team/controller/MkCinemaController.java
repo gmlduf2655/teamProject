@@ -53,7 +53,7 @@ public class MkCinemaController {
 		String search_column = "cinema_address";
 		String search_data = cinema_address + "___";
 		String order_column = "cinema_no";
-		String order_type = "desc";
+		String order_type = "asc";
 		List<CinemaVo> cinemaList = cinemaService.getCinemaList(search_column, search_data, order_column, order_type);
 		return cinemaList;
 	}
@@ -63,7 +63,7 @@ public class MkCinemaController {
 	public List<Map<String, Object>> getCinemaRoomList(int cinema_no) {
 //		int cinemaNo = Integer.parseInt(cinema_no);
 		String order_column = "room_no";
-		String order_type = "desc";
+		String order_type = "asc";
 		List<Map<String, Object>> tempList = cinemaService.getCinemaRoomList(cinema_no, order_column, order_type);
 		// date 형태의 데이터를 String으로 변환해서 리스트로 다시 담기
 		List<Map<String, Object>> cinemaRoomList = MapAJaxAdaper.returnAdapter(tempList);
@@ -75,7 +75,7 @@ public class MkCinemaController {
 	public List<Map<String, Object>> getRoomTimelineList(int room_no, String movie_begin_date){
 		movie_begin_date = movie_begin_date.replace("T", " ");
 		String order_column = "movie_begin_date";
-		String order_type = "desc";
+		String order_type = "asc";
 		List<Map<String, Object>> tempList = cinemaService.getRoomTimelineList(room_no, "movie_begin_date", movie_begin_date, order_column, order_type);
 		System.out.println(tempList);
 		List<Map<String, Object>> roomTimelineList = MapAJaxAdaper.returnAdapter(tempList);
@@ -197,7 +197,7 @@ public class MkCinemaController {
 		Object room_no = 0;
 		if (result) {
 			int cinema_no = cinemaRoomVo.getCinema_no();
-			List<Map<String, Object>> roomList = cinemaService.getCinemaRoomList(cinema_no, "room_no", "desc");
+			List<Map<String, Object>> roomList = cinemaService.getCinemaRoomList(cinema_no, "room_no", "asc");
 			System.out.println(roomList.get(0).get("room_no"));
 			room_no = roomList.get(0).get("room_no");
 		}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kh.team.mappers.movieStillcut">
+	
+	<!-- 유수연 영화 stillcut 리스트  -->
+	<select id="movieStillCutList" resultType="MovieStillCutVo">
+		select * from tbl_movie_stillcut
+		where movie_code = #{movie_code}
+		order by sno desc
+	</select>
+	
+	<!-- 유수연 영화 stillcut DB 삽입  -->
+	<insert id="insertMovieStillCut">
+		insert into tbl_movie_stillcut (sno,movie_code, still_cut_name)
+		values(seq_movie_stillcut_sno.nextval, #{movie_code}, 
+			#{still_cut_name})
+	</insert>
+	
+	<!-- 유수연 영화 stillcut DB 업데이트  -->
+	<update id="updateMovieStillCut">
+		update tbl_movie_stillcut set
+			still_cut_name =  #{still_cut_name}
+		where movie_code = #{movie_code} and sno = #{sno}
+	</update>
+	
+	<!-- 유수연 영화 stillcut DB 삭제  -->
+	<delete id="deleteMovieStillCut">
+		delete tbl_movie_stillcut
+		where movie_code = #{movie_code} and sno = #{sno}
+	</delete>
+
+</mapper>

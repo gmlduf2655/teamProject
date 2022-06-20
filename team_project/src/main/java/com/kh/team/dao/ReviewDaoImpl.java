@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
@@ -77,9 +78,10 @@ public class ReviewDaoImpl implements ReviewDao {
 		}
 		return false;
 	}
+	
 
 	@Override
-	public List<ReviewVo> myReviewList(int userno, ReviewPagingDto pagingDto) {
+	public List<ReviewVo> myReviewList(int userno, PagingDto pagingDto) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("userno", userno);
 		parameter.put("pagingDto", pagingDto);

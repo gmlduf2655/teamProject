@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.PointDao;
 import com.kh.team.dao.ReviewDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
@@ -72,7 +73,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<ReviewVo> myReviewList(int userno, ReviewPagingDto pagingDto) {
+	public List<ReviewVo> myReviewList(int userno, PagingDto pagingDto) {
 		List<ReviewVo> myReviewList = reviewDao.myReviewList(userno, pagingDto);
 		return myReviewList;
 	}
