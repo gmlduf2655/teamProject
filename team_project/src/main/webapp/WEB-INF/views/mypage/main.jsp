@@ -368,9 +368,19 @@
 					   		<tbody>
 								<c:forEach var="reviewVo" items="${reviewList}" varStatus="status">
 									<c:if test="${status.index < 5}">
+									
+									
 										<tr>
 											<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
-											<td>${reviewVo.review_writer}</td>
+											<td>
+											
+											
+											
+											${reviewVo.review_writer}
+											
+											
+											
+											</td>
 											<td><a style="color:white"
 												href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
 											<td>

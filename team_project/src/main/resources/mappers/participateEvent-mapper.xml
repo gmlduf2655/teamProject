@@ -45,5 +45,11 @@
     			</choose>
     		</if> 
 		</sql>
+		
+	
+	<!-- 내가 참여한 리뷰 게시글만 보이게 하기 -->
+	<select id="">
+	
+	</select>
 
 </mapper>

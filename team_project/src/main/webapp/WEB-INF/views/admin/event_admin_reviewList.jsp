@@ -146,7 +146,7 @@ $(document).ready(function(){
 
 
 
-			<table class="table">
+			<table class="table" >
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -165,7 +165,10 @@ $(document).ready(function(){
 					<c:choose>
 					
 					<c:when test="${reviewVo.admin_delete == 'y'}">
-						<tr><td colspan="7" align="center">관리자가 삭제한 게시글 입니다.</td></tr>
+						<tr>
+						<td>${reviewVo.review_no}</td>
+						<td colspan="6" align="center">관리자가 삭제한 게시글 입니다.</td>
+						</tr>
 					</c:when>
 					
 					<c:otherwise>
