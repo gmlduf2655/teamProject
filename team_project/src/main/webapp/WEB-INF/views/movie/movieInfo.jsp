@@ -19,6 +19,7 @@ $(function(){
 	var movieInfoByMovieCodeExist = "${movieInfoByMovieCodeExist}";
 	if (movieInfoByMovieCodeExist == "false"){
 		alert("정보가 없습니다\n 빠른시일내에 준비하도록 하겠습니다");
+		
 	}
 	//상영일자출력
 	var opendate = year + "-" + month + "-" + day;

@@ -23,6 +23,7 @@ $(function(){
 		$("input[disabled]").removeAttr("disabled");
 		$("#image_delete").removeAttr("style");
 		$("textarea[disabled]").removeAttr("disabled");
+		$(".image_deletestill").removeAttr("style");
 	});
 	//우리서버에 db 일부수정
 	$("#btnUpdate").click(function(){
@@ -31,7 +32,7 @@ $(function(){
 		$("form").submit();
 	});
 
-	//대표 이미지 미리보기
+	//포스터 이미지 미리보기
 	$(function() {
 	    $("#file").on("change", function(){
 	    readURL(this);
@@ -46,14 +47,23 @@ $(function(){
 	        reader.readAsDataURL(input.files[0]);
 	        $("#preview").show();
 	        $("#image_delete").show();
+	        
 	    }
 	}
 
-	// 이미지 임시 삭제
+	//포스터 이미지 임시 삭제
 	$(document).ready(function(){
 			$("#image_delete").click(function(){
 			$("#preview").hide();
 			$("#image_delete").hide();
+		});
+	});
+
+	//스틸컷 이미지 임시 삭제
+	$(document).ready(function(){
+			$(".image_deletestill").click(function(){
+			$("#previewstill${status.count}").hide();
+			$("#image_deletestill${status.count}").hide();
 		});
 	});
 });
@@ -155,20 +165,22 @@ $(function(){
                		<a id="image_delete" style="display: none;">사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
 				</div>
 				<!-- 스틸컷 -->
-				<div class="form-group">
-					<label for="exampleInputFile"> 스틸컷 </label>
-					<input type="file" class="form-control-file" disabled id="file" name="file" data-filename="${movieVo.movie_image_name}"/><br>
-					<c:set var="movie_image_name" value="${movieVo.movie_image_name}"/>
-					<c:if test="${not empty fn:substringAfter(movie_image_name,'_')}">
-						<img id="preview" src="/dbcontrol/displayImage?filename=${movieVo.movie_image_name}" width="100px">
-					</c:if>
-					<c:if test="${empty fn:substringAfter(movie_image_name,'_')}">
-						<img id="preview" src="/resources/images/no_image.jpg" width="200px">
-					</c:if>
-					<br>
-					<br>
-               		<a id="image_delete" style="display: none;">사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
-				</div>
+				<c:forEach items="${stillcutlist}" var="stillcutlist" varStatus="status">
+					<div class="form-group">
+						<label for="exampleInputFile"> 스틸컷 </label>
+						<input type="file" class="form-control-file" disabled id="file" name="file" data-filename="${stillcutlist.still_cut_name}"/><br>
+						<c:set var="list" value="${stillcutlist.still_cut_name}"/>
+						<c:if test="${not empty fn:substringAfter(list,'_')}">
+							<img id="previewstill${status.count}" src="/dbcontrol/displayImage?filename=${stillcutlist.still_cut_name}" width="100px">
+						</c:if>
+						<c:if test="${empty fn:substringAfter(list,'_')}">
+							<img id="preview" src="/resources/images/no_image.jpg" width="200px">
+						</c:if>
+						<br>
+						<br>
+	               		<a id="image_deletestill${status.count}" class="image_deletestill" style="display: none;">사진 삭제<b style="color:red;font-size:30px; cursor: pointer;">&times;</b></a>
+					</div> 
+				</c:forEach>	 
 				<!-- 스틸컷 -->
 				
 				<div class="form-group">

@@ -84,7 +84,6 @@ $(function(){
 <!-- 우리서버 영화 DB -->
 <div class="row" >
 		<div class="col-md-12" style="background-color: #eeeeee;">
-		<hr>
 			<a type="button" class="btn btn-outline-success" id="btndbListopen">우리서버 상영중, 예정DB리스트</a>
 			<a type="button" class="btn btn-outline-primary" id="btndbListtotal">우리서버 전체 DB리스트</a>
 			<a type="button" class="btn btn-outline-warning" id="btndbListend">우리서버 종영 DB리스트</a>
