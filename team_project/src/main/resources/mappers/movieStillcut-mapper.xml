@@ -26,10 +26,21 @@
 		where movie_code = #{movie_code} and sno = #{sno}
 	</update>
 	
-	<!-- 유수연 영화 stillcut DB 삭제  -->
+	<!-- 유수연 영화 stillcut DB 1장씩 삭제  -->
 	<delete id="deleteMovieStillCut">
 		delete tbl_movie_stillcut
-		where movie_code = #{movie_code} and sno = #{sno}
+		where sno = #{sno}
 	</delete>
-
+	
+	<!-- 유수연 영화 stillcut DB 영화 전체 삭제  -->
+	<delete id="deleteMovieStillCuthole">
+		delete tbl_movie_stillcut
+		where movie_code = #{movie_code}
+	</delete>
+	<!-- 유수연 영화 stillcut movie_code -->
+	<select id="searchbymoviecodeforstill" resultType="int">
+		select sno from tbl_movie_stillcut
+		where still_cut_name = #{still_cut_name}
+	</select>
+	
 </mapper>

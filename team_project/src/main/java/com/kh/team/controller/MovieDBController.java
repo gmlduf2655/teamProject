@@ -81,8 +81,8 @@ public class MovieDBController {
 	
 	//유수연 - 진흥원 데이터검색으로 우리 DB 영화 삭제
 	@RequestMapping(value="/dbDelete", method = RequestMethod.GET)
-	public String deleteMovie(String movie_code, RedirectAttributes rttr, int sno) {
-		boolean result = service.deleteMovie(movie_code,sno);
+	public String deleteMovie(String movie_code, RedirectAttributes rttr) {
+		boolean result = service.deleteMovie(movie_code);
 		rttr.addFlashAttribute("db_delete_result", result);
 		return "redirect:/dbcontrol/dbApicontrol";
 	}
@@ -130,10 +130,17 @@ public class MovieDBController {
 	//유수연 - 우리 DB 종영일자외 상세수정
 	@RequestMapping(value="/dbUpdatedetail", method = RequestMethod.POST)
 	public String dbUpdatedetail(MovieVo movieVo, MultipartFile file, RedirectAttributes rttr) {
+			int filelenth = (int) file.getSize();
+			System.out.println("dbUpdatedetail,Filename " + filelenth);
 		try {
-			String movie_image_name = MovieFileUploader.fileUpload(ROOTADDRESS, file.getOriginalFilename(), file.getBytes());
-			movieVo.setMovie_image_name(movie_image_name);
-			System.out.println("dbUpdate, movie_list: " + movieVo);
+			if(filelenth > 0) {
+				String movie_image_name = MovieFileUploader.fileUpload(ROOTADDRESS, file.getOriginalFilename(), file.getBytes());
+				movieVo.setMovie_image_name(movie_image_name);
+				System.out.println("dbUpdate, movie_list,not null: " + movieVo);
+			} else {
+				movieVo.setMovie_image_name(null);
+				System.out.println("dbUpdate, movie_list, null: " + movieVo);
+			}
 			boolean result = service.updateMovie(movieVo);
 			rttr.addFlashAttribute("db_updatedetail_result", result);
 		} catch (Exception e) {
@@ -161,9 +168,6 @@ public class MovieDBController {
 		String savefilename = null;
 		try {
 			savefilename = MovieFileUploader.fileUpload(ROOTADDRESS, file.getOriginalFilename(), file.getBytes());
-			System.out.println("saveFilename : " + savefilename);
-			
-			System.out.println("saveFilename , movie_code: " + movie_code);
 			StillCutVo.setMovie_code(movie_code);
 			StillCutVo.setStill_cut_name(savefilename);
 			System.out.println("saveFilename , StillCutVo: " + StillCutVo);
@@ -173,4 +177,28 @@ public class MovieDBController {
 		}
 		return savefilename;
 	}
+	
+	//유수연 - 스틸샷 삭제
+	@RequestMapping(value = "/deleteFile/{sno}", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteFile(String filename, @PathVariable("sno") int sno) {
+		stillcutservice.deleteMovie(sno);
+		boolean result = MovieFileUploader.deleteFile(filename);
+		System.out.println("deleteFile" + filename);
+		return String.valueOf(result);
+	}
+	
+	//유수연 - 임시스틸샷 삭제
+		@RequestMapping(value = "/deleteFile", method = RequestMethod.GET)
+		@ResponseBody
+		public String deleteFile(String filename) {
+			int sno = stillcutservice.searchbymoviecodeforstill(filename);
+			stillcutservice.deleteMovie(sno);
+			boolean result = MovieFileUploader.deleteFile(filename);
+			System.out.println("deleteFile" + filename);
+			return String.valueOf(result);
+		}
+	
+	
+	
 }

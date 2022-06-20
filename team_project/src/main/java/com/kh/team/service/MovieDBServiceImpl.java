@@ -46,8 +46,8 @@ public class MovieDBServiceImpl implements MovieDBService {
 
 	@Override
 	@Transactional
-	public boolean deleteMovie(String movie_code, int sno) {
-		stillcutDao.deleteMovie(movie_code, sno);
+	public boolean deleteMovie(String movie_code) {
+		stillcutDao.deleteMovieHole(movie_code);
 		boolean result = movieDBDao.deleteMovie(movie_code);
 		return result;
 	}
@@ -89,12 +89,5 @@ public class MovieDBServiceImpl implements MovieDBService {
 	}
 
 	
-
-
-
-	
-
-	
-
 	
 }

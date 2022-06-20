@@ -1,8 +1,6 @@
 package com.kh.team.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +40,27 @@ public class MovieStillCutDaoImpl implements MovieStillCutDao {
 	}
 
 	@Override
-	public boolean deleteMovie(String movie_code, int sno) {
-		Map<String, Object> parameter = new HashMap<String, Object>();
-		parameter.put("movie_code", movie_code);
-		parameter.put("sno", sno);
-		int count = sqlSession.delete(NAMESPACE+"deleteMovieStillCut", parameter);
+	public boolean deleteMovie(int sno) {
+		int count = sqlSession.delete(NAMESPACE+"deleteMovieStillCut", sno);
 		if(count > 0 ) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean deleteMovieHole(String movie_code) {
+		int count = sqlSession.delete(NAMESPACE + "deleteMovieStillCuthole", movie_code);
+		if(count > 0 ) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int searchbymoviecodeforstill(String still_cut_name) {
+		int sno = sqlSession.selectOne(NAMESPACE + "searchbymoviecodeforstill", still_cut_name);
+		return sno;
 	}
 
 }
