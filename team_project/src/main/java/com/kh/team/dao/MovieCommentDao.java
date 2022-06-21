@@ -10,5 +10,6 @@ public interface MovieCommentDao {
 	public List<MovieCommentVo> commentList(String movie_code);
 	public boolean commentUpdate(MovieCommentVo commentVo);
 	public boolean commentDelete(int cno);
-	
+	public boolean commentAdminUpdate(int cno);
+	public List<MovieCommentVo> commentListHole();
 }

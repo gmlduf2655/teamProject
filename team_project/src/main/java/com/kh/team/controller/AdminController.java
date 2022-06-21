@@ -2,8 +2,6 @@ package com.kh.team.controller;
 
 import java.util.List;
 
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.service.EventService;
 import com.kh.team.service.ParticipateEventService;
+import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
@@ -44,7 +44,9 @@ public class AdminController {
 	private WinnerService winnerService;
 	@Autowired
 	private ParticipateEventService participateEventService;
-
+	@Autowired
+	private MovieCommentService moviecommentService;
+	
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String adminPage() {
 		System.out.println("관리자페이지");
@@ -220,4 +222,23 @@ public class AdminController {
 			
 		}
 	 
+	// 유수연 - 영화 댓글 블럭 페이지이동
+		@RequestMapping(value = "/movie_comment", method = RequestMethod.GET)
+		public String moviecomment() {
+			return "admin/movie_comment";
+		}
+	// 유수연 - 영화 댓글 블럭 
+		@RequestMapping(value = "/movie_commentUpdate", method = RequestMethod.GET)
+		public String moviecommentUpdate(int cno) {
+			boolean result = moviecommentService.commentAdminUpdate(cno);
+			return "redirect:/admin/movie_comment";
+		}	
+	// 유수연 - 영화 댓글 블럭 
+		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
+		public String commentlistHole(Model model) {
+			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole();
+			System.out.println("commentlistHole: " + commentlistHole);
+			model.addAttribute("commentlistHole", commentlistHole);
+			return "admin/movie_comment";
+		}	
 }

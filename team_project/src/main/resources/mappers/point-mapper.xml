@@ -47,6 +47,7 @@
 			) d
 		) where rnum between #{startRow} and #{endRow}
 	</select>
+	
 	<!-- 전체 유저 포인트 내역 수 조회 -->
 	<select id="getCountPointList" resultType="int">
 		select count(*) from tbl_point

@@ -261,21 +261,20 @@ $(function(){
 					</div> 
 				</c:forEach>
 				<!-- 스틸컷 -->
-				<!-- 스틸컷 추가 -->	
-				<div id="stillcutadd"  style="display: none;">
-						<div align="left" id="fileinfo">
-									<label>첨부할 파일을 드래그 &amp; 드롭하세요</label>
-									<div id="fileDrop" align="left"></div>
-									</div>
-								
-								<div class="divUploaded" style="display: none;">
-									<img alt="" src="" height="100" ><br>
-									<span></span>
-									<a class="a_delete" href="#">&times;</a>
-								</div>
-								<div id="uploadedList">
-								</div>
-								<div style="clear: both;"></div><br>
+				<!-- 스틸컷 추가 -->
+				<div id="stillcutadd" style="display: none;">
+					<div align="left" id="fileinfo">
+						<label>첨부할 파일을 드래그 &amp; 드롭하세요</label>
+						<div id="fileDrop" align="left"></div>
+					</div>
+
+					<div class="divUploaded" style="display: none;">
+						<img alt="" src="" height="100"><br> <span></span> <a
+							class="a_delete" href="#">&times;</a>
+					</div>
+					<div id="uploadedList"></div>
+					<div style="clear: both;"></div>
+					<br>
 				</div>
 				<!-- 스틸컷 추가 -->
 				

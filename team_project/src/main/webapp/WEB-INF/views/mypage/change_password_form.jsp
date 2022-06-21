@@ -33,6 +33,19 @@
 	</style>
     <script>
 		$(document).ready(function(){
+			// 문자 'A','Z','a','z','0','9','!','@','#','$','%'에 대한 ascii_code 값을 나타냄
+			var ascii_code_A = 'A'.charCodeAt(0);
+			var ascii_code_Z = 'Z'.charCodeAt(0);
+			var ascii_code_a = 'a'.charCodeAt(0);
+			var ascii_code_z = 'z'.charCodeAt(0);
+			var ascii_code_0 = '0'.charCodeAt(0);
+			var ascii_code_9 = '9'.charCodeAt(0);
+			var ascii_code_ctrl1 = '!'.charCodeAt(0);
+			var ascii_code_ctrl2 = '@'.charCodeAt(0);
+			var ascii_code_ctrl3 = '#'.charCodeAt(0);
+			var ascii_code_ctrl4 = '$'.charCodeAt(0);
+			var ascii_code_ctrl5 = '%'.charCodeAt(0);
+			
 			// 기존 비밀번호 확인 버튼
 			$("#check_pw_btn").click(function(){
 				var userno = "${loginUserVo.userno}";
@@ -60,13 +73,49 @@
 			$("#change_pw_btn").click(function(){
 				var newUserpw = $("#newUserpw").val();
 				var userpw_confirm = $("#userpw_confirm").val();
-				if(newUserpw == userpw_confirm){
-					$("#change_pw_form").submit();
-				}else{
+				// 비밀번호와 비밀번호 확인 값이 같고 비밀번호에 영문자와 숫자와 특수문자(!,@,#,$,%)가 포함되어 있으면 비밀번호 변경
+				// 그렇지 않으면 오류 메세지를 출력함
+				if(newUserpw != userpw_confirm){
+					$("#change_error").text("새비밀번호와 비밀번호 확인 값이 일치하지 않습니다");
 					$("#change_error").show();
+				}else if(!isMixedEnLetterAndNumberAndSpecialChar(newUserpw)){
+					$("#change_error").text("비밀번호는 영문자, 숫자, 특수문자(!,@,#,$,%) 조합으로 바꿔주세요");
+					$("#change_error").show();
+				}else{
+					$("#change_pw_form").submit();
 				}
 			});
 			
+			// 문자열에 영문자와 숫자와 특수문자(!,@,#,$,%)가 혼합되어있는지 확인
+			function isMixedEnLetterAndNumberAndSpecialChar(str){
+				var contain_EnLetter = false; // 문자열에 영문자가 포함되는지 확인
+				var contain_number = false; // 문자열에 숫자가 포함되는지 확인
+				var containt_specialChar = false; // 문자열에 특수문자가 포함되는지 확인
+				var contain_others = false; // 문자열에 영문자,숫자외 다른 문자가 포함되는지 확인
+				for(var i=0 ; i<str.length ; i++){
+					// 각 자리에 있는 문자 ascii코드를 가져옴
+					var str_char = str.charCodeAt(i);
+					// ascii코드를 이용하여 문자열에 영문자가 포함되었는지 , 숫자가 포함되었는지, 특수문자가 포함되었는지, 그 외 다른 문자가 포함되었는지 확인함
+					if( (str.charCodeAt(i) >= ascii_code_a && str.charCodeAt(i) <= ascii_code_z) ||
+					(str.charCodeAt(i) >= ascii_code_A && str.charCodeAt(i) <= ascii_code_Z) ){
+						contain_EnLetter = true;
+					}else if(str.charCodeAt(i) >= ascii_code_0 && str.charCodeAt(i) <= ascii_code_9){
+						contain_number = true;
+					}else if( str.charCodeAt(i) == ascii_code_ctrl1 ||
+							  str.charCodeAt(i) == ascii_code_ctrl2 ||
+							  str.charCodeAt(i) == ascii_code_ctrl3 ||
+							  str.charCodeAt(i) == ascii_code_ctrl4 ||
+							  str.charCodeAt(i) == ascii_code_ctrl5 ){
+						containt_specialChar = true;
+					}else {
+						contain_others = true;
+					}
+				}
+				
+				result = contain_EnLetter & contain_number & containt_specialChar & !contain_others;
+					
+				return result;			
+			}
 		});
     </script>
     
@@ -96,7 +145,7 @@
     			</div>    	
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
-	    	<!-- 유저 프로필 부분 -->
+	    	<!-- 비밀번호 변경 부분 -->
     		<div class="col-md-8" >
     			<div class="row">
 	    			<div class="col-md-3"></div>
@@ -112,9 +161,10 @@
 							<h3 class="mb-4">새 비밀번호 입력</h3>
 							<form action="/mypage/change_password_run" method="post" id="change_pw_form">
 								<input type="hidden" name="userid" value="${loginUserVo.userid}"> 
-								<label class="" style="color:white;" for="newUserpw">새 비밀번호</label>
+								<label class="" style="color:white;font-size:24px" for="newUserpw">새 비밀번호</label>
 			                    <input class="form-control mt-3 mb-3" type="password" placeholder="새 비밀번호" name="newUserpw" id="newUserpw" required>
-								<label class="" style="color:white;" for="userpw_confirm">새 비밀번호 확인</label>
+								<h6 class="mt-1 mb-4" style="color:white;"># 15자이하, 영문자,숫자,특수문자(!,@,#,$,% 중 1개이상) 포함</h6>
+								<label class="" style="color:white;font-size:24px" for="userpw_confirm">새 비밀번호 확인</label>
 			                    <input class="form-control mt-3 mb-3" type="password" placeholder="새 비밀번호 확인" name="userpw_confirm" id="userpw_confirm" required>
 			                    <button type="button" class="site-btn" id="change_pw_btn">입력</button>
 			                    <span class="ml-3" id="change_error" style="display:none">새 비밀번호와 새 비밀번호 확인 값이 일치하지 않습니다</span>
@@ -124,6 +174,7 @@
 					<div class="col-md-3"></div>
 				</div>           
     		</div>
+    		<!-- 비밀번호 변경 부분 끝 -->
     		<div class="col-md-2"></div>
     	</div>
         <div class="container">

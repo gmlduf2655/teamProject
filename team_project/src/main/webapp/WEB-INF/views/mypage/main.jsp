@@ -296,7 +296,7 @@
 												<c:if test="${loginUserVo.userno == param.userno}">
 													href='/mypage/ticket_info?userno=${loginUserVo.userno}&ticket_no=${ticketUserVo.ticket_no}'
 												</c:if>
-											>${movieVo.movie_name}</a>
+											>${ticketUserVo.movie_name}</a>
 										</h5>
 									</div>
 								</div>

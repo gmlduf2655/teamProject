@@ -27,14 +27,14 @@
 		li>a{
 			color:white;
 		}
-		.userinfo_input{
+		input.userinfo_input{
 			width:60%;
 		}
 		.userinfo_address{
 			display:none;
 		}
 		.userinfo_title{
-			width:20%;
+			width:25%;
 		}
 	</style>
     <script>
@@ -55,6 +55,11 @@
 				$(".userinfo_span").show();
 				$(".userinfo_input").hide();
 				$(".userinfo_address").hide();
+				$("#nickname_dupl_check_result").hide();
+				$("#email_auth_code").hide();
+				$("#email_auth_code_check_btn").hide();
+				$("#email_auth_message").hide();
+				$("#email_div").css("display", "none");		
 				
 				$("#user_modify_btn").show();
 				$("#user_modify_complete_btn").hide();
@@ -178,6 +183,71 @@
 		         }).open();
 		         
 		     });
+			
+			// 닉네임 중복 여부 체크
+			$("#nickname_dupl_check").click(function(){
+				var nickname = $("#nickname").val();
+				console.log(nickname == "");
+				if(nickname == ""){
+					$("#nickname_dupl_check_result").text("닉네임을 입력해주세요");
+				}else{
+					$.ajax({
+						type : "post",
+						async : "true",
+						url : "/user/nickname_dupl_check",
+						data : { nickname : nickname },
+						success : function(rData){
+							console.log(rData);
+							if(rData == "true"){
+								$("#nickname_dupl_check_result").text("이미 존재하는 닉네임입니다");
+								nickname_dupl = true;
+							}else if(rData == "false"){
+								$("#nickname_dupl_check_result").text("사용할 수 있는 닉네임 입니다");
+								nickname_dupl = false;
+								checked_nickname = nickname;
+							}
+							
+						}
+					});
+				}
+				$("#nickname_dupl_check_result").show();
+			});
+			
+			// 이메일 인증 버튼
+			$("#email_auth_btn").click(function(){
+				var email = $("#email").val();
+				console.log(email);
+				$.ajax({
+					type : "post",
+					async : "true",
+					url : "/mail/send",
+					data : {email : email},
+					success : function(rData){
+						console.log(rData);
+						$("#email_div").css("display", "flex");
+						$("#email_auth_title").show();
+						$("#email_auth_code").show();
+						$("#email_auth_code_check_btn").show();
+						$("#email_auth_code_check_btn").attr("data-auth_code", rData);
+						checked_email = email;
+					}
+				});
+			});
+			
+			// 이메일 인증번호 확인
+			$("#email_auth_code_check_btn").click(function(){
+				var auth_code = $(this).attr("data-auth_code"); // 인증 번호값
+				var auth_code_input = $("#email_auth_code").val(); // 인증 번호 입력값
+				
+				// 인증번호값과 인증 번호 입력값이 같으면 인증이 완료 되었습니다 라는 메세지를 보여주고 인증 확인을 받음
+				if(auth_code_input == auth_code){
+					$("#email_auth_message").text("이메일 인증에 성공했습니다");
+					email_auth = true;
+				}else{
+					$("#email_auth_message").text("이메일 인증에 실패했습니다");
+				}
+				$("#email_auth_message").show();
+			});
 		});
     </script>
     
@@ -252,7 +322,7 @@
 		            <div class="row">
 		            	<div class="col-md-2"></div>
 		                <div class="col-md-8">
-		                    <table class="table text-white text-center" style="font-size:24px;">
+		                    <table class="table text-white" style="font-size:24px;">
 		                    	<tr>
 		                    		<td class="userinfo_title">아이디</td>
 		                    		<td>${userVo.userid}</td>
@@ -263,23 +333,33 @@
 		                    	</tr>
 		                    	<tr>
 		                    		<td class="userinfo_title">별명</td>
-		                    		<td style="display:flex;justify-content:center;">
+		                    		<td class="display:flex;">
 		                    			<span class="userinfo_span">${userVo.nickname}</span>
-		                    			<input type="text" class="form-control userinfo_input" name="nickname" id="nickname" 
-		                    			value="${userVo.nickname}" style="display:none;" required>
+										<input style="width:37%;margin-left:0px;" placeholder="닉네임" class="form-control mb-2 userinfo_address"
+										name="nickname" id="nickname"  type="text" >
+									    <button type="button" class="btn-sm site-btn ml-3 mb-2 userinfo_address"  id="nickname_dupl_check" style="color:white">중복 확인</button><br>
+									    <span style="display:none;font-size:16px;" id="nickname_dupl_check_result">사용가능한 닉네임 입니다</span>		               
 		                    		</td>
 		                    	</tr>
 		                    	<tr>
 		                    		<td class="userinfo_title">이메일</td>
-		                    		<td style="display:flex;justify-content:center;">
+		                    		<td>
 		                    			<span class="userinfo_span">${userVo.email}</span>
-		                    			<input type="email" class="form-control userinfo_input" name="email" id="email" 
-		                    			value="${userVo.email}" style="display:none;" required>
+		                    			<input type="email" class="form-control userinfo_input mb-2" name="email" id="email" 
+		                    			value="${userVo.email}" style="display:none;padding-" required>
+									    <button type="button" class="btn-sm site-btn ml-0 mb-2 userinfo_address"  id="email_auth_btn" 
+									    style="color:white;text-align:left;">인증하기</button><br>
+										<div id="email_div" style="display:none;">
+											<input style="width:42%;margin-left:0px;display:none;" placeholder="인증번호" class="form-control mb-2 userinfo_email_auth"
+											name="email_auth_code" id="email_auth_code"  type="text" >
+										    <button type="button" class="btn-sm site-btn ml-3 mb-2 userinfo_email_auth"  id="email_auth_code_check_btn" style="color:white;display:none;">인증</button><br>
+									    </div>
+									    <span style="display:none;font-size:16px;" id="email_auth_message">이메일 인증에 성공하였습니다</span>	
 		                    		</td>
 		                    	</tr>
 		                    	<tr>
 		                    		<td class="userinfo_title">휴대폰 번호</td>
-		                    		<td style="display:flex;justify-content:center;">
+		                    		<td>
 		                    			<span class="userinfo_span">${userVo.cellphone}</span>
 		                    			<input type="number" class="form-control userinfo_input" name="cellphone" id="cellphone" 
 		                    			value="${userVo.cellphone}" style="display:none;" required>
