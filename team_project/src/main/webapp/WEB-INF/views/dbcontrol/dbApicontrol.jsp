@@ -217,7 +217,8 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-md-12">
+				<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<br>
 						<br>
 						<br>
@@ -237,7 +238,7 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 				</div>
 				<!-- 진흥원 DB검색 내용 -->
 				<div class="row">
-				<div class="col-md-1"></div>
+					<div class="col-md-1"></div>
 					<div class="col-md-10">
 						<form action="" enctype="multipart/form-data" accept-charset="UTF-8">
 							<div id="releaseCont">
@@ -268,14 +269,13 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 								id="dbDelete" style="display: none;">db삭제</button>
 							</div>	
 						</form><br>
-					
 					</div>
+					<div class="col-md-1"></div>
 				</div>
 			</div>
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>
-		<div class="col-md-1"></div>
-		<div class="col-md-1"></div>
+		
 	</div>
 	<!-- row -->
 </div><!-- main div -->

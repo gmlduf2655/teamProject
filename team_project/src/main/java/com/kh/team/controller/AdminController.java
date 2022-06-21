@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.team.service.EventService;
+import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.service.WinnerService;
@@ -38,7 +39,9 @@ public class AdminController {
 	private ReviewService reviewService;
 	@Autowired
 	private WinnerService winnerService;
-
+	@Autowired
+	private MovieCommentService moviecommentService;
+	
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String adminPage() {
 		System.out.println("관리자페이지");
@@ -181,5 +184,12 @@ public class AdminController {
 		public String winnerDelete(int winner_no) {
 			boolean result = winnerService.delete(winner_no);
 			return "redirect:/admin/event_winner_list";
+		}
+		
+	// 유수연 - 영화 댓글 블럭
+		@RequestMapping(value = "/movie_comment_update", method = RequestMethod.GET)
+		public String moviecommentUpdate(int cno) {
+			boolean result = moviecommentService.commentAdminUpdate(cno);
+			return "redirect:/admin/movie_comment";
 		}
 }

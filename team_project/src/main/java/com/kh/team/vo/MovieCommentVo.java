@@ -9,6 +9,8 @@ public class MovieCommentVo {
 	private String movie_comment;
 	private Date regdate;
 	private String profile_image;
+	private String admin_delete;
+	
 	
 	
 	public MovieCommentVo() {
@@ -50,6 +52,21 @@ public class MovieCommentVo {
 		this.movie_code = movie_code;
 		this.userid = userid;
 		this.movie_comment = movie_comment;
+	}
+	
+	
+
+	
+	public MovieCommentVo(int cno, String movie_code, String userid, String movie_comment, Date regdate,
+			String profile_image, String admin_delete) {
+		super();
+		this.cno = cno;
+		this.movie_code = movie_code;
+		this.userid = userid;
+		this.movie_comment = movie_comment;
+		this.regdate = regdate;
+		this.profile_image = profile_image;
+		this.admin_delete = admin_delete;
 	}
 
 
@@ -113,13 +130,24 @@ public class MovieCommentVo {
 	}
 
 
-	@Override
-	public String toString() {
-		return "MovieCommentVo [cno=" + cno + ", movie_code=" + movie_code + ", userid=" + userid + ", movie_comment="
-				+ movie_comment + ", regdate=" + regdate + ", profile_image=" + profile_image + "]";
+	public String getAdmin_delete() {
+		return admin_delete;
 	}
 
 
+	public void setAdmin_delete(String admin_delete) {
+		this.admin_delete = admin_delete;
+	}
+
+
+	@Override
+	public String toString() {
+		return "MovieCommentVo [cno=" + cno + ", movie_code=" + movie_code + ", userid=" + userid + ", movie_comment="
+				+ movie_comment + ", regdate=" + regdate + ", profile_image=" + profile_image + ", admin_delete="
+				+ admin_delete + "]";
+	}
+
+	
 	
 	
 }

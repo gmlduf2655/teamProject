@@ -48,4 +48,13 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 		return false;
 	}
 
+	@Override
+	public boolean commentAdminUpdate(int cno) {
+		int count = sqlSession.update(NAMESPACE + "commentAdminUpdate", cno);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -32,4 +32,10 @@
 		where cno = #{cno}
 	</delete>
 	
+	<!-- 유수연 영화별 관리자 코멘트 삭제 -->
+	<update id="commentAdminUpdate">
+		update tbl_movie_comment set
+			admin_delete = 'Y'
+		where cno = #{cno}
+	</update>
 </mapper>

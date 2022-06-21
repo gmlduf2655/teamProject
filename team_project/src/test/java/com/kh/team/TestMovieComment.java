@@ -44,4 +44,12 @@ public class TestMovieComment {
 		boolean result = movieCommentDao.commentDelete(11);
 		System.out.println("updateComment, result : " + result);
 	}
+	
+	
+	@Test
+	public void testcommentAdminUpdate() {
+		boolean result = movieCommentDao.commentAdminUpdate(21);
+		System.out.println("commentAdminUpdate, result : " + result);
+	}
+	
 }
