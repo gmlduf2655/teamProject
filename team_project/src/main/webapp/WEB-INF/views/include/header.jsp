@@ -45,12 +45,17 @@
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="/resources/css/admin.css">
+	
 	<!-- 임희열 : JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
     
     <!-- 임희열 : Naver Login API script -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>    
 
+	<!-- 조재호 : dropdown안먹어서 추가했습니다. -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<link rel="stylesheet" href="/resources/css/mkcinema.css" type="text/css">
+	
 	<!-- 임희열 : 우측 상단부분 css 조금 바꿨습니다 -->    
 	<!-- 임희열 : 헤더부분 메뉴 가져다 대면 색상 변할 수 있게 바꿨습니다 -->
     <style>

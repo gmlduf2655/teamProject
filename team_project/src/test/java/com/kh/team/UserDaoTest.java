@@ -162,6 +162,13 @@ public class UserDaoTest {
 		System.out.println("UserDaoTest, testUpdateUserPoint, result : " + result);		
 	}
 	
+	// 유저 프로필사진 수정 테스트
+	@Test
+	public void testUpdateProfileImage() {
+		boolean result = userDao.updateProfileImage("", 1);
+		System.out.println("UserDaoTest, testUpdateProfileImage, result : " + result);		
+	}
+	
 	// 유저 정보 삭제 테스트
 	@Test
 	public void testDeleteUser() {

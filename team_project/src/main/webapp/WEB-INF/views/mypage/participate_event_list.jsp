@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<style>
@@ -84,7 +84,7 @@
     <!-- 포인트 내역을 보여주는 부분 -->
     <section class="login spad">
     	<div class="row">
-        	<div class="col-md-2" style="color:white;">
+        	<div class="col-md-2" style="color:white;margin-left: 80px;">
         		<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />
         	</div>
         	<div class="col-md-8">
@@ -122,6 +122,7 @@
 									<th>이벤트 제목</th>    				
 									<th>이벤트 시작일</th>    				
 									<th>이벤트 종료일</th>		
+									<th>당첨 여부</th>		
 									<th>참여 취소</th>		
 				    			</tr>
 				    		</thead>
@@ -135,7 +136,35 @@
 											<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
-											<td><button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button></td>
+											<c:choose>
+											<c:when test="${eventVo.event_win == 'y'}">
+											<td>당첨</td>
+											</c:when>
+											<c:otherwise>
+											<td>미당첨</td>
+											</c:otherwise>
+											</c:choose>
+											<td>
+											<!-- 오늘 날짜 구하기-->
+											<c:set var="date" value="<%=new java.util.Date()%>" />
+											<c:set var="today">
+												<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+											</c:set> 
+											<c:choose>
+												<c:when test="${eventVo.event_end_date < today}">
+												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}" disabled="disabled">이벤트 참여 취소</button>
+												</c:when>
+												<c:otherwise>
+												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button>
+												</c:otherwise>
+											</c:choose>
+											
+											
+											
+											</td>
+										
+										
+										
 										</tr>
 									</c:when>
 									
@@ -154,7 +183,7 @@
 				<c:if test="${pagingDto.startPage!=1}">
 					<li class="page-item">
 						<a class="page-link"  
-							href="/mypage/participate_event_list?page=${pagingDto.startPage-1}">이전</a>
+							href="/mypage/participate_event_list?userno=${userVo.userno}?page=${pagingDto.startPage-1}">이전</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
@@ -168,13 +197,13 @@
 						</c:otherwise>
 					</c:choose>
 					>
-						<a class="page-link" href="/mypage/participate_event_list?page=${i}">${i}</a>
+						<a class="page-link" href="/mypage/participate_event_list?userno=${userVo.userno}?page=${i}">${i}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="/mypage/participate_event_list?page=${pagingDto.endPage + 1}">다음</a>
+							href="/mypage/participate_event_list?userno=${userVo.userno}?page=${pagingDto.endPage + 1}">다음</a>
 					</li>
 				</c:if>
 				</ul>

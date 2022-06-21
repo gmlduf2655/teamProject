@@ -24,10 +24,16 @@ public interface RoomSeatDao {
 	// 좌석 정보 수정
 	public boolean updateRoomSeatInfo(int seat_no, int seat_x, String seat_y, boolean seat_status);
 	
-	// 좌석 예약 상태 변경
-	public boolean updateRoomSeatTicket(int seat_no, String ticket_no);
-	
-	// 좌석 삭제
+	// 상영관 내 좌석 전부 삭제
 	public boolean deleteRoomSeat(int room_no);
+	
+	// 좌석 X줄 삭제
+	public boolean deleteRoomSeatX(int room_no, int seat_x, List<String> yNum);
+	
+	// 좌석 Y줄 삭제
+	public boolean deleteRoomSeatY(int room_no, List<Integer> xNum, String seat_y);
+	
+	// 좌석 사용 여부 변경
+	public boolean updateRoomSeatStatus(int seat_no, boolean seat_status);
 	
 }

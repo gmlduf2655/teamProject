@@ -39,4 +39,16 @@ public class ParticipateEventServiceImpl implements ParticipateEventService {
 		return count;
 	}
 
+	@Override
+	public List<ParticipateEventVo> adminList(PagingDto pagingDto) {
+		List<ParticipateEventVo> adminList = dao.adminList(pagingDto);
+		return adminList;
+	}
+
+	@Override
+	public boolean winnerUpdate(ParticipateEventVo vo) {
+		boolean result = dao.winnerUpdate(vo);
+		return result;
+	}
+
 }

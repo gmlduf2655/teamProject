@@ -1,0 +1,92 @@
+.mkcinema .hide {
+	display: none;
+}
+
+.mkcinema table.table {
+	table-layout: fixed;
+}
+
+.mkcinema table * {
+	text-align: center;
+}
+
+.mkcinema table thead tr {
+	border: 0;
+}
+
+.mkcinema table *,
+.mkcinema tbody * {
+	color: black;
+}
+
+.mkcinema table li {
+	list-style: none;
+}
+
+.mkcinema table li {
+	margin: 1em 0 1.5em 0;
+}
+
+.mkcinema .modal-content table {
+	margin: 0 auto;
+	width: 100%;
+}
+
+.mkcinema .modal-xl {
+	min-width: 768px;
+}
+
+.mkcinema .card-body table {
+	width: 100%;
+}
+
+.mkcinema .card-body table tbody > tr > th:first-child {
+	width: 1em;
+}
+
+.mkcinema .card-body table tbody > tr:first-child > td:last-child {
+	width: 1em;
+}
+
+.mkcinema .card-body table th {
+	width: 0em;
+}
+
+.mkcinema .card-body table td {
+	width: auto;
+	border-radius: 50%;
+}
+
+.mkcinema .cinema_address {
+	float: none;
+}
+
+.mkcinema .cinema_address > * {
+	right: 0;
+}
+
+.mkcinema .seatInfo {
+	display: inline-block;
+	border-radius: 3px;
+	background: #17a2b8;
+}
+
+.mkcinema .card-body {
+	overflow-x: auto;
+}
+
+.mkcinema .seatUuse {
+	color: gray;
+}
+
+.mkcinema li.btn-group {
+	width: 95%;
+}
+
+.mkcinema li.btn-group > a:first-child {
+	width: 80%;
+}
+
+.mkcinema li.btn-group > a:last-child {
+	max-width: 4em;
+}

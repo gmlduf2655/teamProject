@@ -105,21 +105,48 @@ public class TestRoomSeatDao {
 		System.out.println("updateRoomSeatInfo, result : " + result);
 	}
 	
-	// 좌석 예약 상태 변경
-	@Test
-	public void updateRoomSeatTicketTest() {
-		
-		int seat_no			= 1;
-		String ticket_no	= null;
-		
-		boolean result = roomSeatDao.updateRoomSeatTicket(seat_no, ticket_no);
-		System.out.println("updateRoomSeatTicket, result : "+ result);
-	}
-	
 	// 좌석 삭제
 	@Test
 	public void deleteRoomSeatTest() {
 		boolean result = roomSeatDao.deleteRoomSeat(130);
+		System.out.println(result);
+	}
+	
+	// x줄 삭제
+	@Test
+	public void deleteRoomSeatXTest() {
+		int room_no = 2;
+		int seat_x = 25; 
+		List<String> yNum = new ArrayList<>();
+		yNum.add("A");
+		yNum.add("B");
+		yNum.add("C");
+		yNum.add("D");
+		yNum.add("E");
+		yNum.add("F");
+		
+		boolean result = roomSeatDao.deleteRoomSeatX(room_no, seat_x, yNum);
+		System.out.println(result);
+	}
+	
+	// Y줄 삭제
+	@Test
+	public void deleteRoomSeatYText() {
+		int room_no = 122;
+		List<Integer> xNum = new ArrayList<>();
+		xNum.add(1);
+		xNum.add(2);
+		String seat_y = "B";
+		boolean result = roomSeatDao.deleteRoomSeatY(room_no, xNum, seat_y);
+		System.out.println(result);
+	}
+	
+	// 좌석 사용 여부 상태 변경
+	@Test
+	public void updateRoomSeatStatus() {
+		int seat_no = 122;
+		boolean seat_status = false;
+		boolean result = roomSeatDao.updateRoomSeatStatus(seat_no, seat_status);
 		System.out.println(result);
 	}
 

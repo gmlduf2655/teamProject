@@ -240,9 +240,10 @@ public class EventController {
 	
 	// 이벤트 참가
 	@RequestMapping(value = "/participateEvent", method = RequestMethod.POST)
+	@ResponseBody
 	public String insertParticipateEvent(ParticipateEventVo vo, int event_no) {
-//		System.out.println("EventController, insertParticipateEvent, ParticipateEventVo:" + vo);
+		System.out.println("EventController, insertParticipateEvent, ParticipateEventVo:" + vo);
 		boolean result = participateEventService.insert(vo);
-		return "redirect:/event/event_read?event_no=" + event_no;
+		return String.valueOf(result);
 	}
 }

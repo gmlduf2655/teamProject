@@ -67,7 +67,7 @@
     <!-- 리뷰 내역을 보여주는 부분 -->
     <section class="login spad">
     	<div class="row">
-        	<div class="col-md-2" style="color:white;">
+        	<div class="col-md-2" style="color:white;margin-left: 80px;">
         		<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />
         	</div>
         	<div class="col-md-8">
