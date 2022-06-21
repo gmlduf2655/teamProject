@@ -47,6 +47,7 @@
 			<div class="h6li">
 				<h6><a id="" href="/dbcontrol/dbApicontrol">영화등록관리(API)</a></h6>
 				<h6><a id="" href="/dbcontrol/serverListDB">영화관리</a></h6>
+				<h6><a id="" href="/admin/movie_comment">영화댓글관리</a></h6>
 			</div>
 		</div>	
 		
