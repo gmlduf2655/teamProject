@@ -46,4 +46,19 @@ public class ParticipateEventDaoImpl implements ParticipateEventDao {
 		return count;
 	}
 
+	@Override
+	public List<ParticipateEventVo> adminList(PagingDto pagingDto) {
+		List<ParticipateEventVo> adminList = sqlSession.selectList(NAMESPACE + "adminList", pagingDto);
+		return adminList;
+	}
+
+	@Override
+	public boolean winnerUpdate(ParticipateEventVo vo) {
+		int count = sqlSession.update(NAMESPACE + "winnerUpdate", vo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

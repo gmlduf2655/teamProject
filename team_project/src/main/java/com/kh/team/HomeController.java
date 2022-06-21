@@ -1,5 +1,13 @@
 package com.kh.team;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -13,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.dao.TicketDao;
 import com.kh.team.service.UserService;
@@ -46,6 +55,12 @@ public class HomeController {
 //			session.setAttribute("loginUserVo", loginUserVo);
 //		}
 		return "home";
+	}
+	
+	// 카카오맵 테스트 페이지로 이동
+	@RequestMapping(value="/kakao_map", method = RequestMethod.GET)
+	public String kakaoMap() {
+		return "kakao_map";
 	}
 	
 }

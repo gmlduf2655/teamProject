@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.MovieService;
+import com.kh.team.service.MovieStillcutService;
+import com.kh.team.vo.MovieStillCutVo;
 import com.kh.team.vo.MovieVo;
 
 @Controller
@@ -23,7 +25,8 @@ public class MovieController {
 
 	@Autowired
 	private MovieService movieService;
-	
+	@Autowired
+	private MovieStillcutService stillcutservice;
 	
 	//전체영화리스트
 	@RequestMapping(value="/movieList", method = RequestMethod.GET)
@@ -63,7 +66,9 @@ public class MovieController {
 		int count = movieService.movieInfoByMovieCodeExist(movie_code);
 		if(count > 0) {
 			MovieVo movieVo = movieService.movieInfoByMovieCode(movie_code);
+			List<MovieStillCutVo> stillcutlist = stillcutservice.movieStillCutList(movie_code);
 			model.addAttribute("movieVo", movieVo);
+			model.addAttribute("stillcutlist", stillcutlist);
 			return "movie/movieInfo";
 		} else {
 			String referer = request.getHeader("Referer");
@@ -84,5 +89,11 @@ public class MovieController {
 		return data;
 	}
 	
+	//사진 원본 보기
+	@RequestMapping(value="/poster", method = RequestMethod.GET)
+	public String movieposter(String filename,Model model) {
+		model.addAttribute("image_name", filename);
+		return "movie/poster";
+	}
 	
 }

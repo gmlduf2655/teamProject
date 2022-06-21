@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.UserVo;
 
 @Repository
@@ -115,17 +116,32 @@ public class UserDaoImpl implements UserDao {
 	
 	// 기존 회원 목록 조회
 	@Override
-	public List<UserVo> originUserList() {
-		List<UserVo> originUserList = sqlSession.selectList(NAMESPACE + "originUserList");
+	public List<UserVo> originUserList(PagingDto pagingDto) {
+		List<UserVo> originUserList = sqlSession.selectList(NAMESPACE + "originUserList", pagingDto);
 		return originUserList;
+	}
+	
+	// 기존 회원수 조회
+	@Override
+	public int getCountOriginUserList() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountOriginUserList");
+		return count;
 	}
 
 	// 간편로그인 회원 목록 조회
 	@Override
-	public List<UserVo> snsUserList() {
-		List<UserVo> snsUserList = sqlSession.selectList(NAMESPACE + "snsUserList");
+	public List<UserVo> snsUserList(PagingDto pagingDto) {
+		List<UserVo> snsUserList = sqlSession.selectList(NAMESPACE + "snsUserList", pagingDto);
 		return snsUserList;
 	}
+	
+	// 간편로그인 회원수 조회
+	@Override
+	public int getCountSnsUserList() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountSnsUserList");
+		return count;
+	}
+	
 	// 회원 정보 수정
 	@Override
 	public boolean updateUser(UserVo userVo) {
@@ -156,6 +172,19 @@ public class UserDaoImpl implements UserDao {
 		map.put("point", point);
 		map.put("userno", userno);
 		int count = sqlSession.update(NAMESPACE + "updateUserPoint", map);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 유저 프로필사진 수정
+	@Override
+	public boolean updateProfileImage(String profile_image, int userno) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("profile_image", profile_image);
+		map.put("userno", userno);
+		int count = sqlSession.update(NAMESPACE + "updateProfileImage", map);
 		if(count > 0) {
 			return true;
 		}

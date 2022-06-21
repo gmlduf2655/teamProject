@@ -38,4 +38,16 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 		return result;
 	}
 
+	@Override
+	public boolean commentAdminUpdate(int cno) {
+		boolean result = commentDao.commentAdminUpdate(cno);
+		return result;
+	}
+
+	@Override
+	public List<MovieCommentVo> commentListHole() {
+		List<MovieCommentVo> commentlistHole = commentDao.commentListHole();
+		return commentlistHole;
+	}
+
 }

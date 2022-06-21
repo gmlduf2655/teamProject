@@ -7,10 +7,10 @@
 	<!-- 글 등록 -->
 	<insert id="insert">
 		insert into tbl_participate_event
-			(participate_no, event_title, event_start_date, event_end_date, userno, event_no)
+			(participate_no, event_title, event_start_date, event_end_date, userno, event_no, userid)
 		values
 			(seq_participate_event_participateno.nextval, #{event_title}, #{event_start_date}, 
-			#{event_end_date}, #{userno}, #{event_no})
+			#{event_end_date}, #{userno}, #{event_no}, #{userid, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 글 삭제 -->
@@ -47,9 +47,21 @@
 		</sql>
 		
 	
-	<!-- 내가 참여한 리뷰 게시글만 보이게 하기 -->
-	<select id="">
-	
+	<!-- 관리자 게시판에서 보는 목록 -->
+	<select id="adminList" resultType="ParticipateEventVo">
+		select * from 
+			(select rownum rnum, a.* from
+    			(select * from tbl_participate_event
+    			<include refid="search"></include>
+    			order by event_no desc, event_end_date desc) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
+	
+	<!-- 당첨자 선택 -->
+	<update id="winnerUpdate">
+		update tbl_participate_event set
+			event_win = 'y'
+		where participate_no = #{participate_no}
+	</update>
 
 </mapper>

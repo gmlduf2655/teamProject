@@ -182,21 +182,21 @@
     <!-- 아이디  찾기 결과 -->
     <section class="signup spad">
 		<!-- 메세지 목록 부분 -->
-		<div class="row" style="color:white">
+		<div class="row " style="color:white;">
 			<!-- 메뉴 부분 -->
 			<div class="col-md-2">
-				<div style="padding:15px 0px;color:white;" class="menubar">
+				<div style="padding:0px 0px;color:white;margin-left:90px;" class="menubar">
 					<h3 style="color:white;" class="mb-4">
 						<a href="/message/write_form?page=${param.page}&receiver=" style="color:white;">쪽지 보내기</a>
 					</h3>
-					<hr>
+					<hr align="left" width="85%">
 					<div class="mb-4">
-						<h4 class="mb-3">
+						<h5 class="mb-3">
 							<a class="nav_link text-white" href="/message/message_list?page=1&type=receive" style="color:white">받는 쪽지함</a>
-						</h4>
+						</h5>
 					</div>
 					<div class="mb-4">
-						<h4 class="mb-3"><a class="nav_link text-white" href="/message/message_list?page=1&type=send">보낸 쪽지함</a></h4>
+						<h5 class="mb-3"><a class="nav_link text-white" href="/message/message_list?page=1&type=send">보낸 쪽지함</a></h5>
 					</div>
 				</div>			
 			</div>

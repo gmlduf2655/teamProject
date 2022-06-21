@@ -66,20 +66,34 @@ public class UserServiceTest {
 	// 기존회원 목록 조회 테스트
 	@Test
 	public void testGetOriginUserList() {
-		List<UserVo> userList = userService.getOriginUserList();
+		List<UserVo> userList = userService.getOriginUserList(null);
 		for(UserVo userVo : userList) {
 			System.out.println("userServiceTest, testGetOriginUserTest, userVo : " + userVo);
 		}
 	}
 	
+	// 기존 회원수 조회 테스트
+	@Test
+	public void testGetCountOriginUserList() {
+		int count = userService.getCountOriginUserList();
+		System.out.println("userServiceTest, testGetCountOriginUserList, count : " + count);
+	}
+	
 	// 간편로그인회원 목록 조회 테스트
 	@Test
 	public void testGetSnsUserList() {
-		List<UserVo> userList = userService.getSnsUserList();
+		List<UserVo> userList = userService.getSnsUserList(null);
 		for(UserVo userVo : userList) {
 			System.out.println("userServiceTest, testGetSnsUserTest, userVo : " + userVo);
 		}
 	}
+
+	// 간편로그인 회원수 조회 테스트
+	@Test
+	public void testGetCountSnsUserList() {
+		int count = userService.getCountSnsUserList();
+		System.out.println("userServiceTest, testGetCountSnsUserList, count : " + count);
+	}	
 	
 	// 아이디 중복체크 테스트
 	@Test
@@ -164,6 +178,7 @@ public class UserServiceTest {
 		boolean result = userService.unregister(1);
 		System.out.println("UserServiceTest, testUnregister, result : " + result);
 	}
+	
 	// 유저 비밀번호 변경 테스트
 	@Test
 	public void testModifyUserpw() {
@@ -171,6 +186,12 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testModifyUserpw, result : " + result);
 	}
 	
+	// 유저 프로필사진 수정 테스트
+	@Test
+	public void testModifyProfileImage() {
+		boolean result = userService.modifyProfileImage("", 1);
+		System.out.println("UserServiceTest, testModifyProfileImage, result : " + result);		
+	}
 	
 	// 임시 비밀번호로 비밀번호 변경 테스트
 	@Test

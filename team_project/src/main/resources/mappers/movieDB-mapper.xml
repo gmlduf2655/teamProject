@@ -37,12 +37,14 @@
 			made_company = #{made_company},
 			movie_genre = #{movie_genre},
 			movie_director = #{movie_director},
-			movie_image_name = #{movie_image_name},
 			movie_actors = #{movie_actors},
 			movie_audits = #{movie_audits},
 			movie_synopsis = #{movie_synopsis},
 			movie_video_add = #{movie_video_add , jdbcType = VARCHAR},
 			endding_date =  #{endding_date, jdbcType = VARCHAR}
+			<if test="movie_image_name != null">
+			,movie_image_name = #{movie_image_name, jdbcType = VARCHAR}
+			</if>
 		where movie_code = #{movie_code}
 	</update>
 
@@ -86,4 +88,7 @@
 		where endding_date <![CDATA[<]]> sysdate
 		order by endding_date desc
 	</select> 
+	
+	
+	
 </mapper>

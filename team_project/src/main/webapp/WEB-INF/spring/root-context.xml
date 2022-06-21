@@ -7,6 +7,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
+
 	<!-- 임희열 : DataSource bean 객체 생성  -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />

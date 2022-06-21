@@ -36,8 +36,14 @@ public class TestMovieStillcut {
 	@Test
 	public void testdeletestillcut() {
 		int sno = 3;
+		boolean result = StillCutDao.deleteMovie(sno);
+		System.out.println("testdeletestillcut  :" + result);
+	}
+	
+	@Test
+	public void testdeletestillcuthole() {
 		String movie_code = "20204548";
-		boolean result = StillCutDao.deleteMovie(movie_code, sno);
+		boolean result = StillCutDao.deleteMovieHole(movie_code);
 		System.out.println("testdeletestillcut  :" + result);
 	}
 	

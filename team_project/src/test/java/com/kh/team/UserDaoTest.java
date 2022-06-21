@@ -101,27 +101,41 @@ public class UserDaoTest {
 	public void testUserList() {
 		List<UserVo> userList = userDao.userList();
 		for(UserVo userVo : userList) {
-			System.out.println("UserDaoTest, userList, userVo : " + userVo);
+			System.out.println("UserDaoTest, testUserList, userVo : " + userVo);
 		}
 	}
 	
 	// 기존회원 목록 조회 테스트
 	@Test
 	public void testOriginUserList() {
-		List<UserVo> originUserList = userDao.originUserList();
+		List<UserVo> originUserList = userDao.originUserList(null);
 		for(UserVo userVo : originUserList) {
-			System.out.println("UserDaoTest, originUserList, userVo : " + userVo);
+			System.out.println("UserDaoTest, testOriginUserList, userVo : " + userVo);
 		}
+	}
+	
+	// 기존 회원수 조회 테스트
+	@Test
+	public void testGetCountOriginUserList() {
+		int count = userDao.getCountOriginUserList();
+		System.out.println("UserDaoTest, testGetCountOriginUserList, count : " + count);
 	}
 	
 	// 간편로그인회원 목록 조회 테스트
 	@Test
 	public void testSnsUserList() {
-		List<UserVo> snsUserList = userDao.snsUserList();
+		List<UserVo> snsUserList = userDao.snsUserList(null);
 		for(UserVo userVo : snsUserList) {
 			System.out.println("UserDaoTest, snsUserList, userVo : " + userVo);
 		}
 	}
+
+	// 간편로그인 회원수 조회 테스트
+	@Test
+	public void testGetCountSnsUserList() {
+		int count = userDao.getCountSnsUserList();
+		System.out.println("UserDaoTest, testGetCountSnsUserList, count : " + count);
+	}	
 	
 	// 유저 정보 수정 테스트
 	@Test
@@ -146,6 +160,13 @@ public class UserDaoTest {
 		UserVo userVo = userDao.selectUserById("user01");
 		boolean result = userDao.updateUserPoint(10, userVo.getUserno());
 		System.out.println("UserDaoTest, testUpdateUserPoint, result : " + result);		
+	}
+	
+	// 유저 프로필사진 수정 테스트
+	@Test
+	public void testUpdateProfileImage() {
+		boolean result = userDao.updateProfileImage("", 1);
+		System.out.println("UserDaoTest, testUpdateProfileImage, result : " + result);		
 	}
 	
 	// 유저 정보 삭제 테스트

@@ -6,6 +6,9 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <style>
+	input::-webkit-inner-spin-button{
+		-webkit-appearance:none;
+	}
 	body {
 		background:#eeeeee;
 		background-color: #eeeeee;

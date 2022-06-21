@@ -9,14 +9,7 @@
 
 <script>
 $(document).ready(function(){
- 	var frmPaging = $("#frmPaging");
  	
- 	var modify_result = "${modify_result}";
- 	
- 	if (modify_result == "true"){
-		alert("수정 완료");
-	}
-	
  	// 수정하기
 	$("#btnUpdate").click(function(){
 		$("*[readonly]").attr("readonly", false);
@@ -32,6 +25,33 @@ $(document).ready(function(){
 		frmPaging.attr("action", "/event/event_delete");
 		frmPaging.attr("method", "get");
 		frmPaging.submit();
+	});
+ 	
+ 	// 이벤트 참가버튼 한번 누르면 비활성화
+	$("#btnEventSubmit").click(function() {
+		console.log("이벤트 참가버튼 클릭됨");
+		var event_title = $("input[name=event_title]").val();
+		var event_start_date = $("input[name=event_start_date]").val();
+		var event_end_date = $("input[name=event_end_date]").val();
+		var userno = $("input[name=userno]").val();
+		var event_no = $(this).attr("data-eno")
+		var userid = $("input[name=userid]").val();
+		var sData = {
+				"event_title" : event_title,
+				"event_start_date" : event_start_date,
+				"event_end_date" : event_end_date,
+				"userno" : userno,
+				"event_no" : event_no,
+				"userid" : userid
+		};
+		 console.log("sData:", sData);
+		var url = "/event/participateEvent";
+		$.post(url, sData, function(rData){
+			console.log("rData:", rData);
+			if (rData == "true") {
+				$("#btnEventSubmit").attr("disabled", "disabled");
+			};
+		});
 	});
 });
 </script>
@@ -88,13 +108,15 @@ $(document).ready(function(){
 						<hr>
 						<!-- 이벤트 참가버튼을 누르면 이벤트 참가 내역 테이블로 데이터 전송 -->
 						<div class="anime__details__btn">
-						<form action="/event/participateEvent" method="post">
-							<input type="hidden" name="event_title" value="${eventVo.event_title}">
-							<input type="hidden" name="event_start_date" value="${eventVo.event_start_date}">
-							<input type="hidden" name="event_end_date" value="${eventVo.event_end_date}">
-							<input type="hidden" name="userno" value="${loginUserVo.userno}">
-							<input type="hidden" name="event_no" value="${eventVo.event_no}">
-							<input type="submit" class="btn follow-btn" value="이벤트 참가">
+						<form id="eventSubmit">
+								<input type="hidden" name="event_title" value="${eventVo.event_title}">
+								<input type="hidden" name="event_start_date" value="${eventVo.event_start_date}">
+								<input type="hidden" name="event_end_date" value="${eventVo.event_end_date}">
+								<input type="hidden" name="userno" value="${loginUserVo.userno}">
+								<input type="hidden" name="event_no" >
+								<input type="hidden" name="userid" value="${loginUserVo.userid}">
+							<button type="button" id="btnEventSubmit" class="btn follow-btn"
+								data-eno="${eventVo.event_no}"  >이벤트 참가</button> 
 						</form>
 						</div>
 						</c:if>

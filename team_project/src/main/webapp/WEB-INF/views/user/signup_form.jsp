@@ -183,6 +183,8 @@
 		$("#profile_image").change(function(e){
 			console.log(e.target.files[0]);
 			var file = e.target.files[0];
+			// 프로필 사진을 올렸을 때 사진 이미지와 파일 이름을 보여줌
+			// 프로필 사진을 올리지 않았을 때는 사진 이미지를 기본이미지로하고 파일 이름을 지움
  			if(file != null && file != ""){
  				var fileReader = new FileReader();
  				fileReader.onload = function(e){
@@ -191,9 +193,8 @@
  				}
  				fileReader.readAsDataURL(file);
  			}else{
- 				$("#preview").attr("src", "");
+ 				$("#preview").attr("src", "/resources/images/default_image.jpg");
 				$("#file_name").val("");
-				
  			}
 		});
 		

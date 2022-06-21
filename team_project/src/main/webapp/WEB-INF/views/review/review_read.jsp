@@ -18,7 +18,11 @@
 	</div>
 </section>
 <!-- Normal Breadcrumb End -->
-
+<style>
+label{
+color: white;
+}
+</style>
 <script>
 	// 평점 별
 	$(function() {
@@ -34,16 +38,19 @@
 		countLike();
 
 		// 좋아요 클릭(삭제)
-		$("#good").click(function() {
-			var review_no = $(this).attr("data-rno");
-			var userid = "${loginUserVo.userid}";
+		$("#good").click(function(e){
+			e.preventDefault();
+			console.log("좋아요 클릭");
 			var url = "/review/createLike";
+			var review_no = "${reviewVo.review_no}";
+			var userid = "${loginUserVo.userid}";
 			var sData = {
-				"review_no" : review_no,
-				"userid" : userid
-			};
+					"review_no" : review_no,
+					"userid" : userid
+				};
+			console.log("좋아요 클릭 sData:", sData);
 			$.post(url, sData, function(rData) {
-				console.log("good click, rData:", rData);
+				console.log("좋아요 클릭 rData:", rData);
 				isLike();
 				countLike();
 			});
@@ -100,7 +107,9 @@
 //		console.log(comment_content);
 		var userid = $("#userid").val();
 		var review_no = "${reviewVo.review_no}";
+		var profile_image = "${loginUserVo.profile_image}";
 		var sData = {
+			"profile_image": profile_image,
 			"comment_content" : comment_content,
 			"review_no" : review_no,
 			"userid" : userid
@@ -133,9 +142,11 @@
 	name.text(this.userid);
 	regDate.text(this.comment_reg_date);
 	content.text(this.comment_content);
-		if (this.profile_image != null) {
-			$("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
-		}
+	if (this.profile_image != null) {
+		clone.find("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
+	} else if (this.profile_image == null) {
+		clone.find("#userprofile").attr("src", "/resources/images/usernoimage.JPG");
+	}
 	clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
 	clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
 	clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
@@ -205,13 +216,18 @@
 	<input type="hidden" name="review_no" value="0">
 </form>
 
+<div class="container">
 <br><div class="anime__details__review">
 				<div class="section-title">
 					<h5>게시글</h5>
 				</div>
 			</div>
+
+</div>
 <body>
-<div class="container" style="background-color: white">
+<div class="container" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
+
+
 
 <form role="writeForm" action="/review/review_writeRun" method="post" id="frmCreate" enctype="multipart/form-data">
 	<input type="hidden" name="review_star" id="review_star" value="${reviewVo.review_star}"/>
@@ -237,12 +253,13 @@
 		</div>
 	<hr>
 	<label>내용</label><br>
-		<div>${reviewVo.review_content}</div>
+		<div style="background-color:white; border-radius:5px;">
+		 ${reviewVo.review_content}</div>
 	<hr>
 	<label id="good" data-rno="${reviewVo.review_no}">좋아요<i class="fa fa-heart"></i><span id="likeCount">0</span></label>
 	<hr>
 	
-	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
+	
 	
 	<c:if test="${loginUserVo.userid == reviewVo.review_writer}">
 	<a href="/review/review_modifyForm?review_no=${reviewVo.review_no}" class="btn btn-sm btn-warning">수정</a>
@@ -255,7 +272,9 @@
 
 
 	</div>
-	
+	<div class="container">
+	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
+	</div>
 <!-- 댓글 -->	
 	
 <div class="row">
@@ -284,7 +303,7 @@
 				<!-- clone table -->
 				<div class="anime__review__item" style="display:none;" id="clone" >
 					<div class="anime__review__item__pic">
-						<img src="/resources/images/usernoimage.JPG" id="userprofile">
+						<img src="" id="userprofile">
 					</div>
 					<div class="anime__review__item__text">
 						<h6> </h6>

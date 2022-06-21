@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.dao.UserDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.UserVo;
 
 @Service
@@ -52,17 +53,29 @@ public class UserServiceImpl implements UserService {
 	
 	// 기존회원 목록 조회
 	@Override
-	public List<UserVo> getOriginUserList() {
-		List<UserVo> originUserList = userDao.originUserList();
+	public List<UserVo> getOriginUserList(PagingDto pagingDto) {
+		List<UserVo> originUserList = userDao.originUserList(pagingDto);
 		return originUserList;
+	}
+	
+	// 기존 회원수 조회
+	public int getCountOriginUserList() {
+		int count = userDao.getCountOriginUserList();
+		return count;
 	}
 
 	// 간편로그인회원 목록 조회
 	@Override
-	public List<UserVo> getSnsUserList() {
-		List<UserVo> snsUserList = userDao.snsUserList();
+	public List<UserVo> getSnsUserList(PagingDto pagingDto) {
+		List<UserVo> snsUserList = userDao.snsUserList(pagingDto);
 		return snsUserList;
 	}
+
+	// 간편로그인 회원수 조회
+	public int getCountSnsUserList() {
+		int count = userDao.getCountSnsUserList();
+		return count;
+	}	
 	
 	// 아이디 중복체크
 	@Override
@@ -151,6 +164,15 @@ public class UserServiceImpl implements UserService {
 		UserVo userVo = userDao.selectUserByUsernoAndUserpw(userno, userpw);
 		return userVo;
 	}	
+	
+	// 유저 아이디로 유저 프로필 사진 조회
+	@Override
+	public String getProfileImageByUserId(String userid) {
+		UserVo userVo = userDao.selectUserById(userid);
+		String profile_image = userVo.getProfile_image();
+		return profile_image;
+	}	
+	
 	// 로그인
 	@Override
 	public UserVo login(String userid, String userpw) {
@@ -171,12 +193,21 @@ public class UserServiceImpl implements UserService {
 		boolean result = userDao.deleteUser(userno);
 		return result;
 	}
+	
 	// 유저 비밀번호 변경
 	@Override
 	public boolean modifyUserpw(String userid, String userpw) {
 		boolean result = userDao.updateUserpw(userid, userpw);
 		return result;
 	}
+	
+	// 유저 프로필사진 수정
+	@Override
+	public boolean modifyProfileImage(String profile_image, int userno) {
+		boolean result = userDao.updateProfileImage(profile_image, userno);
+		return result;
+	}
+	
 	// 임시 비밀번호 만들기
 	@Override
 	@Transactional

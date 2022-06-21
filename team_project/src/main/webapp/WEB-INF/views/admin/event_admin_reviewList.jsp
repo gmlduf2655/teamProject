@@ -134,7 +134,7 @@ $(document).ready(function(){
 					</c:if>
 				>제목 + 내용 + 작성자</option>
 			</select>
-			<form id="frmPaging" action="/review/review_list" method="get">
+			<form id="frmPaging" action="/admin/event_admin_reviewList" method="get">
 			<input type="text" id="keyword">
 				<input type="hidden" name="review_no" value="">
 				<input type="hidden" name="page" value="${pagingDto.page}">

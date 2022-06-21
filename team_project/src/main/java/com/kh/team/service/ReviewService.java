@@ -2,6 +2,7 @@ package com.kh.team.service;
 
 import java.util.List;
 
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
 
@@ -14,5 +15,6 @@ public interface ReviewService {
 	public ReviewVo readContent(int review_no); // 게시글 읽기
 	public int getCount(ReviewPagingDto pagingDto); // 게시글 갯수
 	public boolean adminDelete(ReviewVo reviewVo); // 관리자 게시물 삭제(수정)
+	public List<ReviewVo> myReviewList(int userno, PagingDto pagingDto); // 내가 쓴 리뷰만 리스트
 
 }
