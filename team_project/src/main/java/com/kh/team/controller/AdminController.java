@@ -9,14 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.service.EventService;
+import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
+import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 import com.kh.team.vo.WinnerPagingDto;
@@ -38,6 +42,8 @@ public class AdminController {
 	private ReviewService reviewService;
 	@Autowired
 	private WinnerService winnerService;
+	@Autowired
+	private ParticipateEventService participateEventService;
 
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String adminPage() {
@@ -182,4 +188,36 @@ public class AdminController {
 			boolean result = winnerService.delete(winner_no);
 			return "redirect:/admin/event_winner_list";
 		}
+		
+	// 이벤트 신청자 리스트
+		@RequestMapping(value = "/event_participate_list", method = RequestMethod.GET)
+		public String eventParticipateList(Model model, PagingDto pagingDto) {
+			pagingDto.setCount(participateEventService.getCount(pagingDto));
+			pagingDto.setPage(pagingDto.getPage());
+			List<ParticipateEventVo> adminList = participateEventService.adminList(pagingDto);
+			model.addAttribute("adminList", adminList);
+			model.addAttribute("pagingDto", pagingDto);
+			return "admin/event_participate_list";
+		}
+	
+	// 이벤트 당첨자 업데이트 winnerUpdate
+		@RequestMapping(value = "/winnerUpdate", method = RequestMethod.POST)
+		@ResponseBody
+		public String winnerUpdate(@RequestParam(value = "chBox[]") List<String> chArr,
+				ParticipateEventVo vo) {
+			
+			System.out.println("chArr:"+chArr);
+			
+			int participate_no = 0;
+			
+			for (String i : chArr) {
+				participate_no = Integer.parseInt(i);
+				vo.setParticipate_no(participate_no);
+				participateEventService.winnerUpdate(vo);
+			}
+			
+			return String.valueOf(true);
+			
+		}
+	 
 }

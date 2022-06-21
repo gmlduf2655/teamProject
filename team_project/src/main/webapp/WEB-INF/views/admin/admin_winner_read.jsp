@@ -21,12 +21,6 @@
 <script>
 $(document).ready(function(){
  	var frmPaging = $("#frmPaging");
- 	
- 	var modify_result = "${modify_result}";
- 	
- 	if (modify_result == "true"){
-		alert("수정 완료");
-	}
 	
  	// 삭제
 	$("#btnDelete").click(function(e){

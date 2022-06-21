@@ -10,6 +10,8 @@ public class ParticipateEventVo {
 	private Date event_end_date;
 	private int userno;
 	private int event_no;
+	private String userid;
+	private String event_win;
 	
 	public ParticipateEventVo() {
 		super();
@@ -24,6 +26,47 @@ public class ParticipateEventVo {
 		this.event_end_date = event_end_date;
 		this.userno = userno;
 		this.event_no = event_no;
+	}
+
+	public ParticipateEventVo(int participate_no, String event_title, Date event_start_date, Date event_end_date,
+			int userno, int event_no, String userid) {
+		super();
+		this.participate_no = participate_no;
+		this.event_title = event_title;
+		this.event_start_date = event_start_date;
+		this.event_end_date = event_end_date;
+		this.userno = userno;
+		this.event_no = event_no;
+		this.userid = userid;
+	}
+	
+	public ParticipateEventVo(String event_title, Date event_start_date, Date event_end_date, int userno, int event_no,
+			String userid) {
+		super();
+		this.event_title = event_title;
+		this.event_start_date = event_start_date;
+		this.event_end_date = event_end_date;
+		this.userno = userno;
+		this.event_no = event_no;
+		this.userid = userid;
+	}
+	
+	
+
+	public String getEvent_win() {
+		return event_win;
+	}
+
+	public void setEvent_win(String event_win) {
+		this.event_win = event_win;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public int getParticipate_no() {
@@ -78,7 +121,7 @@ public class ParticipateEventVo {
 	public String toString() {
 		return "ParticipateEventVo [participate_no=" + participate_no + ", event_title=" + event_title
 				+ ", event_start_date=" + event_start_date + ", event_end_date=" + event_end_date + ", userno=" + userno
-				+ ", event_no=" + event_no + "]";
+				+ ", event_no=" + event_no + ", userid=" + userid + ", event_win=" + event_win + "]";
 	}
-	
+
 }
