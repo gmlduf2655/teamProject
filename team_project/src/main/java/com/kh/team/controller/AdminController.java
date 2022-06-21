@@ -211,15 +211,16 @@ public class AdminController {
 			System.out.println("chArr:"+chArr);
 			
 			int participate_no = 0;
-			
-			for (String i : chArr) {
-				participate_no = Integer.parseInt(i);
-				vo.setParticipate_no(participate_no);
-				participateEventService.winnerUpdate(vo);
-			}
+			if (chArr != null) {
+				for (String i : chArr) {
+					participate_no = Integer.parseInt(i);
+					vo.setParticipate_no(participate_no);
+					participateEventService.winnerUpdate(vo);
+				}
 			
 			return String.valueOf(true);
-			
+			}
+			return String.valueOf(false);
 		}
 	 
 	// 유수연 - 영화 댓글 블럭 페이지이동
@@ -233,12 +234,16 @@ public class AdminController {
 			boolean result = moviecommentService.commentAdminUpdate(cno);
 			return "redirect:/admin/movie_comment";
 		}	
-	// 유수연 - 영화 댓글 블럭 
+	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
-		public String commentlistHole(Model model) {
-			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole();
+		public String commentlistHole(Model model,PagingDto pagingDto) {
+			pagingDto.setCount(moviecommentService.getCount(pagingDto));
+			System.out.println(pagingDto);
+			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(pagingDto);
+			pagingDto.setPage(pagingDto.getPage());
 			System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
+			model.addAttribute("pagingDto", pagingDto);
 			return "admin/movie_comment";
 		}	
 }

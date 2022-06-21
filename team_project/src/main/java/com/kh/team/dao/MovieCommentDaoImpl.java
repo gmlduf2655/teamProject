@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.vo.MovieCommentVo;
+import com.kh.team.vo.PagingDto;
 
 @Repository
 public class MovieCommentDaoImpl implements MovieCommentDao {
@@ -59,9 +60,15 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	}
 
 	@Override
-	public List<MovieCommentVo> commentListHole() {
-		List<MovieCommentVo> commentListhole = sqlSession.selectList(NAMESPACE+"commentListHole");
+	public List<MovieCommentVo> commentListHole(PagingDto pagingDto) {
+		List<MovieCommentVo> commentListhole = sqlSession.selectList(NAMESPACE+"commentListHole",pagingDto);
 		return commentListhole;
+	}
+
+	@Override
+	public int getCount(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE+"getCount");
+		return count;
 	}
 
 }

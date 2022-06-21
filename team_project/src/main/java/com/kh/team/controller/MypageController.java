@@ -161,7 +161,7 @@ public class MypageController {
 		pagingDto.setCount(participateEventService.getCount(pagingDto));
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
-		return "mypage/participate_event_list";
+		return "mypage/participate_event_list" ;
 	}
 	
 
