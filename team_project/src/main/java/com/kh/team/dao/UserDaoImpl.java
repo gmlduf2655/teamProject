@@ -114,6 +114,13 @@ public class UserDaoImpl implements UserDao {
 		return userList;
 	}
 	
+	// 총 유저 수 조회
+	@Override
+	public int getCountUserList() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountUserList");
+		return count;
+	}
+	
 	// 기존 회원 목록 조회
 	@Override
 	public List<UserVo> originUserList(PagingDto pagingDto) {
@@ -139,6 +146,13 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int getCountSnsUserList() {
 		int count = sqlSession.selectOne(NAMESPACE + "getCountSnsUserList");
+		return count;
+	}
+	
+	// 각 간편로그인 유저 수 조회
+	@Override
+	public int getCountEachSnsUserList(String sns_type) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountEachSnsUserList", sns_type);
 		return count;
 	}
 	

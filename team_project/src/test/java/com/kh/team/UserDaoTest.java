@@ -105,6 +105,13 @@ public class UserDaoTest {
 		}
 	}
 	
+	// 총 유저 수 조회
+	@Test
+	public void testGetCountUserList() {
+		int count = userDao.getCountUserList();
+		System.out.println("UserDaoTest, testGetCountUserList, count : " + count);
+	}
+	
 	// 기존회원 목록 조회 테스트
 	@Test
 	public void testOriginUserList() {
@@ -136,6 +143,13 @@ public class UserDaoTest {
 		int count = userDao.getCountSnsUserList();
 		System.out.println("UserDaoTest, testGetCountSnsUserList, count : " + count);
 	}	
+	
+	// 각 간편로그인 유저 수 조회
+	@Test
+	public void testGetCountEachSnsUserList() {
+		int count = userDao.getCountEachSnsUserList("naver");
+		System.out.println("UserDaoTest, testGetCountEachSnsUserList, count : " + count);
+	}
 	
 	// 유저 정보 수정 테스트
 	@Test

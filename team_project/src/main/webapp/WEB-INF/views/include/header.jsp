@@ -106,11 +106,11 @@
                                 		class="active"
                                 	</c:if>
                                 >
-                                	<a href="./categories.html">예매</a>
+                                	<a href="/ticket/ticketing">예매</a>
                                     <ul class="dropdown">
-                                        <li><a href="./categories.html">영화별</a></li>
-                                        <li><a href="./anime-details.html">지역별</a></li>
-                                        <li><a href="./anime-watching.html">영화관별</a></li>
+                                        <li><a href="/ticket/ticketing">영화별</a></li>
+                                        <li><a href="/ticket/ticketing">지역별</a></li>
+                                        <li><a href="/ticket/ticketing">영화관별</a></li>
                                     </ul>
                                 </li>
                                 <li
