@@ -41,6 +41,7 @@
 	</style>
     <script>
 		$(document).ready(function(){
+			// 각 금액 버튼(1000, 5000, 10000원 등등)을 눌렀을 때
 			$(".charge").click(function(){
 				var charge = $(this).text();
 				var index = charge.indexOf("원");
@@ -74,6 +75,32 @@
 				$("#point_text").val(point);
 				$("#point").val(charge);
 			}
+			
+			// 카카오페이 충전버튼
+			$("#kakao_charge").click(function(){
+				var item_name = "포인트 충전 (" + $("#money").val() + ")";
+				var total_amount = $("#point").val();
+				var point_code = $("#point_code").val();
+				if(total_amount > 0){
+					$.ajax({
+						type : "post",
+						async : "true",
+						url : "/point/kakao_pay_ready",
+						dataType : "json",
+						data : {
+							item_name : item_name,
+							total_amount : total_amount,
+							point_code : point_code
+						},
+						success : function(data){
+							//alert(data.next_redirect_pc_url);
+							// 성공시 카카오 페이 결제 팝업창을 띄어줌
+							var open = window.open(data.next_redirect_pc_url, "카카오 페이 결제", "width=800, height=600");
+							console.log(open.closed);
+						}
+					});
+				}
+			});
 		});
     </script>
      
@@ -177,10 +204,15 @@
 							<input type="text" class="form-control" style="width:100%;" id="point_text" readonly>
 							<input type="hidden" name="point" id="point">
 						</div>
-						<div class="col-md-2 mb-4">
-							<button type="submit" class="site-btn">충전하기</button>
-						</div>
+					</div>
+					<div class="row mb-4" style="color:white;">
 						<div class="col-md-3 mb-4"></div>
+						<div class="col-md-5 mb-4">
+							<button type="submit" class="site-btn">충전하기</button>
+							<button id="kakao_charge" type="button" class="site-btn" style="background-color:#ff9900"
+							onClick="self.close() ; javascript:parent.opener.location.href='/mypage/main?userno=1'"
+							>카카오페이로 충전하기</button>
+						</div>
 					</div>
 				</form>
 
