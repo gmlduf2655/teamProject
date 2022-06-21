@@ -467,8 +467,16 @@
 											<td>미당첨</td>
 											</c:otherwise>
 											</c:choose>
-											
-											<td><button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button></td>
+											<td>
+											<c:choose>
+												<c:when test="${eventVo.event_end_date < today}">
+												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}" disabled="disabled">이벤트 참여 취소</button>
+												</c:when>
+												<c:otherwise>
+												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button>
+												</c:otherwise>
+											</c:choose>
+											</td>
 										</tr>
 									</c:if>
 								</c:when>
