@@ -74,4 +74,19 @@
 		delete from tbl_room_seat
 		where room_no = #{room_no}
 	</delete>
+	
+	<!-- X, Y줄 삭제 -->
+	<delete id="deleteRoomSeatXY">
+		delete from tbl_room_seat
+		where room_no = #{room_no}
+		and seat_x = #{seat_x}
+		and seat_y = #{seat_y}
+	</delete>
+	
+	<!-- 좌석 사용 여부 상태 변경 -->
+	<update id="updateRoomSeatStatus">
+		update tbl_room_seat set
+			seat_status = #{seat_status}
+		where seat_no = #{seat_no}
+	</update>
 </mapper>

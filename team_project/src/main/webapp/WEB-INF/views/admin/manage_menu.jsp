@@ -35,8 +35,7 @@
 				<h5 style="color : black;">영화관 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="#">영화관목록</a></h6>
-				<h6><a id="" href="#">영화관목록</a></h6>
+				<h6><a id="" href="/mkcinema/cinema">영화관 관리</a></h6>
 			</div>
 		</div>	
 		

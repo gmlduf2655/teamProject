@@ -57,4 +57,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	// 카카오맵 테스트 페이지로 이동
+	@RequestMapping(value="/kakao_map", method = RequestMethod.GET)
+	public String kakaoMap() {
+		return "kakao_map";
+	}
+	
 }

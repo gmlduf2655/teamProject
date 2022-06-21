@@ -17,9 +17,6 @@ public class TicketServiceImpl implements TicketService {
 	@Autowired
 	private TicketDao ticketDao;
 
-	@Autowired
-	private RoomSeatDao roomSeatDao;
-
 	@Override
 	public boolean createTicket(TicketVo ticketVo) {
 		boolean result = ticketDao.insertTicket(ticketVo);
@@ -43,12 +40,6 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public boolean modifyTicketStatus(String ticket_no, boolean ticket_status) {
 		boolean result = ticketDao.updateTicketStatus(ticket_no, ticket_status);
-		return result;
-	}
-
-	@Override
-	public boolean modifyRoomSeatTicket(int seat_no, String ticket_no) {
-		boolean result = roomSeatDao.updateRoomSeatTicket(seat_no, ticket_no);
 		return result;
 	}
 

@@ -22,9 +22,6 @@ public interface TicketService {
 	// 티켓 예약 수정
 	public boolean modifyTicketStatus(String ticket_no, boolean ticket_status);
 	
-	// 좌석 예약 정보 변경
-	public boolean modifyRoomSeatTicket(int seat_no, String ticket_no);
-	
 	// 임희열 : 유저 영화 예매 정보 조회
 	public List<TicketUserVo> getTicketUserList(int userno);
 	

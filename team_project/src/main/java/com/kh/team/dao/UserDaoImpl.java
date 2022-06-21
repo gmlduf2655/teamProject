@@ -178,6 +178,19 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 	
+	// 유저 프로필사진 수정
+	@Override
+	public boolean updateProfileImage(String profile_image, int userno) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("profile_image", profile_image);
+		map.put("userno", userno);
+		int count = sqlSession.update(NAMESPACE + "updateProfileImage", map);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	// 회원 삭제
 	@Override
 	public boolean deleteUser(int userno) {

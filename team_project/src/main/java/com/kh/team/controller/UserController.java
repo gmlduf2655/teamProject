@@ -239,6 +239,26 @@ public class UserController {
 		return "redirect:/mypage/userinfo?userno=" + userVo.getUserno();
 	}
 	
+	// 유저 프로필 사진 수정
+	@RequestMapping(value="/modify_user_profile_image", method=RequestMethod.POST)
+	public String modifyUserProfileImage(UserVo userVo, RedirectAttributes redirectAttributes, MultipartFile file, HttpSession session) throws IOException {
+		String filename = file.getOriginalFilename();
+		byte[] fileData = file.getBytes();
+		if(filename != null && !filename.equals("")) {
+			String profile_image = MyFileUploader.fileUpload("moverattach", filename, fileData);
+			userVo.setProfile_image(profile_image);
+		}
+		boolean result = userService.modifyProfileImage(userVo.getProfile_image(), userVo.getUserno());
+		if(result) {
+			UserVo loginVo = (UserVo)session.getAttribute("loginUserVo");
+			UserVo loginUserVo = userService.login(loginVo.getUserid(), loginVo.getUserpw());
+			session.removeAttribute("loginUserVo");
+			session.setAttribute("loginUserVo", loginUserVo);
+		}
+		redirectAttributes.addFlashAttribute("profile_image_modify_result", result + "");
+		return "redirect:/mypage/main?userno=" + userVo.getUserno();
+	}
+	
 	// 구글 로그인 후 인증
 	@RequestMapping(value="/google_auth", method=RequestMethod.GET)
 	public String googleAuth(Model model, String code, HttpServletRequest request, HttpSession session) throws JsonParseException, JsonMappingException, IOException {

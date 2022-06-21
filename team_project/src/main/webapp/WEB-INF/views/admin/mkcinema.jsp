@@ -1,8 +1,24 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- header -->
+<%@ include file="/WEB-INF/views/include/header.jsp"%>
+<style>
+	body {
+		background:#eeeeee;
+		background-color: #eeeeee;
+	}section.product {
+		padding : 0;
+	}
+	
+	.ma {
+		border-top: 50px solid #eeeeee;
+	}
+</style>
+
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -122,7 +138,7 @@ $(function(){
 		$.get(url, sData, function(rData){
 			$.each(rData, function(){
 				var insertHtml = `
-					<li class="btn-group" style="width: 95%">
+					<li class="btn-group">
 						<a class='btn btn-sm ` + ((this.cinema_status == 1) ? `btn-light` : ((this.cinema_status == 0) ? `btn-dark` : `btn-warning`)) + `' data-cinema_no=` + this.cinema_no + `>` + this.cinema_name + `</a>` + btnEdit + `
 					</li>`;
 				$(".cinemaListViewer").append(insertHtml);
@@ -146,7 +162,7 @@ $(function(){
 			$.each(rData, function(){
 				var date = this.movie_begin_date.substr(11,5);
 				var insertHtml = `
-					<li class="btn-group" style="width: 95%">
+					<li class="btn-group">
 						<a class='btn btn-sm btn-light' data-timeline_no=` + this.timeline_no + `>` + date + ` - ` + this.movie_name + `</a class='btn btn-info'>` + btnEdit + `
 					</li>`;
 				$(".roomTimelineListViewer").append(insertHtml);
@@ -164,7 +180,7 @@ $(function(){
 	
 	var cinema_address = $("select[name=cinema_address]").val();
 	if (cinema_address == null) {
-		$(".cinemaListViewer").html("<li style='color: white;'>영화관 지역을 선택해주세요</li>");
+		$(".cinemaListViewer").html("<li>영화관 지역을 선택해주세요</li>");
 	} else {
 		selectChoiseGetCinema(cinema_address);
 	}
@@ -200,6 +216,7 @@ $(function(){
 		$(".roomTimelineListViewer").text("");
 		$(".cinemaRoomListViewer").prepend(btnNewCreate);
 		var cinema_no = $(this).attr("data-cinema_no");
+		$(".allCinemaViewer").children();
 		var url = "/mkcinema/getCinemaRoomList"
 		var sData = {
 				"cinema_no" : cinema_no
@@ -207,7 +224,7 @@ $(function(){
 		$.get(url, sData, function(rData){
 			$.each(rData, function(){
 				var insertHtml = `
-					<li class='btn-group' style="width: 95%">
+					<li class='btn-group'>
 						<a class='btn btn-sm btn-light' data-cinema_room_no=` + this.room_no + `>` + this.room_name + `</a class='btn btn-info'>` + btnEdit + `
 					</li>
 				`;
@@ -215,6 +232,8 @@ $(function(){
 			});
 			$(".allCinemaViewer tbody").find("td").eq(1).find(".btnNewInsert").attr("data-cinema_no", cinema_no);
 		});
+		$(".cinemaLine").hide();
+		$(".roomLine").show();
 	});
 	
 	/* 조회된 상영관 리스트 선택 시 */
@@ -231,6 +250,8 @@ $(function(){
 		
 		showTimelineList(cinema_no, room_no, movie_begin_date);
 		$(".roomTimelineListViewer").prepend(btnNewCreate);
+		$(".roomLine").hide();
+		$(".timeLine").show();
 	});
 	
 	$(".movie_begin_date").change(function(){
@@ -775,98 +796,118 @@ if (createResult == "true"){
 if (cancelResult == "true"){
 	alert(workName + "이 취소 되었습니다.");
 }
-
-	
 </script>
-<div class="mkcinema">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<table class="table table-bordered allCinemaViewer">
-					<thead>
-						<tr>
-							<th>
-								<h5>영화관</h5>
-								<select class="form-select justify-center cinema_address" name="cinema_address">
-									<option selected disabled>지역 선택</option>
-									<c:forEach items="${cinemaCityList}" var="cityName">
-										<option value="${cityName}"
-											<c:if test="${fn:substring(sessionScope.loginUserVo.address, '0', '2') == cityName}">
-												selected
-											</c:if>
-										>${cityName}</option>
-									</c:forEach>
-								</select>
-							</th>
-							<th>
-								<h5>상영관</h5>
-							</th>
-							<th>
-								<h5>상영 스케줄</h5>
-								<input class="movie_begin_date form-control" type="datetime-local" value="${fn:replace(serverTime,' ', 'T')}"/>
-								
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="cinemaNavTable">
-							<td>
-								<ul class="cinemaListViewer">
+<!-- 샘플 레이아웃 데이터 -->
+<div class="ma">
+
+	<div class="row" style="background-color: #eeeeee">
+		<div class="col-md-1"></div>
+		<!-- 유수연 메뉴 목록  -->
+		<div class="col-md-2">
+		<div class="menu">
+	    			<%-- <c:if test="">
+								로그인 계정이 관리자 계정일때 관리자 메뉴 보이도록
+	    			</c:if> --%>
+	    				<jsp:include page="/WEB-INF/views/admin/manage_menu.jsp"/>	
+    			</div> 
+		</div>
+		<!-- 유수연 상세내용  -->
+		<div class="col-md-7">
+			<div class="mkcinema">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<table class="table table-striped allCinemaViewer">
+								<thead>
+									<tr>
+										<th class="cinemaLine">
+											<h5>영화관</h5>
+											<select class="form-select justify-center cinema_address" name="cinema_address">
+												<option selected disabled>지역 선택</option>
+												<c:forEach items="${cinemaCityList}" var="cityName">
+													<option value="${cityName}"
+														<c:if test="${fn:substring(sessionScope.loginUserVo.address, '0', '2') == cityName}">
+															selected
+														</c:if>
+													>${cityName}</option>
+												</c:forEach>
+											</select>
+										</th>
+										<th class="roomLine hide">
+											<h5>상영관</h5>
+										</th>
+										<th class="timeLine hide">
+											<h5>상영 스케줄</h5>
+											<input class="movie_begin_date form-control" type="datetime-local" value="${fn:replace(serverTime,' ', 'T')}"/>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cinemaNavTable">
+										<td class="cinemaLine">
+											<ul class="cinemaListViewer">
+												
+											</ul>
+										</td>
+										<td class="roomLine hide">
+											<ul class="cinemaRoomListViewer">
+											
+											</ul>
+										</td>
+										<td class="timeLine hide">
+											<ul class="roomTimelineListViewer">
+											</ul>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<!-- 모달 -->
+				<div class="row">
+					<div class="col-md-12">
+						<form>
+							<div class="modal fade" id="modal-container-339736" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-xl" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="myModalLabel">
+												모달 제목
+											</h5>
+											<button type="button" class="close" data-dismiss="modal">
+												<span aria-hidden="true">×</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											모달창 내용
+										</div>
+										<div class="modal-footer">
+											 
+											<button type="button" id="btnModalSuccess" class="btn btn-primary">
+												완료
+											</button> 
+											<button type="button" id="btnModalCancel" class="btn btn-secondary" data-dismiss="modal">
+												취소
+											</button>
+										</div>
+									</div>
 									
-								</ul>
-							</td>
-							<td>
-								<ul class="cinemaRoomListViewer">
+								</div>
 								
-								</ul>
-							</td>
-							<td>
-								<ul class="roomTimelineListViewer">
-								</ul>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	
-	
-	<!-- 모달 -->
-	<div class="row">
-		<div class="col-md-12">
-			<form>
-				<div class="modal fade" id="modal-container-339736" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-xl" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="myModalLabel">
-									모달 제목
-								</h5>
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								모달창 내용
-							</div>
-							<div class="modal-footer">
-								 
-								<button type="button" id="btnModalSuccess" class="btn btn-primary">
-									완료
-								</button> 
-								<button type="button" id="btnModalCancel" class="btn btn-secondary" data-dismiss="modal">
-									취소
-								</button>
-							</div>
-						</div>
-						
-					</div>
-					
-				</div>
-			</form>
-		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-1"></div>
 	</div>
 </div>
 
+<!-- footer -->
+<%@ include file="/WEB-INF/views/include/footer.jsp"%>

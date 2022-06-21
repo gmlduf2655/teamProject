@@ -178,6 +178,7 @@ public class UserServiceTest {
 		boolean result = userService.unregister(1);
 		System.out.println("UserServiceTest, testUnregister, result : " + result);
 	}
+	
 	// 유저 비밀번호 변경 테스트
 	@Test
 	public void testModifyUserpw() {
@@ -185,6 +186,12 @@ public class UserServiceTest {
 		System.out.println("UserServiceTest, testModifyUserpw, result : " + result);
 	}
 	
+	// 유저 프로필사진 수정 테스트
+	@Test
+	public void testModifyProfileImage() {
+		boolean result = userService.modifyProfileImage("", 1);
+		System.out.println("UserServiceTest, testModifyProfileImage, result : " + result);		
+	}
 	
 	// 임시 비밀번호로 비밀번호 변경 테스트
 	@Test

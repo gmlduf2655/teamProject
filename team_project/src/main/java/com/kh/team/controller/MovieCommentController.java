@@ -21,6 +21,7 @@ public class MovieCommentController {
 	@RequestMapping(value= "/commentInsert", method= RequestMethod.POST)
 	@ResponseBody
 	public String commentInsert(MovieCommentVo commentVo) {
+		System.out.println("commentVo : " + commentVo);
 		boolean result = commentService.commentInsert(commentVo);
 		System.out.println("result" + result);
 		return String.valueOf(result);
