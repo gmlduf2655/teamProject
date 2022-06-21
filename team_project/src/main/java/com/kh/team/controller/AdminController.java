@@ -236,14 +236,17 @@ public class AdminController {
 		}	
 	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
-		public String commentlistHole(Model model,PagingDto pagingDto) {
-			pagingDto.setCount(moviecommentService.getCount(pagingDto));
-			System.out.println(pagingDto);
-			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(pagingDto);
-			pagingDto.setPage(pagingDto.getPage());
-			System.out.println("commentlistHole: " + commentlistHole);
+		public String commentlistHole(Model model,PagingDto commentpagingDto) {
+			commentpagingDto.setCount(moviecommentService.getCountmoviecomment(commentpagingDto));
+			System.out.println(commentpagingDto.getCount());
+			commentpagingDto.setPage(commentpagingDto.getPage());
+			
+			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(commentpagingDto);
+			
+	//		System.out.println(pagingDto);
+	//		System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
-			model.addAttribute("pagingDto", pagingDto);
+			model.addAttribute("commentpagingDto", commentpagingDto);
 			return "admin/movie_comment";
 		}	
 }
