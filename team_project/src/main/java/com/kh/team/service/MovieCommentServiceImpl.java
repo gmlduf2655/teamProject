@@ -46,14 +46,14 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 	}
 
 	@Override
-	public List<MovieCommentVo> commentListHole(PagingDto pagingDto) {
-		List<MovieCommentVo> commentlistHole = commentDao.commentListHole(pagingDto);
+	public List<MovieCommentVo> commentListHole(PagingDto commentpagingDto) {
+		List<MovieCommentVo> commentlistHole = commentDao.commentListHole(commentpagingDto);
 		return commentlistHole;
 	}
 
 	@Override
-	public int getCount(PagingDto pagingDto) {
-		int count = commentDao.getCount(pagingDto);
+	public int getCountmoviecomment(PagingDto commentpagingDto) {
+		int count = commentDao.getCountmoviecomment(commentpagingDto);
 		return count;
 	}
 

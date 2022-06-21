@@ -47,19 +47,18 @@ var frmPaging = $("#frmPaging");
 	        alert("검색어를 입력하세요.");
 	        return false;
 	    }    
-	   
-		frmPaging.find("input[name=searchType]").val(searchType);
+	    location.href = "/admin/movie_commentlistHole?page=1&type=${param.type}&searchType=" + searchType + "&keyword=" + keyword;
+			   
+		/* frmPaging.find("input[name=searchType]").val(searchType);
 		frmPaging.find("input[name=keyword]").val(keyword);
 		frmPaging.find("input[name=page]").val(1);
-		frmPaging.submit();
+		frmPaging.submit(); */
 	});
 	
 });
 </script>
 <!-- 샘플 레이아웃 데이터 -->
-${pagingDto}
 <div class="ma">
-
 	<div class="row" style="background-color: #eeeeee">
 		<div class="col-md-1"></div>
 		<!-- 유수연 메뉴 목록  -->
@@ -77,43 +76,42 @@ ${pagingDto}
 			<a class="btn btn-outline-primary" id="commentlist" href="/admin/movie_commentlistHole?page=1"
 				style="margin-bottom: 100px;">전체댓글리스트</a>
 			<!-- 검색 -->
-			<div class="row">
+			<div class="row" style="margin-bottom: 10px;">
 			<select id="searchType">
 				<option value="">선택</option>
 				<option value="">--------------------</option>
 				<option value="t"
-					<c:if test="${pagingDto.searchType == 't'}">
+					<c:if test="${commentpagingDto.searchType == 't'}">
 						selected
 					</c:if>
 				>영화</option>
 				<option value="c"
-					<c:if test="${pagingDto.searchType == 'c'}">
+					<c:if test="${commentpagingDto.searchType == 'c'}">
 						selected
 					</c:if>
 				>내용</option>
 				<option value="w"
-					<c:if test="${pagingDto.searchType == 'w'}">
+					<c:if test="${commentpagingDto.searchType == 'w'}">
 						selected
 					</c:if>
 				>작성자</option>
 				<option value="tc"
-					<c:if test="${pagingDto.searchType == 'tc'}">
+					<c:if test="${commentpagingDto.searchType == 'tc'}">
 						selected
 					</c:if>
 				>영화 + 내용</option>
 				<option value="tcw"
-					<c:if test="${pagingDto.searchType == 'tcw'}">
+					<c:if test="${commentpagingDto.searchType == 'tcw'}">
 						selected
 					</c:if>
 				>영화 + 내용 + 작성자</option>
 			</select>
 			<form id="frmPaging" action="/admin/movie_commentlistHole" method="get">
-			<input type="text" id="keyword">
-				<input type="hidden" name="cno" value="">
-				<input type="hidden" name="page" value="${pagingDto.page}">
-				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
-				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<input type="text" id="keyword" style="margin-top: 3px; margin-left: 3px; height: 38px;">
+				<input type="hidden" name="page" value="${commentpagingDto.page}">
+				<input type="hidden" name="searchType" value="${commentpagingDto.searchType}">
+				<input type="hidden" name="keyword" value="${commentpagingDto.keyword}">
+			<button type="button" class="btn btn-success" style="margin-bottom: 3px;" id="btnSearch">검색</button>
 			</form>
 			</div>
 			<!-- 검색 -->
@@ -144,7 +142,9 @@ ${pagingDto}
 									<td style="display: none;">${list.movie_comment}</td>
 									<td>${list.userid}</td>
 									<td>${list.regdate}</td>
-									<td><button class="btn btn-sm btn-warning commentAdminUpdate">블럭</button> </td>
+									<td>
+										<button class="btn btn-sm btn-warning commentAdminUpdate">블럭</button>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -157,16 +157,16 @@ ${pagingDto}
 		<div class="col-md-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-				<c:if test="${pagingDto.startPage!=1}">
+				<c:if test="${commentpagingDto.startPage!=1}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="/admin/movie_commentlistHole?page=${pagingDto.startPage-1}">이전</a>
+							href="/admin/movie_commentlistHole?page=${commentpagingDto.startPage-1}">이전</a>
 					</li>
 				</c:if>
-				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
+				<c:forEach begin="${commentpagingDto.startPage}" end="${commentpagingDto.endPage}" var="i">
 					<li 
 					<c:choose>
-						<c:when test="${i==pagingDto.page}">
+						<c:when test="${i==commentpagingDto.page}">
 							class="page-item active"
 						</c:when>
 						<c:otherwise>
@@ -177,10 +177,10 @@ ${pagingDto}
 						<a class="page-link" href="/admin/movie_commentlistHole?page=${i}">${i}</a>
 					</li>
 				</c:forEach>
-				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
+				<c:if test="${commentpagingDto.endPage!=commentpagingDto.totalPage}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="/admin/movie_commentlistHole?page=${pagingDto.endPage + 1}">다음</a>
+							href="/admin/movie_commentlistHole?page=${commentpagingDto.endPage + 1}">다음</a>
 					</li>
 				</c:if>
 				</ul>
