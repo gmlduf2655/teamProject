@@ -113,9 +113,15 @@ public interface CinemaService {
 	// 좌석 삭제
 	public boolean deleteRoomSeat(int room_no);
 	
+	// 좌석 X줄 삭제
+	public boolean deleteRoomSeatX(int room_no, int seat_x, List<String> yNum);
+	
+	// 좌석 Y줄 삭제
+	public boolean deleteRoomSeatY(int room_no, List<Integer> xNum, String seat_y);
 	
 	
-	
+	// 좌석 사용 여부 상태 변경
+	public boolean modifyRoomSeatStatus(int seat_no, boolean seat_status);
 	
 	// -------------------------------------
 	
@@ -127,20 +133,6 @@ public interface CinemaService {
 	// 룸 타입 리스트 조회
 	public List<RoomTypeVo> getRoomTypeList();
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

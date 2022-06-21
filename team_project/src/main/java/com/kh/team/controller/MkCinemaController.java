@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,16 +43,18 @@ public class MkCinemaController {
 	public String createCinema(Model model, RedirectAttributes rttr) {
 		List<String> cinemaCityList = cinemaService.getCinemaCityAddressList();
 		String time = cinemaService.getServerTime();
+		String inputTypeDatetime = time.replace(" ", "T").substring(0, 16);
+		System.out.println(inputTypeDatetime);
 		model.addAttribute("cinemaCityList", cinemaCityList);
-		model.addAttribute("serverTime", time);
-		return "cinema/cinemaDB";
+		model.addAttribute("serverTime", inputTypeDatetime);
+		return "admin/mkcinema";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getCinemaList", method = RequestMethod.GET)
 	public List<CinemaVo> getCinemaList(String cinema_address) {
 		String search_column = "cinema_address";
-		String search_data = cinema_address + "___";
+		String search_data = cinema_address;
 		String order_column = "cinema_no";
 		String order_type = "asc";
 		List<CinemaVo> cinemaList = cinemaService.getCinemaList(search_column, search_data, order_column, order_type);
@@ -156,11 +159,39 @@ public class MkCinemaController {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/roomSeatSubX", method = RequestMethod.GET)
+	public boolean roomSeatSubX(int room_no, int seat_x, String yNum) throws ParseException {
+		JSONParser parse = new JSONParser();
+		List<String> tempList = (List<String>)parse.parse(yNum);
+		List<String> yNumList = new ArrayList<>();
+		for (String list : tempList) {
+			yNumList.add(list);
+		}
+		boolean result = cinemaService.deleteRoomSeatX(room_no, seat_x, yNumList);
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/roomSeatSubY", method = RequestMethod.GET)
+	public boolean roomSeatSubY(int room_no, String xNum, String seat_y) throws ParseException {
+		JSONParser parse = new JSONParser();
+		List<String> tempList = (List<String>)parse.parse(xNum);
+		List<Integer> xNumList = new ArrayList<>();
+		for (String list : tempList) {
+			xNumList.add(Integer.parseInt(list));
+		}
+		boolean result = cinemaService.deleteRoomSeatY(room_no, xNumList, seat_y);
+		return result;
+	}
 	
 	@RequestMapping(value = "/modifyCinema", method = RequestMethod.GET)
 	public String modifyCinemaInfo(int cinema_no, String cinema_name, String cinema_address, String cinema_status, RedirectAttributes rttr) {
 		boolean result = cinemaService.modifyCinemaInfo(cinema_no, cinema_name, cinema_address, cinema_status);
-		rttr.addFlashAttribute("modifyCinemaResult", result);
+		rttr.addFlashAttribute("workName", "영화관");
+		rttr.addFlashAttribute("modifyResult", result);
 		return "redirect:/mkcinema/cinema";
 	}
 	
@@ -168,7 +199,8 @@ public class MkCinemaController {
 	public String modifyCinemaRoomInfo(int room_no, String room_name, String room_floor, String room_begin_time, String room_finish_time, RedirectAttributes rttr) {
 		boolean room_status = true;
 		boolean result = cinemaService.modifyCinemaRoomInfo(room_no, room_name, room_floor, room_begin_time, room_finish_time, room_status);
-		rttr.addFlashAttribute("modifyCinemaRoomResult", result);
+		rttr.addFlashAttribute("workName", "상영관");
+		rttr.addFlashAttribute("modifyResult", result);
 		return "redirect:/mkcinema/cinema";
 	}
 	
@@ -179,13 +211,15 @@ public class MkCinemaController {
 		movie_begin_date += " " + movie_begin_time; 
 		movie_finish_date += " " + movie_finish_time;
 		boolean result = cinemaService.modifyRoomTimelineInfo(timeline_no, room_no, room_type_code, movie_code, movie_begin_date, movie_finish_date, movie_status);
-		rttr.addFlashAttribute("modifyTimelineResult", result);
+		rttr.addFlashAttribute("workName", "상영 스케줄");
+		rttr.addFlashAttribute("modifyResult", result);
 		return "redirect:/mkcinema/cinema";
 	}
 	
 	@RequestMapping(value = "/createCinema", method = RequestMethod.GET)
 	public String createCinema(CinemaVo cinemaVo, RedirectAttributes rttr) {
 		boolean result = cinemaService.createCinema(cinemaVo);
+		rttr.addFlashAttribute("workName", "영화관");
 		rttr.addFlashAttribute("createCinema", result);
 		return "redirect:/mkcinema/cinema"; 
 	}
@@ -197,30 +231,52 @@ public class MkCinemaController {
 		Object room_no = 0;
 		if (result) {
 			int cinema_no = cinemaRoomVo.getCinema_no();
-			List<Map<String, Object>> roomList = cinemaService.getCinemaRoomList(cinema_no, "room_no", "asc");
+			List<Map<String, Object>> roomList = cinemaService.getCinemaRoomList(cinema_no, "room_no", "desc");
 			System.out.println(roomList.get(0).get("room_no"));
 			room_no = roomList.get(0).get("room_no");
 		}
 		return String.valueOf(room_no); 
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/cinemaSeatUse", method = RequestMethod.GET)
+	public void modifyUseSeat(int seat_no) {
+		boolean seat_status = true;
+		boolean result = cinemaService.modifyRoomSeatStatus(seat_no, seat_status);
+		System.out.println(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/cinemaSeatUuse", method = RequestMethod.GET)
+	public void modifyUuseSeat(int seat_no) {
+		boolean seat_status = false;
+		boolean result = cinemaService.modifyRoomSeatStatus(seat_no, seat_status);
+		System.out.println(result);
+	}
+	
+	@Transactional
 	@RequestMapping(value = "/deleteRoom", method = RequestMethod.GET)
 	public String deleteRoom(int room_no, RedirectAttributes rttr) {
 		System.out.println(room_no);
 		boolean result = false;
 		result = cinemaService.deleteRoomSeat(room_no);
-		if (result) {
+		System.out.println("Check : " + result);
+		System.out.println("1");
+		if (result == true) {
+			System.out.println("-2");
 			result = cinemaService.deleteCinemaRoom(room_no);
 		}
 		System.out.println("delete : " + result);
-		rttr.addFlashAttribute("deleteRoomResult", result);
+		rttr.addFlashAttribute("cancelResult", result);
+		rttr.addFlashAttribute("workName", "상영관, 좌석 등록");
 		return "redirect:/mkcinema/cinema";
 	}
 	
 	@RequestMapping(value = "/createSeat", method = RequestMethod.GET)
 	public String createSeat(int room_no, RedirectAttributes rttr) {
 		if (room_no > 0) {
-			rttr.addFlashAttribute("createSeatResult", true);
+			rttr.addFlashAttribute("workName", "상영관과 좌석");
+			rttr.addFlashAttribute("createResult", true);
 		}
 		return "redirect:/mkcinema/cinema";
 	}
@@ -231,12 +287,13 @@ public class MkCinemaController {
 		String fdate = roomTimelineVo.getMovie_finish_date();
 		String newBDate = bdate.replace("T", " ");
 		String newFDate = fdate.replace("T", " ");
-		roomTimelineVo.setMovie_begin_date(newBDate);
-		roomTimelineVo.setMovie_finish_date(newFDate);
+		roomTimelineVo.setMovie_begin_date(newBDate + ":00");
+		roomTimelineVo.setMovie_finish_date(newFDate + ":00");
 		roomTimelineVo.setMovie_status(true);
 		System.out.println(roomTimelineVo);
 		boolean result = cinemaService.createRoomTimeline(roomTimelineVo);
-		rttr.addFlashAttribute("createTimeline", result);
+		rttr.addFlashAttribute("workName", "상영 스케줄");
+		rttr.addFlashAttribute("createResult", result);
 		return "redirect:/mkcinema/cinema"; 
 	}
 }

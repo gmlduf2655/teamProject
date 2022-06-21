@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.team.vo.RoomSeatVo;
 
+import oracle.jdbc.aq.AQNotificationListener;
+
 @Repository
 public class RoomSeatDaoImpl implements RoomSeatDao {
 	private final String NAMESPACE = "com.kh.team.mappers.room-seat.";
@@ -61,21 +63,6 @@ public class RoomSeatDaoImpl implements RoomSeatDao {
 		sqlSession.update(NAMESPACE + "updateRoomSeatInfo", parameter);
 		return false;
 	};
-	
-	// 좌석 예약 상태 변경
-	public boolean updateRoomSeatTicket(
-				int seat_no, 
-				String ticket_no
-			) {
-		Map<String, Object> parameter = new HashMap<>();
-		parameter.put("seat_no", seat_no);
-		parameter.put("ticket_no", ticket_no);
-		int count = sqlSession.update(NAMESPACE + "updateRoomSeatTicket", parameter);
-		if (count > 0) {
-			return true;
-		}
-		return false;
-	}
 
 	@Override
 	@Transactional
@@ -115,6 +102,53 @@ public class RoomSeatDaoImpl implements RoomSeatDao {
 	@Override
 	public boolean deleteRoomSeat(int room_no) {
 		int count = sqlSession.delete(NAMESPACE + "deleteRoomSeat", room_no);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteRoomSeatX(int room_no, int seat_x, List<String> yNum) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("room_no", room_no);
+		parameter.put("seat_x", seat_x);
+		int count = 0;
+		for (String seat_y : yNum) {
+			parameter.put("seat_y", seat_y);
+			count += sqlSession.delete(NAMESPACE + "deleteRoomSeatXY", parameter);
+		}
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteRoomSeatY(int room_no, List<Integer> xNum, String seat_y) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("room_no", room_no);
+		parameter.put("seat_y", seat_y);
+		int count = 0;
+		for (int seat_x : xNum) {
+			parameter.put("seat_x", seat_x);
+			count += sqlSession.delete(NAMESPACE + "deleteRoomSeatXY", parameter);
+		}
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	// 영화관 시트 사용상태 변경
+	@Override
+	public boolean updateRoomSeatStatus(int seat_no, boolean seat_status) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("seat_no", seat_no);
+		parameter.put("seat_status", seat_status);
+		int count = sqlSession.update(NAMESPACE + "updateRoomSeatStatus", parameter);
 		if (count > 0) {
 			return true;
 		}

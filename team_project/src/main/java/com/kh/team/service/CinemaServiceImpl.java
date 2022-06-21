@@ -214,4 +214,22 @@ public class CinemaServiceImpl implements CinemaService {
 		return result;
 	}
 
+	@Override
+	public boolean deleteRoomSeatX(int room_no, int seat_x, List<String> yNum) {
+		boolean result = roomSeatDao.deleteRoomSeatX(room_no, seat_x, yNum);
+		return result;
+	}
+
+	@Override
+	public boolean deleteRoomSeatY(int room_no, List<Integer> xNum, String seat_y) {
+		boolean result = roomSeatDao.deleteRoomSeatY(room_no, xNum, seat_y);
+		return result;
+	}
+
+	@Override
+	public boolean modifyRoomSeatStatus(int seat_no, boolean seat_status) {
+		boolean result = roomSeatDao.updateRoomSeatStatus(seat_no, seat_status);
+		return result;
+	}
+
 }
