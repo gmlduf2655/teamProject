@@ -12,15 +12,17 @@
 	
 }
 
-.ticketing .ticketTable {
-	height: 50em;
+.ticketing .choise {
+	background: white;
 }
 
-.ticketing .sectionTitle {
-	height: 3em;
-	line-height: 3;
-	font-weight: bold;
+.ticketing .ticketTable {
+	min-width: 930px;
+	overflow: hidden;
+	height: 50em;
+	border-radius: 0.2em;
 }
+
 
 .ticketing * {
 /* 	border: 0.1px solid yellow; */
@@ -40,11 +42,83 @@
 .ticketing .choiseCinemaContainer,
 .ticketing .choiseMovieContainer,
 .ticketing .choiseDateContainer {
+	position: relative;
 	overflow: hidden;
 }
 
-.movieOrderColumn {
+.ticketing .choiseDate input.dateYYYY {
+	min-width: 6.5em;
+}
+
+.ticketing .cinemaSection > ul,
+.ticketing .movieList,
+.ticketing .dateNav,
+.ticketing .notListInfo,
+.ticketing .searchNav {
+	padding: 0 0.8em;
+}
+
+.ticketing .searchNav {
+	padding-right: 0.6em;
+}
+
+.ticketing .nice-select .list {
 	width: 100%;
+}
+
+.ticketing .notListInfo {
+	width: 100%;
+	font-size: 0.8em;
+	color: gray;
+	position: absolute;
+	top: 50%;
+}
+
+.ticketing .notListInfo > *:first-child {
+	padding-bottom: 0.2em;
+}
+
+.ticketing .cinemaSection > ul:first-child,
+.ticketing .choiseMovieContainer {
+	background: #EFEFEF;
+}
+
+.ticketing .cinemaSection li,
+.ticketing .searchNav,
+.ticketing .choiseDate,
+.ticketing .dateNav,
+.ticketing .movieList li {
+	margin: 0.6em 0;
+}
+
+.ticketing .searchNav,
+.ticketing .dateNav {
+	padding-bottom: 0.6em;
+	border-bottom: 0.1px solid #ddd;
+}
+
+.ticketing .ticketTable div:nth-child(n + 2):nth-child(-n + 3) .sectionTitle {
+	border-right: 0.1px solid #3f3f3f;
+}
+
+
+.ticketing .roomTypeNav li {
+	font-size: 0.9em;
+	margin-right: 0.5em;
+}
+
+.ticketing .roomTypeNav li:last-child {
+	margin: 0;
+}
+
+.ticketing .movieOrderColumn {
+	width: 100%;
+}
+
+.ticketing .stepGuideContainer {
+	padding: 0;
+	font-weight: bold;
+	font-size: 0.8em;
 }
 
 .ticketing .stepGuideContainer .nowStep {
@@ -59,16 +133,11 @@
 
 .ticketing .stepGuideContainer > div > div {
 	position: absolute;
+	width: 100%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-weight: bold;
 }
-
-.ticketing .stepGuideContainer * {
- 	text-align: center;
-}
-
 
 .ticketing .choiseMovieContainer .searchNav > div,
 .ticketing .choiseMovieContainer .searchNav .viewType li {
@@ -90,17 +159,23 @@
 }
 
 .ticketing .sectionTitle {
+	height: 3em;
+	line-height: 3;
+	font-weight: bold;
+	font-size: 1.1em;
 	background: black;
 	color: white;
 	text-align: center;
 }
+
 .ticketing .sectionTitle * {
 	color: inherit;
 }
 
 .ticketing input,
 .ticketing select,
-.ticketing .timelineNav * {
+.ticketing .roomTypeNav *,
+.ticketing .stepGuideContainer * {
 	text-align: center;
 }
 
@@ -111,7 +186,6 @@
 .ticketing .searchNav .viewType .row {
 	width: 100%;
 	height: 100%;
-	padding-right: 0.5em;
 }
 
 .xyCenterContainer {
@@ -128,7 +202,20 @@
 }
 
 </style>
+<!-- 
+**** 해당 월의 마지막 날짜 알아내기 ****
+var date = new Date(년, 월, 0);
+date.getDate(); //마지막 날짜
 
+
+//사용예
+new Date(2020, 1, 0).getDate(); //31
+new Date(2020, 2, 0).getDate(); //29
+new Date(2020, 3, 0).getDate(); //31
+new Date(2020, 4, 0).getDate(); //30
+new Date(2020, 5, 0).getDate(); //31
+new Date(2020, 6, 0).getDate(); //30
+ -->
 <div class="ticketing">
 	<div class="container">
 		<div class="row justify-content-md-center">
@@ -163,12 +250,13 @@
 					<div class="col choiseCinemaContainer">
 						<div class="sectionTitle">영화관</div>
 						<div class="row no-gutters cinemaSection">
-							<ul class="col choiseLocal">
-								<li>내 지역 영화관<i class="bi bi-check-lg"></i></li>
-								<li>서울</li>
-								<li>울산</li>
+							<ul class="col-5 choiseLocal">
+								<li>내 지역<i class="bi bi-check-lg"></i></li>
+								<c:forEach items="${cinemaCityList}" var="citys">
+									<li>${citys}</li>
+								</c:forEach>
 							</ul>
-							<ul class="col cinemaList">
+							<ul class="col-7 cinemaList">
 								<li>울산 삼산점<i class="bi bi-check-lg"></i></li>
 								<li>울산 성남점</li>
 								<li>울산 중구점</li>
@@ -178,13 +266,13 @@
 					<div class="col choiseMovieContainer">
 						<div class="sectionTitle">영화 선택</div>
 						<div class="row no-gutters searchNav">
-							<div class="col-8 searchSelect">
+							<div class="col searchSelect">
 								<select class="selectpicker movieOrderColumn">
 									<option>예매순</option>
 									<option>평점순</option>
 								</select>
 							</div>
-							<div class="col-4 viewType">
+							<div class="col-3 viewType">
 								<ul class="row no-gutters">
 									<li class="col xyCenterContainer">
 										<a class="centerContent">
@@ -193,14 +281,22 @@
 									</li>
 									<li class="col xyCenterContainer">
 										<a class="centerContent">
-											<i class="bi bi-grid-fill"></i>
+											<i class="bi bi-grid"></i>
 										</a>
 									</li>
+								
 								</ul>
 							</div>
 						</div>
 						<div class="movieList">
 							<ul>
+								<li>
+									<h5>
+										<strong class="yearUseMark">15</strong>
+										<span>영화이름</span>
+										<i class="bi bi-check-lg"></i>
+									</h5>
+								</li>
 								<li>
 									<h5>
 										<strong class="yearUseMark">15</strong>
@@ -216,18 +312,12 @@
 						<div class="dateNav">
 							<div class="choiseDate" data-ride="carousel">
 								<div class="input-group">
-									<input type="number" class="form-control dateMI" min="${fn:substring(serverTime,0,4)}" value="${fn:substring(serverTime,0,4)}">
-									<input type="number" class="form-control dateDD" value="${fn:substring(serverTime,5,7)}" min="1" max="12">
-									<input type="number" class="form-control dateWeekDay" value="${fn:substring(serverTime,8,10)}" min="1" max="31">
+									<input type="number" class="form-control dateYYYY" min="${fn:substring(serverTime,0,4)}" value="${fn:substring(serverTime,0,4)}">
+									<input type="number" class="form-control dateMM" value="${fn:substring(serverTime,5,7)}" min="1" max="12" onchange="if(parseInt(this.value,10)<10)this.value='0' + this.value;">
+									<input type="number" class="form-control dateDD" value="${fn:substring(serverTime,8,10)}" min="1" max="31" onchange="if(parseInt(this.value,10)<10)this.value='0' + this.value;">
 								</div>
-								<span class="carousel-control-prev btnDatePrev" role="button" data-slide="prev">
-									<i class="bi bi-chevron-left"></i>
-								</span>
-								<span class="carousel-control-next btnDateNext" role="button" data-slide="next">
-									<i class="bi bi-chevron-right"></i>
-								</span>
 							</div>
-							<div class="timelineNav">
+							<div class="roomTypeNav">
 								<ul class="row no-gutters">
 									<c:forEach items="${roomTypeList}" var="roomTypes">
 										<li class="col">${roomTypes.room_type_name}</li>
@@ -237,8 +327,8 @@
 						</div>
 						<div>
 							<div class="notListInfo">
-								<div><i class="bi bi-film"></i></div>
-								<div>조회 가능한 상영시간이 없습니다.<br>조건을 변경해주세요.</div>
+								<div class="display-4 text-center"><i class="bi bi-film"></i></div>
+								<div class="text-center">조회 가능한 상영시간이 없습니다.<br>조건을 변경해주세요.</div>
 							</div>
 							<ul>
 								<li></li>
