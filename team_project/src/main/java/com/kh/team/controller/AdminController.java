@@ -198,12 +198,16 @@ public class AdminController {
 			boolean result = moviecommentService.commentAdminUpdate(cno);
 			return "redirect:/admin/movie_comment";
 		}	
-	// 유수연 - 영화 댓글 블럭 
+	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
-		public String commentlistHole(Model model) {
-			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole();
+		public String commentlistHole(Model model,PagingDto pagingDto) {
+			pagingDto.setCount(moviecommentService.getCount(pagingDto));
+			System.out.println(pagingDto);
+			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(pagingDto);
+			pagingDto.setPage(pagingDto.getPage());
 			System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
+			model.addAttribute("pagingDto", pagingDto);
 			return "admin/movie_comment";
 		}	
 }
