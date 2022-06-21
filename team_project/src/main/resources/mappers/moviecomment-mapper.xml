@@ -7,9 +7,10 @@
 	
 	<!-- 유수연 영화별 코멘트 입력  -->
 	<insert id="commentInsert">
-		insert into tbl_movie_comment(cno, movie_code, userid, movie_comment,profile_image)
+		insert into tbl_movie_comment(cno, movie_code, userid, movie_comment,profile_image, movie_name)
 		values(seq_movie_comment_cno.nextval, #{movie_code}, #{userid},
-				 #{movie_comment, jdbcType=VARCHAR}, #{profile_image, jdbcType=VARCHAR})
+				 #{movie_comment, jdbcType=VARCHAR}, 
+				 #{profile_image}, #{movie_name})
 	</insert>
 	
 	<!-- 유수연 영화별 코멘트 리스트  -->
@@ -38,4 +39,11 @@
 			admin_delete = 'Y'
 		where cno = #{cno}
 	</update>
+	
+	<!-- 유수연 전체 코멘트 리스트  -->
+	<select id="commentListHole" resultType="MovieCommentVo">
+		select * from tbl_movie_comment
+		order by cno desc
+	</select>
+	
 </mapper>

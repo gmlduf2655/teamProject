@@ -20,7 +20,7 @@ public class TestMovieComment {
 	
 	@Test
 	public void testinsertComment() {
-		MovieCommentVo commentVo = new MovieCommentVo("20204548", "user02", "잘되는가22");
+		MovieCommentVo commentVo = new MovieCommentVo("20204548", "user01", "댓글테이블", "범죄도시 2");
 		boolean result = movieCommentDao.commentInsert(commentVo);
 		System.out.println("insertComment, result : " + result);
 	}
@@ -52,4 +52,9 @@ public class TestMovieComment {
 		System.out.println("commentAdminUpdate, result : " + result);
 	}
 	
+	@Test
+	public void testcommentListHole() {
+		List<MovieCommentVo> result = movieCommentDao.commentListHole();
+		System.out.println("testcommentListHole, result : " + result);
+	}
 }

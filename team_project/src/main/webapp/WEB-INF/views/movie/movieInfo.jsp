@@ -31,11 +31,15 @@ $(function(){
 		var url = "/moviecomment/commentInsert";
 		var movie_comment = $("#movie_comment").val();
 		var movie_code = ${movieVo.movie_code};
-		var userid = "user01";
+		var movie_name = "${movieVo.movie_name}";
+		var profile_image = "${loginUserVo.profile_image}";
+		var userid = "${loginUserVo.userid}";
 		var sData = {
 				"movie_comment" : movie_comment,
 				"movie_code" : movie_code,
-				"userid" : userid
+				"movie_name" : movie_name,
+				"userid" : userid,
+				"profile_image" : profile_image
 		};
 		$.post(url, sData, function(rData){
 			console.log(rData);
@@ -195,7 +199,6 @@ $(function(){
 		});
 	}
 	
-	
 });
 </script>
 <!-- 나중에 지우기 -->
@@ -281,7 +284,11 @@ ${loginUserVo.userid}
                 	 <div class="col-lg-4 col-md-4">
                 	 	<!-- 스틸컷 자리 -->
                 	 	<c:forEach items="${stillcutlist}" var="stillcutlist" varStatus="status">
-                	 			 <img onclick="window.open('/movie/poster?filename=${stillcutlist.still_cut_name}','', 'width=100%')" 
+                	 			 <%-- <img id="stillopen" onclick="window.open('/movie/poster?filename=${stillcutlist.still_cut_name}','', 
+                	 			 					'width = 100,status=no,toolbar=no,scrollbars=no,location = no')" 
+                	 			 	src="/movie/displayImage?filename=${stillcutlist.still_cut_name}"
+                	 				style="width: 150px; cursor: pointer;"> --%>
+                	 			 <img id="stillopen" onclick="window.open('/movie/poster?filename=${stillcutlist.still_cut_name}', '_blank', 'toolbar=no, scrollbars=no, resizable=no, top=500, left=500')" 
                 	 			 	src="/movie/displayImage?filename=${stillcutlist.still_cut_name}"
                 	 				style="width: 150px; cursor: pointer;">
                 	 			

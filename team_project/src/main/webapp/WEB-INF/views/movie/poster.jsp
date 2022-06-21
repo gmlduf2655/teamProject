@@ -8,6 +8,6 @@
 <title>원본이미지</title>
 </head>
 <body>
-<img alt="" src="/movie/displayImage?filename=${image_name}" style="width: 100%;">
+<img alt="" src="/movie/displayImage?filename=${image_name}">
 </body>
 </html>

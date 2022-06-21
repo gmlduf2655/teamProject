@@ -44,4 +44,10 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 		return result;
 	}
 
+	@Override
+	public List<MovieCommentVo> commentListHole() {
+		List<MovieCommentVo> commentlistHole = commentDao.commentListHole();
+		return commentlistHole;
+	}
+
 }

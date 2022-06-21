@@ -34,7 +34,34 @@
 		<!-- 유수연 상세내용  -->
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
-			<br><h2>관리자 페이지 접속</h2>
+			<a class="btn btn-outline-primary" href="/admin/movie_commentlistHole"
+				style="margin-bottom: 100px;">전체댓글리스트</a>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>영화제목</th>
+								<th>코멘트</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>블럭</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${commentlistHole}" var="list" varStatus="status">
+								<tr>
+									<td>${status.count}</td>
+									<td>${list.movie_code}</td>
+									<td>${list.movie_name}</td>
+									<td>Default</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>
 		<div class="col-md-1"></div>

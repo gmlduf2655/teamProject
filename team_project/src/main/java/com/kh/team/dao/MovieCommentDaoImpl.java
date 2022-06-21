@@ -18,6 +18,7 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	@Override
 	public boolean commentInsert(MovieCommentVo commentVo) {
 		int count = sqlSession.insert(NAMESPACE + "commentInsert", commentVo);
+		System.out.println("commentInsert" + commentVo);
 		if(count > 0) {
 			return true;
 		}
@@ -55,6 +56,12 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<MovieCommentVo> commentListHole() {
+		List<MovieCommentVo> commentListhole = sqlSession.selectList(NAMESPACE+"commentListHole");
+		return commentListhole;
 	}
 
 }

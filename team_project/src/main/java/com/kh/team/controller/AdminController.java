@@ -17,6 +17,7 @@ import com.kh.team.service.UserService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
@@ -186,10 +187,23 @@ public class AdminController {
 			return "redirect:/admin/event_winner_list";
 		}
 		
-	// 유수연 - 영화 댓글 블럭
-		@RequestMapping(value = "/movie_comment_update", method = RequestMethod.GET)
+	// 유수연 - 영화 댓글 블럭 페이지이동
+		@RequestMapping(value = "/movie_comment", method = RequestMethod.GET)
+		public String moviecomment() {
+			return "admin/movie_comment";
+		}
+	// 유수연 - 영화 댓글 블럭 
+		@RequestMapping(value = "/movie_commentUpdate", method = RequestMethod.GET)
 		public String moviecommentUpdate(int cno) {
 			boolean result = moviecommentService.commentAdminUpdate(cno);
 			return "redirect:/admin/movie_comment";
-		}
+		}	
+	// 유수연 - 영화 댓글 블럭 
+		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
+		public String commentlistHole(Model model) {
+			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole();
+			System.out.println("commentlistHole: " + commentlistHole);
+			model.addAttribute("commentlistHole", commentlistHole);
+			return "admin/movie_comment";
+		}	
 }
