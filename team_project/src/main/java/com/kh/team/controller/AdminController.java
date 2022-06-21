@@ -211,15 +211,16 @@ public class AdminController {
 			System.out.println("chArr:"+chArr);
 			
 			int participate_no = 0;
-			
-			for (String i : chArr) {
-				participate_no = Integer.parseInt(i);
-				vo.setParticipate_no(participate_no);
-				participateEventService.winnerUpdate(vo);
-			}
+			if (chArr != null) {
+				for (String i : chArr) {
+					participate_no = Integer.parseInt(i);
+					vo.setParticipate_no(participate_no);
+					participateEventService.winnerUpdate(vo);
+				}
 			
 			return String.valueOf(true);
-			
+			}
+			return String.valueOf(false);
 		}
 	 
 	// 유수연 - 영화 댓글 블럭 페이지이동
