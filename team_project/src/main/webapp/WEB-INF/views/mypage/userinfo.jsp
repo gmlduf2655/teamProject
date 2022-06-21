@@ -39,11 +39,25 @@
 	</style>
     <script>
 		$(document).ready(function(){
+			var nickname_dupl = false;
+			var email_auth = false;
+			var checked_nickname = "";
+			var checked_email = "";
+
+			// 유저 정보 수정 확인
+			var modify_result = "${modify_result}";
+			if(modify_result == "true"){
+				alert("유저 정보 수정 성공");
+			}else if(modify_result == "false"){
+				alert("유저 정보 수정 실패");
+			}else {}
+			
 			// 수정 버튼을 눌렀을 떄
 			$("#user_modify_btn").click(function(){
 				$(".userinfo_span").hide();
 				$(".userinfo_input").show();
 				$(".userinfo_address").show();
+				$("#profile_image_label").show();
 				
 				$("#user_modify_btn").hide();
 				$("#user_modify_complete_btn").show();
@@ -59,7 +73,8 @@
 				$("#email_auth_code").hide();
 				$("#email_auth_code_check_btn").hide();
 				$("#email_auth_message").hide();
-				$("#email_div").css("display", "none");		
+				$("#email_div").css("display", "none");
+				$("#profile_image_label").hide();
 				
 				$("#user_modify_btn").show();
 				$("#user_modify_complete_btn").hide();
@@ -68,9 +83,42 @@
 			
 			// 수정 완료 버튼을 눌렀을 때
 			$("#user_modify_complete_btn").click(function(){
-				var address = $("#addr2").val() + $("#addr3").val();
-				$("#address").val(address);
-				$("#modify_user_form").submit();
+				var result = true;
+				var nickname = $("#nickname").val();
+				var email = $("#email").val();
+				var nickname_changed = (nickname != "${loginUserVo.nickname}");
+				var email_changed = (email != "${loginUserVo.email}");
+				
+				console.log(nickname);
+				console.log(email);
+				console.log(nickname_changed);
+				console.log(email_changed);
+				
+				if(nickname_changed){
+					if(nickname != checked_nickname){
+						result = false;
+						alert("중복 체크한 닉네임과 입력한 닉네임이 다릅니다 다시 한번 닉네임 중복체크 해주세요");
+					}else if(nickname_dupl){
+						result = false;
+						alert("중복된 닉네임입니다 다시 한번 닉네임 중복체크 해주세요");
+					}else {}
+				}
+				
+				if(email_changed){
+					if(email != checked_email){
+						result = false;
+						alert("인증한 이메일과 입력한 이메일이 다릅니다 다시 한번 이메일 인증 해주세요");
+					}else if(email_auth){
+						result = false;
+						alert("이메일 인증을 하지 않았습니다 이메일 인증을 진행해주세요");
+					}else {}					
+				}
+				
+				if(result) {
+					var address = $("#addr2").val() + $("#addr3").val();
+					$("#address").val(address);
+					$("#modify_user_form").submit();
+				}
 			});
 			
 			// 수정할 프로필 이미지 미리보기
@@ -269,7 +317,7 @@
     <section class="login spad">
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
-    		<div class="col-md-2" style="color:white;">
+    		<div class="col-md-2" style="color:white;margin-left: 80px;">
     			<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
@@ -279,36 +327,38 @@
 	            <form method="post" action="/user/modify_user" id="modify_user_form" encType="multipart/form-data">
 	            	<input type="hidden" id="userid" name="userid" value="${loginUserVo.userid}">
 	            	<input type="hidden" id="userno" name="userno" value="${loginUserVo.userno}">
-	            	<input type="hidden" id="profile_image" name="profile_image" value="${loginUserVo.profile_image}">
+<%-- 	            	<input type="hidden" id="profile_image" name="profile_image" value="${loginUserVo.profile_image}"> --%>
 	            	<input type="hidden" name="address" id="address">
 	            	<div class="row mb-5">
 	            		<div class="col-lg-3"></div>
 		                <div class="col-lg-6" style="text-align:center;">
 		                    <div>
 		                        <h3 class="mb-4">프로필 사진</h3>
-			                        <!-- 프로필 사진이 없다면 기본이미지 있다면 프로필 사진이미지를 보여줌 -->
-			                        <c:choose>
-			                        	<c:when test="${empty userVo.profile_image}">
-			                        		<img class="mb-3"  id="profile_image_view" alt="프로필 사진" src="/resources/images/default_image.jpg" style="width:300px;height:300px;border-radius:100%;">
-			                        	</c:when>
-			                        	<c:otherwise>
-			                        		<!-- 간편로그인(sns)회원일때와 아닐때 프로필 사진파일을 가져주는 방식이 다르기떄문에 이와 같이 코드 작성 -->
-			                        		<!-- 간편로그인 : 외부 url로 부터 사진을 받아옴 -->
-			                        		<!-- 기존회원 : C:/에 있는 폴더에서 사진을 받아옴 -->
-			                        		<c:choose>
-					                        	<c:when test="${empty userVo.sns_type}">
-					                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" 
-					                        		src="/user/get_profile_image?filename=${userVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
-					                        	</c:when>
-					                        	<c:otherwise>
-					                        		<img class="mb-3" id="profile_image_view" alt="프로필 사진" src="${userVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
-					                        	</c:otherwise>
-					                        </c:choose>
-			                        	</c:otherwise>
-			                        </c:choose>
-		                        <br>
+			                    <!-- 프로필 사진이 없다면 기본이미지 있다면 프로필 사진이미지를 보여줌 -->
+			                    <c:choose>
+			                        <c:when test="${empty loginUserVo.profile_image}">
+			                        	<img class="mb-3"  id="profile_image_view" alt="프로필 사진" src="/resources/images/default_image.jpg" style="width:300px;height:300px;border-radius:100%;">
+			                        </c:when>
+			                        <c:otherwise>
+			                        	<!-- 간편로그인(sns)회원일때와 아닐때 프로필 사진파일을 가져주는 방식이 다르기떄문에 이와 같이 코드 작성 -->
+			                        	<!-- 간편로그인 : 외부 url로 부터 사진을 받아옴 -->
+			                        	<!-- 기존회원 : C:/에 있는 폴더에서 사진을 받아옴 -->
+			                        	<c:choose>
+					                       	<c:when test="${empty loginUserVo.sns_type}">
+					                       		<img class="mb-3" id="profile_image_view" alt="프로필 사진" 
+					                       		src="/user/get_profile_image?filename=${loginUserVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
+					                       	</c:when>
+					                       	<c:otherwise>
+					                       		<img class="mb-3" id="profile_image_view" alt="프로필 사진" src="${loginUserVo.profile_image}" style="width:300px;height:300px;border-radius:100%;">
+					                       	</c:otherwise>
+					                    </c:choose>
+			                       	</c:otherwise>
+			                    </c:choose>
+			                    <br>		                        
 	                            <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
-	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;"><br>
+	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" 
+	                            value="${loginUserVo.profile_image}" style="display:none;cursor:pointer;"><br>
+		                    	<br>
 		                    	<span style="color:white;font-size:30px">${userVo.nickname}(${userVo.username})님</span><br>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follower">${follower}</span>
@@ -336,7 +386,7 @@
 		                    		<td class="display:flex;">
 		                    			<span class="userinfo_span">${userVo.nickname}</span>
 										<input style="width:37%;margin-left:0px;" placeholder="닉네임" class="form-control mb-2 userinfo_address"
-										name="nickname" id="nickname"  type="text" >
+										name="nickname" id="nickname" value="${loginUserVo.nickname}" type="text" >
 									    <button type="button" class="btn-sm site-btn ml-3 mb-2 userinfo_address"  id="nickname_dupl_check" style="color:white">중복 확인</button><br>
 									    <span style="display:none;font-size:16px;" id="nickname_dupl_check_result">사용가능한 닉네임 입니다</span>		               
 		                    		</td>
@@ -346,7 +396,7 @@
 		                    		<td>
 		                    			<span class="userinfo_span">${userVo.email}</span>
 		                    			<input type="email" class="form-control userinfo_input mb-2" name="email" id="email" 
-		                    			value="${userVo.email}" style="display:none;padding-" required>
+		                    			value="${loginUserVo.email}" style="display:none;padding-" required>
 									    <button type="button" class="btn-sm site-btn ml-0 mb-2 userinfo_address"  id="email_auth_btn" 
 									    style="color:white;text-align:left;">인증하기</button><br>
 										<div id="email_div" style="display:none;">

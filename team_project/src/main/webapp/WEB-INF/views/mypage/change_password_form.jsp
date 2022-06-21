@@ -137,7 +137,7 @@
     <section class="login spad">
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
-    		<div class="col-md-2" style="color:white;">
+    		<div class="col-md-2" style="color:white;margin-left: 80px;">
     			<div class="menu">
 	    			<c:if test="${loginUserVo.userno == param.userno}">
 						<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
@@ -146,7 +146,7 @@
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
 	    	<!-- 비밀번호 변경 부분 -->
-    		<div class="col-md-8" >
+    		<div class="col-md-7" >
     			<div class="row">
 	    			<div class="col-md-3"></div>
 	    			<div class="col-md-6">

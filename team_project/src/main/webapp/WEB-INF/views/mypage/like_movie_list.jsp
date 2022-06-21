@@ -54,7 +54,7 @@
     <section class="login spad">
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
-    		<div class="col-md-2" style="color:white;">
+    		<div class="col-md-2" style="color:white;margin-left: 80px;">
 				<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->

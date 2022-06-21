@@ -32,6 +32,9 @@
 		    padding-left: 30px;
 		    padding-right: 30px;
 		}
+		.menu>h3{
+			font-size: 24px;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -49,6 +52,14 @@
 				alert("포인트 충전 성공");
 			}else if(charge_result == "false"){
 				alert("포인트 충전 실패");
+			}else {}
+			
+			// 프로필 이미지 수정 확인
+			var profile_image_modify_result = "${profile_image_modify_result}";
+			if(profile_image_modify_result == "true"){
+				alert("프로필 사진 수정 성공");
+			}else if(profile_image_modify_result == "false"){
+				alert("프로필 사진 수정 실패");
 			}else {}
 			
 			// 팔로우 체크 여부 확인
@@ -196,7 +207,7 @@
     <section class="login spad">
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
-    		<div class="col-md-2" style="color:white;" >
+    		<div class="col-md-2" style="color:white;margin-left: 80px;" >
     			<div class="menu">
 	    			<c:if test="${loginUserVo.userno == userVo.userno}">
 						<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />				
@@ -206,9 +217,9 @@
     		<!-- 마이페이지 메뉴 부분 끝 -->
 	    	<!-- 유저 프로필 부분 -->
     		<div class="col-md-8" >
-	            <form method="post" action="/user/modify_user" encType="multipart/form-data">
-	            	<input type="hidden" id="userid" name="userid" value="${loginUserVo.userid}">
-	            	<input type="hidden" id="userid" name="profile_image" value="${loginUserVo.profile_image}">
+	            <form method="post" action="/user/modify_user_profile_image" encType="multipart/form-data">
+	            	<input type="hidden" id="userno" name="userno" value="${loginUserVo.userno}">
+<%-- 	            	<input type="hidden" id="userid" name="profile_image" value="${loginUserVo.profile_image}"> --%>
 		            <h3 class="mb-5">내 정보</h3>
 	            	<div class="row">
 		                <div class="col-lg-6" style="text-align:center;">
@@ -236,10 +247,11 @@
 			                        </c:choose>
 		                        <br>
 	                            <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
-	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" style="display:none;"><br>
+	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" 
+	                            value="${userVo.profile_image}" style="display:none;"><br>
 	                            <h3 class="mb-4">${userVo.nickname}(${userVo.username})님</h3>
 	                            <c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
-			            			<button type="button" class="site-btn" id="user_modify_btn">프로필 사진 수정</button>
+			            			<button type="button" class="site-btn" id="user_modify_btn" style="cursor:pointer;">프로필 사진 수정</button>
 			            			<button type="submit" class="site-btn" id="user_modify_complete_btn" style="display:none;">수정완료</button>
 			            			<button type="button" class="site-btn" id="cancel_btn" style="display:none;">취소</button>
 		            			</c:if>

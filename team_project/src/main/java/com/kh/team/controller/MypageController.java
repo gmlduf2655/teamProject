@@ -57,7 +57,6 @@ public class MypageController {
 	
 	
 	// 마이페이지 이동
-	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 + 1개더 추가요
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String mypage(HttpSession session, Model model, int userno) {
 		PagingDto pagingDto = new PagingDto();
