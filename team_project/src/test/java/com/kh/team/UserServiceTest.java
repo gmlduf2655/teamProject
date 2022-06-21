@@ -62,6 +62,13 @@ public class UserServiceTest {
 			System.out.println("userServiceTest, testGetUserTest, userVo : " + userVo);
 		}
 	}
+
+	// 총 유저 수 조회
+	@Test
+	public void testGetCountUserList() {
+		int count = userService.getCountUserList();
+		System.out.println("userServiceTest, testGetCountUserList, count : " + count);
+	}	
 	
 	// 기존회원 목록 조회 테스트
 	@Test

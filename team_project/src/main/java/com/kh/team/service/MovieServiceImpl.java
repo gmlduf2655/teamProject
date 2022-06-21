@@ -1,6 +1,7 @@
 package com.kh.team.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,20 @@ public class MovieServiceImpl implements MovieService {
 	public int movieInfoByMovieCodeExist(String movie_code) {
 		int count = movieDao.movieInfoByMovieCodeExist(movie_code);
 		return count;
+	}
+
+	// 임희열 : 전체 영화 수
+	@Override
+	public int getCountTotalMovie() {
+		int count = movieDao.getCountTotalMovie();
+		return count;
+	}
+
+	// 임희열 : 장르별 영화 수
+	@Override
+	public List<Map<String, Object>> getCountMovieGroupByGenre() {
+		List<Map<String, Object>> mapList = movieDao.getCountMovieGroupByGenre();
+		return mapList;
 	}
 	
 }
