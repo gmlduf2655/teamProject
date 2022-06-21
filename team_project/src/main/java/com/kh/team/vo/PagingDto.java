@@ -44,6 +44,9 @@ public class PagingDto {
 		setEndRow(page*perPage); // 종료 행 설정
 		setStartPage( ((page-1)/10)*10 + 1 ); // 시작 페이지 설정
 		setEndPage( ((page-1)/10 + 1)*10); // 종료 페이지 설정
+		setTotalPage((int)Math.ceil((double)count/perPage)); // 전체 페이지 결정
+		// 전체 페이지가 종료 페이지보다 작다면 종료 페이지를 전체 페이지로 변경
+		endPage = (totalPage < endPage)? totalPage : endPage;
 	}
 
 	public int getStartRow() {
@@ -100,9 +103,7 @@ public class PagingDto {
 
 	public void setCount(int count) {
 		this.count = count;
-		setTotalPage((int)Math.ceil((double)count/perPage)); // 전체 페이지 결정
-		// 전체 페이지가 종료 페이지보다 작다면 종료 페이지를 전체 페이지로 변경
-		endPage = (totalPage < endPage)? totalPage : endPage;
+		
 	}
 
 	public int getStartPage() {

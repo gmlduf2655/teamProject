@@ -445,6 +445,7 @@
 									<th>이벤트 제목</th>    				
 									<th>이벤트 시작일</th>    				
 									<th>이벤트 종료일</th>		
+									<th>당첨 여부</th>		
 									<th>참여 취소</th>		
 				    			</tr>
 				    		</thead>
@@ -458,7 +459,24 @@
 											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
-											<td><button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button></td>
+											<c:choose>
+											<c:when test="${eventVo.event_win == 'y'}">
+											<td>당첨</td>
+											</c:when>
+											<c:otherwise>
+											<td>미당첨</td>
+											</c:otherwise>
+											</c:choose>
+											<td>
+											<c:choose>
+												<c:when test="${eventVo.event_end_date < today}">
+												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}" disabled="disabled">이벤트 참여 취소</button>
+												</c:when>
+												<c:otherwise>
+												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button>
+												</c:otherwise>
+											</c:choose>
+											</td>
 										</tr>
 									</c:if>
 								</c:when>
