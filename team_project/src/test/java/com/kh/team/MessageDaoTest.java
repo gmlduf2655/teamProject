@@ -13,6 +13,7 @@ import com.kh.team.dao.FollowDao;
 import com.kh.team.dao.MessageDao;
 import com.kh.team.vo.FollowVo;
 import com.kh.team.vo.MessageVo;
+import com.kh.team.vo.PagingDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
@@ -71,6 +72,20 @@ public class MessageDaoTest {
 		}
 	}
 	
+	// 모든 메세지 조회 테스트  + 모든 메세지 수 조회 테스트
+	@Test
+	public void testSelectTotalMessageList() {
+		PagingDto pagingDto = new PagingDto();
+		int count = messageDao.getCountTotalMessage(null);
+		System.out.println("MessageDaoTest, testSelectTotalMessageList, count : " + count);
+		pagingDto.setCount(count);
+		pagingDto.setPage(1);
+		List<MessageVo> messageList = messageDao.selectTotalMessageList(pagingDto);
+		for(MessageVo messageVo : messageList) {
+			System.out.println("MessageDaoTest, testSelectTotalMessageList, messageVo : " + messageVo);
+		}		
+	}
+	
 	// 메세지 첨부 파일 조회 테스트
 	@Test
 	public void testSelectFilenameList() {
@@ -83,14 +98,14 @@ public class MessageDaoTest {
 	// 보내는 메세지 수 조회 테스트
 	@Test
 	public void testSelectSenderMessageCount() {
-		int count = messageDao.selectSenderMessageCount("user01");
+		int count = messageDao.selectSenderMessageCount("user01", null);
 		System.out.println("MessageDaoTest, testSelectSenderMessageCount, count : " + count);
 	}
 	
 	// 받는 메세지 수 조회 테스트
 	@Test
 	public void testSelectReceiverMessageCount() {
-		int count = messageDao.selectReceiverMessageCount("user01");
+		int count = messageDao.selectReceiverMessageCount("user01", null);
 		System.out.println("MessageDaoTest, testSelectReceiverMessageCount, count : " + count);
 	}
 	

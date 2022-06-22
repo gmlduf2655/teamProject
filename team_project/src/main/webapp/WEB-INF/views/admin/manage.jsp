@@ -126,25 +126,40 @@ section.product {
 			<br>
 			<h2>관리자 페이지 메인</h2>
 			<br>
-			<h2>이번 달 방문자 수 : ${monthVisitorCount}</h2>
-			<h2>오늘 방문자 수 : ${dailyVisitorCount}</h2>
-			<br>
-			<!-- 총 유저수 차트 -->
-			<div class="card card-danger" style="width:40%">
-				<div class="card-header">
-					<h3 class="card-title"><i class="bi bi-person mr-3"></i>총 유저 수 : ${totalUserCount}</h3>
+			<div class="row">
+				<!-- 총 유저수 차트 -->
+				<div class="col-md-6">
+					<div class="card card-danger  mb-4" style="width:80%">
+						<div class="card-header">
+							<h3 class="card-title"><i class="bi bi-person mr-3"></i>가입한 유저 수: ${totalUserCount}</h3>
+						</div>
+						<div class="card-body">
+							<canvas id="doughnutChart"
+								style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+							</canvas>
+						</div>
+					</div>
 				</div>
-				<div class="card-body">
-					<canvas id="doughnutChart"
-						style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
-					</canvas>
+				<!-- 총 유저수 차트 끝 -->
+				
+				<!-- 방문자 수 부분 -->
+				<div class="col-md-6">
+					<h3 class="mb-5">
+						<i class="bi bi-people br-3 bg-warning" style="font-size:40px;padding:8px 15px;border-radius:10px;"></i>
+						이번 달 방문자 수 : ${monthVisitorCount}
+					</h3>
+					<h3 class="mb-5">
+						<i class="bi bi-people br-3 bg-warning" style="font-size:40px;padding:8px 15px;border-radius:10px;"></i>
+						 오늘 방문자 수 : ${dailyVisitorCount}
+					</h3>
 				</div>
+				<!-- 방문자 수 부분 끝-->
 			</div>
-			<!-- 총 유저수 차트 끝 -->
 			
-			<div class="card card-success">
+			<!-- 등록된 영화 수 차트 -->
+			<div class="card card-success mb-4">
 				<div class="card-header">
-					<h3 class="card-title">총 영화수 : ${totalMovieCount}</h3>
+					<h3 class="card-title"><i class="bi bi-film mr-3"></i>등록된 영화 수 : ${totalMovieCount}</h3>
 					<div class="card-tools">
 					</div>
 				</div>
@@ -157,6 +172,7 @@ section.product {
 				<!-- /.card-body -->
 				
 			</div>
+			<!-- 등록된 영화 수 차트 끝-->
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>
 		<div class="col-md-1"></div>

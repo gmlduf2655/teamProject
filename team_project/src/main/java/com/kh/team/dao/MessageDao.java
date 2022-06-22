@@ -16,12 +16,16 @@ public interface MessageDao {
 	public List<MessageVo> selectSenderMessageList(String sender, PagingDto pagingDto);
 	// 받는 메세지 조회
 	public List<MessageVo> selectReceiverMessageList(String receiver, PagingDto pagingDto);
+	// 모든 메세지 조회
+	public List<MessageVo> selectTotalMessageList(PagingDto pagingDto);
+	// 모든 메세지 수 조회
+	public int getCountTotalMessage(PagingDto pagingDto);
 	// 메세지 첨부 파일 조회
 	public List<String> selectFilenameList(int messageno);
 	// 보내는 메세지 수 조회
-	public int selectSenderMessageCount(String sender);
+	public int selectSenderMessageCount(String sender, PagingDto pagingDto);
 	// 받는 메세지 수 조회
-	public int selectReceiverMessageCount(String receiver);
+	public int selectReceiverMessageCount(String receiver, PagingDto pagingDto);
 	// 메세지 번호로 메세지 조회
 	public MessageVo selectMessageByMessageno(int messageno);
 	// 메세지 번호 얻기

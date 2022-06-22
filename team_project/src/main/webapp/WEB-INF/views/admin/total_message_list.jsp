@@ -17,12 +17,44 @@
 </style>
 <script>
 	$(document).ready(function(){
-		// 검색 버튼 눌렀을 떄
-		$("#search_btn").click(function(){
-			var keyword = $("#keyword").val();
-			var searchType = $("#searchType").val();
-			location.href = "/admin/total_point_list?page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
+		// 메세지 제목 부분을 클릭했을 때 메세지 상세 정보 확인
+		$(".td_link").click(function() {
+			var messageno = $(this).attr("data-messageno");
+			location.href = "/message/read?page=${param.page}&type=${param.type}&messageno="+ messageno;
 		});
+
+		// 한 페이지에 있는 모든 메세지를 선택할 때 사용
+		$("#select_all").click(function() {
+			if ($(this).is(":checked")) {
+				$(".messages").prop("checked", true);
+			} else {
+				$(".messages").prop("checked", false);
+			}
+		});
+
+		// 삭제 버튼 눌렀을 때
+		$("#form_btn").click(function(){
+			var messages = $(".messages");
+			var messagenos = [];
+			// 삭제할 메세지를 messagenos변수에 담음
+			$.each(messages , function(i,v){
+				if($(this).is(":checked")){
+					messagenos.push($(this).val());
+					$("#multi_delete_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>");
+				}
+			});
+			if(messagenos.length > 0){
+				$("#multi_delete_form").submit();
+			}
+		});
+		
+		// 검색 버튼 눌렀을 때
+		$("#search_btn").click(function(){
+			var searchType = $("#searchType").val();
+			var keyword = $("#keyword").val();
+			location.href = "/admin/total_message_list?page=1&type=${param.type}&searchType=" + searchType + "&keyword=" + keyword;
+		});
+	
 	});
 </script>
 <!-- 샘플 레이아웃 데이터 -->
@@ -38,7 +70,7 @@
 		</div>
 		<!-- 유수연 상세내용  -->
 		<div class="col-md-7">
-			<br><h2>전체회원 포인트 내역</h2>
+			<br><h2>모든 메세지 관리</h2>
 			<!-- 포인트 내역을 보여주는 부분 -->
 		    <section class="login spad">
 		    	<div class="row">
@@ -46,23 +78,23 @@
 		        		<!-- nav 부분 -->
 						<nav class="row mb-4" >
 							<div class="col-md-4">
-								<h3>포인트 내역</h3>
+								<h3>모든 메세지</h3>
 							</div>
 							<div class="col-md-2"></div>
 							<div class="col-md-1" style="display:flex;justify-content: flex-end;">
 								<select name="searchType" id="searchType" style="color:black;">
-									<option value="p" 
-										<c:if test="${param.searchType == '' or param.searchType == 'p'}">selected</c:if>
-									>포인트</option>
-									<option value="n" 
-										<c:if test="${param.searchType == 'n'}">selected</c:if>
-									>이름</option>
+									<option value="t" 
+										<c:if test="${param.searchType == '' or param.searchType == 't'}">selected</c:if>
+									>제목</option>
+									<option value="c" 
+										<c:if test="${param.searchType == 'c'}">selected</c:if>
+									>내용</option>
 									<option value="u" 
 										<c:if test="${param.searchType == 'u'}">selected</c:if>
-									>아이디</option>
-									<option value="d" 
-										<c:if test="${param.searchType == 'd'}">selected</c:if>
-									>날짜</option>
+									>유저</option>
+									<option value="tcu" 
+										<c:if test="${param.searchType == 'tcu'}">selected</c:if>
+									>모두포함</option>
 								</select>
 							</div>
 							<div class="col-md-3">
@@ -79,21 +111,32 @@
 						    	<table class="table" >
 						    		<thead>
 						    			<tr>
-											<th>#</th>    			
-											<th>아이디</th>
-											<th>포인트</th>    				
-											<th>포인트 이름</th>    				
-											<th>포인트 적립일</th>    				
+											<th><input type="checkbox" id="select_all"></th>
+											<th>#</th>
+											<th>메세지 제목</th>
+											<th>보낸이</th>
+											<th>받는이</th>
+											<th>작성일</th>
+											<th>읽은 날짜</th>			
 						    			</tr>
 						    		</thead>
 						    		<tbody>
-										<c:forEach var="pointVo" items="${pointList}">
+										<c:forEach var="messageVo" items="${totalMessageList}">
 											<tr>
-												<td>${pointVo.pointno}</td>
-												<td>${pointVo.userid}</td>
-												<td>${pointVo.point}</td>
-												<td>${pointVo.point_name}</td>
-												<td>${pointVo.point_date}</td>
+												<td><input type="checkbox" class="messages" name="messages" value="${messageVo.messageno}"></td>
+												<td>${messageVo.messageno}</td>
+												<td>${messageVo.message_title}</td>
+												<td>${messageVo.sender}</td>
+												<td>${messageVo.receiver}</td>
+												<td>${messageVo.message_date}</td>
+												<c:choose>
+													<c:when test="${empty messageVo.read_date}">
+														<td>읽지 않음</td>
+													</c:when>
+													<c:otherwise>
+														<td>${messageVo.read_date}</td>
+													</c:otherwise>
+												</c:choose>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -108,9 +151,9 @@
 									<ul class="pagination justify-content-center" id="pagination">
 										<c:if test="${pagingDto.startPage > 1}">
 											<li class="page-item"><a class="page-link move_page"
-												href="/admin/total_point_list?page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
+												href="/admin/total_message_list?page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
 											<li class="page-item"><a class="page-link move_page"
-												href="/admin/total_point_list?page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
+												href="/admin/total_message_list?page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
 										</c:if>
 										<c:forEach var="i" begin="${pagingDto.startPage}"
 											end="${pagingDto.endPage}">
@@ -124,14 +167,14 @@
 													</c:otherwise>
 												</c:choose>>
 												<a class="page-link move_page"
-												href="/admin/total_point_list?&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
+												href="/admin/total_message_list?&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
 											</li>
 										</c:forEach>
 										<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
 											<li class="page-item"><a class="page-link move_page"
-												href="/admin/total_point_list?page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
+												href="/admin/total_message_list?page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
 											<li class="page-item"><a class="page-link move_page"
-												href="/admin/total_point_list?page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
+												href="/admin/total_message_list?page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
 										</c:if>
 									</ul>
 								</nav>

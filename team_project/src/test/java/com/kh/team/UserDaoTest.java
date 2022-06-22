@@ -124,7 +124,7 @@ public class UserDaoTest {
 	// 기존 회원수 조회 테스트
 	@Test
 	public void testGetCountOriginUserList() {
-		int count = userDao.getCountOriginUserList();
+		int count = userDao.getCountOriginUserList(null);
 		System.out.println("UserDaoTest, testGetCountOriginUserList, count : " + count);
 	}
 	
@@ -140,7 +140,7 @@ public class UserDaoTest {
 	// 간편로그인 회원수 조회 테스트
 	@Test
 	public void testGetCountSnsUserList() {
-		int count = userDao.getCountSnsUserList();
+		int count = userDao.getCountSnsUserList(null);
 		System.out.println("UserDaoTest, testGetCountSnsUserList, count : " + count);
 	}	
 	

@@ -50,13 +50,14 @@ public class MessageController {
 		pagingDto.setPage(page);
 		if(type.equals("send")) {
 			messageList = messageService.getSenderMessageList(userid, pagingDto);
-			count = messageService.getSenderMessageCount(userid);
+			count = messageService.getSenderMessageCount(userid, pagingDto);
 		}else if(type.equals("receive")){
 			messageList = messageService.getReceiverMessageList(userid, pagingDto);
-			count = messageService.getReceiverMessageCount(userid);
+			count = messageService.getReceiverMessageCount(userid, pagingDto);
 		}else {}
 		
 		pagingDto.setCount(count);
+		pagingDto.setPage(page);
 		
 		System.out.println(pagingDto);
 		

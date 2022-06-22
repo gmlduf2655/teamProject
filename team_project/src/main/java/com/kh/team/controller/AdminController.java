@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.service.EventService;
+import com.kh.team.service.MessageService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.MovieService;
@@ -24,6 +25,7 @@ import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.MessageVo;
 import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
@@ -56,13 +58,17 @@ public class AdminController {
 	private MovieService movieService;
 	@Autowired
 	private VisitNumberService visitNumberService;
+	@Autowired
+	private MessageService messageService;
 	
 	// 임희열 : 관리자 메인 페이지
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String adminPage(Model model) {
+		PagingDto pagingDto = new PagingDto();
+		
 		int totalUserCount = userService.getCountUserList(); // 총 유저 수
-		int originUserCount = userService.getCountOriginUserList(); // 기존 유저(Mover) 수
-		int snsUserCount = userService.getCountSnsUserList(); // 간편 로그인 유저 수
+		int originUserCount = userService.getCountOriginUserList(pagingDto); // 기존 유저(Mover) 수
+		int snsUserCount = userService.getCountSnsUserList(pagingDto); // 간편 로그인 유저 수
 		int naverUserCount = userService.getCountEachSnsUserList("naver"); // 네이버 간편로그인 유저 수
 		int googleUserCount = userService.getCountEachSnsUserList("google"); // 구글 간편로그인 유저 수
 		int totalMovieCount = movieService.getCountTotalMovie(); // 총 영화 수
@@ -93,7 +99,7 @@ public class AdminController {
 	@ResponseBody
 	public String getMovieGenreCount() {
 		List<Map<String, Object>> movieGenreCountMap = movieService.getCountMovieGroupByGenre();
-		String movieGenreCount =JSONArray.toJSONString(movieGenreCountMap);
+		String movieGenreCount = JSONArray.toJSONString(movieGenreCountMap);
 		return movieGenreCount;
 	}
 	
@@ -122,10 +128,10 @@ public class AdminController {
 	// 기존 유저 목록
 	@RequestMapping(value="/origin_user_list", method=RequestMethod.GET)
 	public String originUserList(Model model, PagingDto pagingDto){
-		int count = userService.getCountOriginUserList();
+		int count = userService.getCountOriginUserList(pagingDto);
+		pagingDto.setCount(count);
 		pagingDto.setPage(pagingDto.getPage());
 		List<UserVo> originUserList = userService.getOriginUserList(pagingDto);
-		pagingDto.setCount(count);
 		model.addAttribute("originUserList", originUserList);
 		return "admin/origin_user_list";
 	}
@@ -133,10 +139,10 @@ public class AdminController {
 	// 간편로그인 유저 목록
 	@RequestMapping(value="/sns_user_list", method=RequestMethod.GET)
 	public String snsUserList(Model model, PagingDto pagingDto){
-		int count = userService.getCountSnsUserList();
+		int count = userService.getCountSnsUserList(pagingDto);
+		pagingDto.setCount(count);
 		pagingDto.setPage(pagingDto.getPage());
 		List<UserVo> snsUserList = userService.getSnsUserList(pagingDto);
-		pagingDto.setCount(count);
 		model.addAttribute("snsUserList", snsUserList);
 		return "admin/sns_user_list";
 	}
@@ -144,13 +150,13 @@ public class AdminController {
 	// 전체 유저 포인트 내역
 	@RequestMapping(value="/total_point_list", method=RequestMethod.GET)
 	public String totalPointList(Model model, PagingDto pagingDto) {
-		int count = pointService.getCountPointList();
+		int count = pointService.getCountPointList(pagingDto);
+		pagingDto.setCount(count);
 		pagingDto.setPage(pagingDto.getPage());
 		List<PointVo> pointList = pointService.getPointList(pagingDto);
 		for(PointVo pointVo : pointList) {
 			System.out.println("pointVo : " + pointList);
 		}
-		pagingDto.setCount(count);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "admin/total_point_list";
@@ -159,12 +165,25 @@ public class AdminController {
 	// 포인트 코드 관리 페이지 이동
 	@RequestMapping(value="/manage_point_code", method=RequestMethod.GET)
 	public String createPointCode(Model model, int page, PagingDto pagingDto) {
+		int count = pointService.getCountPointCodeList(pagingDto);
+		pagingDto.setCount(count);
 		pagingDto.setPage(page);
 		List<PointVo> pointCodeList = pointService.getPointCodeList(pagingDto);
-		int count = pointService.getCountPointCodeList();
-		pagingDto.setCount(count);
 		model.addAttribute("pointCodeList", pointCodeList);
 		return "admin/manage_point_code";
+	}
+	
+	// 전체 유저 메세지 리스트 페이지 이동
+	@RequestMapping(value="total_message_list", method=RequestMethod.GET)
+	public String totlaMessageList(Model model, PagingDto pagingDto) {
+		int count = messageService.getCountTotalMessage(pagingDto);
+		pagingDto.setCount(count);
+		pagingDto.setPage(pagingDto.getPage());
+		List<MessageVo> totalMessageList = messageService.getTotalMessageList(pagingDto);
+		
+		model.addAttribute("totalMessageList",totalMessageList);
+		
+		return "admin/total_message_list";
 	}
 	
 	// 관리자 페이지 이벤트 관리 - 이벤트 목록 -> 이벤트 읽기(수정, 삭제)

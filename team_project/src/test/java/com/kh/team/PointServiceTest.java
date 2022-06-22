@@ -50,7 +50,7 @@ public class PointServiceTest {
 	// 전체 유저 포인트 내역 수 조회 테스트
 	@Test
 	public void testGetCountPointList() {
-		int count = pointService.getCountPointList();
+		int count = pointService.getCountPointList(null);
 		System.out.println("PointServiceTest, testGetCountPointList, count : " + count);
 	}
 	
@@ -68,7 +68,7 @@ public class PointServiceTest {
 	// 특정 유저 포인트 내역 수 조회 테스트
 	@Test
 	public void testGetCountPointListByUserno() {
-		int count = pointService.getCountPointListByUserno(1);
+		int count = pointService.getCountPointListByUserno(1,null);
 		System.out.println("PointServiceTest, testGetCountPointListByUserno, count : " + count);		
 	}
 	
@@ -93,7 +93,7 @@ public class PointServiceTest {
 	// 포인트 코드 목록 조회 수 테스트
 	@Test
 	public void testGetCountPointCodeList() {
-		int count = pointService.getCountPointCodeList();
+		int count = pointService.getCountPointCodeList(null);
 		System.out.println("PointServiceTest, testGetCountPointCodeList, count : " + count);
 	}
 	

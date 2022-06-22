@@ -147,9 +147,43 @@
 						    	</table>
 						    	<!-- 기존 회원 테이블 부분 끝 -->
 					    	</div>
-					    	<!-- 기존 회원 글 목록 페이징 부분 -->
-						    <jsp:include page="/WEB-INF/views/include/list_paging.jsp" />
-					    	<!-- 기존 회원 글 목록 페이징 부분 끝-->
+							<!-- 글 목록 페이징 부분-->
+							<div class="row mb-3">
+								<div class="col-md-12">
+									<nav>
+										<ul class="pagination justify-content-center" id="pagination">
+											<c:if test="${pagingDto.startPage > 1}">
+												<li class="page-item"><a class="page-link move_page"
+													href="/admin/origin_user_list?page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
+												<li class="page-item"><a class="page-link move_page"
+													href="/admin/origin_user_list?page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
+											</c:if>
+											<c:forEach var="i" begin="${pagingDto.startPage}"
+												end="${pagingDto.endPage}">
+												<li
+													<c:choose>
+														<c:when test="${i == pagingDto.page}">
+															class="page-item active"
+														</c:when>
+														<c:otherwise>
+															class="page-item"		
+														</c:otherwise>
+													</c:choose>>
+													<a class="page-link move_page"
+													href="/admin/origin_user_list?&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
+												</li>
+											</c:forEach>
+											<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
+												<li class="page-item"><a class="page-link move_page"
+													href="/admin/origin_user_list?page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
+												<li class="page-item"><a class="page-link move_page"
+													href="/admin/origin_user_list?page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
+											</c:if>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- 글 목록 페이징 부분 끝 -->
 						</div>
 		    		</div>
 		    	</div>
