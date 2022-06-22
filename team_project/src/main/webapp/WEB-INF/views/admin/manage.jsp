@@ -124,9 +124,12 @@ section.product {
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<br>
-			<h2>관리자 페이지 접속</h2>
-			<!-- /.card -->
-			<!-- DONUT CHART -->
+			<h2>관리자 페이지 메인</h2>
+			<br>
+			<h2>이번 달 방문자 수 : ${monthVisitorCount}</h2>
+			<h2>오늘 방문자 수 : ${dailyVisitorCount}</h2>
+			<br>
+			<!-- 총 유저수 차트 -->
 			<div class="card card-danger" style="width:40%">
 				<div class="card-header">
 					<h3 class="card-title"><i class="bi bi-person mr-3"></i>총 유저 수 : ${totalUserCount}</h3>
@@ -136,10 +139,9 @@ section.product {
 						style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
 					</canvas>
 				</div>
-				<!-- /.card-body -->
 			</div>
-			<!-- /.card -->
-			<!-- BAR CHART -->
+			<!-- 총 유저수 차트 끝 -->
+			
 			<div class="card card-success">
 				<div class="card-header">
 					<h3 class="card-title">총 영화수 : ${totalMovieCount}</h3>
