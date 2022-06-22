@@ -62,6 +62,13 @@ public class UserServiceTest {
 			System.out.println("userServiceTest, testGetUserTest, userVo : " + userVo);
 		}
 	}
+
+	// 총 유저 수 조회
+	@Test
+	public void testGetCountUserList() {
+		int count = userService.getCountUserList();
+		System.out.println("userServiceTest, testGetCountUserList, count : " + count);
+	}	
 	
 	// 기존회원 목록 조회 테스트
 	@Test
@@ -75,7 +82,7 @@ public class UserServiceTest {
 	// 기존 회원수 조회 테스트
 	@Test
 	public void testGetCountOriginUserList() {
-		int count = userService.getCountOriginUserList();
+		int count = userService.getCountOriginUserList(null);
 		System.out.println("userServiceTest, testGetCountOriginUserList, count : " + count);
 	}
 	
@@ -91,7 +98,7 @@ public class UserServiceTest {
 	// 간편로그인 회원수 조회 테스트
 	@Test
 	public void testGetCountSnsUserList() {
-		int count = userService.getCountSnsUserList();
+		int count = userService.getCountSnsUserList(null);
 		System.out.println("userServiceTest, testGetCountSnsUserList, count : " + count);
 	}	
 	

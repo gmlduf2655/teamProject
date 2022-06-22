@@ -44,10 +44,10 @@ public class PointController {
 	// 포인트 목록 내역
 	@RequestMapping (value="/point_list", method=RequestMethod.GET)
 	public String pointList(Model model, int userno, int page, PagingDto pagingDto) {
-		int count = pointService.getCountPointListByUserno(userno);
+		int count = pointService.getCountPointListByUserno(userno, pagingDto);
+		pagingDto.setCount(count);
 		pagingDto.setPage(page);
 		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto); 
-		pagingDto.setCount(count);
 		System.out.println(pointList);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("pagingDto", pagingDto);
@@ -67,6 +67,7 @@ public class PointController {
 		redirectAttributes.addFlashAttribute("charge_result", result);
 		return "redirect:/mypage/main?userno=" + pointVo.getUserno();
 	}
+	
 	
 	// 카카오 페이 결제 설공
 	@RequestMapping(value="/kakao_pay_success", method=RequestMethod.GET)
@@ -197,6 +198,7 @@ public class PointController {
 						"&cancel_url=http://localhost/point/kakao_pay_cancel";
 			OutputStream out = connection.getOutputStream();
 			DataOutputStream dataOut = new DataOutputStream(out);
+			
 			dataOut.writeBytes(parameter1);
 			dataOut.writeUTF(item_name);
 			dataOut.writeBytes(parameter2);

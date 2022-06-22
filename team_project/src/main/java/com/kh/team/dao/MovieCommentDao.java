@@ -12,6 +12,6 @@ public interface MovieCommentDao {
 	public boolean commentUpdate(MovieCommentVo commentVo);
 	public boolean commentDelete(int cno);
 	public boolean commentAdminUpdate(int cno);
-	public List<MovieCommentVo> commentListHole(PagingDto pagingDto);
-	public int getCount(PagingDto pagingDto);
+	public List<MovieCommentVo> commentListHole(PagingDto commentpagingDto);
+	public int getCountmoviecomment(PagingDto commentpagingDto);
 }

@@ -1,6 +1,7 @@
 package com.kh.team.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,20 @@ public class MovieDaoImpl implements MovieDao {
 	public int movieInfoByMovieCodeExist(String movie_code) {
 		int count = sqlSession.selectOne(NAMESPACE+"movieInfoByMovieCodeExist", movie_code);
 		return count;
+	}
+
+	// 임희열 : 전체 영화 수
+	@Override
+	public int getCountTotalMovie() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountTotalMovie");
+		return count;
+	}
+
+	// 임희열 : 장르별 영화 수
+	@Override
+	public List<Map<String, Object>> getCountMovieGroupByGenre() {
+		List<Map<String, Object>> listMap = sqlSession.selectList(NAMESPACE + "getCountMovieGroupByGenre");
+		return listMap;
 	}
 	
 }

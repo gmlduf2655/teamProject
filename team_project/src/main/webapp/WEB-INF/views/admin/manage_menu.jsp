@@ -30,6 +30,16 @@
 			</div>
 		</div>
 		
+		<!-- 임희열 : 메세지 관리 메뉴 추가했습니다 -->
+		<div class="product__page__title">
+			<div class="section-title">
+				<h5 style="color : black;">포인트 관리</h5>
+			</div>
+			<div class="h6li">
+				<h6><a id="" href="/admin/total_message_list?page=1">모든 메세지 관리</a></h6>
+			</div>
+		</div>
+		
 		<div class="product__page__title">
 			<div class="section-title">
 				<h5 style="color : black;">영화관 관리</h5>
@@ -68,7 +78,7 @@
 				<h6><a id="" href="/admin/event_admin_list">이벤트 목록</a></h6>				
 				<h6><a id="" href="/event/winner_writeForm">이벤트 당첨자 등록</a></h6>
 				<h6><a id="" href="/admin/event_winner_list?page=1">이벤트 당첨자 목록</a></h6>
-				<h6><a id="" href="/admin/event_participate_list">이벤트 신청자 목록</a></h6>
+				<h6><a id="" href="/admin/event_participate_list?page=1">이벤트 신청자 목록</a></h6>
 			</div>
 		</div>	
 		

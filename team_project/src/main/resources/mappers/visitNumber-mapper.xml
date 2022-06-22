@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.visitNumber">
+	<!-- 방문자수 내역 추가 -->
+	<insert id="insertVisitNumber">
+		insert into tbl_visit_number
+			(visitno, year, month, day, day_of_week, visit_number)
+		values
+			(seq_visit_number_visitno.nextval, #{year}, #{month}, #{day}, #{day_of_week, jdbcType=VARCHAR}, #{visit_number})
+	</insert>
+	
+	<!-- 이번 달 방문 유저 수 조회 -->
+	<select id="selectMonthVisitNumber" resultType="int">
+		select sum(visit_number)from tbl_visit_number
+		where year = #{year} and month = #{month}
+		group by year, month, day
+	</select>
+	
+	<!-- 오늘 방문 유저 수 조회 -->
+	<select id="selectTodayVisitNumber" resultType="int">
+		select visit_number from tbl_visit_number
+		where year = #{year} and month = #{month} and day = #{day}
+	</select>
+	
+	<!-- 당일 방문 유저 수 정보 생성 여부 확인 -->
+	<select id="isTodayVisitNumberCreated" resultType="int">
+		select count(*) from tbl_visit_number
+		where year = #{year} and month = #{month} and day = #{day}
+	</select>
+	
+	<!-- 방문자수 증가 -->
+	<update id="updateVisitNumber">
+		update tbl_visit_number set
+			visit_number = visit_number + 1
+		where year = #{year} and month = #{month} and day = #{day}
+	</update>
+</mapper>

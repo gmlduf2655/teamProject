@@ -14,12 +14,16 @@ public interface MessageService {
 	public List<MessageVo> getSenderMessageList(String sender, PagingDto pagingDto);
 	// 받는 메세지 조회
 	public List<MessageVo> getReceiverMessageList(String receiver, PagingDto pagingDto);
+	// 모든 메세지 조회
+	public List<MessageVo> getTotalMessageList(PagingDto pagingDto);
+	// 모든 메세지 수 조회
+	public int getCountTotalMessage(PagingDto pagingDto);	
 	// 메세지 첨부 파일 조회
 	public List<String> getFilenames(int messageno);
 	// 보내는 메세지 수 조회
-	public int getSenderMessageCount(String sender);
+	public int getSenderMessageCount(String sender, PagingDto pagingDto);
 	// 받는 메세지 수 조회
-	public int getReceiverMessageCount(String receiver);
+	public int getReceiverMessageCount(String receiver, PagingDto pagingDto);
 	// 메세지 번호로 메세지 조회
 	public MessageVo getMessageByMessageno(int messageno);
 	// 메세지 번호 얻기

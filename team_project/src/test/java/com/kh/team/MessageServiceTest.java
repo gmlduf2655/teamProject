@@ -14,6 +14,7 @@ import com.kh.team.dao.MessageDao;
 import com.kh.team.service.MessageService;
 import com.kh.team.vo.FollowVo;
 import com.kh.team.vo.MessageVo;
+import com.kh.team.vo.PagingDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
@@ -58,14 +59,28 @@ public class MessageServiceTest {
 	// 보내는 메세지 수 조회 테스트
 	@Test
 	public void testGetSenderMessageCount() {
-		int count = messageService.getSenderMessageCount("user01");
+		int count = messageService.getSenderMessageCount("user01", null);
 		System.out.println("MessageServiceTest, testGetSenderMessageCount, count : " + count);
+	}
+
+	// 모든 메세지 조회 테스트  + 모든 메세지 수 조회 테스트
+	@Test
+	public void testGetTotalMessageList() {
+		PagingDto pagingDto = new PagingDto();
+		int count = messageService.getCountTotalMessage(null);
+		System.out.println("MessageDaoTest, testSelectTotalMessageList, count : " + count);
+		pagingDto.setCount(count);
+		pagingDto.setPage(1);
+		List<MessageVo> messageList = messageService.getTotalMessageList(pagingDto);
+		for(MessageVo messageVo : messageList) {
+			System.out.println("MessageServiceTest, testGetTotalMessageList, messageVo : " + messageVo);
+		}		
 	}
 	
 	// 받는 메세지 수 조회 테스트
 	@Test
 	public void testGetReceiverMessageCount() {
-		int count = messageService.getReceiverMessageCount("user01");
+		int count = messageService.getReceiverMessageCount("user01", null);
 		System.out.println("MessageServiceTest, testGetReceiverMessageCount, count : " + count);
 	}
 	

@@ -28,14 +28,18 @@ public interface UserDao {
 	public UserVo selectUserByUsernoAndUserpw(int userno, String userpw);
 	// 회원 목록 조회
 	public List<UserVo> userList();
+	// 총 유저 수 조회
+	public int getCountUserList();
 	// 기존 회원 목록 조회
 	public List<UserVo> originUserList(PagingDto pagingDto);
 	// 기존 회원수 조회
-	public int getCountOriginUserList();
+	public int getCountOriginUserList(PagingDto pagingDto);
 	// 간편로그인 회원 목록 조회
 	public List<UserVo> snsUserList(PagingDto pagingDto);
 	// 간편로그인 회원수 조회
-	public int getCountSnsUserList();
+	public int getCountSnsUserList(PagingDto pagingDto);
+	// 각 간편로그인 유저 수 조회
+	public int getCountEachSnsUserList(String sns_type);
 	// 회원 수정
 	public boolean updateUser(UserVo userVo);
 	// 유저 비밀번호 수정

@@ -96,9 +96,9 @@
 			    		</when>
 			    		<when test='pagingDto.searchType == "tcu"'>
 			    			and (
-			    				#{message_title like '%' || pagingDto.keyword} || '%'
-			    				#{or message_content like '%' || pagingDto.keyword} || '%'
-			    				#{or receiver like '%' || pagingDto.keyword} || '%' 
+			    				message_title like '%' || #{pagingDto.keyword} || '%'
+			    				or message_content like '%' || #{pagingDto.keyword} || '%'
+			    				or receiver like '%' || #{pagingDto.keyword} || '%' 
 			    			)
 			    		</when>
 			    	</choose>
@@ -106,6 +106,61 @@
 			    order by groupno desc, re_seq asc, re_level asc
 		    ) a
 		) where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}		
+	</select>
+	
+	<!-- 모든 메세지 조회 -->
+	<select id="selectTotalMessageList" resultType="MessageVo">
+		select * from(
+			select rownum rnum, a.* from (
+				select * from tbl_message
+			    <if test='searchType != "" and searchType != null and keyword != "" and searchType != null'>
+			    	<choose>
+			    		<when test='searchType == "t"'>
+			    			where message_title like '%' || #{keyword} || '%' 
+			    		</when>
+			    		<when test='searchType == "c"'>
+			    			where message_content like '%' || #{keyword} || '%' 
+			    		</when>
+			    		<when test='searchType == "u"'>
+			    			where receiver like '%' || #{keyword} || '%' 
+			    		</when>
+			    		<when test='earchType == "tcu"'>
+			    			where (
+			    				message_title like '%' || #{keyword} || '%'
+			    				or message_content like '%' || #{keyword} || '%'
+			    				or receiver like '%' || #{keyword} || '%' 
+			    			)
+			    		</when>
+			    	</choose>
+			    </if>				
+				order by message_date desc
+			)a
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 모든 메세지 수 조회 -->
+	<select id="getCountTotalMessage" resultType="int">
+		select count(*) from tbl_message
+		<if test='searchType != "" and searchType != null and keyword != "" and searchType != null'>
+			<choose>
+				<when test='searchType == "t"'>
+			    	where message_title like '%' || #{keyword} || '%' 
+			    </when>
+			    <when test='searchType == "c"'>
+			    	where message_content like '%' || #{keyword} || '%' 
+			    </when>
+			    <when test='searchType == "u"'>
+			    	where receiver like '%' || #{keyword} || '%' 
+			    </when>
+			    <when test='earchType == "tcu"'>
+			    	where (
+			    		message_title like '%' || #{keyword} || '%'
+			    		or message_content like '%' || #{keyword} || '%'
+			    		or receiver like '%' || #{keyword} || '%' 
+			    	)
+			    </when>
+			</choose>
+		</if>
 	</select>
 	
 	<!-- 메세지 첨부 파일 조회 -->
@@ -118,12 +173,52 @@
 	<select id="selectSenderMessageCount" resultType="int">
 		select count(*) from tbl_message
 		where sender = #{sender} and sender_delete = 'F'
+		<if test='pagingDto.searchType != "" and pagingDto.searchType != null and pagingDto.keyword != "" and pagingDto.searchType != null'>
+			<choose>
+			    <when test='pagingDto.searchType == "t"'>
+			    	and message_title like '%' || #{pagingDto.keyword} || '%' 
+			    </when>
+			    <when test='pagingDto.searchType == "c"'>
+			    	and message_content like '%' || #{pagingDto.keyword} || '%' 
+			    </when>
+			    <when test='pagingDto.searchType == "u"'>
+			    	and receiver like '%' || #{pagingDto.keyword} || '%' 
+			    </when>
+			    <when test='pagingDto.searchType == "tcu"'>
+			    	and (
+			    		message_title like '%' || #{pagingDto.keyword} || '%'
+			    		or message_content like '%' || #{pagingDto.keyword} || '%'
+			    		or receiver like '%' || #{pagingDto.keyword} || '%' 
+			    	)
+			    </when>
+			</choose>
+		</if>		
 	</select>
 	
 	<!-- 받는 메세지 수 조회 -->
 	<select id="selectReceiverMessageCount" resultType="int">
 		select count(*) from tbl_message
 		where receiver = #{receiver} and receiver_delete = 'F'
+		<if test='pagingDto.searchType != "" and pagingDto.searchType != null and pagingDto.keyword != "" and pagingDto.searchType != null'>
+			<choose>
+			    <when test='pagingDto.searchType == "t"'>
+			    	and message_title like '%' || #{pagingDto.keyword} || '%' 
+			    </when>
+			    <when test='pagingDto.searchType == "c"'>
+			    	and message_content like '%' || #{pagingDto.keyword} || '%' 
+			    </when>
+			    <when test='pagingDto.searchType == "u"'>
+			    	and receiver like '%' || #{pagingDto.keyword} || '%' 
+			    </when>
+			    <when test='pagingDto.searchType == "tcu"'>
+			    	and (
+			    		message_title like '%' || #{pagingDto.keyword} || '%'
+			    		or message_content like '%' || #{pagingDto.keyword} || '%'
+			    		or receiver like '%' || #{pagingDto.keyword} || '%' 
+			    	)
+			    </when>
+			</choose>
+		</if>		
 	</select>
 	
 	<!-- 메세지 번호로 메세지 조회 -->

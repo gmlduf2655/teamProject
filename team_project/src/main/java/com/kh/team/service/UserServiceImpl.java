@@ -51,6 +51,12 @@ public class UserServiceImpl implements UserService {
 		return userList;
 	}
 	
+	// 총 유저 수 조회
+	public int getCountUserList() {
+		int count = userDao.getCountUserList();
+		return count;
+	}
+	
 	// 기존회원 목록 조회
 	@Override
 	public List<UserVo> getOriginUserList(PagingDto pagingDto) {
@@ -59,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// 기존 회원수 조회
-	public int getCountOriginUserList() {
-		int count = userDao.getCountOriginUserList();
+	public int getCountOriginUserList(PagingDto pagingDto) {
+		int count = userDao.getCountOriginUserList(pagingDto);
 		return count;
 	}
 
@@ -72,10 +78,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	// 간편로그인 회원수 조회
-	public int getCountSnsUserList() {
-		int count = userDao.getCountSnsUserList();
+	@Override
+	public int getCountSnsUserList(PagingDto pagingDto) {
+		int count = userDao.getCountSnsUserList(pagingDto);
 		return count;
 	}	
+	
+	// 각 간편로그인 유저 수 조회
+	@Override
+	public int getCountEachSnsUserList(String sns_type) {
+		int count = userDao.getCountEachSnsUserList(sns_type);
+		return count;
+	}
 	
 	// 아이디 중복체크
 	@Override

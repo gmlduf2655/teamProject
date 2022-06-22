@@ -24,11 +24,23 @@
 		li>a{
 			color:white;
 		}
-		#pagination a{
-			background-color:#e53637;
-			border-color:#e53637;
+		.page-item.active .page-link{
+		    z-index: 3;
 			color:white;
+			border-color:#e53637;
+			background-color:#e53637;
 		}
+		.page-link {
+		    position: relative;
+		    display: block;
+		    padding: 0.5rem 0.75rem;
+		    margin-left: -1px;
+		    line-height: 1.25;
+		    color: #e53637;
+		    background-color: #fff;
+		    border: 1px solid #dee2e6;
+		}
+		
 	</style>
     <script>
 		$(document).ready(function(){
@@ -134,7 +146,7 @@
 												class="page-item"		
 											</c:otherwise>
 										</c:choose>>
-										<a class="page-link move_page" href="/point/point_list?userno=${param.page}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
+										<a class="page-link move_page" href="/point/point_list?userno=${param.userno}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${pagingDto.endPage != pagingDto.totalPage}">

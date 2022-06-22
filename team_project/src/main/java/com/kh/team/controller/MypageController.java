@@ -87,7 +87,7 @@ public class MypageController {
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
 //		List<EventVo> eventList = eventService.list(pagingDto);
 		// 내가 참여한 이벤트 목록 얻어오기
-		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
+		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
@@ -141,12 +141,14 @@ public class MypageController {
 	
 	// 내가 쓴 리뷰 내역 페이지 이동
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
-	public String writeRiewList(Model model, int userno) {
-		PagingDto pagingDto = new PagingDto();
-		pagingDto.setPage(1);
-		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
-		int count = myReviewList.size();
+	public String writeRiewList(Model model, int userno, PagingDto pagingDto) {
+		System.out.println(pagingDto);
+		ReviewPagingDto reviewPagingDto = new ReviewPagingDto();
+		reviewPagingDto.setSearchType(pagingDto.getSearchType());
+		int count = reviewService.getCount(reviewPagingDto);
 		pagingDto.setCount(count);
+		pagingDto.setPage(pagingDto.getPage());
+		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
 		model.addAttribute("reviewList", myReviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/write_review_list";
@@ -156,9 +158,9 @@ public class MypageController {
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
 	public String participateEventList(Model model, PagingDto pagingDto, int userno) {
 		System.out.println("MypageController, participateEventList, pagingDto:"+pagingDto);
-		pagingDto.setPage(pagingDto.getPage());
-		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
 		pagingDto.setCount(participateEventService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list" ;

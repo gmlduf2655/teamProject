@@ -235,7 +235,7 @@
 								<c:if test="${pagingDto.searchType == 'u'}">selected</c:if>
 							>유저</option>
 							<option value="tcu"
-								<c:if test="${pagingDto.searchType == 'd'}">selected</c:if>
+								<c:if test="${pagingDto.searchType == 'tcu'}">selected</c:if>
 							>모두 포함</option>
 						</select>
 					</div>
@@ -340,7 +340,7 @@
 								href="${pagingDto.startPage-1}">이전</a></li>
 						</c:if>
 						<c:forEach var="i" begin="${pagingDto.startPage}"
-							end="${pagingDto.endPage}">
+							end="${pagingDto.totalPage}">
 							<li
 								<c:choose>
 									<c:when test="${i == pagingDto.page}">

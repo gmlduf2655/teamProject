@@ -46,8 +46,8 @@ public class PointServiceImpl implements PointService {
 	}
 
 	// 전체 유저 포인트 내역 수 조회
-	public int getCountPointList() {
-		int count = pointDao.getCountPointList();
+	public int getCountPointList(PagingDto pagingDto) {
+		int count = pointDao.getCountPointList(pagingDto);
 		return count;
 	}	
 	
@@ -59,8 +59,8 @@ public class PointServiceImpl implements PointService {
 	}
 	
 	// 특정 유저 포인트 내역 수 조회
-	public int getCountPointListByUserno(int userno) {
-		int count = pointDao.getCountPointListByUserno(userno);
+	public int getCountPointListByUserno(int userno, PagingDto pagingDto) {
+		int count = pointDao.getCountPointListByUserno(userno, pagingDto);
 		return count;
 	}
 
@@ -80,8 +80,8 @@ public class PointServiceImpl implements PointService {
 	
 	// 포인트 코드 목록 수 조회
 	@Override
-	public int getCountPointCodeList() {
-		int count = pointDao.getCountPointCodeList();
+	public int getCountPointCodeList(PagingDto pagingDto) {
+		int count = pointDao.getCountPointCodeList(pagingDto);
 		return count;
 	}
 	

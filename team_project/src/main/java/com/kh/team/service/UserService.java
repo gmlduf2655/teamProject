@@ -18,14 +18,18 @@ public interface UserService {
 	public UserVo getUserInfoByUserno(int userno);
 	// 회원 목록 조회
 	public List<UserVo> getUserList();
+	// 총 유저 수 조회
+	public int getCountUserList();
 	// 기존회원 목록 조회
 	public List<UserVo> getOriginUserList(PagingDto pagingDto);
 	// 기존 회원수 조회
-	public int getCountOriginUserList();	
+	public int getCountOriginUserList(PagingDto pagingDto);	
 	// 간편로그인회원 목록 조회
 	public List<UserVo> getSnsUserList(PagingDto pagingDto);
 	// 간편로그인 회원수 조회
-	public int getCountSnsUserList();
+	public int getCountSnsUserList(PagingDto pagingDto);
+	// 각 간편로그인 유저 수 조회
+	public int getCountEachSnsUserList(String sns_type);	
 	// 아이디 중복 체크
 	public boolean useridDuplCheck(String userid);
 	// 닉네임 중복체크
