@@ -1,12 +1,15 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.vo.MovieCommentVo;
+import com.kh.team.vo.PagingDto;
 
 @Repository
 public class MovieCommentDaoImpl implements MovieCommentDao {
@@ -18,7 +21,6 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	@Override
 	public boolean commentInsert(MovieCommentVo commentVo) {
 		int count = sqlSession.insert(NAMESPACE + "commentInsert", commentVo);
-		System.out.println("commentInsert" + commentVo);
 		if(count > 0) {
 			return true;
 		}
@@ -59,9 +61,26 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	}
 
 	@Override
-	public List<MovieCommentVo> commentListHole() {
-		List<MovieCommentVo> commentListhole = sqlSession.selectList(NAMESPACE+"commentListHole");
+	public List<MovieCommentVo> commentListHole(PagingDto commentpagingDto) {
+		List<MovieCommentVo> commentListhole = sqlSession.selectList(NAMESPACE+"commentListHole",commentpagingDto);
 		return commentListhole;
+	}
+
+	@Override
+	public int getCountmoviecomment(PagingDto commentpagingDto) {
+		String searchType = commentpagingDto.getSearchType();
+		String keyword = commentpagingDto.getKeyword();
+		int count = 0;
+		if(searchType == null || keyword == null) {
+			count = sqlSession.selectOne(NAMESPACE+"getCountmoviecomment");
+		} else {
+			Map<String, String> parameter = new HashMap<String, String>();
+			parameter.put("searchType",searchType );
+			parameter.put("keyword", keyword);
+			count = sqlSession.selectOne(NAMESPACE+"getCountmoviecomment",parameter);
+		}
+		System.out.println("count, commentpagingDto" + commentpagingDto);
+		return count;
 	}
 
 }

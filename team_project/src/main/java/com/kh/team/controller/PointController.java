@@ -68,6 +68,7 @@ public class PointController {
 		return "redirect:/mypage/main?userno=" + pointVo.getUserno();
 	}
 	
+	
 	// 카카오 페이 결제 설공
 	@RequestMapping(value="/kakao_pay_success", method=RequestMethod.GET)
 	public String kakaoPaySuccess(HttpSession session, Model model, String pg_token, int point_code) throws ParseException {
@@ -197,6 +198,7 @@ public class PointController {
 						"&cancel_url=http://localhost/point/kakao_pay_cancel";
 			OutputStream out = connection.getOutputStream();
 			DataOutputStream dataOut = new DataOutputStream(out);
+			
 			dataOut.writeBytes(parameter1);
 			dataOut.writeUTF(item_name);
 			dataOut.writeBytes(parameter2);

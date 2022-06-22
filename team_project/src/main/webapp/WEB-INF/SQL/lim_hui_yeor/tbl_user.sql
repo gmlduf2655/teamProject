@@ -25,6 +25,8 @@ alter table tbl_user modify (status char(1) default '1' check(status='1' or stat
 alter table tbl_user modify (cellphone char(13));
 -- 아이디 컬럼 변경
 alter table tbl_user modify (userid varchar2(50));
+-- 닉네임 컬럼 변경
+alter table tbl_user modify (nickname varchar2(30));
 
 --제약조건 삭제-----------------------------------------
 -- check(status=='T' or status=='F') 제약조건 삭제

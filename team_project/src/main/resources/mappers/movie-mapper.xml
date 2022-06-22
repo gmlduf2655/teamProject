@@ -32,9 +32,22 @@
 		select * from tbl_movie
 		where movie_code = #{movie_code}
 	</select>
+	
 	<!-- 영화 존재여부 -->
 	<select id="movieInfoByMovieCodeExist" resultType="int">
 		select count(*) from tbl_movie
   		where movie_code = #{movie_code}
+	</select>
+	
+	<!-- 임희열 : 전체 영화 수 -->
+	<select id="getCountTotalMovie" resultType="int">
+		select count(*) from tbl_movie
+	</select>
+	
+	<!-- 임희열 : 장르별 영화 수 -->
+	<select id="getCountMovieGroupByGenre" resultType="map">
+		select count(*) "count", movie_genre "movie_genre"
+		from tbl_movie 
+		group by movie_genre
 	</select>
 </mapper>

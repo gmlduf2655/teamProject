@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.team.dao.MovieCommentDao;
 import com.kh.team.vo.MovieCommentVo;
+import com.kh.team.vo.PagingDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
@@ -17,6 +18,7 @@ public class TestMovieComment {
 
 	@Autowired
 	private MovieCommentDao movieCommentDao;
+	private PagingDto pagingDto;
 	
 	@Test
 	public void testinsertComment() {
@@ -54,7 +56,7 @@ public class TestMovieComment {
 	
 	@Test
 	public void testcommentListHole() {
-		List<MovieCommentVo> result = movieCommentDao.commentListHole();
+		List<MovieCommentVo> result = movieCommentDao.commentListHole(pagingDto);
 		System.out.println("testcommentListHole, result : " + result);
 	}
 }

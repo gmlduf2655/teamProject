@@ -1,7 +1,10 @@
 package com.kh.team.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.team.service.EventService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.MovieCommentService;
+import com.kh.team.service.MovieService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.service.WinnerService;
@@ -46,11 +50,39 @@ public class AdminController {
 	private ParticipateEventService participateEventService;
 	@Autowired
 	private MovieCommentService moviecommentService;
+	@Autowired
+	private MovieService movieService;
 	
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
-	public String adminPage() {
+	public String adminPage(Model model) {
 		System.out.println("관리자페이지");
+		int totalUserCount = userService.getCountUserList();
+		int originUserCount = userService.getCountOriginUserList();
+		int snsUserCount = userService.getCountSnsUserList();
+		int naverUserCount = userService.getCountEachSnsUserList("naver");
+		int googleUserCount = userService.getCountEachSnsUserList("google");
+		int totalMovieCount = movieService.getCountTotalMovie();
+		System.out.println("totalMovieCount : " + totalMovieCount);
+		List<Map<String, Object>> movieGenreCountMap = movieService.getCountMovieGroupByGenre();
+		JSONObject obj = new JSONObject();
+		
+		model.addAttribute("totalUserCount", totalUserCount);
+		model.addAttribute("originUserCount", originUserCount);
+		model.addAttribute("snsUserCount", snsUserCount);
+		model.addAttribute("naverUserCount", naverUserCount);
+		model.addAttribute("googleUserCount", googleUserCount);
+		model.addAttribute("totalMovieCount", totalMovieCount);
+		model.addAttribute("obj", obj);
+		
 		return "admin/manage";
+	}
+	
+	@RequestMapping(value = "/get_movie_genre_count", method = RequestMethod.GET, produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String getMovieGenreCount() {
+		List<Map<String, Object>> movieGenreCountMap = movieService.getCountMovieGroupByGenre();
+		String movieGenreCount =JSONArray.toJSONString(movieGenreCountMap);
+		return movieGenreCount;
 	}
 	
 	// 관리자 페이지 이벤트 관리 - 이벤트 목록
@@ -234,12 +266,19 @@ public class AdminController {
 			boolean result = moviecommentService.commentAdminUpdate(cno);
 			return "redirect:/admin/movie_comment";
 		}	
-	// 유수연 - 영화 댓글 블럭 
+	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
-		public String commentlistHole(Model model) {
-			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole();
-			System.out.println("commentlistHole: " + commentlistHole);
+		public String commentlistHole(Model model,PagingDto commentpagingDto) {
+			commentpagingDto.setCount(moviecommentService.getCountmoviecomment(commentpagingDto));
+			System.out.println(commentpagingDto.getCount());
+			commentpagingDto.setPage(commentpagingDto.getPage());
+			
+			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(commentpagingDto);
+			
+	//		System.out.println(pagingDto);
+	//		System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
+			model.addAttribute("commentpagingDto", commentpagingDto);
 			return "admin/movie_comment";
 		}	
 }

@@ -340,7 +340,7 @@
 								href="${pagingDto.startPage-1}">이전</a></li>
 						</c:if>
 						<c:forEach var="i" begin="${pagingDto.startPage}"
-							end="${pagingDto.endPage}">
+							end="${pagingDto.totalPage}">
 							<li
 								<c:choose>
 									<c:when test="${i == pagingDto.page}">

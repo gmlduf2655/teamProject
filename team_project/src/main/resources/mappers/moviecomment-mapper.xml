@@ -40,10 +40,53 @@
 		where cno = #{cno}
 	</update>
 	
-	<!-- 유수연 전체 코멘트 리스트  -->
+	<!-- 유수연 코멘트 리스트  -->
 	<select id="commentListHole" resultType="MovieCommentVo">
-		select * from tbl_movie_comment
-		order by cno desc
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_movie_comment
+				<include refid="searchMoviecomment"></include>
+				order by cno desc) a)
+		where rnum between #{startRow} and #{endRow}
+		<!-- select * from tbl_movie_comment
+				order by cno desc -->
 	</select>
+	
+	<!-- 유수연 글 갯수 -->
+	<select id="getCountmoviecomment" resultType="int">
+		select count(*) from tbl_movie_comment
+		<include refid="searchMoviecomment"></include>
+	</select>
+	
+	<!-- 검색 조건 -->
+		<sql id="searchMoviecomment">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					where movie_name like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
+    				</when>
+    				<when test='searchType == "c"'>
+    					where movie_comment like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
+    				</when>
+    				<when test='searchType == "w"'>
+    					where userid like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
+    				</when>
+    				<when test='searchType == "tc"'>
+    					where movie_name like '%' || #{keyword} || '%'
+    					or    movie_comment like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
+    				</when>
+    				<when test='searchType == "tcw"'>
+    					where movie_name like '%' || #{keyword} || '%'
+    					or    movie_comment like '%' || #{keyword} || '%'
+    					or    userid like '%' || #{keyword} || '%'
+    					and admin_delete <![CDATA[is null]]>
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
 	
 </mapper>

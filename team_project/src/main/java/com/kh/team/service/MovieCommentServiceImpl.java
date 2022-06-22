@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.MovieCommentDao;
 import com.kh.team.vo.MovieCommentVo;
+import com.kh.team.vo.PagingDto;
 
 @Service
 public class MovieCommentServiceImpl implements MovieCommentService {
@@ -45,9 +46,15 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 	}
 
 	@Override
-	public List<MovieCommentVo> commentListHole() {
-		List<MovieCommentVo> commentlistHole = commentDao.commentListHole();
+	public List<MovieCommentVo> commentListHole(PagingDto commentpagingDto) {
+		List<MovieCommentVo> commentlistHole = commentDao.commentListHole(commentpagingDto);
 		return commentlistHole;
+	}
+
+	@Override
+	public int getCountmoviecomment(PagingDto commentpagingDto) {
+		int count = commentDao.getCountmoviecomment(commentpagingDto);
+		return count;
 	}
 
 }
