@@ -1,5 +1,7 @@
 package com.kh.team.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,12 @@ public class AttendanceDaoImpl implements AttendanceDao {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<AttendanceVo> attendList(int userno) {
+		List<AttendanceVo> attendList = sqlSession.selectList(NAMESPACE + "list", userno);
+		return attendList;
 	}
 
 }

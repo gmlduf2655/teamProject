@@ -198,52 +198,102 @@ function calendarInit() {
         // 오늘 날짜 표기
         if (today.getMonth() == currentMonth) {
             todayDate = today.getDate();
+            console.log("todayDate:", todayDate);
             var currentMonthDate = document.querySelectorAll('.dates .current');
             currentMonthDate[todayDate -1].classList.add('today');
-            console.log("currentMonthDate:", currentMonthDate[todayDate]);
         }
     }
 
-    // 이전달로 이동
-    $('.go-prev').on('click', function() {
-        thisMonth = new Date(currentYear, currentMonth - 1, 1);
-        renderCalender(thisMonth);
-    });
+//     // 이전달로 이동
+//     $('.go-prev').on('click', function() {
+//         thismonth = new date(currentyear, currentmonth - 1, 1);
+//         rendercalender(thismonth);
+//     });
 
-    // 다음달로 이동
-    $('.go-next').on('click', function() {
-        thisMonth = new Date(currentYear, currentMonth + 1, 1);
-        renderCalender(thisMonth); 
-    });
+//     // 다음달로 이동
+//     $('.go-next').on('click', function() {
+//         thismonth = new date(currentyear, currentmonth + 1, 1);
+//         rendercalender(thismonth); 
+//     });
 }
 
 //  출석 버튼
 $(document).ready(function(){
+	
+	
+	
+	getAttendList();
 	$("#btnAttend").click(function(){
 		console.log("클릭"); 
 		var url = "/event/attendanceRun";
-		var userno = "${loginUserVo.userno}";
 		var sData = {
-				"userno" : userno
+				"userno" : "${loginUserVo.userno}"
 		};
 		console.log(sData);
 		$.post(url, sData, function(rData){
 			console.log("rData:", rData);
 			$(".current.today").css("background-color", "rgb(242 242 242)");
+			getAttendList();
+			
+			
 		});
 		
-		
 	});
+	
+	function getAttendList(){
+		var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+	    var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+	    var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+	    var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+		var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+		var currentMonth = thisMonth.getMonth();
+		var userno = "${loginUserVo.userno}";
+		var url = "/event/attendList/" + userno;
+		$.get(url, function(rData) {
+			console.log("출석 리스트 rData:",rData);
+			$.each(rData, function() {
+				var attend_date = this.attend_date;
+				console.log("attend_date:", attend_date);
+				var month = attend_date.slice(5, 7); // 출석한 달
+				console.log("month:", month);
+				var date = attend_date.slice(8, 10); // 출석한 날짜
+				console.log("date:", date);
+ 				if (month == currentMonth + 1) {
+ 		            var currentMonthDate = document.querySelectorAll('.dates .current');
+ 		            currentMonthDate[date -1].classList.add('chk');
+ 		           $(".current.chk").css("background-color", "rgb(242 242 242)");
+ 		          
+ 		        }
+				
+			});
+			
+		});
+	};
 });
 </script>
 
-<div class="container" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
-<button class="btn btn-info" id="btnAttend">출석</button>
-<div class="sec_cal">
-  <div class="cal_nav">
-    <a href="javascript:;" class="nav-btn go-prev" style="color: white;">prev</a>
-    <div class="year-month"></div>
-    <a href="javascript:;" class="nav-btn go-next" style="color: white;">next</a>
+<!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>출석체크</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+<div class="container">
+
+<div class="sec_cal" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px; padding: 30px;">
+   <button class="btn btn-info" id="btnAttend">출석</button>
+   <div class="cal_nav">
+<!--     <a href="javascript:;" class="nav-btn go-prev" style="color: white;">prev</a> -->
+     <div class="year-month"></div> 
+<!--     <a href="javascript:;" class="nav-btn go-next" style="color: white;">next</a> -->
   </div>
   <div class="cal_wrap">
     <div class="days">

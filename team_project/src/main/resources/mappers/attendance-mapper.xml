@@ -4,12 +4,18 @@
 
 <mapper namespace="com.kh.team.mappers.attendance">
 
-	<!-- 글 등록 -->
+	<!-- 출석 -->
 	<insert id="insert">
 		insert into tbl_attendance
 			(attend_no, attend_check, userno)
 		values
 			(seq_attendance_attendno.nextval, 'y', #{userno})
 	</insert>
+	
+	<!-- 출석 했던거 목록 -->
+	<select id="list" resultType="AttendanceVo">
+		select * from tbl_attendance
+		where userno = #{userno}
+	</select>
 
 </mapper>

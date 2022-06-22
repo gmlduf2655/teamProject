@@ -1,5 +1,7 @@
 package com.kh.team.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public boolean insert(AttendanceVo attendanceVo) {
 		boolean result = attendanceDao.insert(attendanceVo);
 		return result;
+	}
+
+	@Override
+	public List<AttendanceVo> attendList(int userno) {
+		List<AttendanceVo> attendList = attendanceDao.attendList(userno);
+		return attendList;
 	}
 
 }
