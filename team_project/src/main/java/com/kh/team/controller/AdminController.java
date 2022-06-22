@@ -1,5 +1,6 @@
 package com.kh.team.controller;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
+import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventVo;
@@ -52,19 +54,27 @@ public class AdminController {
 	private MovieCommentService moviecommentService;
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private VisitNumberService visitNumberService;
 	
+	// 임희열 : 관리자 메인 페이지
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String adminPage(Model model) {
-		System.out.println("관리자페이지");
-		int totalUserCount = userService.getCountUserList();
-		int originUserCount = userService.getCountOriginUserList();
-		int snsUserCount = userService.getCountSnsUserList();
-		int naverUserCount = userService.getCountEachSnsUserList("naver");
-		int googleUserCount = userService.getCountEachSnsUserList("google");
-		int totalMovieCount = movieService.getCountTotalMovie();
-		System.out.println("totalMovieCount : " + totalMovieCount);
-		List<Map<String, Object>> movieGenreCountMap = movieService.getCountMovieGroupByGenre();
-		JSONObject obj = new JSONObject();
+		int totalUserCount = userService.getCountUserList(); // 총 유저 수
+		int originUserCount = userService.getCountOriginUserList(); // 기존 유저(Mover) 수
+		int snsUserCount = userService.getCountSnsUserList(); // 간편 로그인 유저 수
+		int naverUserCount = userService.getCountEachSnsUserList("naver"); // 네이버 간편로그인 유저 수
+		int googleUserCount = userService.getCountEachSnsUserList("google"); // 구글 간편로그인 유저 수
+		int totalMovieCount = movieService.getCountTotalMovie(); // 총 영화 수
+		
+		// 오늘 날짜를 구하기 위해 사용
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		int monthVisitorCount = visitNumberService.getMonthVisitNumber(year, month); // 이번 달 방문자 수
+		int dailyVisitorCount = visitNumberService.getTodayVisitNumber(year, month, day); // 오늘 방문자 수
 		
 		model.addAttribute("totalUserCount", totalUserCount);
 		model.addAttribute("originUserCount", originUserCount);
@@ -72,11 +82,13 @@ public class AdminController {
 		model.addAttribute("naverUserCount", naverUserCount);
 		model.addAttribute("googleUserCount", googleUserCount);
 		model.addAttribute("totalMovieCount", totalMovieCount);
-		model.addAttribute("obj", obj);
+		model.addAttribute("monthVisitorCount", monthVisitorCount);
+		model.addAttribute("dailyVisitorCount", dailyVisitorCount);
 		
 		return "admin/manage";
 	}
 	
+	// 장르와 장르별 영화 수를 ajax로 받아옴
 	@RequestMapping(value = "/get_movie_genre_count", method = RequestMethod.GET, produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String getMovieGenreCount() {
@@ -96,7 +108,7 @@ public class AdminController {
 			return "admin/event_admin_list";
 		}
 		
-	// 유저 관리
+	// 유저 관리 (삭제 예정)
 	@RequestMapping(value="/user_list", method=RequestMethod.GET)
 	public String userList(Model model) {
 //		List<UserVo> originUserList = userService.getOriginUserList();

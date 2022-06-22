@@ -51,6 +51,12 @@
 		id="loginAuthInterceptor"		
 	></beans:bean>
 	
+	<!-- 방문자 수 인터셉터를 위한 bean -->
+	<beans:bean
+		class="com.kh.team.interceptor.VisitorInterceptor"
+		id="visitorInterceptor"		
+	></beans:bean>
+	
 	<!-- 임희열 : 인터셉터 -->
 	<interceptors>
 		<interceptor>
@@ -63,6 +69,10 @@
 			<mapping path="/mypage/change_password_form"/>
 			<mapping path="/mypage/unregister_form"/>
 			<beans:ref bean="loginAuthInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/*"/>
+			<beans:ref bean="visitorInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
