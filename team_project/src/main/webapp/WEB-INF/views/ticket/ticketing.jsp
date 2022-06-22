@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 <style>
@@ -12,8 +12,30 @@
 	
 }
 
-.ticketing .choise {
-	background: white;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ticketing .ticketTable li {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.ticketing .ticketTable .choise {
+	opacity: 1;
+	font-weight: bold;
+	color: black;
+}
+
+.ticketing .choise * {
+	font-weight: inherit;
+}
+
+.ticketing .viewType li,
+.ticketing .roomTypeNav li {
+	color: #BBB;
 }
 
 .ticketing .ticketTable {
@@ -48,6 +70,10 @@
 
 .ticketing .choiseDate input.dateYYYY {
 	min-width: 6.5em;
+}
+
+input.form-control.dateMM, input.form-control.dateDD {
+	max-width: 5.8em;
 }
 
 .ticketing .cinemaSection > ul,
@@ -91,14 +117,178 @@
 	margin: 0.6em 0;
 }
 
+.ticketing .movieList .movieName,
+.ticketing .movieList .yearUseMark {
+	font-size: 1em;
+}
+
+.ticketing .movieList .yearUseMark {
+	position: relative;
+	display: inline-block;
+	background: gray;
+	border-radius: 50%;
+	color: white;
+	padding: 0.1em;
+	width: 1.5em;
+	height: 1.5em;
+}
+
+
+.ticketing .movieList .yearUseMark.ym00 {
+	background: green;
+}
+
+.ticketing .movieList .yearUseMark.ym00::after {
+	content: "전체";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	font-size: 0.6em;
+}
+
+.ticketing .movieList .yearUseMark.ym12 {
+	background: skyblue;
+}
+
+.ticketing .movieList .yearUseMark.ym12::after {
+	content: "12";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	font-size: 0.8em;
+}
+
+.ticketing .movieList .yearUseMark.ym15 {
+	background: orange;
+}
+
+.ticketing .movieList .yearUseMark.ym15::after {
+	content: "15";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	font-size: 0.8em;
+}
+
+.ticketing .movieList .yearUseMark.ym19 {
+	background: #FF243E;
+}
+
+.ticketing .movieList .yearUseMark.ym19::after {
+	content: "청불";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	font-size: 0.6em;
+}
+
+.ticketing .movieList li {
+	padding-top: 0.5em;
+	position: relative;
+}
+
+.ticketing .movieList li:first-child {
+	margin-top: -0.5em;
+}
+
+.ticketing .movieList .gridViewer li {
+	margin-bottom: 1em;
+}
+
+.ticketing .movieList .movieName {
+	font-size: 0.9em;
+	position: absolute;
+	top: 1.2em;
+	padding-left: 0.5em;
+    white-space: nowrap;
+}
+
+.ticketing .movieList .stackViewer,
+.ticketing .movieList .gridViewer {
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 42em;
+}
+
+
+.ticketing .movieList .timelineList {
+	overflow-y: auto;
+	height: 40em;
+}
+
+.ticketing .movieList .stackViewer .movieName {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 80%;
+}
+
+.ticketing .movieList .gridViewer .movieName {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 55%;
+}
+
+.ticketing .movieList h5 {
+	padding-top: 0.4em;
+}
+
+.ticketing .movieList .movieInfo ul li {
+	line-height: 0.7;
+	display: block;
+}
+
+.ticketing .movieList .movieInfo ul li:before {
+	content: "- ";
+}
+
+.ticketing .cinemaSection li {
+	position: relative;
+}
+
+.ticketing .cinemaSection li > i,
+.ticketing .movieList i {
+	position: absolute;
+	right: 0;
+	top: 50%;
+ 	transform: translateY(-50%); 
+}
+
 .ticketing .searchNav,
 .ticketing .dateNav {
 	padding-bottom: 0.6em;
 	border-bottom: 0.1px solid #ddd;
 }
 
+.ticketing .choise i.choise {
+	display: inherit;
+}
+
+.ticketing i.choise {
+	display: none;
+}
+
+.ticketing .ticketTable .stepGuideContainer > div:nth-child(n + 2):nth-child(-n + 4) {
+	border-top: 0.1px solid #ddd;
+}
+
 .ticketing .ticketTable div:nth-child(n + 2):nth-child(-n + 3) .sectionTitle {
 	border-right: 0.1px solid #3f3f3f;
+}
+
+.ticketing .ticketTable div .sectionTitle:last-child {
+	border-right: 5px solid black;
 }
 
 
@@ -123,6 +313,7 @@
 
 .ticketing .stepGuideContainer .nowStep {
 	background: #FF243E;
+	color: white;
 }
 
 .ticketing .stepGuideContainer > div {
@@ -152,10 +343,11 @@
 	display: inline-block;
 }
 
-.ticketing .cinemaSection > .choiseLocal,
-.ticketing .cinemaSection > .cinemaList {
-	height: 100%;
+.ticketing .cinemaSection .choiseLocal,
+.ticketing .cinemaSection .cinemaList {
+	height: 47em;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .ticketing .sectionTitle {
@@ -188,6 +380,25 @@
 	height: 100%;
 }
 
+.ticketing .movieList img {
+	height: 6em;
+	width: 4.5em;
+	border-radius: 0.3em;
+	float: left;
+	margin-right: 0.8em;
+}
+
+.ticketing .movieInfo {
+	pointer-events: none;
+	margin-top: 0.8em;
+	font-size: 0.7em;
+}
+
+.ticketing .movieList .stackViewer .moviePoster,
+.ticketing .movieList .stackViewer .movieInfo {
+	display: none;
+}
+
 .xyCenterContainer {
 	width: 100%;
 	height: 100%;
@@ -202,20 +413,103 @@
 }
 
 </style>
-<!-- 
-**** 해당 월의 마지막 날짜 알아내기 ****
-var date = new Date(년, 월, 0);
-date.getDate(); //마지막 날짜
 
+<script type="text/javascript">
+$(function(){ /* 준비 핸들러 */
+	
+	/* 상영 스케줄 검색 시 년,월, 일 변경 시 */
+	$(".dateYYYY, .dateMM, .dateDD").change(function(){
+		var changeTarget = $(".ticketTable").find(".sectionTitle").eq(2);
+		
+		var inputDateY = $(".dateYYYY").val();
+		var inputDateM = $(".dateMM").val();
+		var inputDateD = $(".dateDD").val();
+		var mLastdate = new Date(inputDateY, inputDateM, 0).getDate();
+		
+		// 일자 입력란에 해당 년, 월 마지막일  max값 지정 
+		$(".dateDD").attr("max", mLastdate);
+		
+		// 일자 입력란에 해당 년, 월 마지막일  자동 입력
+		var targetVal = $(".dateDD").val();
+		if (targetVal > mLastdate) {
+			$(".dateDD").val(mLastdate);
+		}
+		
+		// 상영 스케줄 제목 란에 값이 변경될때마다 자동 입력
+		var changeFullDate = inputDateY + "-" + inputDateM + "-" + inputDateD;
+		console.log(changeFullDate);
+		changeTarget.text(changeFullDate);
+		
+		// 변경된 값이 오늘 날짜와 일치하면 끝에 " (오늘)"문자열 자동 추가
+		var inputText = " (오늘)";
+		if (/* 오늘날짜와 비교  && */!changeTarget.text().includes(inputText)) {
+			changeTarget.append(inputText);
+		}
+		
+	}); /* 상영 스케줄 검색 시 년,월, 일 변경 시 끝 */
+	
+	/* 클릭한 대상 표시 */
+	$(".ticketTable").on("click", "li", function(){
+		/* 클릭하면 클릭한 대상에 .choise 추가 */
+		$(this).addClass("choise");
+		/* this를 제외한 나머지에 .choise를 지움 */
+		$(this).parent().children("li").not(this).removeClass("choise");
+	}); /* 클릭한 대상 표시 끝 */
+	
+	/* 영화 목록 간단히 보기 클릭시 리스트의 클래스 추가/제거 */
+	$(".ticketTable").on("click", ".btnStackView", function(){
+		var tempSave = $(".gridViewer");
+		tempSave.removeClass("gridViewer");
+		tempSave.addClass("stackViewer");
+	}); /* 영화 목록 간단히 보기 클릭시 리스트의 클래스 추가/제거  끝*/
+	
+	/* 영화 목록 자세히 보기 클릭시 리스트의 클래스 추가/제거 */
+	$(".ticketTable").on("click", ".btnGridView", function(){
+		var tempSave = $(".stackViewer");
+		tempSave.removeClass("stackViewer");
+		tempSave.addClass("gridViewer");
+	}); /* 영화 목록 자세히 보기 클릭시 리스트의 클래스 추가/제거 끝 */
+	
+	
+	/* 영화관 지역 클릭 시 */
+	$(".choiseLocal").on("click", "li", function(){
+		var cityName = $(this).text();
+		
+		var url = "/ticket/getCinemaList";
+		var sData = {
+			"search_data" : cityName
+		}
+		$.get(url, sData, function(rData){
+			console.log(rData);
+			var insertHtml = "";
+			$.each(rData, function(){
+				insertHtml += `
+					<li data-cinema_no="` + this.cinema_no + `">` + this.cinema_name + `<i class="bi bi-check-lg choise"></i></li>
+				`;
+			});
+			$(".cinemaList").html(insertHtml);
+		});
+	}); /* 영화관 지역 클릭 시  끝 */
+	
+	/* 조회된 영화관 목록 클릭 시 */
+	$(".cinemaList").on("click", "li", function(){
+		var cinema_name = $(this).text();
+		// 클릭한 영화관 이름을 영화관 섹션 제목에 넣기
+		$(this).parents(".choiseCinemaContainer").children(".sectionTitle").text(cinema_name);
+		var cinema_no = $(this).attr("data-cinema_no");
+		var url = "/ticket/getMovieAndTimelineList";
+		var sData = {
+			"cinema_no" : cinema_no
+		}
+		$.get(url, sData, function(rData){
+			console.log(rData);
+		});
+		
+	}); /* 조회된 영화관 목록 클릭 시 끝*/
+	
+}); /* 준비 핸들러 끝 */
+</script>
 
-//사용예
-new Date(2020, 1, 0).getDate(); //31
-new Date(2020, 2, 0).getDate(); //29
-new Date(2020, 3, 0).getDate(); //31
-new Date(2020, 4, 0).getDate(); //30
-new Date(2020, 5, 0).getDate(); //31
-new Date(2020, 6, 0).getDate(); //30
- -->
 <div class="ticketing">
 	<div class="container">
 		<div class="row justify-content-md-center">
@@ -250,16 +544,13 @@ new Date(2020, 6, 0).getDate(); //30
 					<div class="col choiseCinemaContainer">
 						<div class="sectionTitle">영화관</div>
 						<div class="row no-gutters cinemaSection">
-							<ul class="col-5 choiseLocal">
-								<li>내 지역<i class="bi bi-check-lg"></i></li>
+							<ul class="col-4 choiseLocal">
 								<c:forEach items="${cinemaCityList}" var="citys">
-									<li>${citys}</li>
+									<li>${citys}<i class="bi bi-check-lg choise"></i></li>
 								</c:forEach>
 							</ul>
-							<ul class="col-7 cinemaList">
-								<li>울산 삼산점<i class="bi bi-check-lg"></i></li>
-								<li>울산 성남점</li>
-								<li>울산 중구점</li>
+							<ul class="col cinemaList">
+								<li style="pointer-events: none;">지역을 선택해주세요.<i class="bi bi-check-lg choise"></i></li>
 							</ul>
 						</div>
 					</div>
@@ -268,18 +559,18 @@ new Date(2020, 6, 0).getDate(); //30
 						<div class="row no-gutters searchNav">
 							<div class="col searchSelect">
 								<select class="selectpicker movieOrderColumn">
-									<option>예매순</option>
-									<option>평점순</option>
+									<option selected>예매순</option>
+									<option>영화이름순</option>
 								</select>
 							</div>
 							<div class="col-3 viewType">
 								<ul class="row no-gutters">
-									<li class="col xyCenterContainer">
+									<li class="col xyCenterContainer btnStackView choise">
 										<a class="centerContent">
 											<i class="bi bi-list"></i>
 										</a>
 									</li>
-									<li class="col xyCenterContainer">
+									<li class="col xyCenterContainer btnGridView">
 										<a class="centerContent">
 											<i class="bi bi-grid"></i>
 										</a>
@@ -289,21 +580,38 @@ new Date(2020, 6, 0).getDate(); //30
 							</div>
 						</div>
 						<div class="movieList">
-							<ul>
-								<li>
-									<h5>
-										<strong class="yearUseMark">15</strong>
-										<span>영화이름</span>
-										<i class="bi bi-check-lg"></i>
-									</h5>
-								</li>
-								<li>
-									<h5>
-										<strong class="yearUseMark">15</strong>
-										<span>영화이름</span>
-										<i class="bi bi-check-lg"></i>
-									</h5>
-								</li>
+							<ul class="stackViewer"> <!-- 클래스명을 stackViewer / gridViewer 로 바꾸면 리스트 형태 변경 -->
+								<c:forEach items="${movieList}" var="movieVo">
+									<li data-movie_code="${movieVo.movie_code}">
+										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'">
+										<h5>
+											<strong class="yearUseMark 
+											<c:choose>
+												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '전체'}">
+													ym00
+												</c:when>
+												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '12'}">
+													ym12
+												</c:when>
+												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '15'}">
+													ym15
+												</c:when>
+												<c:when test="${movieVo.movie_audits == '청소년관람불가'}">
+													ym19
+												</c:when>
+											</c:choose>
+											"></strong>
+											<span class="movieName">${movieVo.movie_name}</span>
+											<i class="bi bi-check-lg choise"></i>
+										</h5>
+										<div class="movieInfo">
+											<ul>
+												<li><strong>개봉일 : </strong>${movieVo.opening_date}</li>
+												<li><strong>러닝타임 : </strong>${movieVo.runningtime} 분</li>
+											</ul>
+										</div>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -320,12 +628,16 @@ new Date(2020, 6, 0).getDate(); //30
 							<div class="roomTypeNav">
 								<ul class="row no-gutters">
 									<c:forEach items="${roomTypeList}" var="roomTypes">
-										<li class="col">${roomTypes.room_type_name}</li>
+										<li class="col 
+											<c:if test="${roomTypes.room_type_name == 'Digital'}">
+												choise
+											</c:if>
+										">${roomTypes.room_type_name}</li>
 									</c:forEach>
 								</ul>
 							</div>
 						</div>
-						<div>
+						<div class="timelineList">
 							<div class="notListInfo">
 								<div class="display-4 text-center"><i class="bi bi-film"></i></div>
 								<div class="text-center">조회 가능한 상영시간이 없습니다.<br>조건을 변경해주세요.</div>
