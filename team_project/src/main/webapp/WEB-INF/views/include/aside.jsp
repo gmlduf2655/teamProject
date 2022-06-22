@@ -80,6 +80,7 @@
 						</c:choose>
 					</h5>
 					<c:if test="${not empty loginUserVo}">
+						<a class="site-btn btn-sm" style="padding:6px 15px;" href="/event/attendance">출석</a>
 						<a class="site-btn btn-sm" style="padding:6px 15px;" href="/message/message_list?page=1&type=receive">쪽지함</a>
 						<a class="site-btn btn-sm" style="padding:6px 15px;" href="/user/logout">로그아웃</a>
 					</c:if>

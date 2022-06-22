@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.team.util.EventFileUploader;
+import com.kh.team.service.AttendanceService;
 import com.kh.team.service.EventService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.WinnerService;
+import com.kh.team.vo.AttendanceVo;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
@@ -35,6 +37,9 @@ public class EventController {
 	
 	@Autowired
 	private ParticipateEventService participateEventService;
+	
+	@Autowired
+	private AttendanceService attendanceService;
 	
 	// 이벤트 게시글 목록
 	@RequestMapping(value = "/event_list", method = RequestMethod.GET)
@@ -244,6 +249,21 @@ public class EventController {
 	public String insertParticipateEvent(ParticipateEventVo vo, int event_no) {
 		System.out.println("EventController, insertParticipateEvent, ParticipateEventVo:" + vo);
 		boolean result = participateEventService.insert(vo);
+		return String.valueOf(result);
+	}
+	
+	// 
+	@RequestMapping(value = "/attendance", method = RequestMethod.GET)
+	public String attendance(){
+		return "event/attendance";
+	}
+	
+	// 출석
+	@RequestMapping(value = "/attendanceRun", method = RequestMethod.POST)
+	@ResponseBody
+	public String attendanceInsert(AttendanceVo attendanceVo){
+		System.out.println("EventController, attendanceInsert, AttendanceVo:" + attendanceVo);
+		boolean result = attendanceService.insert(attendanceVo);
 		return String.valueOf(result);
 	}
 }

@@ -141,7 +141,7 @@
                                 		class="active"
                                 	</c:if>								
 								>
-									<a href="/review/review_list">평점/리뷰</a>
+									<a href="/review/review_list?page=1">평점/리뷰</a>
 								</li>
                             </ul>
                         </nav>
