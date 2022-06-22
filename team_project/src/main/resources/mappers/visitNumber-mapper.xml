@@ -15,7 +15,7 @@
 	<select id="selectMonthVisitNumber" resultType="int">
 		select sum(visit_number)from tbl_visit_number
 		where year = #{year} and month = #{month}
-		group by year, month, day
+		group by year, month
 	</select>
 	
 	<!-- 오늘 방문 유저 수 조회 -->

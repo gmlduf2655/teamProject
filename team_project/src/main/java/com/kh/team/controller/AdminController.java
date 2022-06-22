@@ -20,6 +20,7 @@ import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.PointService;
+import com.kh.team.service.ReportUserService;
 import com.kh.team.service.UserService;
 import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
@@ -30,6 +31,7 @@ import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
+import com.kh.team.vo.ReportUserVo;
 import com.kh.team.vo.UserVo;
 import com.kh.team.vo.WinnerPagingDto;
 import com.kh.team.vo.WinnerVo;
@@ -60,6 +62,8 @@ public class AdminController {
 	private VisitNumberService visitNumberService;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private ReportUserService reportUserService;
 	
 	// 임희열 : 관리자 메인 페이지
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
@@ -145,6 +149,14 @@ public class AdminController {
 		List<UserVo> snsUserList = userService.getSnsUserList(pagingDto);
 		model.addAttribute("snsUserList", snsUserList);
 		return "admin/sns_user_list";
+	}
+	
+	// 유저 신고 관리 페이지 이동
+	@RequestMapping(value="/report_user_list", method=RequestMethod.GET)
+	public String reportUserList(Model model, PagingDto pagingDto) {
+		List<ReportUserVo> reportUserList = reportUserService.getReportUserList(pagingDto);
+		model.addAttribute("reportUserList", reportUserList);
+		return "admin/report_user_list";
 	}
 	
 	// 전체 유저 포인트 내역
