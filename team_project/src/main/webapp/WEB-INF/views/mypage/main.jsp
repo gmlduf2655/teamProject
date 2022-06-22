@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<style>
@@ -459,6 +459,7 @@
 											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
+											
 											<c:choose>
 											<c:when test="${eventVo.event_win == 'y'}">
 											<td>당첨</td>
@@ -467,7 +468,13 @@
 											<td>미당첨</td>
 											</c:otherwise>
 											</c:choose>
+											
 											<td>
+											<!-- 오늘 날짜 구하기-->
+											<c:set var="date" value="<%=new java.util.Date()%>" />
+											<c:set var="today">
+												<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+											</c:set> 
 											<c:choose>
 												<c:when test="${eventVo.event_end_date < today}">
 												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}" disabled="disabled">이벤트 참여 취소</button>
@@ -477,10 +484,15 @@
 												</c:otherwise>
 											</c:choose>
 											</td>
+											
 										</tr>
 									</c:if>
+									
 								</c:when>
+								<c:otherwise>
+								</c:otherwise>
 								</c:choose>
+								
 								</c:forEach>
 								
 							</tbody>

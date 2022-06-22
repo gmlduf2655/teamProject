@@ -87,7 +87,7 @@ public class MypageController {
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
 //		List<EventVo> eventList = eventService.list(pagingDto);
 		// 내가 참여한 이벤트 목록 얻어오기
-		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
+		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
 		model.addAttribute("follower", follower);
 		model.addAttribute("follow", follow);
 		model.addAttribute("pointList", pointList);
@@ -160,7 +160,7 @@ public class MypageController {
 		System.out.println("MypageController, participateEventList, pagingDto:"+pagingDto);
 		pagingDto.setCount(participateEventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
-		List<ParticipateEventVo> eventList = participateEventService.list(pagingDto);
+		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list" ;

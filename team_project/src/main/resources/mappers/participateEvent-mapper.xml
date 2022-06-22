@@ -42,6 +42,13 @@
     				<when test='searchType == "t"'>
     					where event_title like '%' || #{keyword} || '%'
     				</when>
+    				<when test='searchType == "p"'>
+    					where userid like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "tp"'>
+    					where event_title like '%' || #{keyword} || '%'
+    					or    userid like '%' || #{keyword} || '%'
+    				</when>
     			</choose>
     		</if> 
 		</sql>
@@ -63,5 +70,26 @@
 			event_win = 'y'
 		where participate_no = #{participate_no}
 	</update>
+	
+	<!-- 내가 쓴 글 보기 리스트(이벤트 참여 내역) -->
+	<select id="myList" resultType="ParticipateEventVo">
+		select * from 
+			(select rownum rnum, a.* from
+    			(select * from tbl_participate_event
+    			where userno = #{userno}
+    			<include refid="search2"></include>) a)
+		where rnum between #{pagingDto.startRow} and #{pagingDto.endRow}
+	</select>
+	
+	<!-- 검색 조건2 -->
+		<sql id="search2">
+			<if test="searchType != null and keyword != null">
+    			<choose>
+    				<when test='searchType == "t"'>
+    					and event_title like '%' || #{keyword} || '%'
+    				</when>
+    			</choose>
+    		</if> 
+		</sql>
 
 </mapper>

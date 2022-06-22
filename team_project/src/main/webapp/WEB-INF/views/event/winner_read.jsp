@@ -14,12 +14,6 @@ label {
 <script>
 $(document).ready(function(){
  	var frmPaging = $("#frmPaging");
- 	
- 	var modify_result = "${modify_result}";
- 	
- 	if (modify_result == "true"){
-		alert("수정 완료");
-	}
 	
  	// 삭제
 	$("#btnDelete").click(function(e){
@@ -58,14 +52,14 @@ $(document).ready(function(){
 								${winnerVo.winner_content}</div>
 						</div>
 						<hr>
-						<a href="/event/winner_info" class="btn btn-primary">게시글 목록으로</a>
+						<a href="/event/winner_info?page=1" class="btn btn-primary">게시글 목록으로</a>
 					</div>
 				</div>
 			
-		<div class="float-right">
-			<a href="/event/winner_updateForm?winner_no=${winnerVo.winner_no}" class="btn btn-sm btn-warning">수정</a>
-			<a href="${winnerVo.winner_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
-		</div>
+<!-- 		<div class="float-right"> -->
+<%-- 			<a href="/event/winner_updateForm?winner_no=${winnerVo.winner_no}" class="btn btn-sm btn-warning">수정</a> --%>
+<%-- 			<a href="${winnerVo.winner_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a> --%>
+<!-- 		</div> -->
 	
 
 

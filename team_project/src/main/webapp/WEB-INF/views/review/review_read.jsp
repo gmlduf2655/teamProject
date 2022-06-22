@@ -132,7 +132,7 @@ color: white;
 	var review_no = "${reviewVo.review_no}";
 	var url = "/reviewComment/commentList/" + review_no;
 	$.get(url, function(rData) {
-//	console.log("rData:", rData);
+	console.log("rData:", rData);
 	$("#comment_list").children().remove();
 	$.each(rData, function() {
 	var clone = $("#clone").children().clone();

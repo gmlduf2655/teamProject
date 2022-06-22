@@ -44,6 +44,29 @@ $(document).ready(function(){
 		
 	});
 	
+var frmSearch = $("#frmSearch");
+	
+	$("#btnSearch").on("click", function(){
+		var searchType = $("#searchType").val();
+		var keyword = $("#keyword").val();
+		console.log("searchType:", searchType);
+		console.log("keyword:", keyword);
+		
+		if(!searchType){
+	    	alert("검색 종류를 선택하세요.");
+	        return false;
+	    }
+	        
+	    if(!keyword){
+	        alert("검색어를 입력하세요.");
+	        return false;
+	    }    
+	   
+	    frmSearch.find("input[name=searchType]").val(searchType);
+	    frmSearch.find("input[name=keyword]").val(keyword);
+	    frmSearch.submit();
+	});
+	
 });
 </script>
 
@@ -65,6 +88,37 @@ $(document).ready(function(){
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<br><h2>이벤트 참가자 리스트</h2>
+			
+			
+			<!-- 검색 -->
+			<div>
+			<select id="searchType">
+				<option value="">선택</option>
+				<option value="">---------------</option>
+				<option value="t"
+					<c:if test="${pagingDto.searchType == 't'}">
+						selected
+					</c:if>
+				>제목</option>
+				<option value="p"
+					<c:if test="${pagingDto.searchType == 'p'}">
+						selected
+					</c:if>
+				>참여자</option>
+				<option value="tp"
+					<c:if test="${pagingDto.searchType == 'tp'}">
+						selected
+					</c:if>
+				>제목 + 참여자</option>
+			</select>
+			<form id="frmSearch" action="/admin//event_participate_list" method="get">
+			<input type="text" id="keyword">
+				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
+				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			</form>
+			</div> 
+			
 			<br>
 			<div>
 			<table class="table">
@@ -109,6 +163,43 @@ $(document).ready(function(){
 							</tbody>
 				    	</table>
 			</div>
+			
+			<!-- 페이지 -->
+	
+	<div class="row">
+		<div class="col-md-12">
+			<nav>
+				<ul class="pagination justify-content-center">
+				<c:if test="${pagingDto.startPage!=1}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="/admin/event_participate_list?page=${pagingDto.startPage-1}">이전</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
+					<li 
+					<c:choose>
+						<c:when test="${i==param.page}">
+							class="page-item active"
+						</c:when>
+						<c:otherwise>
+							class="page-item"
+						</c:otherwise>
+					</c:choose>
+					>
+						<a class="page-link" href="/admin/event_participate_list?page=${i}">${i}</a>
+					</li>
+				</c:forEach>
+				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="/admin/event_participate_list?page=${pagingDto.endPage + 1}">다음</a>
+					</li>
+				</c:if>
+				</ul>
+			</nav>
+		</div>
+	</div>
 			
 			
 			

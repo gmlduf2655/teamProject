@@ -133,7 +133,7 @@
                                     <ul class="dropdown">
                                         <li><a href="/event/nowEvent_list">현재 진행중</a></li>
                                         <li><a href="/event/lastEvent_list">지난 이벤트</a></li>
-                                        <li><a href="/event/winner_info">당첨자 발표</a></li>
+                                        <li><a href="/event/winner_info?page=1">당첨자 발표</a></li>
                                     </ul>
 								</li>
 								<li
@@ -141,7 +141,7 @@
                                 		class="active"
                                 	</c:if>								
 								>
-									<a href="/review/review_list">평점/리뷰</a>
+									<a href="/review/review_list?page=1">평점/리뷰</a>
 								</li>
                             </ul>
                         </nav>

@@ -1,6 +1,8 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,16 @@ public class ParticipateEventDaoImpl implements ParticipateEventDao {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<ParticipateEventVo> myList(int userno, PagingDto pagingDto) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("userno", userno);
+		parameter.put("pagingDto", pagingDto);
+		System.out.println("parameter:"+parameter);
+		List<ParticipateEventVo> myList = sqlSession.selectList(NAMESPACE + "myList", parameter);
+		return myList;
 	}
 
 }

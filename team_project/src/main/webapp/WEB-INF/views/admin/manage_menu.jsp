@@ -78,7 +78,7 @@
 				<h6><a id="" href="/admin/event_admin_list">이벤트 목록</a></h6>				
 				<h6><a id="" href="/event/winner_writeForm">이벤트 당첨자 등록</a></h6>
 				<h6><a id="" href="/admin/event_winner_list?page=1">이벤트 당첨자 목록</a></h6>
-				<h6><a id="" href="/admin/event_participate_list">이벤트 신청자 목록</a></h6>
+				<h6><a id="" href="/admin/event_participate_list?page=1">이벤트 신청자 목록</a></h6>
 			</div>
 		</div>	
 		

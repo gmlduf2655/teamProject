@@ -51,4 +51,10 @@ public class ParticipateEventServiceImpl implements ParticipateEventService {
 		return result;
 	}
 
+	@Override
+	public List<ParticipateEventVo> myList(int userno, PagingDto pagingDto) {
+		List<ParticipateEventVo> myList = dao.myList(userno, pagingDto);
+		return myList;
+	}
+
 }

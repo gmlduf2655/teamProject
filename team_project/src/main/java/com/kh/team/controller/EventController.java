@@ -7,6 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.team.util.EventFileUploader;
+import com.kh.team.service.AttendanceService;
 import com.kh.team.service.EventService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.WinnerService;
+import com.kh.team.vo.AttendanceVo;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
@@ -35,6 +38,9 @@ public class EventController {
 	
 	@Autowired
 	private ParticipateEventService participateEventService;
+	
+	@Autowired
+	private AttendanceService attendanceService;
 	
 	// 이벤트 게시글 목록
 	@RequestMapping(value = "/event_list", method = RequestMethod.GET)
@@ -82,7 +88,7 @@ public class EventController {
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 		
-		String uploadPath = "//192.168.0.63/boardattach";
+		String uploadPath = "//192.168.0.67/boardattach";
 		String originalFilename = multipartFile.getOriginalFilename();
 		
 		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
@@ -121,7 +127,7 @@ public class EventController {
 		} else {
 			String originalFilename = file.getOriginalFilename();
 			byte[] fileData = file.getBytes();
-				String event_image = EventFileUploader.uploadFile("//.168.0.67/boardattach", file.getOriginalFilename(), fileData);
+				String event_image = EventFileUploader.uploadFile("//192.168.0.67/boardattach", file.getOriginalFilename(), fileData);
 				eventVo.setEvent_image(event_image);
 			boolean result2 = eventService.modify(eventVo);
 			System.out.println("result2:"+result2);
@@ -246,4 +252,28 @@ public class EventController {
 		boolean result = participateEventService.insert(vo);
 		return String.valueOf(result);
 	}
+	
+	// 
+	@RequestMapping(value = "/attendance", method = RequestMethod.GET)
+	public String attendance(){
+		return "event/attendance";
+	}
+	
+	// 출석
+	@RequestMapping(value = "/attendanceRun", method = RequestMethod.POST)
+	@ResponseBody
+	public String attendanceInsert(AttendanceVo attendanceVo){
+		System.out.println("EventController, attendanceInsert, AttendanceVo:" + attendanceVo);
+		boolean result = attendanceService.insert(attendanceVo);
+		return String.valueOf(result);
+	}
+	
+	// 출석 목록
+	@RequestMapping(value = "/attendList/{userno}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AttendanceVo> attendList(@PathVariable("userno") int userno) {
+		List<AttendanceVo> attendList = attendanceService.attendList(userno);
+		return attendList;
+	}
+	
 }
