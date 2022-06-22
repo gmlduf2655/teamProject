@@ -42,6 +42,13 @@
     				<when test='searchType == "t"'>
     					where event_title like '%' || #{keyword} || '%'
     				</when>
+    				<when test='searchType == "p"'>
+    					where userid like '%' || #{keyword} || '%'
+    				</when>
+    				<when test='searchType == "tp"'>
+    					where event_title like '%' || #{keyword} || '%'
+    					or    userid like '%' || #{keyword} || '%'
+    				</when>
     			</choose>
     		</if> 
 		</sql>

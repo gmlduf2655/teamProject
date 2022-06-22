@@ -87,7 +87,7 @@
 }
 
 .sec_cal .cal_wrap .day {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: calc(100% / 7);
@@ -95,8 +95,10 @@
     color: #999;
     font-size: 12px;
     text-align: center;
-    border-radius:5px
+    border-radius: 50%;
 }
+
+
 
 /* .current.today {background: rgb(242 242 242);} */
 
