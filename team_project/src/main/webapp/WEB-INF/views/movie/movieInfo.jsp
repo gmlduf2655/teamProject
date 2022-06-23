@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 <title>영화정보</title>
 <script>
 
@@ -52,11 +52,6 @@ $(function(){
 	
 	//댓글 수정하기
 	$("#comment_list").on("click", ".commentUpdate" ,function(){
-		/* var tr = $(this).parent().parent();
-		var td = tr.children(); 
-		td.eq(1).find(".commentInput").removeAttr("disabled");
-		td.eq(3).find(".commentUpdate").hide();
-		td.eq(3).find(".commentUpdateSubmit").show(); */
 		var div = $(this).prev(); //input상자
 		div.removeAttr("disabled").attr("style","background-color : white;border: none; width:100%; resize: none;");
 		div.next().hide();
@@ -64,8 +59,6 @@ $(function(){
 	});
 	//수정댓글 저장하기
 	$("#comment_list").on("click", ".commentUpdateSubmit" ,function(){
-		/* var tr = $(this).parent().parent();
-		var td = tr.children(); */
 		//사용자 아이디 체크 후 수정요청
 		var userid = $(this).parent().find("h6").text();
 		console.log("userid" , userid);
@@ -107,50 +100,17 @@ $(function(){
 			alert("사용자가 다릅니다");
 		}
 	});
-	//댓글 불러오기
-	function getCommentList(){
-		var url = "/moviecomment/commentList";
-		var movie_code = "${movieVo.movie_code}";
-		sData = {
-				"movie_code" : movie_code
-		};
-		 $.get(url, sData, function(rData){
-			 console.log(rData);
-			 $("#comment_list").children().remove();
-			 $.each(rData, function(){
-				var div = $("#clone").children().clone();
-				var img = div.find("img");
-				var h6 = div.find("h6");
-				/* var input = div.find("input"); */
-				var textarea = div.find("textarea");
-				/* var p = div.find("p"); */
-				var span = div.find("span");
-				if(this.profile_image != null){
-					img.attr("src" , "/user/get_profile_image?filename=" + this.profile_image);
-				}
-				h6.text(this.userid);
-				span.text(this.regdate).css("color", "white");
-				/* input.val(this.movie_comment); */
-				textarea.val(this.movie_comment);
-				/* p.text(this.movie_comment); */
-				div.find(".commentDelete").attr("data-cno",this.cno);
-				div.find(".commentUpdateSubmit").attr("data-cno",this.cno); 
-				if("${loginUserVo.userid}" == this.userid){
-					div.find(".commentUpdate").show();
-					div.find(".commentDelete").show();
-				} else {
-					div.find(".commentUpdate").hide();
-					div.find(".commentDelete").hide();
-				} 
-				$("#comment_list").append(div);
-				
-			});
-			 
-		});
-	}; 
+	
+	
+	
+	
+		
+	
+	
 	//초기 화면 좋아요 출력
 	getislike();
 	getcountlike();
+	
 	//좋아요클릭(삭제)
 	$("#btnlikecount").click(function(e){
 		e.preventDefault();
@@ -198,7 +158,7 @@ $(function(){
 			}
 		});
 	}
-	
+$("#comment_list").children().remove();	
 });
 </script>
 <!-- 나중에 지우기 -->
@@ -269,9 +229,11 @@ ${loginUserVo.userid}
 	                 </c:if>
                  </div>
                  <div class="col-lg-4 col-md-4">
-	                 <div class="section-title">
-	                      <h5>스틸컷</h5>
-	                 </div>
+                 	<c:if test="${not empty stillcutlist}">
+		                 <div class="section-title">
+		                      <h5>스틸컷</h5>
+		                 </div>
+	              	</c:if>   
                  </div>
                 </div>
                 <div class="row">
@@ -311,12 +273,10 @@ ${loginUserVo.userid}
                         </div>
                     
                         <div class="details__review">
-                            <div class="section-title" id="section-title">
+                            <div class="section-title commentTitle" id="section-title" style="display: none;">
                             <br>
                                 <h5>댓글</h5>
                             </div>
-                           
-                            
                             
                             <div class="review__item">
 	                           <div class="anime__review__item" id="comment_list">
@@ -329,6 +289,7 @@ ${loginUserVo.userid}
 										<p>content</p>
 									</div>
 								</div>
+								<button id="addBtn" onclick="getCommentList();">더보기</button>
 								</div>
 								
 								<div class="anime__review__item" style="display: none;" id="clone">
@@ -399,5 +360,65 @@ ${loginUserVo.userid}
                 </div>
             </div> <!-- 컨테이너 -->
        <!--  </section> -->
+<script>
+//댓글 불러오기
+function getCommentList(){
+	
+	//try
+	var startRow = $(".anime__review__item__text").length;
+	var movie_code = "${movieVo.movie_code}";
+	$.ajax({
+		url :"/moviecomment/commentList",
+		type : "get",
+		dataType : "json",
+		data : {
+			"startRow" : startRow,
+			"movie_code" : movie_code
+		},
+		success : function(rData){
+			console.log("ajax", rData);
+			if(rData.length < 10){
+				$("addBtn").remove();
+				if(rData != 0){
+					 $(".commentTitle").removeAttr("style");
+				 }
+				 $.each(rData, function(index,value){
+						var div = $("#clone").children().clone();
+						var img = div.find("img");
+						var h6 = div.find("h6");
+						var textarea = div.find("textarea");
+						var span = div.find("span");
+						var admin_delete = this.admin_delete;
+						console.log("admin_delete" , admin_delete);
+						if(this.profile_image != null){
+							img.attr("src" , "/user/get_profile_image?filename=" + this.profile_image);
+						}
+						h6.text(this.userid);
+						span.text(this.regdate).css("color", "white");
+						textarea.val(this.movie_comment);
+						div.find(".commentDelete").attr("data-cno",this.cno);
+						div.find(".commentUpdateSubmit").attr("data-cno",this.cno); 
+						if("${loginUserVo.userid}" == this.userid){
+							div.find(".commentUpdate").show();
+							div.find(".commentDelete").show();
+							if(admin_delete == "Y"){
+								textarea.val("관리자가 삭제한 댓글 입니다");
+							}
+						} else {
+							div.find(".commentUpdate").hide();
+							div.find(".commentDelete").hide();
+							if(admin_delete == "Y"){
+								div.hide();
+							}
+						} 
+						 $("#comment_list").append(div);
+					});
+					
+			}
+		}
+	});
+	
+}; //getCommentList
+</script>
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
