@@ -235,6 +235,7 @@ $(document).ready(function(){
 		$.post(url, sData, function(rData){
 			console.log("rData:", rData);
 			$(".current.today").css("background-color", "rgb(242 242 242)");
+			$("#btnAttend").attr("disabled", "disabled");
 			getAttendList();
 			
 		});
@@ -259,11 +260,16 @@ $(document).ready(function(){
 				console.log("month:", month);
 				var date = attend_date.slice(8, 10); // 출석한 날짜
 				console.log("date:", date);
+				
+				
+				
  				if (month == currentMonth + 1) {
  		            var currentMonthDate = document.querySelectorAll('.dates .current');
  		            currentMonthDate[date -1].classList.add('chk');
  		           $(".current.chk").css("background-color", "rgb(242 242 242)");
- 		          
+ 		          if ( date == today.getDate() ) {
+ 		        	 $("#btnAttend").attr("disabled", "disabled");
+ 		          }
  		        }
 				
 			});

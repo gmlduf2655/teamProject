@@ -14,7 +14,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-
+	
+	
 	@Override
 	public boolean insert(AttendanceVo attendanceVo) {
 		int count = sqlSession.insert(NAMESPACE + "insert", attendanceVo);
