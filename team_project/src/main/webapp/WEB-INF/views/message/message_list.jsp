@@ -235,7 +235,7 @@
 								<c:if test="${pagingDto.searchType == 'u'}">selected</c:if>
 							>유저</option>
 							<option value="tcu"
-								<c:if test="${pagingDto.searchType == 'd'}">selected</c:if>
+								<c:if test="${pagingDto.searchType == 'tcu'}">selected</c:if>
 							>모두 포함</option>
 						</select>
 					</div>
@@ -304,6 +304,7 @@
 														</c:when>
 													</c:choose>
 													<a class="dropdown-item" href="#">팔로우하기</a> 
+													<a class="dropdown-item" class="report_btn">신고하기</a> 
 												</div>
 											</div>
 										</td>										

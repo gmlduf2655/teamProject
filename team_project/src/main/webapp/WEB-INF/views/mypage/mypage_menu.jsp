@@ -45,8 +45,8 @@
 	<div class="mb-2">
 		<h4 class="mb-3"><a class="mypage_menu">내 활동</a></h4>
 		<ul style="padding-left:50px;">
-		    <li><a href="/mypage/write_review_list?userno=${loginUserVo.userno}">내 리뷰</a></li>
-		    <li><a href="/mypage/participate_event_list?userno=${loginUserVo.userno}">참여 이벤트</a></li>
+		    <li><a href="/mypage/write_review_list?userno=${loginUserVo.userno}&page=1">내 리뷰</a></li>
+		    <li><a href="/mypage/participate_event_list?userno=${loginUserVo.userno}&page=1">참여 이벤트</a></li>
 		</ul>
 	</div>
 </div>

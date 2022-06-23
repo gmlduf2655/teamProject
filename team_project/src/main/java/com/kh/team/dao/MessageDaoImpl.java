@@ -72,6 +72,18 @@ public class MessageDaoImpl implements MessageDao {
 		return receiverMessageList;
 	}
 	
+	// 모든 메세지 조회
+	public List<MessageVo> selectTotalMessageList(PagingDto pagingDto){
+		List<MessageVo> messageList = sqlSession.selectList(NAMESPACE + "selectTotalMessageList", pagingDto);
+		return messageList;
+	}
+	
+	// 모든 메세지 수 조회
+	public int getCountTotalMessage(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountTotalMessage", pagingDto);
+		return count;
+	}
+	
 	// 메세지 첨부 파일 조회
 	public List<String> selectFilenameList(int messageno){
 		List<String> filenameList = sqlSession.selectList(NAMESPACE + "selectFilenameList", messageno);
@@ -81,15 +93,21 @@ public class MessageDaoImpl implements MessageDao {
 	
 	// 보내는 메세지 수 조회
 	@Override
-	public int selectSenderMessageCount(String sender) {
-		int count = sqlSession.selectOne(NAMESPACE + "selectSenderMessageCount", sender);
+	public int selectSenderMessageCount(String sender, PagingDto pagingDto) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("sender", sender);
+		map.put("pagingDto", pagingDto);
+		int count = sqlSession.selectOne(NAMESPACE + "selectSenderMessageCount", map);
 		return count;
 	}
 
 	// 받는 메세지 수 조회
 	@Override
-	public int selectReceiverMessageCount(String receiver) {
-		int count = sqlSession.selectOne(NAMESPACE + "selectReceiverMessageCount", receiver);
+	public int selectReceiverMessageCount(String receiver, PagingDto pagingDto) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("receiver", receiver);
+		map.put("pagingDto", pagingDto);		
+		int count = sqlSession.selectOne(NAMESPACE + "selectReceiverMessageCount", map);
 		return count;
 	}
 	// 메세지 번호로 메세지 조회

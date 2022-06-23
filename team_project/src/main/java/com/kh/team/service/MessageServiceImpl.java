@@ -58,6 +58,18 @@ public class MessageServiceImpl implements MessageService {
 		return receiverMessageList;
 	}
 	
+	// 모든 메세지 조회
+	public List<MessageVo> getTotalMessageList(PagingDto pagingDto){
+		List<MessageVo> messageList = messageDao.selectTotalMessageList(pagingDto);
+		return messageList;
+	}
+	
+	// 모든 메세지 수 조회 테스트
+	public int getCountTotalMessage(PagingDto pagingDto) {
+		int count = messageDao.getCountTotalMessage(pagingDto);
+		return count;
+	}	
+	
 	// 메세지 첨부 파일 조회
 	public List<String> getFilenames(int messageno){
 		List<String> filenames = messageDao.selectFilenameList(messageno);
@@ -66,15 +78,15 @@ public class MessageServiceImpl implements MessageService {
 	
 	// 보내는 메세지 수 조회
 	@Override
-	public int getSenderMessageCount(String sender) {
-		int count = messageDao.selectSenderMessageCount(sender);
+	public int getSenderMessageCount(String sender, PagingDto pagingDto) {
+		int count = messageDao.selectSenderMessageCount(sender, pagingDto);
 		return count;
 	}
 	
 	// 받는 메세지 수 조회
 	@Override
-	public int getReceiverMessageCount(String receiver) {
-		int count = messageDao.selectReceiverMessageCount(receiver);
+	public int getReceiverMessageCount(String receiver, PagingDto pagingDto) {
+		int count = messageDao.selectReceiverMessageCount(receiver, pagingDto);
 		return count;
 	}
 

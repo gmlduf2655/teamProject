@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.attendance">
+
+	<!-- 출석 -->
+	<insert id="insert">
+		insert into tbl_attendance
+			(attend_no, attend_check, userno)
+		values
+			(seq_attendance_attendno.nextval, 'y', #{userno})
+	</insert>
+	
+	<!-- 출석 했던거 목록 -->
+	<select id="list" resultType="AttendanceVo">
+		select * from tbl_attendance
+		where userno = #{userno}
+	</select>
+
+</mapper>

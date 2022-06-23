@@ -63,4 +63,10 @@ public class HomeController {
 		return "kakao_map";
 	}
 	
+	// 카카오맵 테스트 페이지로 이동
+	@RequestMapping(value="/kakao_pay_success", method = RequestMethod.GET)
+	public String kakaoPaySuccess() {
+		return "kakao/kakao_pay_success";
+	}
+	
 }

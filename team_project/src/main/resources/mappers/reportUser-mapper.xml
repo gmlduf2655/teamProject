@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.team.mappers.reportUser">
+	<!-- 유저 신고 내역 추가 -->
+	<insert id="insertReportUser">
+		insert into tbl_report_user
+			(reportno, reporter, reported_user, report_type, report_desc)
+		values
+			(seq_report_user_reportno.nextval, #{reporter}, #{reported_user}, #{report_type}, #{report_desc, jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 유저  신고 내역 조회 -->
+	<select id="selectReportUserList" resultType="ReportUserVo">
+		select * from (
+			select rownum rnum, a.* from (
+				select * from tbl_report_user
+				<if test='searchType != null and searchType != "" and keyword != null and keyword != ""'>
+					<choose>
+						<when test='searchType == "r"'>
+							where reporter like '%' || #{keyword} || '%'	
+						</when>
+						<when test='searchType == "u"'>
+							where reported_user like '%' || #{keyword} || '%'
+						</when>
+						<when test='searchType == "t"'>
+							where report_type like '%' || #{keyword} || '%'
+						</when>
+						<when test='searchType == "d"'>
+							where report_date like '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</if>
+				order by report_date desc
+			) a
+		) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 유저 신고 수 조회 -->
+	<select id="getCountReportUser" resultType="int">
+		select count(*) from tbl_report_user
+		<if test='searchType != null and searchType != "" and keyword != null and keyword != ""'>
+			<choose>
+				<when test='searchType == "r"'>
+					where reporter like '%' || #{keyword} || '%'	
+				</when>
+				<when test='searchType == "u"'>
+					where reported_user like '%' || #{keyword} || '%'
+				</when>
+				<when test='searchType == "t"'>
+					where report_type like '%' || #{keyword} || '%'
+				</when>
+				<when test='searchType == "d"'>
+					where report_date like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+		order by report_date desc		
+	</select>
+	
+	<!-- 유저 신고 내용 읽기 -->
+	<select id="readReport" resultType="ReportUserVo">
+		select * from tbl_report_user
+		where reportno = #{reportno}
+	</select>
+	
+	<!-- 유저  신고 접수 날짜 변경-->
+	<update id="updateReportAcceptDate">
+		update tbl_report_user set
+			report_accept_date = sysdate
+		where reportno = #{reportno}
+	</update>
+		
+	<!-- 유저 신고 해결여부 수정 -->
+	<update id="updateReportResolved">
+		update tbl_report_user set
+			report_resolved = 'T'
+		where reportno = #{reportno}
+	</update>
+	
+</mapper>
