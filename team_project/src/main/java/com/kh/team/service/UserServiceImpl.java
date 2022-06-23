@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// 기존 회원수 조회
-	public int getCountOriginUserList() {
-		int count = userDao.getCountOriginUserList();
+	public int getCountOriginUserList(PagingDto pagingDto) {
+		int count = userDao.getCountOriginUserList(pagingDto);
 		return count;
 	}
 
@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
 
 	// 간편로그인 회원수 조회
 	@Override
-	public int getCountSnsUserList() {
-		int count = userDao.getCountSnsUserList();
+	public int getCountSnsUserList(PagingDto pagingDto) {
+		int count = userDao.getCountSnsUserList(pagingDto);
 		return count;
 	}	
 	

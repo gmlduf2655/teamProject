@@ -97,6 +97,7 @@
 	<!-- 총 유저 수 조회 -->
 	<select id="getCountUserList" resultType="int">
 		select count(*) from tbl_user
+		where user_status = 1
 		order by reg_date desc
 	</select>
 	
@@ -131,6 +132,22 @@
 	<select id="getCountOriginUserList" resultType="int">
 		select count(*) from tbl_user
 		where sns_type is null
+		<if test='searchType != null and searchType != "" and keyword != null and keyword != ""'>
+			<choose>
+				<when test='searchType == "i"'>
+					and userid like '%' || #{keyword} || '%'	
+				</when>
+				<when test='searchType == "u"'>
+					and username like '%' || #{keyword} || '%'
+				</when>
+				<when test='searchType == "n"'>
+					and nickname like '%' || #{keyword} || '%'
+				</when>
+				<when test='searchType == "d"'>
+					and reg_date like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
 	</select>
 	
 	<!-- 간편로그인유저 목록 조회 -->
@@ -164,6 +181,22 @@
 	<select id="getCountSnsUserList" resultType="int">
 		select count(*) from tbl_user
 		where sns_type is not null
+		<if test='searchType != null and searchType != "" and keyword != null and keyword != ""'>
+			<choose>
+				<when test='searchType == "i"'>
+					and userid like '%' || #{keyword} || '%'	
+				</when>
+				<when test='searchType == "u"'>
+					and username like '%' || #{keyword} || '%'
+				</when>
+				<when test='searchType == "n"'>
+					and nickname like '%' || #{keyword} || '%'
+				</when>
+				<when test='searchType == "d"'>
+					and reg_date like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
 	</select>
 	
 	<!-- 각 간편로그인 유저 수 조회 -->

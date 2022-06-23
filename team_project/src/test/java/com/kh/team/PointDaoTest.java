@@ -49,7 +49,7 @@ public class PointDaoTest {
 	// 전체 유저 포인트 내역 수 조회 테스트
 	@Test
 	public void testGetCountPointList() {
-		int count = pointDao.getCountPointList();
+		int count = pointDao.getCountPointList(null);
 		System.out.println("PointDaoTest, testGetCountPointList, count : " + count);
 	}
 	
@@ -67,7 +67,7 @@ public class PointDaoTest {
 	// 특정 유저 포인트 내역 수 조회
 	@Test
 	public void testGetCountPointListByUserno() {
-		int count = pointDao.getCountPointListByUserno(1);
+		int count = pointDao.getCountPointListByUserno(1, null);
 		System.out.println("PointDaoTest, testGetCountPointListByUserno, count : " + count);		
 	}
 	
@@ -99,7 +99,7 @@ public class PointDaoTest {
 	// 포인트 코드 목록 수 조회 테스트
 	@Test
 	public void testGetCountPointCodeList() {
-		int count = pointDao.getCountPointCodeList();
+		int count = pointDao.getCountPointCodeList(null);
 		System.out.println("PointDaoTest, testGetCountPointCodeList, count : " + count);
 	}
 	

@@ -20,6 +20,9 @@
 	$(document).ready(function(){
 		var latitude = "";
 		var longitude = "";
+		setInterval("console.log(new Date())", 1000);
+
+
 		
 		// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -150,6 +153,7 @@
 </script>
 </head>
 <body>
+	<h2 id="timer"></h2>
 	<h2 id="latitude">위도</h2>
 	<h2 id="longitude">경도</h2>
 	<h1>카카오맵 테스트</h1>

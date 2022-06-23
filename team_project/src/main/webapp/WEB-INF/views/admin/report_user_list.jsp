@@ -23,18 +23,12 @@
 <!-- 샘플 레이아웃 데이터 -->
 <script>
 	$(document).ready(function(){
-		var create_result = "${create_result}";
-		if(create_result == "true"){
-			alert("테스트 유저 생성 성공");
-		}else if(create_result == "false"){
-			alert("테스트 유저 생성 실패");
-		}else {}
 		
 		// 검색 버튼 눌렀을 떄
 		$("#search_btn").click(function(){
 			var keyword = $("#keyword").val();
 			var searchType = $("#searchType").val();
-			location.href = "/admin/origin_user_list?page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
+			location.href = "/admin/report_user_list?page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
 		});
 	});
 </script>
@@ -50,55 +44,29 @@
 		</div>
 		<!-- 유수연 상세내용  -->
 		<div class="col-md-7">
-			<div class="row mb-4 ml-2">
-				<div class="col-md-4">
-					<h2 class="mb-4">테스트 유저 생성기</h2>
-					<form role="form" method="post" action="/user/create_test_user">
-						<div class="form-group">
-							<input type="text" class="form-control" name="userid" id="userid" placeholder="아이디" required/>
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" name="userpw" id="userpw" placeholder="비밀번호" required/>
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" name="username" id="username" placeholder="이름" required/>
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" name="nickname" id="nickname" placeholder="닉네임" required/>
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control" name="email" id="email" placeholder="이메일(필수  x)" />
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" name="point" id="point" placeholder="포인트" />
-						</div>
-						<button type="submit" class="btn btn-primary">유저 생성</button>
-					</form>
-				</div>
-			</div>
-			<!-- 유저 목록을 보여주는 부분 -->
+			<!-- 유저 신고 목록을 보여주는 부분 -->
 		    <section class="login spad" style="padding-top:20px;">
 		        <div class="container">
 		        	<!-- nav 부분 -->
 					<nav class="row mb-4" >
 						<div class="col-md-4">
-							<h3>기존회원</h3>
+							<h3>신고 관리</h3>
 						</div>
 						<div class="col-md-2"></div>
 						<div class="col-md-1" style="display:flex;justify-content: flex-end;">
 							<select name="searchType" id="searchType" style="color:black;">
-								<option value="i" 
-									<c:if test="${param.searchType == '' or param.searchType == 'i'}">selected</c:if>
-								>아이디</option>
+								<option value="r" 
+									<c:if test="${param.searchType == '' or param.searchType == 'r'}">selected</c:if>
+								>신고자</option>
 								<option value="u" 
 									<c:if test="${param.searchType == 'u'}">selected</c:if>
-								>이름</option>
-								<option value="n" 
-									<c:if test="${param.searchType == 'n'}">selected</c:if>
-								>닉네임</option>
+								>신고대상</option>
+								<option value="t" 
+									<c:if test="${param.searchType == 't'}">selected</c:if>
+								>신고사유</option>
 								<option value="d" 
 									<c:if test="${param.searchType == 'd'}">selected</c:if>
-								>생성일</option>
+								>신고날짜</option>
 							</select>
 						</div>
 						<div class="col-md-3">
@@ -112,40 +80,47 @@
 		            <div class="row">
 		                <div class="col-lg-12 ">
 		                	<div class="mb-3" style="overflow-x:scroll">
-		                		<!-- 기존 회원 테이블 부분 -->
+		                		<!-- 유저 신고 테이블 부분 -->
 						    	<table class="table" style="width:1600px;">
 						    		<thead>
 						    			<tr>
 											<th>#</th>    				
-											<th>아이디</th>    				
-											<th>비밀번호</th>    				
-											<th>이름</th>    				
-											<th>닉네임</th>    				
-											<th>이메일</th>    				
-											<th>주소</th>    				
-											<th>휴대폰번호</th>    				
-											<th>포인트</th>    				
-											<th>생성일</th>    				
+											<th>신고자</th>    				
+											<th>신고대상</th>    				
+											<th>신고사유</th>    				
+											<th>신고한 날짜</th>    				
+											<th>신고 접수 날짜</th>    				
+											<th>신고 처리 유무</th>    				
 						    			</tr>
 						    		</thead>
 						    		<tbody>
-										<c:forEach var="originUserVo" items="${originUserList}">
+										<c:forEach var="reportUserVo" items="${reportUserList}">
 											<tr>
-												<td>${originUserVo.userno}</td>
-												<td>${originUserVo.userid}</td>
-												<td>${originUserVo.userpw}</td>
-												<td>${originUserVo.username}</td>
-												<td>${originUserVo.nickname}</td>
-												<td>${originUserVo.email}</td>
-												<td>${originUserVo.address}</td>
-												<td>${originUserVo.cellphone}</td>
-												<td>${originUserVo.point}</td>
-												<td>${originUserVo.reg_date}</td>
+												<td>${reportUserVo.reportno}</td>
+												<td>${reportUserVo.reporter}</td>
+												<td>${reportUserVo.reported_user}</td>
+												<td>${reportUserVo.report_type}</td>
+												<td>
+													<fmt:formatDate value="${reportUserVo.report_date}" pattern="yyyy.MM.dd HH:mm:ss" />
+												</td>
+												<td>
+													<fmt:formatDate value="${reportUserVo.report_accept_date}" pattern="yyyy.MM.dd HH:mm:ss" />
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${reportUserVo.report_resolved == 'T'}">
+															처리완료
+														</c:when>
+														<c:otherwise>
+															처리 X
+														</c:otherwise>
+													</c:choose>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 						    	</table>
-						    	<!-- 기존 회원 테이블 부분 끝 -->
+						    	<!-- 유저 신고 테이블 부분 끝 -->
 					    	</div>
 							<!-- 글 목록 페이징 부분-->
 							<div class="row mb-3">
@@ -154,9 +129,9 @@
 										<ul class="pagination justify-content-center" id="pagination">
 											<c:if test="${pagingDto.startPage > 1}">
 												<li class="page-item"><a class="page-link move_page"
-													href="/admin/origin_user_list?page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
+													href="/admin/report_user_list?page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
 												<li class="page-item"><a class="page-link move_page"
-													href="/admin/origin_user_list?page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
+													href="/admin/report_user_list?page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
 											</c:if>
 											<c:forEach var="i" begin="${pagingDto.startPage}"
 												end="${pagingDto.endPage}">
@@ -170,14 +145,14 @@
 														</c:otherwise>
 													</c:choose>>
 													<a class="page-link move_page"
-													href="/admin/origin_user_list?&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
+													href="/admin/report_user_list?&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
 												</li>
 											</c:forEach>
 											<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
 												<li class="page-item"><a class="page-link move_page"
-													href="/admin/origin_user_list?page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
+													href="/admin/report_user_list?page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
 												<li class="page-item"><a class="page-link move_page"
-													href="/admin/origin_user_list?page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
+													href="/admin/report_user_list?page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
 											</c:if>
 										</ul>
 									</nav>
@@ -188,7 +163,7 @@
 		    		</div>
 		    	</div>
 		    </section>
-		    <!-- 유저 목록을 보여주는 부분 끝 -->
+		    <!-- 유저 신고 목록을 보여주는 부분 끝 -->
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-1"></div>
