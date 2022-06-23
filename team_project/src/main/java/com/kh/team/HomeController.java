@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.dao.TicketDao;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.UserVo;
@@ -36,6 +37,10 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	TicketDao ticketDao;
+	
+	// 조재호 : 서버 시간 가져오기 위해 사용
+	@Autowired
+	private GetServerTimeDao getServerTimeDao;
 
 	// 메인페이지로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -67,6 +72,14 @@ public class HomeController {
 	@RequestMapping(value="/kakao_pay_success", method = RequestMethod.GET)
 	public String kakaoPaySuccess() {
 		return "kakao/kakao_pay_success";
+	}
+	
+	// 조재호 : 서버와 클라이언트의 시간차이가 있을 수 있어서 서버 시간을 가져와서 사용
+	@ResponseBody
+	@RequestMapping(value = "/getServerTime", method = RequestMethod.GET)
+	public String getServerTime() {
+		String time = getServerTimeDao.getServerDate();
+		return time;
 	}
 	
 }
