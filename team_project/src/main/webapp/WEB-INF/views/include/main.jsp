@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <!-- 영화 정보 -->
-<div class="popular__product">
+<div class="popular__product" style="margin-top: 50px;">
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8">
 			<div class="section-title">

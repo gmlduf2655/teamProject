@@ -72,7 +72,7 @@
     <!-- Hero Section End -->
     
 	
-	
+	<br><br>
 	<main class="col-lg-8">
 			<%@ include file="/WEB-INF/views/include/main.jsp" %>
 		</main>

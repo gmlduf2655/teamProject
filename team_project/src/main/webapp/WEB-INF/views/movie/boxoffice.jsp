@@ -17,7 +17,6 @@
 	color : white;
 }
 .aclass:hover{
-	font-weight : bold;
 	text-decoration: underline;
 }
 
