@@ -1,16 +1,7 @@
 package com.kh.team;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.dao.TicketDao;
+import com.kh.team.service.MovieService;
+import com.kh.team.service.MovieStillcutService;
 import com.kh.team.service.UserService;
-import com.kh.team.vo.UserVo;
+import com.kh.team.vo.MovieVo;
 
 @Controller
 public class HomeController {
@@ -38,9 +31,14 @@ public class HomeController {
 	@Autowired
 	TicketDao ticketDao;
 	
+	
 	// 조재호 : 서버 시간 가져오기 위해 사용
 	@Autowired
 	private GetServerTimeDao getServerTimeDao;
+	
+	// 이정민 : 홈 화면에 띄울 영화 리스트
+	@Autowired
+	private MovieService movieService;
 
 	// 메인페이지로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -59,6 +57,10 @@ public class HomeController {
 //		if(loginUserVo != null) {
 //			session.setAttribute("loginUserVo", loginUserVo);
 //		}
+		
+		List<MovieVo> movieList = movieService.movieListIng();
+		model.addAttribute("movieList", movieList);
+		
 		return "home";
 	}
 	
