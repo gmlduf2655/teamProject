@@ -151,7 +151,13 @@ $(function(){
 	<div class="col-md-10">
 		<br><h3>영화상세정보수정</h3><hr>
 			<form role="form" action="" enctype="multipart/form-data" accept-charset="UTF-8">
-			<input type="hidden" name="movie_code" value="${movieVo.movie_code}" disabled>
+			  <div class="form-row">
+				<div class="col">
+					<label for="movie_code">영화코드</label> 
+					<input type="text" class="form-control" name="movie_code" readonly="readonly" value="${movieVo.movie_code}"/>
+				</div>
+				
+				</div>
 			  <div class="form-row">
 				<div class="col">
 					<label for="movie_name">영화제목</label> 

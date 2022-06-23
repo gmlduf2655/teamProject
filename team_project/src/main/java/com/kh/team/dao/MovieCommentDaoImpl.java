@@ -31,7 +31,7 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	public List<MovieCommentVo> commentList(String movie_code) {
 		List<MovieCommentVo> movieCommentList = sqlSession.selectList(NAMESPACE + "commentList",movie_code);
 		return movieCommentList;
-	}
+	} // 필요없을듯?
 
 	@Override
 	public boolean commentUpdate(MovieCommentVo commentVo) {
