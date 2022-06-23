@@ -76,4 +76,5 @@ public class TicketController {
 		cinemaRoomList = MapAJaxAdaper.returnAdapter(cinemaRoomList);
 		return cinemaRoomList;
 	}
+	
 }

@@ -1,5 +1,6 @@
 package com.kh.team.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,17 @@ public class MovieCommentController {
 		return String.valueOf(result);
 	}
 	
+	
+	
 	@RequestMapping(value= "/commentList", method= RequestMethod.GET)
 	@ResponseBody
-	public List<MovieCommentVo> commentList(String movie_code) {
-		List<MovieCommentVo> movieCommentList = commentService.commentList(movie_code);
-		//System.out.println("MovieCommentController, result" + movieCommentList);
+	public List<MovieCommentVo> commentList(String movie_code, int startRow) {
+		if(startRow == 2) {
+			startRow = 1;
+		}
+		int endRow = startRow + 4;
+		List<MovieCommentVo> movieCommentList = commentService.commentListsection(movie_code, startRow, endRow);
+		System.out.println("commentList. result" + movieCommentList);
 		return movieCommentList;
 	}
 	

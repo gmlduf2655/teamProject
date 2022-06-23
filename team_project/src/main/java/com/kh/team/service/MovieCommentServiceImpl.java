@@ -40,8 +40,15 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 	}
 
 	@Override
-	public boolean commentAdminUpdate(int cno) {
-		boolean result = commentDao.commentAdminUpdate(cno);
+	public boolean commentAdminUpdate(int cno, String admin_delete) {
+		boolean result = false;
+		if(admin_delete == "N" || admin_delete.equals("N")) {
+			admin_delete = "Y";
+			result = commentDao.commentAdminUpdate(cno, admin_delete);
+		} else {
+			admin_delete = "N";
+			result = commentDao.commentAdminUpdate(cno, admin_delete);
+		}
 		return result;
 	}
 
@@ -55,6 +62,12 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 	public int getCountmoviecomment(PagingDto commentpagingDto) {
 		int count = commentDao.getCountmoviecomment(commentpagingDto);
 		return count;
+	}
+
+	@Override
+	public List<MovieCommentVo> commentListsection(String movie_code, int startRow, int endRow) {
+		List<MovieCommentVo> movieCommentList = commentDao.commentListsection(movie_code, startRow, endRow);
+		return movieCommentList;
 	}
 
 }

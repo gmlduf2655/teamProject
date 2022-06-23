@@ -20,6 +20,16 @@
 		order by cno desc
 	</select>
 	
+	<!-- 유수연 영화별 코멘트 리스트 try  -->
+	<select id="commentListsection" resultType="MovieCommentVo">
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_movie_comment
+				where movie_code = #{movie_code}
+				order by cno desc) a)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+
 	<!-- 유수연 영화별 코멘트 수정 -->
 	<update id="commentUpdate">
 		update tbl_movie_comment set
@@ -33,10 +43,10 @@
 		where cno = #{cno}
 	</delete>
 	
-	<!-- 유수연 영화별 관리자 코멘트 삭제 -->
+	<!-- 유수연 영화별 관리자 코멘트 블럭 업데이트 블럭/취소 -->
 	<update id="commentAdminUpdate">
 		update tbl_movie_comment set
-			admin_delete = 'Y'
+			admin_delete = #{admin_delete}
 		where cno = #{cno}
 	</update>
 	
@@ -48,8 +58,6 @@
 				<include refid="searchMoviecomment"></include>
 				order by cno desc) a)
 		where rnum between #{startRow} and #{endRow}
-		<!-- select * from tbl_movie_comment
-				order by cno desc -->
 	</select>
 	
 	<!-- 유수연 글 갯수 -->
@@ -64,26 +72,26 @@
     			<choose>
     				<when test='searchType == "t"'>
     					where movie_name like '%' || #{keyword} || '%'
-    					and admin_delete <![CDATA[is null]]>
+    					and admin_delete = 'N'
     				</when>
     				<when test='searchType == "c"'>
     					where movie_comment like '%' || #{keyword} || '%'
-    					and admin_delete <![CDATA[is null]]>
+    					and admin_delete = 'N'
     				</when>
     				<when test='searchType == "w"'>
     					where userid like '%' || #{keyword} || '%'
-    					and admin_delete <![CDATA[is null]]>
+    					and admin_delete = 'N'
     				</when>
     				<when test='searchType == "tc"'>
     					where movie_name like '%' || #{keyword} || '%'
     					or    movie_comment like '%' || #{keyword} || '%'
-    					and admin_delete <![CDATA[is null]]>
+    					and admin_delete = 'N'
     				</when>
     				<when test='searchType == "tcw"'>
     					where movie_name like '%' || #{keyword} || '%'
     					or    movie_comment like '%' || #{keyword} || '%'
     					or    userid like '%' || #{keyword} || '%'
-    					and admin_delete <![CDATA[is null]]>
+    					and admin_delete = 'N'
     				</when>
     			</choose>
     		</if> 

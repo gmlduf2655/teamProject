@@ -50,7 +50,7 @@ public class TestMovieComment {
 	
 	@Test
 	public void testcommentAdminUpdate() {
-		boolean result = movieCommentDao.commentAdminUpdate(21);
+		boolean result = movieCommentDao.commentAdminUpdate(21,"N");
 		System.out.println("commentAdminUpdate, result : " + result);
 	}
 	
@@ -58,5 +58,10 @@ public class TestMovieComment {
 	public void testcommentListHole() {
 		List<MovieCommentVo> result = movieCommentDao.commentListHole(pagingDto);
 		System.out.println("testcommentListHole, result : " + result);
-	}
+	} 
+	@Test
+	public void testcommentListsection() {
+		List<MovieCommentVo> result = movieCommentDao.commentListsection("20204548", 0, 1);
+		System.out.println("testcommentListHole, result : " + result);
+	} 
 }

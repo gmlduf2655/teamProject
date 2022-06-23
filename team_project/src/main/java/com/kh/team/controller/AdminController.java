@@ -307,9 +307,10 @@ public class AdminController {
 		}
 	// 유수연 - 영화 댓글 블럭 
 		@RequestMapping(value = "/movie_commentUpdate", method = RequestMethod.GET)
-		public String moviecommentUpdate(int cno) {
-			boolean result = moviecommentService.commentAdminUpdate(cno);
-			return "redirect:/admin/movie_comment";
+		@ResponseBody
+		public String moviecommentUpdate(int cno,String admin_delete) {
+			boolean result = moviecommentService.commentAdminUpdate(cno,admin_delete);
+			return String.valueOf(result);
 		}	
 	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
@@ -317,11 +318,7 @@ public class AdminController {
 			commentpagingDto.setCount(moviecommentService.getCountmoviecomment(commentpagingDto));
 			System.out.println(commentpagingDto.getCount());
 			commentpagingDto.setPage(commentpagingDto.getPage());
-			
 			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(commentpagingDto);
-			
-	//		System.out.println(pagingDto);
-	//		System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
 			model.addAttribute("commentpagingDto", commentpagingDto);
 			return "admin/movie_comment";
