@@ -442,7 +442,8 @@ $(function(){ /* 준비 핸들러 */
 		
 		// 변경된 값이 오늘 날짜와 일치하면 끝에 " (오늘)"문자열 자동 추가
 		var inputText = " (오늘)";
-		if (/* 오늘날짜와 비교  && */!changeTarget.text().includes(inputText)) {
+		var todayTime = "${serverTime}".substring(0, 10);
+		if (todayTime == changeFullDate && !changeTarget.text().includes(inputText)) {
 			changeTarget.append(inputText);
 		}
 		
