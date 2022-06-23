@@ -40,15 +40,27 @@
 		}
 	</style>
     <script>
-		$(document).ready(function(){
-			$("#search_btn").click(function(){
-				var keyword = $("#keyword").val();
-				var searchType = $("#searchType").val();
-				location.href = "/point/point_list?userno=${param.userno}&page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
-			});
+    $(document).ready(function(){
+		
+		$("#btnSearch").on("click", function(){
+			var searchType = $("#searchType").val();
+			var keyword = $("#keyword").val();
+			var frmSearch = $("#frmSearch");
+			
+			 if(!keyword){
+			        alert("검색어를 입력하세요.");
+			        return false;
+			    }   
+			 
+			 frmSearch.find("input[name=searchType]").val(searchType);
+			 frmSearch.find("input[name=keyword]").val(keyword);
+			 frmSearch.find("input[name=page]").val(1);
+			 frmSearch.submit();
+			
 		});
+    });
     </script>
-    
+ 
     
     <!-- 제목 부분 -->
     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
@@ -91,28 +103,24 @@
 									selected
 								</c:if>
 							>내용</option>
-							<option value="w"
-								<c:if test="${pagingDto.searchType == 'w'}">
-									selected
-								</c:if>
-							>작성자</option>
 							<option value="tc"
 								<c:if test="${pagingDto.searchType == 'tc'}">
 									selected
 								</c:if>
 							>제목 + 내용</option>
-							<option value="tcw"
-								<c:if test="${pagingDto.searchType == 'tcw'}">
-									selected
-								</c:if>
-							>제목 + 내용 + 작성자</option>
 						</select>
 					</div>
 					<div class="col-md-3">
 						<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 					</div>
 					<div class="col-md-1" style="padding-left:0px;">
-						<button type="button" class="site-btn" id="search_btn">검색</button>
+					<form id="frmSearch" action="/mypage/write_review_list" method="get">
+					<input type="hidden" name="userno" value="${param.userno}">
+					<input type="hidden" name="page" value="${pagingDto.page}">
+					<input type="hidden" name="searchType" value="${pagingDto.searchType}">
+					<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+						<button type="submit" class="btn btn-primary" id="btnSearch">검색</button>
+					</form>
 					</div>
 				</nav>
 				<!-- nav 부분 끝-->
@@ -164,6 +172,7 @@
 	    	    	</div>
 	            </div>
 	            <!-- 리뷰 내역 테이블 부분 끝-->
+	            
 				<!-- 글 목록 페이징 부분-->
 				<div class="row mb-3">
 					<div class="col-md-12">
