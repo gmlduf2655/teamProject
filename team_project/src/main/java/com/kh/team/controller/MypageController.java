@@ -22,6 +22,7 @@ import com.kh.team.service.PointService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.service.TicketService;
 import com.kh.team.service.UserService;
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PagingDto;
@@ -142,13 +143,11 @@ public class MypageController {
 	// 내가 쓴 리뷰 내역 페이지 이동
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
 	public String writeRiewList(Model model, int userno, PagingDto pagingDto) {
-		System.out.println(pagingDto);
-		ReviewPagingDto reviewPagingDto = new ReviewPagingDto();
-		reviewPagingDto.setSearchType(pagingDto.getSearchType());
-		int count = reviewService.getCount(reviewPagingDto);
-		pagingDto.setCount(count);
+		System.out.println("writeRiewList, pagingDto:"+pagingDto);
+		pagingDto.setCount(eventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
 		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
+		System.out.println("myReviewList:"+myReviewList);
 		model.addAttribute("reviewList", myReviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/write_review_list";
@@ -156,13 +155,13 @@ public class MypageController {
 	
 	// 참여 이벤트 페이지 이동
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
-	public String participateEventList(Model model, PagingDto pagingDto, int userno) {
-		System.out.println("MypageController, participateEventList, pagingDto:"+pagingDto);
-		pagingDto.setCount(participateEventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
-		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
-		model.addAttribute("eventList", eventList);
-		model.addAttribute("pagingDto", pagingDto);
+	public String participateEventList(Model model, int userno, PagingDto pagingDto) {
+//		System.out.println("participateEventLis, pagingDto:"+pagingDto);
+//		pagingDto.setCount(eventService.getCount(pagingDto));
+//		pagingDto.setPage(pagingDto.getPage());
+//		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
+//		model.addAttribute("eventList", eventList);
+//		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list" ;
 	}
 	

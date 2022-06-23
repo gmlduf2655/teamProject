@@ -128,6 +128,44 @@ $(document).ready(function(){
 
 			</div>
 		</div>
+		
+		<!-- 페이지 -->
+	
+	<div class="container-fluid">
+		<div class="col-md-12">
+			<nav>
+				<ul class="pagination justify-content-center">
+				<c:if test="${pagingDto.startPage!=1}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="/admin/event_admin_list?page=${pagingDto.startPage-1}">이전</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
+					<li 
+					<c:choose>
+						<c:when test="${i==param.page}">
+							class="page-item active"
+						</c:when>
+						<c:otherwise>
+							class="page-item"
+						</c:otherwise>
+					</c:choose>
+					>
+						<a id="nextPage" class="page-link" href="/admin/event_admin_list?page=${i}">${i}</a>
+					</li>
+				</c:forEach>
+				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="/admin/event_admin_list?page=${pagingDto.endPage + 1}">다음</a>
+					</li>
+				</c:if>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- 페이징 끝 -->
 			
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 		</div>

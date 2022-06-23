@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.util.EventFileUploader;
 import com.kh.team.service.AttendanceService;
@@ -20,6 +21,7 @@ import com.kh.team.service.EventService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.vo.AttendanceVo;
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
@@ -44,11 +46,11 @@ public class EventController {
 	
 	// 이벤트 게시글 목록
 	@RequestMapping(value = "/event_list", method = RequestMethod.GET)
-	public String eventList(Model model, PagingDto pagingDto) {
-//		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
+	public String eventList(Model model, EventPagingDto pagingDto) {
+		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
 		List<EventVo> eventList = eventService.list(pagingDto);
+		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setPage(1);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/event_list";
@@ -164,11 +166,11 @@ public class EventController {
 	
 	// 현재 상영중 이벤트 리스트
 	@RequestMapping(value = "/nowEvent_list", method = RequestMethod.GET)
-	public String nowEventList(Model model, PagingDto pagingDto) {
-//		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
+	public String nowEventList(Model model, EventPagingDto pagingDto) {
+		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		List<EventVo> nowEventList = eventService.nowEventlist(pagingDto);
+		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setPage(1);
 		model.addAttribute("nowEventList", nowEventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/nowEvent_list";
@@ -176,11 +178,11 @@ public class EventController {
 	
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
-	public String  lastEventlist(Model model, PagingDto pagingDto) {
-//		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
+	public String  lastEventlist(Model model, EventPagingDto pagingDto) {
+		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		List<EventVo> lastEventlist = eventService.lastEventlist(pagingDto);
+		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setPage(1);
 		model.addAttribute("lastEventlist", lastEventlist);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/lastEvent_list";

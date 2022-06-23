@@ -120,6 +120,45 @@ $(document).ready(function(){
 		</div>
 		<div class="col-md-2"></div>
 	</div>
+	
+	<!-- 페이지 -->
+	
+	<div class="row">
+		<div class="col-md-12">
+			<nav>
+				<ul class="pagination justify-content-center">
+				<c:if test="${pagingDto.startPage!=1}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="/event/nowEvent_list?page=${pagingDto.startPage-1}">이전</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
+					<li 
+					<c:choose>
+						<c:when test="${i==param.page}">
+							class="page-item active"
+						</c:when>
+						<c:otherwise>
+							class="page-item"
+						</c:otherwise>
+					</c:choose>
+					>
+						<a id="nextPage" class="page-link" href="/event/nowEvent_list?page=${i}">${i}</a>
+					</li>
+				</c:forEach>
+				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
+					<li class="page-item">
+						<a class="page-link" 
+							href="/event/nowEvent_list?page=${pagingDto.endPage + 1}">다음</a>
+					</li>
+				</c:if>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- 페이징 끝 -->
+	
 		<div class="float-right">
 			<p>
 				<a class="btn btn-primary btn-large" href="/event/write_form">게시글 쓰기</a>

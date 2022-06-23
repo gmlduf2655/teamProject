@@ -100,12 +100,14 @@ $(function(){
 			alert("사용자가 다릅니다");
 		}
 	});
-	
-	
-	
-	
-		
-	
+ 	//무한 스크롤
+    var page = 1;
+    $(window).scroll(function() {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+          console.log(++page);
+          getCommentList();
+        }
+    });
 	
 	//초기 화면 좋아요 출력
 	getislike();
@@ -182,7 +184,7 @@ ${loginUserVo.userid}
                             <div class="anime__details__rating">
                                 <div class="rating">
                                    
-                                    <a href="#"><i class="fa fa-heart"></i></a>
+                                    <a href="#"><i  class="fa fa-heart"></i></a>
                                 </div>
                                 <span id="likeCount"></span>
                             </div>
@@ -289,7 +291,8 @@ ${loginUserVo.userid}
 										<p>content</p>
 									</div>
 								</div>
-								<button id="addBtn" onclick="getCommentList();">더보기</button>
+								<!-- 무한 스크롤 대신 버튼 구현
+								<button id="addBtn" onclick="getCommentList();">더보기</button> -->
 								</div>
 								
 								<div class="anime__review__item" style="display: none;" id="clone">
@@ -299,9 +302,6 @@ ${loginUserVo.userid}
 									<div class="anime__review__item__text">
 										<h6 id="usercom" ></h6>
 										<span id="userreg" style="float: right;"></span>
-										<!-- <p></p> -->
-										<!-- <input type="text" disabled style="background-color: rgba(255,255,255,0); 
-																	color: white; border: none;">  -->
 										<textarea disabled style="background-color: rgba(255,255,255,0); 
 																	color: white; border: none; width:100%; resize: none;"></textarea> 
 										<button type="button" class="btn btn-sm btn-danger commentUpdate"
@@ -313,38 +313,7 @@ ${loginUserVo.userid}
 									</div>
 									<br>
 								</div>
-							
-                            
-                            
-                            <!-- 기존 테이블 댓글
-                            <table id="cloneTable" style="display: none" >
-                            	<tr>
-                            		<td class="useridcom"></td>
-                            		<td><input type="text" class="commentInput" 
-											disabled="disabled"></td>
-                            		<td></td>
-                            		<td>
-                            			<button type="button" class="btn btn-sm btn-danger commentUpdate">수정</button>
-                            			<button type="button" class="btn btn-sm btn-warning commentUpdateSubmit" style="display: none">수정</button>
-                            		</td>
-                            		<td>
-                            			<button type="button" class="btn btn-sm btn-primary commentDelete">삭제</button>
-                            		</td>
-                            	</tr>
-                            </table>
-                            
-                            <table id="commentTable" style="color: white; padding: 100px;">
-                            	<tr >
-                            		<th>아이디</th>
-                            		<th>댓글</th>
-                            		<th>날짜</th>
-                            		<th>수정</th>
-                            		<th>삭제</th>
-                            	</tr>
-                            </table>
-                             -->
-                             
-                        </div>
+							</div>
                         
                     </div>
                     
@@ -413,7 +382,6 @@ function getCommentList(){
 						} 
 						 $("#comment_list").append(div);
 					});
-					
 			}
 		}
 	});

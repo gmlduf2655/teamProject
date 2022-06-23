@@ -32,26 +32,32 @@
 	
 	<!-- 글 전체 목록 -->
 	<select id="list" resultType="EventVo">
-		select * from tbl_event
-		<include refid="search"></include>
-		order by event_no desc
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_event
+				<include refid="search"></include>) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 현재 진행중 목록 -->
 	<select id="nowEventlist" resultType="EventVo">
-		select * from tbl_event
-			where event_start_date <![CDATA[<=]]> sysdate
-			and event_end_date <![CDATA[>=]]> sysdate
-			<include refid="search2"></include>
-		order by event_no desc
+		select * from 
+	    	(select rownum rnum, a.* from
+				(select * from tbl_event
+					where event_start_date <![CDATA[<=]]> sysdate
+					and event_end_date <![CDATA[>=]]> sysdate
+					<include refid="search2"></include>) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 지난 이벤트 목록 -->
 	<select id="lastEventlist" resultType="EventVo">
-		select * from tbl_event
-		where event_end_date <![CDATA[<]]> sysdate
-		<include refid="search2"></include>
-		order by event_no desc
+	select * from 
+	    	(select rownum rnum, a.* from
+				(select * from tbl_event
+					where event_end_date <![CDATA[<]]> sysdate
+					<include refid="search2"></include>) a)
+	where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 글 읽기 -->
@@ -69,6 +75,12 @@
 		
 		<!-- 글 갯수 -->
 	<select id="getCount" resultType="int">
+		select count(*) from tbl_event
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 글 갯수 -->
+	<select id="getEventCount" resultType="int">
 		select count(*) from tbl_event
 		<include refid="search"></include>
 	</select>
