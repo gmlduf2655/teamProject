@@ -50,4 +50,8 @@ public interface UserDao {
 	public boolean updateProfileImage(String profile_image, int userno);
 	// 회원 삭제
 	public boolean deleteUser(int userno);
+	// 다중 유저 정지
+	public boolean multiUserSuspend(List<Integer> list);
+	// 다중 유저 복구
+	public boolean multiUserRecover(List<Integer> list);
 }

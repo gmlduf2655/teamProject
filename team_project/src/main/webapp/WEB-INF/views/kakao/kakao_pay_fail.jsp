@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,21 +37,7 @@
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
-			<c:choose>
-				<c:when test="${charge_result == 'true'}">
-					<h2 class="mb-5" style="margin-top:100px;">결제 성공 하였습니다</h2>
-				</c:when>
-				<c:otherwise>
-					<h2 class="mb-5" style="margin-top:100px;">결제 실패 하였습니다 </h2>
-				</c:otherwise>
-			</c:choose>
-			<h4 class="mb-3">결제 시간 : ${kakaoApproveData.approved_at}</h4>
-			<fmt:parseDate var="approvedDate" value="${approvedAt}" pattern="yyyyMMddHHmmss"/>
-			<h4 class="mb-3">결제 시간 : <fmt:formatDate value="${approvedDate}" pattern="yyyy년 MM월 dd일 HH시 mm분 ss초" /></h4>
-			<h4 class="mb-3">결제 상품 : ${kakaoApproveData.item_name}</h4>
-			<h4 class="mb-3">결제 금액 : ${kakaoApproveData.amount.total}</h4>
-			<h4 class="mb-3">결제전 포인트 : ${beforePoint}</h4>
-			<h4 class="mb-5">결제후 포인트: ${afterPoint}</h4>
+			<h2 class="mb-5" style="margin-top:100px;">결제 실패 하였습니다 </h2>
 			<h4><span id="timer">10</span>초 뒤에 해당 창이 닫힙니다!</h4>
 		</div>
 		<div class="col-md-3"></div>

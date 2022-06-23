@@ -245,4 +245,24 @@
 			set user_status='0'
 		where userno = #{userno}
 	</update>
+	
+	<!-- 다중 유저 정지 -->
+	<update id="multiUserSuspend">
+		update tbl_user 
+			set user_status='2'
+		where userno in
+		<foreach collection="list" item="item" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 다중 유저 복구 -->
+	<update id="multiUserRecover">
+		update tbl_user 
+			set user_status='1'
+		where userno in
+		<foreach collection="list" item="item" open="(" close=")" separator="," >
+			#{item}
+		</foreach>
+	</update>
 </mapper>

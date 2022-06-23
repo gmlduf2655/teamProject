@@ -9,6 +9,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,7 @@ public class PointController {
 	}
 	
 	
-	// 카카오 페이 결제 설공
+	// 카카오 페이 결제 성공
 	@RequestMapping(value="/kakao_pay_success", method=RequestMethod.GET)
 	public String kakaoPaySuccess(HttpSession session, Model model, String pg_token, int point_code) throws ParseException {
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
@@ -117,6 +118,11 @@ public class PointController {
 			
 			Map<String, Object> kakaoApproveData = (Map<String, Object>)parser.parse(kakaoApproveStr);
 			JSONObject amount = (JSONObject)kakaoApproveData.get("amount");
+			String approvedAt = (String)kakaoApproveData.get("approved_at");
+			System.out.println("approvedAt : " + approvedAt);
+			approvedAt = approvedAt.replaceAll("-", "");
+			approvedAt = approvedAt.replaceAll("T", "");
+			approvedAt = approvedAt.replaceAll(":", "");
 			int point = Integer.parseInt((Long)amount.get("total") + "");
 			
 			PointVo pointVo = new PointVo(point, userno, point_code);
@@ -131,11 +137,24 @@ public class PointController {
 			model.addAttribute("charge_result", charge_result + "");
 			model.addAttribute("beforePoint", beforePoint);
 			model.addAttribute("afterPoint", afterPoint);
+			model.addAttribute("approvedAt", approvedAt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 
 		return "kakao/kakao_pay_success";
+	}
+	
+	// 카카오 페이 결제 실패 
+	@RequestMapping(value="/kakao_pay_fail", method=RequestMethod.GET)
+	public String kakaoPayFail() throws ParseException {
+		return "kakao/kakao_pay_fail";
+	}
+	
+	// 카카오 페이 결제 실패 
+	@RequestMapping(value="/kakao_pay_cancel", method=RequestMethod.GET)
+	public String kakaoPayCancel() throws ParseException {
+		return "kakao/kakao_pay_cancel";
 	}
 	
 	// 포인트 코드 생성

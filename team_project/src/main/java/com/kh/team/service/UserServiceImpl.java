@@ -231,4 +231,17 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	// 다중 유저 정지
+	@Override
+	public boolean multiUserSuspend(List<Integer> list) {
+		boolean result = userDao.multiUserSuspend(list);
+		return result;
+	}
+	
+	// 다중 유저 복구
+	@Override
+	public boolean multiUserRecover(List<Integer> list) {
+		boolean result = userDao.multiUserRecover(list);
+		return result;
+	}
 }

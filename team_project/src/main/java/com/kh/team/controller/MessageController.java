@@ -25,10 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.MessageService;
+import com.kh.team.service.PointService;
 import com.kh.team.service.UserService;
 import com.kh.team.util.MyFileUploader;
 import com.kh.team.vo.MessageVo;
 import com.kh.team.vo.PagingDto;
+import com.kh.team.vo.PointVo;
 import com.kh.team.vo.UserVo;
 
 @Controller
@@ -38,6 +40,8 @@ public class MessageController {
 	MessageService messageService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	PointService pointService;
 	
 	// 쪽지 보관함 페이지 이동
 	@RequestMapping(value="/message_list", method=RequestMethod.GET)
@@ -78,8 +82,15 @@ public class MessageController {
 		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
 		System.out.println("messageVo : " + messageVo);
 		boolean result = messageService.addMessage(messageVo);
+		// 쪽지가 추가되지 않았다면 파일을 저장한 디렉토리를 제거하고
+		// 추가 되었다면 유저 포인트를 증가시키고 세션에 있는 유저 정보를 변경함
 		if(!result) {
 			MyFileUploader.deleteDirectory("/moverattach/message/" + messageVo.getMessageno());
+		}else {
+			PointVo pointVo = new PointVo(PointService.SEND_MESSAGE_POINT, loginUserVo.getUserno(), PointService.SEND_MESSAGE);
+			pointService.addPoint(pointVo);
+			loginUserVo = userService.getUserInfoByUserno(loginUserVo.getUserno());
+			session.setAttribute("loginUserVo", loginUserVo);
 		}
 		redirectAttributes.addFlashAttribute("add_result", result + "");
 		return "redirect:/message/message_list?page=1&type=receive";

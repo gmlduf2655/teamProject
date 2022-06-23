@@ -1,6 +1,7 @@
 
 package com.kh.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -190,4 +191,21 @@ public class UserDaoTest {
 		System.out.println("UserDaoTest, testDeleteUser, result : " + result);		
 	}
 	
+	// 다중 유저 정지 테스트
+	@Test
+	public void testMultiUserSuspend() {
+		List<Integer> list = new ArrayList<>();
+		list.add(1);
+		boolean result = userDao.multiUserSuspend(list);
+		System.out.println("UserDaoTest, testMultiUserSuspend, result : " + result);
+	}
+	
+	// 다중 유저 복구 테스트
+	@Test
+	public void testMultiUserRecover() {
+		List<Integer> list = new ArrayList<>();
+		list.add(1);
+		boolean result = userDao.multiUserRecover(list);
+		System.out.println("UserDaoTest, testMultiUserRecover, result : " + result);
+	}
 }

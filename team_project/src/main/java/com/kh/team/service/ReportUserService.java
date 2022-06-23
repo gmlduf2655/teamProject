@@ -18,4 +18,6 @@ public interface ReportUserService {
 	public boolean modifyReportAcceptDate(int reportno);
 	// 유저 신고 해결여부 수정 
 	public boolean modifyReportResolved(int reportno);
+	// 유저 신고 해결여부 다중 수정
+	public boolean modifyMultiReportResolve(List<Integer> list);
 }

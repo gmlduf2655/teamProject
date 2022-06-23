@@ -6,6 +6,9 @@ import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
 
 public interface PointService {
+	public final int SEND_MESSAGE = 1001;
+	public final int SEND_MESSAGE_POINT = 10;
+	
 	// 포인트 내역 추가
 	public boolean addPoint(PointVo pointVo);
 	// 포인트 코드 추가
