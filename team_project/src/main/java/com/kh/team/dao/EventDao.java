@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.PagingDto;
 
 public interface EventDao {
 	
@@ -15,6 +16,7 @@ public interface EventDao {
 	public void viewConuntUpdate(int event_no); // 조회수 증가
 	public List<EventVo> nowEventlist(EventPagingDto pagingDto); // 현재 진행중 리스트
 	public List<EventVo> lastEventlist(EventPagingDto pagingDto); // 지난 이벤트 리스트 
-	public int getCount(EventPagingDto pagingDto); //게시글 갯수
+	public int getEventCount(EventPagingDto pagingDto); //게시글 갯수
+	public int getCount(PagingDto pagingDto); //게시글 갯수
 
 }

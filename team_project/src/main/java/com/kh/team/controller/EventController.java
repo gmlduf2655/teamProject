@@ -49,9 +49,8 @@ public class EventController {
 	public String eventList(Model model, EventPagingDto pagingDto) {
 		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
 		List<EventVo> eventList = eventService.list(pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
+		pagingDto.setCount(eventService.getEventCount(pagingDto));
 		pagingDto.setPage(1);
-		System.out.println("eventList:"+eventList);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/event_list";
@@ -168,10 +167,10 @@ public class EventController {
 	// 현재 상영중 이벤트 리스트
 	@RequestMapping(value = "/nowEvent_list", method = RequestMethod.GET)
 	public String nowEventList(Model model, EventPagingDto pagingDto) {
-//		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
+		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		List<EventVo> nowEventList = eventService.nowEventlist(pagingDto);
+		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setPage(1);
 		model.addAttribute("nowEventList", nowEventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/nowEvent_list";
@@ -180,10 +179,10 @@ public class EventController {
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
 	public String  lastEventlist(Model model, EventPagingDto pagingDto) {
-//		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
+		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		List<EventVo> lastEventlist = eventService.lastEventlist(pagingDto);
+		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setPage(1);
 		model.addAttribute("lastEventlist", lastEventlist);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/lastEvent_list";

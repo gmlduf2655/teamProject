@@ -144,7 +144,7 @@ $(document).ready(function(){
 						</c:otherwise>
 					</c:choose>
 					>
-						<a class="page-link" href="/event/event_list?page=${i}">${i}</a>
+						<a id="nextPage" class="page-link" href="/event/event_list?page=${i}">${i}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">

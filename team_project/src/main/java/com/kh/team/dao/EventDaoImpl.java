@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.PagingDto;
 
 @Repository
 public class EventDaoImpl implements EventDao {
@@ -18,7 +19,6 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public List<EventVo> list(EventPagingDto pagingDto) {
-		System.out.println("EventDao, pagingDto:"+pagingDto);
 		List<EventVo> eventList = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return eventList;
 	}
@@ -75,8 +75,14 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	@Override
-	public int getCount(EventPagingDto pagingDto) {
+	public int getCount(PagingDto pagingDto) {
 		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
+		return count;
+	}
+	
+	@Override
+	public int getEventCount(EventPagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getEventCount", pagingDto);
 		return count;
 	}
 

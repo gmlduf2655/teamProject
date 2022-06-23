@@ -142,14 +142,14 @@ public class MypageController {
 	
 	// 내가 쓴 리뷰 내역 페이지 이동
 	@RequestMapping(value="/write_review_list", method=RequestMethod.GET)
-	public String writeRiewList(Model model, int userno, EventPagingDto pagingDto) {
-//		System.out.println("writeRiewList, pagingDto:"+pagingDto);
-//		pagingDto.setCount(eventService.getCount(pagingDto));
-//		pagingDto.setPage(pagingDto.getPage());
-//		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
-//		System.out.println("myReviewList:"+myReviewList);
-//		model.addAttribute("reviewList", myReviewList);
-//		model.addAttribute("pagingDto", pagingDto);
+	public String writeRiewList(Model model, int userno, PagingDto pagingDto) {
+		System.out.println("writeRiewList, pagingDto:"+pagingDto);
+		pagingDto.setCount(eventService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		List<ReviewVo> myReviewList = reviewService.myReviewList(userno, pagingDto);
+		System.out.println("myReviewList:"+myReviewList);
+		model.addAttribute("reviewList", myReviewList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/write_review_list";
 	}
 	

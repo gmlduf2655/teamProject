@@ -180,17 +180,9 @@
 							<ul class="pagination justify-content-center" id="pagination">
 								<c:if test="${pagingDto.startPage > 1}">
 									<li class="page-item"><a class="page-link move_page"
-<<<<<<< HEAD
-										href="/mypage/write_review_list?userno=1&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
-=======
 										href="/mypage/write_review_list?userno=${param.userno}page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
->>>>>>> branch 'master' of https://github.com/gmlduf2655/teamProject.git
 									<li class="page-item"><a class="page-link move_page"
-<<<<<<< HEAD
-										href="/mypage/write_review_list?userno=${pagigDto.startPage-1}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
-=======
 										href="/mypage/write_review_list?userno=${param.userno}page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
->>>>>>> branch 'master' of https://github.com/gmlduf2655/teamProject.git
 								</c:if>
 								<c:forEach var="i" begin="${pagingDto.startPage}"
 									end="${pagingDto.endPage}">
@@ -203,26 +195,14 @@
 												class="page-item"		
 											</c:otherwise>
 										</c:choose>>
-<<<<<<< HEAD
-										<a class="page-link move_page" href="/mypage/write_review_list?userno=${param.page}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
-=======
 										<a class="page-link move_page" href="/mypage/write_review_list?userno=${param.userno}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
->>>>>>> branch 'master' of https://github.com/gmlduf2655/teamProject.git
 									</li>
 								</c:forEach>
 								<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
 									<li class="page-item"><a class="page-link move_page"
-<<<<<<< HEAD
-										href="/mypage/write_review_list?userno=${pagigDto.endPage+1}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
-=======
 										href="/mypage/write_review_list?userno=${param.userno}page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
->>>>>>> branch 'master' of https://github.com/gmlduf2655/teamProject.git
 									<li class="page-item"><a class="page-link move_page"
-<<<<<<< HEAD
-										href="/mypage/write_review_list?userno=${pagigDto.totalPage}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
-=======
 										href="/mypage/write_review_list?userno=${param.userno}page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
->>>>>>> branch 'master' of https://github.com/gmlduf2655/teamProject.git
 								</c:if>
 							</ul>
 						</nav>

@@ -111,9 +111,10 @@ public class AdminController {
 	// 관리자 페이지 이벤트 관리 - 이벤트 목록
 		@RequestMapping(value = "/event_admin_list", method = RequestMethod.GET)
 		public String eventAdminList(Model model, EventPagingDto pagingDto) {
-			pagingDto.setCount(eventService.getCount(pagingDto));
-			pagingDto.setPage(pagingDto.getPage());
+			System.out.println("eventAdminList, pagingDto:"+pagingDto);
 			List<EventVo> eventList = eventService.list(pagingDto);
+			pagingDto.setCount(eventService.getEventCount(pagingDto));
+			pagingDto.setPage(1);
 			model.addAttribute("eventList", eventList);
 			model.addAttribute("pagingDto", pagingDto);
 			return "admin/event_admin_list";
