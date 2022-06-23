@@ -72,6 +72,8 @@ $(document).ready(function(){
 			console.log("data" , data);
 			var rdata = data.movieInfoResult.movieInfo;
 			console.log(rdata.movieCd);
+			$("#movieprevget").attr("href","https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=영화+예고+"+rdata.movieNm);
+			$("#movieprevget").removeAttr("style");
 			/* $('#list').append("<hr><span>영화코드:</span><input type='text' class='form-control movieList' style='width:500px; display:inline-block; ' name='movie_code' value='" + rdata.movieCd +"'><br>");
 			$('#list').append("<span>영화제목:</span><input type='text' class=\'form-control movieList\' style='width:500px; display:inline-block; ' name='movie_name' value='" + rdata.movieNm +"'><br>");
 			$('#list').append("<span>영화원제:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_name_en' value='" + rdata.movieNmEn +"'><br>");
@@ -121,7 +123,7 @@ $(document).ready(function(){
 					$('#list').append(stillcut); 
 					$('#fileinfo').removeAttr("style");
 		}		
-});
+	});
 	
 });//dbSearch
 //진흥원 api 스틸컷 추가 파일 드롭 이동 방지
@@ -226,9 +228,7 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 						<a target="_blank"
 							href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do"
 							class="btn btn-primary" style="margin-bottom: 20px;">영화코드
-							가져오기</a><br> <a target="_blank"
-							href="https://tv.naver.com/navermovie" class="btn btn-warning">네이버예고편가져오기</a>
-						<br>
+							가져오기</a><br> 
 						<br> <input type="text" name="moviecode" id="moviecode">
 						<button type="submit" class="btn btn-sm btn-outline btn-success"
 							id="dbSearch">진흥원DB검색</button>
@@ -246,6 +246,9 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 									<a href="#"></a>
 									<div class="active" ></div>
 								</div>
+								<br>
+								<a target="_blank" id="movieprevget" style="display: none;"
+								href='' class="btn btn-warning">네이버예고편가져오기</a>
 								<div align="left" id="fileinfo" style="display: none;">
 									<label>첨부할 파일을 드래그 &amp; 드롭하세요</label>
 									<div id="fileDrop"  align="left"></div>

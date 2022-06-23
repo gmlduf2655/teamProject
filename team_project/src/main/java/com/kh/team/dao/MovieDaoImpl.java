@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +59,24 @@ public class MovieDaoImpl implements MovieDao {
 	public List<Map<String, Object>> getCountMovieGroupByGenre() {
 		List<Map<String, Object>> listMap = sqlSession.selectList(NAMESPACE + "getCountMovieGroupByGenre");
 		return listMap;
+	}
+
+	@Override
+	public List<MovieVo> movieListsetion(int startRow, int endRow) {
+		Map<Object, Object> parameter = new HashMap<>();
+		parameter.put("startRow", startRow);
+		parameter.put("endRow", endRow);
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListsetion", parameter);
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> movieListIngsetion(int startRow, int endRow) {
+		Map<Object, Object> parameter = new HashMap<>();
+		parameter.put("startRow", startRow);
+		parameter.put("endRow", endRow);
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListIngsetion", parameter);
+		return list;
 	}
 	
 }

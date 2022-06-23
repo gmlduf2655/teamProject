@@ -7,7 +7,9 @@ import com.kh.team.vo.MovieVo;
 
 public interface MovieService {
 	public List<MovieVo> movieList();
+	public List<MovieVo> movieListsetion(int startRow, int endRow);
 	public List<MovieVo> movieListIng();
+	public List<MovieVo> movieListIngsetion(int startRow, int endRow);
 	public List<MovieVo> movieListSoon();
 	public List<MovieVo> boxoffice();
 	public MovieVo movieInfoByMovieCode(String movie_code); 
