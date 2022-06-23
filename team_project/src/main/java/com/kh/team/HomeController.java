@@ -3,6 +3,7 @@ package com.kh.team;
 import java.util.List;
 import java.util.Locale;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -80,7 +81,9 @@ public class HomeController {
 	@ResponseBody
 	@RequestMapping(value = "/getServerTime", method = RequestMethod.GET)
 	public String getServerTime() {
+		
 		String time = getServerTimeDao.getServerDate();
+		
 		return time;
 	}
 	
