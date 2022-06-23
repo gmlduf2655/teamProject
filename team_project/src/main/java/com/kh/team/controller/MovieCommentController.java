@@ -38,6 +38,7 @@ public class MovieCommentController {
 		}
 		int endRow = startRow + 4;
 		List<MovieCommentVo> movieCommentList = commentService.commentListsection(movie_code, startRow, endRow);
+		System.out.println("commentList. result" + movieCommentList);
 		return movieCommentList;
 	}
 	
