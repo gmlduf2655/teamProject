@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.EventDao;
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
 
@@ -16,7 +17,7 @@ public class EventServiceImpl implements EventService {
 	private EventDao eventDao;
 
 	@Override
-	public List<EventVo> list(PagingDto pagingDto) {
+	public List<EventVo> list(EventPagingDto pagingDto) {
 		List<EventVo> eventList = eventDao.list(pagingDto);
 		return eventList;
 	}
@@ -47,19 +48,19 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<EventVo> nowEventlist(PagingDto pagingDto) {
+	public List<EventVo> nowEventlist(EventPagingDto pagingDto) {
 		List<EventVo> nowEventlist = eventDao.nowEventlist(pagingDto);
 		return nowEventlist;
 	}
 
 	@Override
-	public List<EventVo> lastEventlist(PagingDto pagingDto) {
+	public List<EventVo> lastEventlist(EventPagingDto pagingDto) {
 		List<EventVo> lastEventlist = eventDao.lastEventlist(pagingDto);
 		return lastEventlist;
 	}
 
 	@Override
-	public int getCount(PagingDto pagingDto) {
+	public int getCount(EventPagingDto pagingDto) {
 		int count = eventDao.getCount(pagingDto);
 		return count;
 	}

@@ -21,6 +21,7 @@ import com.kh.team.service.EventService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.vo.AttendanceVo;
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
@@ -45,11 +46,12 @@ public class EventController {
 	
 	// 이벤트 게시글 목록
 	@RequestMapping(value = "/event_list", method = RequestMethod.GET)
-	public String eventList(Model model, PagingDto pagingDto) {
-//		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
-		pagingDto.setCount(eventService.getCount(pagingDto));
-		pagingDto.setPage(pagingDto.getPage());
+	public String eventList(Model model, EventPagingDto pagingDto) {
+		System.out.println("EventController, eventList, pagingDto:" + pagingDto);
 		List<EventVo> eventList = eventService.list(pagingDto);
+		pagingDto.setCount(eventService.getCount(pagingDto));
+		pagingDto.setPage(1);
+		System.out.println("eventList:"+eventList);
 		model.addAttribute("eventList", eventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/event_list";
@@ -165,7 +167,7 @@ public class EventController {
 	
 	// 현재 상영중 이벤트 리스트
 	@RequestMapping(value = "/nowEvent_list", method = RequestMethod.GET)
-	public String nowEventList(Model model, PagingDto pagingDto) {
+	public String nowEventList(Model model, EventPagingDto pagingDto) {
 //		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		pagingDto.setCount(eventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());
@@ -177,7 +179,7 @@ public class EventController {
 	
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
-	public String  lastEventlist(Model model, PagingDto pagingDto) {
+	public String  lastEventlist(Model model, EventPagingDto pagingDto) {
 //		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		pagingDto.setCount(eventService.getCount(pagingDto));
 		pagingDto.setPage(pagingDto.getPage());

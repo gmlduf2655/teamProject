@@ -23,6 +23,7 @@ import com.kh.team.service.UserService;
 import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
@@ -99,7 +100,7 @@ public class AdminController {
 	
 	// 관리자 페이지 이벤트 관리 - 이벤트 목록
 		@RequestMapping(value = "/event_admin_list", method = RequestMethod.GET)
-		public String eventAdminList(Model model, PagingDto pagingDto) {
+		public String eventAdminList(Model model, EventPagingDto pagingDto) {
 			pagingDto.setCount(eventService.getCount(pagingDto));
 			pagingDto.setPage(pagingDto.getPage());
 			List<EventVo> eventList = eventService.list(pagingDto);

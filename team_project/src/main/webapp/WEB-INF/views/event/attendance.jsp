@@ -237,7 +237,6 @@ $(document).ready(function(){
 			$(".current.today").css("background-color", "rgb(242 242 242)");
 			getAttendList();
 			
-			
 		});
 		
 	});

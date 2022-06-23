@@ -6,9 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
-import com.kh.team.vo.PagingDto;
-import com.kh.team.vo.ReviewPagingDto;
 
 @Repository
 public class EventDaoImpl implements EventDao {
@@ -18,7 +17,8 @@ public class EventDaoImpl implements EventDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<EventVo> list(PagingDto pagingDto) {
+	public List<EventVo> list(EventPagingDto pagingDto) {
+		System.out.println("EventDao, pagingDto:"+pagingDto);
 		List<EventVo> eventList = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return eventList;
 	}
@@ -63,19 +63,19 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	@Override
-	public List<EventVo> nowEventlist(PagingDto pagingDto) {
+	public List<EventVo> nowEventlist(EventPagingDto pagingDto) {
 		List<EventVo> nowEventList = sqlSession.selectList(NAMESPACE + "nowEventlist", pagingDto);
 		return nowEventList;
 	}
 
 	@Override
-	public List<EventVo> lastEventlist(PagingDto pagingDto) {
+	public List<EventVo> lastEventlist(EventPagingDto pagingDto) {
 		List<EventVo> lastEventlist = sqlSession.selectList(NAMESPACE + "lastEventlist", pagingDto);
 		return lastEventlist;
 	}
 
 	@Override
-	public int getCount(PagingDto pagingDto) {
+	public int getCount(EventPagingDto pagingDto) {
 		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
 		return count;
 	}

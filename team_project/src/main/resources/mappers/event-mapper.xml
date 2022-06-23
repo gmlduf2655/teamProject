@@ -32,9 +32,11 @@
 	
 	<!-- 글 전체 목록 -->
 	<select id="list" resultType="EventVo">
-		select * from tbl_event
-		<include refid="search"></include>
-		order by event_no desc
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_event
+				<include refid="search"></include>) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 현재 진행중 목록 -->
