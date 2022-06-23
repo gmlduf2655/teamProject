@@ -31,16 +31,18 @@ $(function(){ /* 준비 핸들러 */
 				changeTarget.append(inputText);
 			}
 		});
-		
-		
 	}); /* 상영 스케줄 검색 시 년,월, 일 변경 시 끝 */
 	
 	/* 클릭한 대상 표시 */
-	$(".ticketTable").on("click", "li", function(){
+	$(".ticketTable").on("click", "li", function(e){
+		e.stopPropagation();
+		
+		/* this를 제외한 나머지에 .choise를 지움 */
+		$(this).parents("ul").find("li").not(this).removeClass("choise");
+		
 		/* 클릭하면 클릭한 대상에 .choise 추가 */
 		$(this).addClass("choise");
-		/* this를 제외한 나머지에 .choise를 지움 */
-		$(this).parent().children("li").not(this).removeClass("choise");
+		
 	}); /* 클릭한 대상 표시 끝 */
 	
 	/* 영화 목록 간단히 보기 클릭시 리스트의 클래스 추가/제거 */
@@ -67,7 +69,6 @@ $(function(){ /* 준비 핸들러 */
 			"search_data" : cityName
 		}
 		$.get(url, sData, function(rData){
-			console.log(rData);
 			var insertHtml = "";
 			$.each(rData, function(){
 				insertHtml += `
@@ -90,6 +91,16 @@ $(function(){ /* 준비 핸들러 */
 		}
 		$.get(url, sData, function(rData){
 			console.log(rData);
+			$(".ticketTable li[data-movie_code]").hide();
+			$.each(rData, function(){
+				console.log(this.movie_code);
+				$(".ticketTable li[data-movie_code=" +  this.movie_code + "]").show();
+			});
+			
+			$.each(rData, function(){
+				
+			});
+			
 		});
 		
 	}); /* 조회된 영화관 목록 클릭 시 끝*/

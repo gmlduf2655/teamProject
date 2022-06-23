@@ -8,8 +8,13 @@
 
 
 
-.ticketing {
-	
+.ticketing * {
+	/* 드래그 방지 */
+	user-select: none;
+}
+
+.ticketing > * {
+/* 	box-sizing: content-box; */
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -18,9 +23,31 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.ticketing .ticketTable li {
-	opacity: 0.5;
+.ticketing .ticketTable li:not(.choise),
+.ticketing .ticketTable li.roomInfo,
+.ticketing .roomTypeNav .col {
+ 	opacity: 0.5; 
 	cursor: pointer;
+}
+
+.ticketing .ticketTable .timelineList li {
+	opacity: 1;
+}
+
+.ticketing .ticketTable .timelineList li li li {
+	opacity: 0.5;
+}
+
+.ticketing .ticketTable .timelineList li li li.choise {
+	opacity: 1;
+}
+
+.ticketing li {
+	cursor: pointer;
+}
+
+.ticketing li.choise {
+	cursor: default !important;
 }
 
 .ticketing .ticketTable .choise {
@@ -80,8 +107,13 @@ input.form-control.dateMM, input.form-control.dateDD {
 .ticketing .movieList,
 .ticketing .dateNav,
 .ticketing .notListInfo,
-.ticketing .searchNav {
+.ticketing .searchNav,
+.ticketing .timelineList {
 	padding: 0 0.8em;
+}
+
+.ticketing .movieList {
+	margin-top: -0.6em;
 }
 
 .ticketing .searchNav {
@@ -195,12 +227,20 @@ input.form-control.dateMM, input.form-control.dateDD {
 }
 
 .ticketing .movieList li {
-	padding-top: 0.5em;
+ 	padding-top: 0.5em;
 	position: relative;
 }
 
+.ticketing .movieList .stackViewer li {
+ 	padding-top: 0;
+}
+
+.ticketing .movieList .stackViewer .movieName {
+	top: 0.65em;
+}
+
 .ticketing .movieList li:first-child {
-	margin-top: -0.5em;
+/* 	margin-top: -0.5em; */
 }
 
 .ticketing .movieList .gridViewer li {
@@ -219,13 +259,18 @@ input.form-control.dateMM, input.form-control.dateDD {
 .ticketing .movieList .gridViewer {
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: 42em;
+	height: 42.8em;
 }
 
+.ticketing .roomTypeNav li {
+	white-space: nowrap;
+}
 
-.ticketing .movieList .timelineList {
+.ticketing .timelineList {
+	margin-top: -0.5em;
+	padding-top: 1em;
 	overflow-y: auto;
-	height: 40em;
+	height: 41em;
 }
 
 .ticketing .movieList .stackViewer .movieName {
@@ -412,6 +457,71 @@ input.form-control.dateMM, input.form-control.dateDD {
 	transform: translate(-50%, -50%);
 }
 
+.ticketing .roomListWrapper .typeList > li:first-child {
+/* 	margin-top: 1em; */
+}
+
+.ticketing .roomListWrapper .typeList .room_type_name {
+	margin-bottom: 1em;
+	clear: both;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList {
+	overflow: hidden;
+	margin-bottom: 1em;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo {
+	position: relative;
+	width: 7em;
+	height: 3.4em;
+	padding: 0.3em 0.4em;
+	display: inline-block;
+	border: 1px solid #aaa;
+	font-size: 0.9em;
+	border-radius: 0.5em;
+	float: left;
+	margin-right: 0.5em;
+	margin-bottom: 0.5em;
+	background: #eee;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo strong {
+	display: block;
+	margin-top:0.1em;
+	font-size: 0.9rem;
+	text-align: center;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo div {
+	position: absolute;
+	bottom: 0.5em;
+	font-size: 0.6em;
+	display: inline-block;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo div:first-of-type {
+	left: 1.1em;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo div:last-of-type {
+	right: 1em;
+}
+
+.ticketing .roomListWrapper .typeList > .typeContainer {
+	height: auto;
+	clear: both;
+}
+
+.ticketing .roomListWrapper {
+	pointer-events: none;
+}
+
+.ticketing .roomInfo {
+	pointer-events: auto;
+}
+
+
 </style>
 
 <script type="text/javascript" src="/resources/js/ticketing.js"></script>
@@ -490,7 +600,7 @@ input.form-control.dateMM, input.form-control.dateDD {
 							<ul class="stackViewer"> <!-- 클래스명을 stackViewer / gridViewer 로 바꾸면 리스트 형태 변경 -->
 								<c:forEach items="${movieList}" var="movieVo">
 									<li data-movie_code="${movieVo.movie_code}">
-										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'">
+										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'" onclick="location.href='http://localhost/movie/movieInfo?movie_code=${movieVo.movie_code}'">
 										<h5>
 											<strong class="yearUseMark 
 											<c:choose>
@@ -513,7 +623,7 @@ input.form-control.dateMM, input.form-control.dateDD {
 										</h5>
 										<div class="movieInfo">
 											<ul>
-												<li><strong>개봉일 : </strong>${movieVo.opening_date}</li>
+												<li><strong>장르 : </strong>${movieVo.movie_genre}</li>
 												<li><strong>러닝타임 : </strong>${movieVo.runningtime} 분</li>
 											</ul>
 										</div>
@@ -522,7 +632,7 @@ input.form-control.dateMM, input.form-control.dateDD {
 							</ul>
 						</div>
 					</div>
-					<div class="col choiseDateContainer">
+					<div class="col-4 choiseDateContainer">
 						<div class="sectionTitle">${fn:substring(serverTime, 0, 10)} (오늘)</div>
 						<div class="dateNav">
 							<div class="choiseDate" data-ride="carousel">
@@ -534,23 +644,37 @@ input.form-control.dateMM, input.form-control.dateDD {
 							</div>
 							<div class="roomTypeNav">
 								<ul class="row no-gutters">
+										<li class="col choise">전체</li>
 									<c:forEach items="${roomTypeList}" var="roomTypes">
-										<li class="col 
-											<c:if test="${roomTypes.room_type_name == 'Digital'}">
-												choise
-											</c:if>
-										">${roomTypes.room_type_name}</li>
+										<li data-room_type_code="${roomTypes.room_type_code}" class="col">${roomTypes.room_type_name}</li>
 									</c:forEach>
 								</ul>
 							</div>
 						</div>
 						<div class="timelineList">
-							<div class="notListInfo">
+							<div class="notListInfo" style="display: none;">
 								<div class="display-4 text-center"><i class="bi bi-film"></i></div>
 								<div class="text-center">조회 가능한 상영시간이 없습니다.<br>조건을 변경해주세요.</div>
 							</div>
 							<ul>
-								<li></li>
+								<c:forEach begin="0" step="1" end="10">
+									<li class="roomListWrapper">
+										<ul class="typeList">
+											<li class="typeContainer">
+												<h6 class="room_type_name">상영관 타입</h6>
+												<ul class="cinemaRoomList">
+													<c:forEach begin="0" step="1" end="6">
+														<li class="roomInfo">
+															<strong class="movie_begin_date">00:00</strong>
+															<div>73/100</div>
+															<div class="room_name">현대 1관</div>
+														<li>
+													</c:forEach>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>	
 					</div>
