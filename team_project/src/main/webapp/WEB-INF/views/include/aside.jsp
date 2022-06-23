@@ -17,7 +17,7 @@
 <div class="col-lg-4 col-md-4">
 	<div class="product__sidebar">
 		<!-- 마이페이지 시작 -->
-		<div class="product__sidebar__comment">
+		<div class="product__sidebar__comment" style="margin-top: 50px;">
 			<div class="section-title">
 				<h5>마이페이지</h5>
 			</div>

@@ -29,6 +29,7 @@ import com.kh.team.service.UserService;
 import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
+import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.MessageVo;
 import com.kh.team.vo.MovieCommentVo;
@@ -113,10 +114,11 @@ public class AdminController {
 	
 	// 관리자 페이지 이벤트 관리 - 이벤트 목록
 		@RequestMapping(value = "/event_admin_list", method = RequestMethod.GET)
-		public String eventAdminList(Model model, PagingDto pagingDto) {
-			pagingDto.setCount(eventService.getCount(pagingDto));
-			pagingDto.setPage(pagingDto.getPage());
+		public String eventAdminList(Model model, EventPagingDto pagingDto) {
+			System.out.println("eventAdminList, pagingDto:"+pagingDto);
 			List<EventVo> eventList = eventService.list(pagingDto);
+			pagingDto.setCount(eventService.getEventCount(pagingDto));
+			pagingDto.setPage(1);
 			model.addAttribute("eventList", eventList);
 			model.addAttribute("pagingDto", pagingDto);
 			return "admin/event_admin_list";
@@ -363,9 +365,10 @@ public class AdminController {
 		}
 	// 유수연 - 영화 댓글 블럭 
 		@RequestMapping(value = "/movie_commentUpdate", method = RequestMethod.GET)
-		public String moviecommentUpdate(int cno) {
-			boolean result = moviecommentService.commentAdminUpdate(cno);
-			return "redirect:/admin/movie_comment";
+		@ResponseBody
+		public String moviecommentUpdate(int cno,String admin_delete) {
+			boolean result = moviecommentService.commentAdminUpdate(cno,admin_delete);
+			return String.valueOf(result);
 		}	
 	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
@@ -373,11 +376,7 @@ public class AdminController {
 			commentpagingDto.setCount(moviecommentService.getCountmoviecomment(commentpagingDto));
 			System.out.println(commentpagingDto.getCount());
 			commentpagingDto.setPage(commentpagingDto.getPage());
-			
 			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(commentpagingDto);
-			
-	//		System.out.println(pagingDto);
-	//		System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
 			model.addAttribute("commentpagingDto", commentpagingDto);
 			return "admin/movie_comment";

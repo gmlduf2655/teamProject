@@ -48,13 +48,33 @@ var frmPaging = $("#frmPaging");
 	        return false;
 	    }    
 	    location.href = "/admin/movie_commentlistHole?page=1&type=${param.type}&searchType=" + searchType + "&keyword=" + keyword;
-			   
-		/* frmPaging.find("input[name=searchType]").val(searchType);
-		frmPaging.find("input[name=keyword]").val(keyword);
-		frmPaging.find("input[name=page]").val(1);
-		frmPaging.submit(); */
 	});
-	
+	//유수연 관리자 댓글 블럭/취소
+	$(".table").on("click", ".commentAdminUpdate",function(){
+		var that = $(this);
+		var cno = $(this).attr("data-cno");
+		var admin_delete = $(this).attr("data-admin_delete");
+		console.log(cno);
+		var url = "/admin/movie_commentUpdate";
+		var sData = {
+				"cno" : cno,
+				"admin_delete" : admin_delete
+		};
+		$.get(url, sData, function(rData){
+			console.log("commentAdminUpdate", rData);
+			if(rData == "true"){
+				if(admin_delete == "N"){
+					admin_delete = "Y";
+					that.attr("class" , "btn btn-sm btn-danger commentAdminUpdate");	
+				}else{
+					admin_delete = "N";
+					that.attr("class" , "btn btn-sm btn-warning commentAdminUpdate");
+				}
+				
+				that.attr("data-admin_delete", admin_delete);
+			}
+		});
+	});
 });
 </script>
 <!-- 샘플 레이아웃 데이터 -->
@@ -143,7 +163,14 @@ var frmPaging = $("#frmPaging");
 									<td>${list.userid}</td>
 									<td>${list.regdate}</td>
 									<td>
-										<button class="btn btn-sm btn-warning commentAdminUpdate">블럭</button>
+										<c:if test="${list.admin_delete == 'N'}">
+											<button class="btn btn-sm btn-warning commentAdminUpdate"
+											data-cno="${list.cno}" data-admin_delete="${list.admin_delete}">블럭</button>
+										</c:if>
+										<c:if test="${list.admin_delete == 'Y'}">
+										<button class="btn btn-sm btn-danger commentAdminUpdate"
+											data-cno="${list.cno}" data-admin_delete="${list.admin_delete}">블럭</button>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>

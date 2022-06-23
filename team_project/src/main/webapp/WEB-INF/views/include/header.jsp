@@ -129,10 +129,10 @@
                                 		class="active"
                                 	</c:if>
                                 >
-									<a href="/event/event_list">이벤트</a>
+									<a href="/event/event_list?page=1">이벤트</a>
                                     <ul class="dropdown">
-                                        <li><a href="/event/nowEvent_list">현재 진행중</a></li>
-                                        <li><a href="/event/lastEvent_list">지난 이벤트</a></li>
+                                        <li><a href="/event/nowEvent_list?page=1">현재 진행중</a></li>
+                                        <li><a href="/event/lastEvent_list?page=1">지난 이벤트</a></li>
                                         <li><a href="/event/winner_info?page=1">당첨자 발표</a></li>
                                     </ul>
 								</li>
@@ -184,6 +184,8 @@
         </div>
     </header>
     <!-- Header End -->
+    
+
     
     <!-- Product Section Begin -->
     <section class="product spad">

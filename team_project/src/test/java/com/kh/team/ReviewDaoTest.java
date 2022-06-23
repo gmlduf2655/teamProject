@@ -1,6 +1,8 @@
 
 package com.kh.team;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.team.dao.ReviewDao;
+import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ReviewVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,10 +42,14 @@ public class ReviewDaoTest {
 		System.out.println("result: "+ result);
 	}
 	
-//	@Test
-//	public void testList() {
-//		List<ReviewVo> reviewList = reviewDao.list();
-//		System.out.println("reviewList: "+ reviewList);
-//	}
+	@Test
+	public void testList() {
+		int userno = 2;
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setSearchType("c");
+		pagingDto.setKeyword("ㅠㅠ");
+		List<ReviewVo> reviewList = reviewDao.myReviewList(userno, pagingDto);
+		System.out.println("reviewList: "+ reviewList);
+	}
 
 }

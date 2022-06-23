@@ -31,7 +31,7 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	public List<MovieCommentVo> commentList(String movie_code) {
 		List<MovieCommentVo> movieCommentList = sqlSession.selectList(NAMESPACE + "commentList",movie_code);
 		return movieCommentList;
-	}
+	} // 필요없을듯?
 
 	@Override
 	public boolean commentUpdate(MovieCommentVo commentVo) {
@@ -52,8 +52,11 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	}
 
 	@Override
-	public boolean commentAdminUpdate(int cno) {
-		int count = sqlSession.update(NAMESPACE + "commentAdminUpdate", cno);
+	public boolean commentAdminUpdate(int cno, String admin_delete) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("admin_delete", admin_delete);
+		parameter.put("cno", cno);
+		int count = sqlSession.update(NAMESPACE + "commentAdminUpdate", parameter);
 		if(count > 0) {
 			return true;
 		}
@@ -82,5 +85,18 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 		System.out.println("count, commentpagingDto" + commentpagingDto);
 		return count;
 	}
+
+	@Override
+	public List<MovieCommentVo> commentListsection(String movie_code, int startRow, int endRow) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("movie_code", movie_code);
+		parameter.put("startRow", startRow);
+		parameter.put("endRow", endRow);
+		List<MovieCommentVo> movieCommentList = sqlSession.selectList(NAMESPACE+ "commentListsection", parameter);
+		return movieCommentList;
+	}
+
+	
+
 
 }

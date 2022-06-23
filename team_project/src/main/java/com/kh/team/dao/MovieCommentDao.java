@@ -11,7 +11,8 @@ public interface MovieCommentDao {
 	public List<MovieCommentVo> commentList(String movie_code);
 	public boolean commentUpdate(MovieCommentVo commentVo);
 	public boolean commentDelete(int cno);
-	public boolean commentAdminUpdate(int cno);
+	public boolean commentAdminUpdate(int cno,String admin_delete);
 	public List<MovieCommentVo> commentListHole(PagingDto commentpagingDto);
 	public int getCountmoviecomment(PagingDto commentpagingDto);
+	public List<MovieCommentVo> commentListsection(String movie_code,int startRow, int endRow);
 }

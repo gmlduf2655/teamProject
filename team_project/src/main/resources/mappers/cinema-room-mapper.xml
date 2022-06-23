@@ -30,7 +30,7 @@
 	</insert>
 	
 	<!-- 영화관 내 상영관 리스트 조회 / 해당 영화 상영중인 상영관 리스트, 상영관 이름 / 위치로 상영관 리스트 조회 -->
-	<select id="selectCinemaRoomList" resultType="map">
+	<select id="selectCinemaRoomList" resultType="java.util.HashMap">
 		select * from tbl_cinema_room room
 		where cinema_no = #{cinema_no}
 		<choose>

@@ -109,25 +109,17 @@
 
 		<!-- 검색 조건2 -->
 		<sql id="search2">
-			<if test="searchType != null and keyword != null">
+			<if test="pagingDto.searchType != null and pagingDto.keyword != null">
     			<choose>
-    				<when test='searchType == "t"'>
-    					and review_title like '%' || #{keyword} || '%'
+    				<when test='pagingDto.searchType == "t"'>
+    					and review_title like '%' || #{pagingDto.keyword} || '%'
     				</when>
-    				<when test='searchType == "c"'>
-    					and review_content like '%' || #{keyword} || '%'
+    				<when test='pagingDto.searchType == "c"'>
+    					and review_content like '%' || #{pagingDto.keyword} || '%'
     				</when>
-    				<when test='searchType == "w"'>
-    					and review_writer like '%' || #{keyword} || '%'
-    				</when>
-    				<when test='searchType == "tc"'>
-    					and review_title like '%' || #{keyword} || '%'
-    					or    review_content like '%' || #{keyword} || '%'
-    				</when>
-    				<when test='searchType == "tcw"'>
-    					and review_title like '%' || #{keyword} || '%'
-    					or    review_content like '%' || #{keyword} || '%'
-    					or    review_writer like '%' || #{keyword} || '%'
+    				<when test='pagingDto.searchType == "tc"'>
+    					and review_title like '%' || #{pagingDto.keyword} || '%'
+    					or    review_content like '%' || #{pagingDto.keyword} || '%'
     				</when>
     			</choose>
     		</if> 

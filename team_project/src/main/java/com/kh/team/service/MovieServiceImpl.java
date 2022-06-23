@@ -64,5 +64,17 @@ public class MovieServiceImpl implements MovieService {
 		List<Map<String, Object>> mapList = movieDao.getCountMovieGroupByGenre();
 		return mapList;
 	}
+
+	@Override
+	public List<MovieVo> movieListsetion(int startRow, int endRow) {
+		List<MovieVo> list = movieDao.movieListsetion(startRow, endRow);
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> movieListIngsetion(int startRow, int endRow) {
+		List<MovieVo> list = movieDao.movieListIngsetion(startRow, endRow);
+		return list;
+	}
 	
 }

@@ -31,23 +31,46 @@ public class MovieController {
 	//전체영화리스트
 	@RequestMapping(value="/movieList", method = RequestMethod.GET)
 	public String movieList(Model model) {
-		List<MovieVo> list = movieService.movieList();
-		System.out.println("movieList : " + list);
-		
+		int startRow = 1;
+		int endRow = 8;
+		List<MovieVo> list = movieService.movieListsetion(startRow, endRow);
+//		System.out.println("movieList : " + list);
 		model.addAttribute("list", list);
-		
 		return "movie/movieList";
 	}
+	
+	//전체영화리스트 스크롤시 영화추가
+		@RequestMapping(value="/movieListsetion", method = RequestMethod.GET)
+		@ResponseBody
+		public List<MovieVo> movieListsetion(Model model,int startRow) {
+			System.out.println("movieListsetion, startRow:" + startRow);
+			startRow = startRow +1;
+			int endRow = startRow + 7;
+			List<MovieVo> appendlist = movieService.movieListsetion(startRow, endRow);
+			return appendlist;
+		}
+	
 	//현재 상영영화
 	@RequestMapping(value="/movieListIng", method = RequestMethod.GET)
 	public String movieListIng(Model model) {
-		List<MovieVo> list = movieService.movieListIng();
-		System.out.println("movieListIng : " + list);
-		
+		int startRow = 1;
+		int endRow = 8;
+		List<MovieVo> list = movieService.movieListsetion(startRow, endRow);
+//		System.out.println("movieList : " + list);
 		model.addAttribute("list", list);
-		
 		return "movie/movieListIng";
 	}
+	//전체영화리스트 스크롤시 영화추가
+	@RequestMapping(value="/movieListIngsetion", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MovieVo> movieListIngsetion(Model model,int startRow) {
+		System.out.println("movieListsetion, startRow:" + startRow);
+		startRow = startRow +1;
+		int endRow = startRow + 7;
+		List<MovieVo> appendlist = movieService.movieListIngsetion(startRow, endRow);
+		return appendlist;
+	}
+	
 	//상영 예정 영화 movieListSoon
 	@RequestMapping(value="/movieListSoon", method = RequestMethod.GET)
 	public String movieListSoon(Model model) {

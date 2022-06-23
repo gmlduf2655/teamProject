@@ -8,8 +8,13 @@
 
 
 
-.ticketing {
-	
+.ticketing * {
+	/* 드래그 방지 */
+	user-select: none;
+}
+
+.ticketing > * {
+/* 	box-sizing: content-box; */
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -18,9 +23,31 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.ticketing .ticketTable li {
-	opacity: 0.5;
+.ticketing .ticketTable li:not(.choise),
+.ticketing .ticketTable li.roomInfo,
+.ticketing .roomTypeNav .col {
+ 	opacity: 0.5; 
 	cursor: pointer;
+}
+
+.ticketing .ticketTable .timelineList li {
+	opacity: 1;
+}
+
+.ticketing .ticketTable .timelineList li li li {
+	opacity: 0.5;
+}
+
+.ticketing .ticketTable .timelineList li li li.choise {
+	opacity: 1;
+}
+
+.ticketing li {
+	cursor: pointer;
+}
+
+.ticketing li.choise {
+	cursor: default !important;
 }
 
 .ticketing .ticketTable .choise {
@@ -80,8 +107,13 @@ input.form-control.dateMM, input.form-control.dateDD {
 .ticketing .movieList,
 .ticketing .dateNav,
 .ticketing .notListInfo,
-.ticketing .searchNav {
+.ticketing .searchNav,
+.ticketing .timelineList {
 	padding: 0 0.8em;
+}
+
+.ticketing .movieList {
+	margin-top: -0.6em;
 }
 
 .ticketing .searchNav {
@@ -195,12 +227,20 @@ input.form-control.dateMM, input.form-control.dateDD {
 }
 
 .ticketing .movieList li {
-	padding-top: 0.5em;
+ 	padding-top: 0.5em;
 	position: relative;
 }
 
+.ticketing .movieList .stackViewer li {
+ 	padding-top: 0;
+}
+
+.ticketing .movieList .stackViewer .movieName {
+	top: 0.65em;
+}
+
 .ticketing .movieList li:first-child {
-	margin-top: -0.5em;
+/* 	margin-top: -0.5em; */
 }
 
 .ticketing .movieList .gridViewer li {
@@ -219,13 +259,18 @@ input.form-control.dateMM, input.form-control.dateDD {
 .ticketing .movieList .gridViewer {
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: 42em;
+	height: 42.8em;
 }
 
+.ticketing .roomTypeNav li {
+	white-space: nowrap;
+}
 
-.ticketing .movieList .timelineList {
+.ticketing .timelineList {
+	margin-top: -0.5em;
+	padding-top: 1em;
 	overflow-y: auto;
-	height: 40em;
+	height: 41em;
 }
 
 .ticketing .movieList .stackViewer .movieName {
@@ -412,103 +457,75 @@ input.form-control.dateMM, input.form-control.dateDD {
 	transform: translate(-50%, -50%);
 }
 
+.ticketing .roomListWrapper .typeList > li:first-child {
+/* 	margin-top: 1em; */
+}
+
+.ticketing .roomListWrapper .typeList .room_type_name {
+	margin-bottom: 1em;
+	clear: both;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList {
+	overflow: hidden;
+	margin-bottom: 1em;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo {
+	position: relative;
+	width: 7em;
+	height: 3.4em;
+	padding: 0.3em 0.4em;
+	display: inline-block;
+	border: 1px solid #aaa;
+	font-size: 0.9em;
+	border-radius: 0.5em;
+	float: left;
+	margin-right: 0.5em;
+	margin-bottom: 0.5em;
+	background: #eee;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo strong {
+	display: block;
+	margin-top:0.1em;
+	font-size: 0.9rem;
+	text-align: center;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo div {
+	position: absolute;
+	bottom: 0.5em;
+	font-size: 0.6em;
+	display: inline-block;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo div:first-of-type {
+	left: 1.1em;
+}
+
+.ticketing .roomListWrapper .typeList .cinemaRoomList > .roomInfo div:last-of-type {
+	right: 1em;
+}
+
+.ticketing .roomListWrapper .typeList > .typeContainer {
+	height: auto;
+	clear: both;
+}
+
+.ticketing .roomListWrapper {
+	pointer-events: none;
+}
+
+.ticketing .roomInfo {
+	pointer-events: auto;
+}
+
+
 </style>
 
-<script type="text/javascript">
-$(function(){ /* 준비 핸들러 */
-	
-	/* 상영 스케줄 검색 시 년,월, 일 변경 시 */
-	$(".dateYYYY, .dateMM, .dateDD").change(function(){
-		var changeTarget = $(".ticketTable").find(".sectionTitle").eq(2);
-		
-		var inputDateY = $(".dateYYYY").val();
-		var inputDateM = $(".dateMM").val();
-		var inputDateD = $(".dateDD").val();
-		var mLastdate = new Date(inputDateY, inputDateM, 0).getDate();
-		
-		// 일자 입력란에 해당 년, 월 마지막일  max값 지정 
-		$(".dateDD").attr("max", mLastdate);
-		
-		// 일자 입력란에 해당 년, 월 마지막일  자동 입력
-		var targetVal = $(".dateDD").val();
-		if (targetVal > mLastdate) {
-			$(".dateDD").val(mLastdate);
-		}
-		
-		// 상영 스케줄 제목 란에 값이 변경될때마다 자동 입력
-		var changeFullDate = inputDateY + "-" + inputDateM + "-" + inputDateD;
-		console.log(changeFullDate);
-		changeTarget.text(changeFullDate);
-		
-		// 변경된 값이 오늘 날짜와 일치하면 끝에 " (오늘)"문자열 자동 추가
-		var inputText = " (오늘)";
-		if (/* 오늘날짜와 비교  && */!changeTarget.text().includes(inputText)) {
-			changeTarget.append(inputText);
-		}
-		
-	}); /* 상영 스케줄 검색 시 년,월, 일 변경 시 끝 */
-	
-	/* 클릭한 대상 표시 */
-	$(".ticketTable").on("click", "li", function(){
-		/* 클릭하면 클릭한 대상에 .choise 추가 */
-		$(this).addClass("choise");
-		/* this를 제외한 나머지에 .choise를 지움 */
-		$(this).parent().children("li").not(this).removeClass("choise");
-	}); /* 클릭한 대상 표시 끝 */
-	
-	/* 영화 목록 간단히 보기 클릭시 리스트의 클래스 추가/제거 */
-	$(".ticketTable").on("click", ".btnStackView", function(){
-		var tempSave = $(".gridViewer");
-		tempSave.removeClass("gridViewer");
-		tempSave.addClass("stackViewer");
-	}); /* 영화 목록 간단히 보기 클릭시 리스트의 클래스 추가/제거  끝*/
-	
-	/* 영화 목록 자세히 보기 클릭시 리스트의 클래스 추가/제거 */
-	$(".ticketTable").on("click", ".btnGridView", function(){
-		var tempSave = $(".stackViewer");
-		tempSave.removeClass("stackViewer");
-		tempSave.addClass("gridViewer");
-	}); /* 영화 목록 자세히 보기 클릭시 리스트의 클래스 추가/제거 끝 */
-	
-	
-	/* 영화관 지역 클릭 시 */
-	$(".choiseLocal").on("click", "li", function(){
-		var cityName = $(this).text();
-		
-		var url = "/ticket/getCinemaList";
-		var sData = {
-			"search_data" : cityName
-		}
-		$.get(url, sData, function(rData){
-			console.log(rData);
-			var insertHtml = "";
-			$.each(rData, function(){
-				insertHtml += `
-					<li data-cinema_no="` + this.cinema_no + `">` + this.cinema_name + `<i class="bi bi-check-lg choise"></i></li>
-				`;
-			});
-			$(".cinemaList").html(insertHtml);
-		});
-	}); /* 영화관 지역 클릭 시  끝 */
-	
-	/* 조회된 영화관 목록 클릭 시 */
-	$(".cinemaList").on("click", "li", function(){
-		var cinema_name = $(this).text();
-		// 클릭한 영화관 이름을 영화관 섹션 제목에 넣기
-		$(this).parents(".choiseCinemaContainer").children(".sectionTitle").text(cinema_name);
-		var cinema_no = $(this).attr("data-cinema_no");
-		var url = "/ticket/getMovieAndTimelineList";
-		var sData = {
-			"cinema_no" : cinema_no
-		}
-		$.get(url, sData, function(rData){
-			console.log(rData);
-		});
-		
-	}); /* 조회된 영화관 목록 클릭 시 끝*/
-	
-}); /* 준비 핸들러 끝 */
-</script>
+<script type="text/javascript" src="/resources/js/ticketing.js"></script>
+
 
 <div class="ticketing">
 	<div class="container">
@@ -583,7 +600,7 @@ $(function(){ /* 준비 핸들러 */
 							<ul class="stackViewer"> <!-- 클래스명을 stackViewer / gridViewer 로 바꾸면 리스트 형태 변경 -->
 								<c:forEach items="${movieList}" var="movieVo">
 									<li data-movie_code="${movieVo.movie_code}">
-										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'">
+										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'" onclick="location.href='http://localhost/movie/movieInfo?movie_code=${movieVo.movie_code}'">
 										<h5>
 											<strong class="yearUseMark 
 											<c:choose>
@@ -606,7 +623,7 @@ $(function(){ /* 준비 핸들러 */
 										</h5>
 										<div class="movieInfo">
 											<ul>
-												<li><strong>개봉일 : </strong>${movieVo.opening_date}</li>
+												<li><strong>장르 : </strong>${movieVo.movie_genre}</li>
 												<li><strong>러닝타임 : </strong>${movieVo.runningtime} 분</li>
 											</ul>
 										</div>
@@ -615,7 +632,7 @@ $(function(){ /* 준비 핸들러 */
 							</ul>
 						</div>
 					</div>
-					<div class="col choiseDateContainer">
+					<div class="col-4 choiseDateContainer">
 						<div class="sectionTitle">${fn:substring(serverTime, 0, 10)} (오늘)</div>
 						<div class="dateNav">
 							<div class="choiseDate" data-ride="carousel">
@@ -627,23 +644,37 @@ $(function(){ /* 준비 핸들러 */
 							</div>
 							<div class="roomTypeNav">
 								<ul class="row no-gutters">
+										<li class="col choise">전체</li>
 									<c:forEach items="${roomTypeList}" var="roomTypes">
-										<li class="col 
-											<c:if test="${roomTypes.room_type_name == 'Digital'}">
-												choise
-											</c:if>
-										">${roomTypes.room_type_name}</li>
+										<li data-room_type_code="${roomTypes.room_type_code}" class="col">${roomTypes.room_type_name}</li>
 									</c:forEach>
 								</ul>
 							</div>
 						</div>
 						<div class="timelineList">
-							<div class="notListInfo">
+							<div class="notListInfo" style="display: none;">
 								<div class="display-4 text-center"><i class="bi bi-film"></i></div>
 								<div class="text-center">조회 가능한 상영시간이 없습니다.<br>조건을 변경해주세요.</div>
 							</div>
 							<ul>
-								<li></li>
+								<c:forEach begin="0" step="1" end="10">
+									<li class="roomListWrapper">
+										<ul class="typeList">
+											<li class="typeContainer">
+												<h6 class="room_type_name">상영관 타입</h6>
+												<ul class="cinemaRoomList">
+													<c:forEach begin="0" step="1" end="6">
+														<li class="roomInfo">
+															<strong class="movie_begin_date">00:00</strong>
+															<div>73/100</div>
+															<div class="room_name">현대 1관</div>
+														<li>
+													</c:forEach>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>	
 					</div>
