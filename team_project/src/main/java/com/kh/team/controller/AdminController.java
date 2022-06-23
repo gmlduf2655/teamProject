@@ -20,6 +20,7 @@ import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.PointService;
+import com.kh.team.service.ReportUserService;
 import com.kh.team.service.UserService;
 import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
@@ -30,6 +31,7 @@ import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
 import com.kh.team.vo.PointVo;
+import com.kh.team.vo.ReportUserVo;
 import com.kh.team.vo.UserVo;
 import com.kh.team.vo.WinnerPagingDto;
 import com.kh.team.vo.WinnerVo;
@@ -60,6 +62,8 @@ public class AdminController {
 	private VisitNumberService visitNumberService;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private ReportUserService reportUserService;
 	
 	// 임희열 : 관리자 메인 페이지
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
@@ -145,6 +149,14 @@ public class AdminController {
 		List<UserVo> snsUserList = userService.getSnsUserList(pagingDto);
 		model.addAttribute("snsUserList", snsUserList);
 		return "admin/sns_user_list";
+	}
+	
+	// 유저 신고 관리 페이지 이동
+	@RequestMapping(value="/report_user_list", method=RequestMethod.GET)
+	public String reportUserList(Model model, PagingDto pagingDto) {
+		List<ReportUserVo> reportUserList = reportUserService.getReportUserList(pagingDto);
+		model.addAttribute("reportUserList", reportUserList);
+		return "admin/report_user_list";
 	}
 	
 	// 전체 유저 포인트 내역
@@ -293,9 +305,10 @@ public class AdminController {
 		}
 	// 유수연 - 영화 댓글 블럭 
 		@RequestMapping(value = "/movie_commentUpdate", method = RequestMethod.GET)
-		public String moviecommentUpdate(int cno) {
-			boolean result = moviecommentService.commentAdminUpdate(cno);
-			return "redirect:/admin/movie_comment";
+		@ResponseBody
+		public String moviecommentUpdate(int cno,String admin_delete) {
+			boolean result = moviecommentService.commentAdminUpdate(cno,admin_delete);
+			return String.valueOf(result);
 		}	
 	// 유수연 - 영화 댓글 리스트
 		@RequestMapping(value = "/movie_commentlistHole", method = RequestMethod.GET)
@@ -303,11 +316,7 @@ public class AdminController {
 			commentpagingDto.setCount(moviecommentService.getCountmoviecomment(commentpagingDto));
 			System.out.println(commentpagingDto.getCount());
 			commentpagingDto.setPage(commentpagingDto.getPage());
-			
 			List<MovieCommentVo> commentlistHole = moviecommentService.commentListHole(commentpagingDto);
-			
-	//		System.out.println(pagingDto);
-	//		System.out.println("commentlistHole: " + commentlistHole);
 			model.addAttribute("commentlistHole", commentlistHole);
 			model.addAttribute("commentpagingDto", commentpagingDto);
 			return "admin/movie_comment";
