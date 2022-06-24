@@ -82,6 +82,7 @@
 		    border-radius:10px;
 		    padding-top: 10px;
 		    padding-bottom: 10px;
+		    margin-left: 21px;
 		}
     </style>
 </head>

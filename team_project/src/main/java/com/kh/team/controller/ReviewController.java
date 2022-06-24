@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.service.MovieDBService;
 import com.kh.team.service.ReviewLikeService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.util.EventFileUploader;
+import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.ReviewLikeVo;
 import com.kh.team.vo.ReviewPagingDto;
 import com.kh.team.vo.ReviewVo;
@@ -31,6 +33,9 @@ public class ReviewController {
 	@Autowired
 	private ReviewLikeService reviewLikeService;
 	
+	@Autowired
+	private MovieDBService moviveDBService;
+	
 	// 게시글 목록
 		@RequestMapping(value = "/review_list", method = RequestMethod.GET)
 		public String eventList(Model model, ReviewPagingDto pagingDto) {
@@ -44,7 +49,9 @@ public class ReviewController {
 		}
 	// 게시글 작성 폼
 		@RequestMapping(value = "/review_form", method = RequestMethod.GET)
-		public String writeForm() {
+		public String writeForm(Model model) {
+			List<MovieVo> movieList = moviveDBService.movieList();
+			model.addAttribute("movieList", movieList);
 			return "review/review_form";
 		}
 		
@@ -136,4 +143,15 @@ public class ReviewController {
 			int count = reviewLikeService.countLike(review_no);
 			return count;
 		}
+		
+		// 모달창 영화검색
+		@RequestMapping(value="/dbSearch", method = RequestMethod.GET)
+		@ResponseBody
+		public List<MovieVo> dbSearchMovie(String sType, String sKeyword, Model model) {
+			List<MovieVo> list = moviveDBService.dbSearchMovie(sType, sKeyword);
+			model.addAttribute("list", list);
+			return list;
+		}
+		
+		
 }

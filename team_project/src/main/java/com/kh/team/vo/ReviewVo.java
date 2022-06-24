@@ -12,6 +12,9 @@ public class ReviewVo {
 	private int review_viewcnt;
 	private int userno;
 	private String admin_delete;
+	private String movie_code;
+	private String movie_image_name;
+	private String movie_name;
 	
 	public ReviewVo() {
 		super();
@@ -61,6 +64,43 @@ public class ReviewVo {
 		this.review_star = review_star;
 		this.userno = userno;
 		this.admin_delete = admin_delete;
+	}
+	
+	public ReviewVo(String review_writer, String review_title, String review_content, int review_star, int userno,
+			String movie_code, String movie_image_name, String movie_name) {
+		super();
+		this.review_writer = review_writer;
+		this.review_title = review_title;
+		this.review_content = review_content;
+		this.review_star = review_star;
+		this.userno = userno;
+		this.movie_code = movie_code;
+		this.movie_image_name = movie_image_name;
+		this.movie_name = movie_name;
+	}
+
+	public String getMovie_code() {
+		return movie_code;
+	}
+
+	public void setMovie_code(String movie_code) {
+		this.movie_code = movie_code;
+	}
+
+	public String getMovie_image_name() {
+		return movie_image_name;
+	}
+
+	public void setMovie_image_name(String movie_image_name) {
+		this.movie_image_name = movie_image_name;
+	}
+
+	public String getMovie_name() {
+		return movie_name;
+	}
+
+	public void setMovie_name(String movie_name) {
+		this.movie_name = movie_name;
 	}
 
 	public String getAdmin_delete() {
@@ -142,7 +182,8 @@ public class ReviewVo {
 		return "ReviewVo [review_no=" + review_no + ", review_writer=" + review_writer + ", review_title="
 				+ review_title + ", review_content=" + review_content + ", review_star=" + review_star
 				+ ", review_reg_date=" + review_reg_date + ", review_viewcnt=" + review_viewcnt + ", userno=" + userno
-				+ ", admin_delete=" + admin_delete + "]";
+				+ ", admin_delete=" + admin_delete + ", movie_code=" + movie_code + ", movie_image_name="
+				+ movie_image_name + ", movie_name=" + movie_name + "]";
 	}
 
 }

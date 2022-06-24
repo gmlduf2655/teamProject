@@ -68,17 +68,17 @@ $(document).ready(function(){
 
 
 <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text">
-                        <h2>영화 평점/리뷰</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
+<!--         <div class="container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-12 text-center"> -->
+<!--                     <div class="normal__breadcrumb__text"> -->
+<!--                         <h2>영화 평점/리뷰</h2> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </section> -->
     <!-- Normal Breadcrumb End -->
     
     
@@ -136,6 +136,7 @@ $(document).ready(function(){
 					<tr>
 						<th>번호</th>
 						<th>작성자</th>
+						<th>영화</th>
 						<th>제목</th>
 						<th>평점</th>
 						<th>작성일</th>
@@ -160,6 +161,7 @@ $(document).ready(function(){
 					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
+							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}">${reviewVo.movie_name}</a></td>
 							<td><a
 								href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
 							<th>

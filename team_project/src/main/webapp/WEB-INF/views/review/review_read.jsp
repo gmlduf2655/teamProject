@@ -239,6 +239,24 @@ color: white;
 	<label for="review_writer"> 작성자 </label> 
 	<input type="text" class="form-control" id="review_writer" name="review_writer"	
 		value="${reviewVo.review_writer}" readonly/>
+		
+	<hr>
+	<label> 영화 </label><br>
+	<c:choose>
+	<c:when test="${not empty reviewVo.movie_image_name && not empty reviewVo.movie_name}">
+		<a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}"><img src="/event/displayImage?filename=${reviewVo.movie_image_name}" width="100px"></a>
+		<input type="text" class="form-control" name="movie_name" value="${reviewVo.movie_name}" readonly/>
+	</c:when>
+	
+	<c:when test="${empty reviewVo.movie_image_name && not empty reviewVo.movie_name}">
+		<input type="text" class="form-control" name="movie_name" value="${reviewVo.movie_name}" readonly/>
+	</c:when>
+	
+	<c:when test="${empty reviewVo.movie_image_name && empty reviewVo.movie_name}">
+		<input type="text" class="form-control" value="영화 정보 없음" readonly/>
+	</c:when>
+	
+	</c:choose>
 
 	<hr>
 	<label>별점</label>

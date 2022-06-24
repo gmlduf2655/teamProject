@@ -120,21 +120,21 @@
     </script>
     
     <!-- 제목 부분 -->
-    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text">
-                        <h2>비밀번호 변경</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
+<!--         <div class="container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-12 text-center"> -->
+<!--                     <div class="normal__breadcrumb__text"> -->
+<!--                         <h2>비밀번호 변경</h2> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </section> -->
     <!-- 제목 부분 -->
 
     <!-- 마이페이지 부분 -->
-    <section class="login spad">
+    <section>
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
     		<div class="col-md-2" style="color:white;margin-left: 80px;">
