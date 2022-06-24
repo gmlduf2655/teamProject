@@ -55,7 +55,7 @@ public class MovieController {
 	public String movieListIng(Model model) {
 		int startRow = 1;
 		int endRow = 8;
-		List<MovieVo> list = movieService.movieListsetion(startRow, endRow);
+		List<MovieVo> list = movieService.movieListIngsetion(startRow, endRow);
 //		System.out.println("movieList : " + list);
 		model.addAttribute("list", list);
 		return "movie/movieListIng";
