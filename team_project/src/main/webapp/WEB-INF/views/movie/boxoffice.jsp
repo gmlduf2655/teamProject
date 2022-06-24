@@ -19,6 +19,16 @@
 .aclass:hover{
 	text-decoration: underline;
 }
+.slider{
+	position: relative;
+	font-family: tahoma;
+	opacity:0;
+	animation: slideUp ease 3s infinite 1s;
+}
+@keyframes slideUp {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-5px);opacity:1;}
+}
 </style>
 </head>
 <body>

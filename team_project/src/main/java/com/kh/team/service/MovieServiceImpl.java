@@ -76,5 +76,11 @@ public class MovieServiceImpl implements MovieService {
 		List<MovieVo> list = movieDao.movieListIngsetion(startRow, endRow);
 		return list;
 	}
+
+	@Override
+	public List<MovieVo> movieListHashTag(String sType, String keyword) {
+		List<MovieVo> list = movieDao.movieListHashTag(sType, keyword);
+		return list;
+	}
 	
 }

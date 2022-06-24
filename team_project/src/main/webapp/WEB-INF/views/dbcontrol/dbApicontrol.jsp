@@ -202,12 +202,13 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 						<!-- 영화코드, 시놉시스, 포스터 다운위한 이동 새창 -->
 						<a target="_blank"
 							href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do"
-							class="btn btn-primary" style="margin-bottom: 20px;">영화코드
+							class="btn btn-outline-primary" style="margin-bottom: 20px;">영화코드
 							가져오기</a><br> 
-						<br> <input type="text" name="moviecode" id="moviecode" class="form-control" 
-								style="width: 230px;display:inline-block;">
-						<button type="submit" class="btn btn-sm btn-outline btn-success"
-							id="dbSearch">진흥원DB검색</button>
+						<br><div class="form-group">
+							<input type="text" name="moviecode" id="moviecode" class="form-control" 
+									style="width: 230px;display:inline-block;">
+							<button type="submit" class="btn btn btn-outline-success"
+								id="dbSearch">진흥원DB검색</button></div> 
 					</div>
 				<div class="col-md-1"></div>
 
