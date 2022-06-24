@@ -22,7 +22,7 @@ public class ReviewDaoTest {
 	
 	@Test
 	public void testInsert() {
-		ReviewVo reviewVo = new ReviewVo("user01", "제목-2", "내용-2", 4);
+		ReviewVo reviewVo = new ReviewVo("user01", "제목", "내용", 0, 2, "20204548", "//192.168.0.67/moverattach/54cc7b7a-9861-4b52-a011-2e3137b3c569_범죄도시2.jpg", "범죄도시");
 		boolean result = reviewDao.insert(reviewVo);
 		System.out.println("result: "+ result);
 	} 

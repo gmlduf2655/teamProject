@@ -239,6 +239,12 @@ color: white;
 	<label for="review_writer"> 작성자 </label> 
 	<input type="text" class="form-control" id="review_writer" name="review_writer"	
 		value="${reviewVo.review_writer}" readonly/>
+		
+	<hr>
+	<label> 영화 </label><br>
+	<a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}"><img src="/event/displayImage?filename=${reviewVo.movie_image_name}" width="100px"></a>
+	<input type="text" class="form-control" name="movie_name" value="${reviewVo.movie_name}" readonly/>
+	
 
 	<hr>
 	<label>별점</label>
