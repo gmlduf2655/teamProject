@@ -95,6 +95,7 @@ $(function(){ /* 준비 핸들러 */
 			$.each(rData, function(){
 				console.log(this.movie_code);
 				$(".ticketTable li[data-movie_code=" +  this.movie_code + "]").show();
+				$(".")
 			});
 			
 			$.each(rData, function(){
@@ -104,5 +105,9 @@ $(function(){ /* 준비 핸들러 */
 		});
 		
 	}); /* 조회된 영화관 목록 클릭 시 끝*/
+	
+	/* 영화 포스터 클릭시 */
+	
+	/* 영화 포스터 클릭시 끝 */
 	
 }); /* 준비 핸들러 끝 */
