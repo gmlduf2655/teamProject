@@ -19,19 +19,11 @@
 .aclass:hover{
 	text-decoration: underline;
 }
-
-
 </style>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
-
 <div class="row">
-		
 		<div class="col-md-12">
-
 			<div id="releaseCont"  style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
 				<br><table style="color: white;"class="slider">
 					<c:forEach begin="0" end="9" var="i">
@@ -41,14 +33,10 @@
 					</tr>
 					</c:forEach>
 				</table><br>
-				
 			</div>
-
 		</div>
 	</div>
-
 <script type="text/javascript">
-	
 	$.ajax({
 		type: "GET",
 		url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
@@ -59,19 +47,10 @@
 		success: function(data) {
 			console.log(data);
 			$.each(data.boxOfficeResult.dailyBoxOfficeList, function(i,j){
-				/* $('#rank'+i).append("<span class=\"boxoffice_rank\">" +j.movieNm+"</span>"); 
-				$('#rank'+i).append("<input type='hidden' name='boMovie_cd' value=" + j.movieCd+"/>");  */
 				$('#rank'+i).append("<a style='color: white;' class='aclass' href='/movie/movieInfo?movie_code="+j.movieCd+"'>" +j.movieNm+"</a>"); 
-				/* $('#rank'+i).append("<a class=\"boxoffice_rank\ href='/movie/movieInfo?movie_code="+j.movieCd+">" +j.movieNm+"</a>");*/
-				
-				//$('#rank'+i).append("<span class=\"boxoffice_rank right rk_inten\" id=\"rk_inten"+ i +"\">"+j.rankInten+"</span>");
-				//old 일경우 이미지 new 일 경우 이미지
-				//$('#rank'+i).append("<span class=\"boxoffice_rank right "+ j.rankOldAndNew +"\">"+j.rankOldAndNew +"</span>");
 			});
 		}
 	});
-
 </script>
-
 </body>
 </html>

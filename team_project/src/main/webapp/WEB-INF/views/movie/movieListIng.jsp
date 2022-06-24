@@ -11,13 +11,13 @@ $(function(){
 	var page = 1;
 	$(window).scroll(function() {
 	    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-	      console.log(++page);
-	      getMovieList();
+	    	//페이지 로딩 아이콘
+			$("#page-loading").show();
+	     //	console.log(++page);
+	      	getMovieList();
 	    }
 	});
 });
-
-
 //영화불러오기
 function getMovieList(){
 	/* var startRow = 1; */
@@ -61,18 +61,17 @@ function getMovieList(){
 					`;
 					$("#movieList").append(div); 
 				});//each
+				//페이지 로딩 아이콘 숨기기
+				$("#page-loading").hide();
 		}//function
 	});//ajax
-	
 }; //getMovieList
 </script>
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
 			<div class="row" id="movieList">
-
 				<c:forEach items="${list}" var="movieVo">
 					<div class="col-md-3">
 						<div class="product__item">
@@ -102,9 +101,10 @@ function getMovieList(){
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-		
 </div>
- 
-
+<!-- 페이지 로딩 아이콘 -->
+<div id="page-loading" align="center" style="display: none;">
+	<i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom" style="color: white;"></i>	
+</div>
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
