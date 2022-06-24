@@ -49,6 +49,12 @@ public class ReviewCommentDaoImpl implements ReviewCommentDao {
 		return false;
 	}
 
+	@Override
+	public int getCommentCount(int review_no) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCommentCount", review_no);
+		return count;
+	}
+
 	
 
 }

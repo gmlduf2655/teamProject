@@ -3,6 +3,22 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+<style> 
+/* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
+</style>
+
 <script>
 $(document).ready(function(){
 	var frmSearch = $("#frmSearch");
@@ -30,20 +46,19 @@ $(document).ready(function(){
 });
 </script>
 
-
-    <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+<!-- 상단 타이틀 -->
+    <section class="normal-breadcrumb set-bg" style="height: 100px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>현재 진행중</h2>
+                        <h2>현재 진행중 이벤트</h2>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Normal Breadcrumb End -->
+<!-- 상단 타이틀 끝 -->
 
 <div class="container-fluid" style="padding: 50px">
 	<div class="row">
@@ -74,10 +89,12 @@ $(document).ready(function(){
 				>제목 + 내용</option>
 			</select>
 			<form id="frmSearch" action="/event/nowEvent_list" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control" style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn" style="border-radius: 5px;" id="btnSearch">검색</button>
+			<br>
+			<br>
 			</form>
 			</div> 
 		
@@ -159,11 +176,6 @@ $(document).ready(function(){
 	</div>
 	<!-- 페이징 끝 -->
 	
-		<div class="float-right">
-			<p>
-				<a class="btn btn-primary btn-large" href="/event/write_form">게시글 쓰기</a>
-			</p>
-		</div>
 </div>
 
 

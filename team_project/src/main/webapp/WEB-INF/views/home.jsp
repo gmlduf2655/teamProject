@@ -18,8 +18,6 @@
 	margin-bottom: 20px;
 }
 
-
-
 </style>
 
 <script>
@@ -55,7 +53,7 @@
 		                    <div class="row">
 		                        <div class="col-lg-6">
 		                            <div class="hero__text" >
-		                                <div class="label">Adventure</div>
+		                                <div class="label" style="border-radius: 5px;">${movieVo.movie_genre}</div>
 		                                <h2 style="color: black;">${movieVo.movie_name}</h2>
 		                                <p class="synopsis" style="color: black;">${movieVo.movie_synopsis}</p>
 		                                <a href="#" style="opacity:1;">

@@ -167,10 +167,10 @@ public class EventController {
 	// 현재 상영중 이벤트 리스트
 	@RequestMapping(value = "/nowEvent_list", method = RequestMethod.GET)
 	public String nowEventList(Model model, EventPagingDto pagingDto) {
-		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		List<EventVo> nowEventList = eventService.nowEventlist(pagingDto);
-		pagingDto.setCount(eventService.getEventCount(pagingDto));
-		pagingDto.setPage(1);
+		pagingDto.setCount(eventService.getCountNow(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		model.addAttribute("nowEventList", nowEventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/nowEvent_list";
@@ -179,10 +179,10 @@ public class EventController {
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
 	public String  lastEventlist(Model model, EventPagingDto pagingDto) {
-		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		List<EventVo> lastEventlist = eventService.lastEventlist(pagingDto);
-		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setCount(eventService.getCountLast(pagingDto));
 		pagingDto.setPage(1);
+		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		model.addAttribute("lastEventlist", lastEventlist);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/lastEvent_list";
