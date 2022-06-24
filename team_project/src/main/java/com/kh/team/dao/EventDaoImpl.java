@@ -86,4 +86,16 @@ public class EventDaoImpl implements EventDao {
 		return count;
 	}
 
+	@Override
+	public int getCountNow(EventPagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountNow", pagingDto);
+		return count;
+	}
+
+	@Override
+	public int getCountLast(EventPagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCountLast", pagingDto);
+		return count;
+	}
+
 }

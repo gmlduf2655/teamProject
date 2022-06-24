@@ -6,6 +6,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <style>
+/*테이블 시작*/
  tr.tr_list {
  	cursor: pointer;
  }
@@ -17,11 +18,30 @@
  .table{
  color: white;
  }
+ /*테이블 끝*/
+ 
+ /* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
+
+/* 하이퍼링크 글자색 시작*/
+a:link {
+	color: #e53637;
+}
+/* 하이퍼링크 글자색 끝*/
 </style>
 
 <script>
-
-
 $(document).ready(function(){
 	var frmPaging = $("#frmPaging");
 	
@@ -56,34 +76,27 @@ $(document).ready(function(){
 });
 </script>
 
-
-
-    <!-- Normal Breadcrumb Begin -->
-<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
-<!--         <div class="container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-12 text-center"> -->
-<!--                     <div class="normal__breadcrumb__text"> -->
-<!--                         <h2>당첨자 발표</h2> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </section> -->
-    <!-- Normal Breadcrumb End -->
-
-	
+<!-- 상단 타이틀 -->
+    <section class="normal-breadcrumb set-bg" style="height: 100px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>당첨자 발표</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 상단 타이틀 끝 -->
 
 <div class="container-fluid">
-
-
-
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
 
 
-<!-- 검색 -->
+<!-- 검색 시작 -->
 			<div>
 			<select id="searchType">
 				<option value="">선택</option>
@@ -115,15 +128,18 @@ $(document).ready(function(){
 				>제목 + 내용 + 작성자</option>
 			</select>
 			<form id="frmPaging" action="/event/winner_info" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control" 
+				style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="winner_no" value="">
 				<input type="hidden" name="page" value="${pagingDto.page}">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			<br>
+			<br>
 			</div> 
-
+<!-- 검색 끝 -->
 
 			<table class="table">
 				<thead>
@@ -150,7 +166,7 @@ $(document).ready(function(){
 		<div class="col-md-2"></div>
 	</div>
 	
-	<!-- 페이지 -->
+	<!-- 페이지네이션 시작 -->
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -186,6 +202,7 @@ $(document).ready(function(){
 			</nav>
 		</div>
 	</div>	
+	<!-- 페이지네이션 끝 -->
 	
 	
 	
