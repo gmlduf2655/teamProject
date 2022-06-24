@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.util.EventFileUploader;
 import com.kh.team.service.AttendanceService;
@@ -208,19 +207,13 @@ public class EventController {
 		return "event/winner_read";
 	}
 	
-	// 당첨자 게시판 글쓰기 폼 
-	@RequestMapping(value = "/winner_writeForm", method = RequestMethod.GET)
-	public String winnerWrite() {
-		return "event/winner_writeForm";
-	}
-	
 	// 당첨자 게시판 글쓰기
 	@RequestMapping(value = "/winner_writeRun", method = RequestMethod.POST)
 	public String winnerWriteRun(WinnerVo winnerVo) {
 //		System.out.println("EventController, winner_writeRun, winnerVo:"+ winnerVo);
 		boolean result = winnerService.insert(winnerVo);
 //		System.out.println("EventController, winner_writeRun, result:"+ result);
-		return "redirect:/event/winner_info";
+		return "redirect:/admin/event_winner_list?page=1";
 	}
 	
 	// 당첨자 게시글 삭제 

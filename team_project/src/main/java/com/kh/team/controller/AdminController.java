@@ -381,4 +381,10 @@ public class AdminController {
 			model.addAttribute("commentpagingDto", commentpagingDto);
 			return "admin/movie_comment";
 		}	
+		
+		// 당첨자 게시판 글쓰기 폼 
+		@RequestMapping(value = "/winner_writeForm", method = RequestMethod.GET)
+		public String winnerWrite() {
+			return "/admin/winner_writeForm";
+		}
 }

@@ -141,8 +141,17 @@ $(document).ready(function(){
 				<input type="hidden" name="page" value="${pagingDto.page}">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="site-btn" style="border-radius: 5px;" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			
+			<!-- 글 쓰기 버튼 -->
+			<c:if test="${not empty loginUserVo.userid}"> <!-- 로그인 안했으면 게시글 쓰기 버튼 안보이게 하기 -->
+			<div class="float-right">
+			<p>
+				<a class="site-btn fa fa-pencil" style="border-radius: 5px;" href="/review/review_form">게시글 쓰기</a>
+			</p>
+				</div>
+			</c:if>
 			<br>
 			<br>
 			</div> 
@@ -151,7 +160,7 @@ $(document).ready(function(){
 
 			<table class="table">
 				<thead>
-					<tr>
+					<tr style="background-color: rgba(255, 255, 255, 0.4);">
 						<th>번호</th>
 						<th>작성자</th>
 						<th>영화</th>
@@ -169,8 +178,8 @@ $(document).ready(function(){
 					
 					<c:when test="${reviewVo.admin_delete == 'y'}">
 						<tr>
-						<td>${reviewVo.review_no}</td>
-						<td colspan="6" align="center">관리자가 삭제한 게시글 입니다.</td>
+						<td style="background-color: rgba(255, 255, 255, 0.1);">${reviewVo.review_no}</td>
+						<td colspan="6" align="center" style="background-color: rgba(255, 255, 255, 0.1);">관리자가 삭제한 게시글 입니다.</td>
 						</tr>
 					</c:when>
 					
@@ -179,9 +188,11 @@ $(document).ready(function(){
 					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
-							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}">${reviewVo.movie_name}</a></td>
+							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}"
+								style="color: white;">${reviewVo.movie_name}</a></td>
 							<td><a
-								href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
+								href="/review/review_read?review_no=${reviewVo.review_no}"
+								style="color: white;" >${reviewVo.review_title}</a></td>
 							<th>
 							<c:choose>
 							<c:when test="${reviewVo.review_star == 5}">
@@ -249,14 +260,7 @@ $(document).ready(function(){
 	</div>
 	
 	
-	<!-- 글 쓰기 버튼 -->
-	<c:if test="${not empty loginUserVo.userid}"> <!-- 로그인 안했으면 게시글 쓰기 버튼 안보이게 하기 -->
-	<div class="float-right">
-	<p>
-		<a class="btn btn-primary btn-large" href="/review/review_form">게시글 쓰기</a>
-	</p>
-</div>
-	</c:if>
+	
 	<!-- 페이지 -->
 	
 	<div class="row">
