@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
+<style>
+label{
+color: white;
+}
+</style>
 
 <!-- Normal Breadcrumb Begin -->
 <!-- <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
@@ -35,13 +42,54 @@ $(function(){
 		$(".make_star i:nth-child(-n" + starNum + ")").css("color", "orange");
 		$("input[name=review_star]").val(starNum);
 	});
+	
+	
+	// 영화 db 검색
+	$("#btndbSearch").click(function(){
+		$("#modalTable tbody").empty();
+		var sType = $("#searchType").val();
+		var sKeyword = $("#sKeyword").val();
+		console.log("sType:", sType);
+		console.log("keyword:", sKeyword);
+		
+		var url = "/review/dbSearch";
+		var sData = {
+				"sType" : sType,
+				"sKeyword" : sKeyword
+		}
+		$.get(url, sData, function(rData){
+			var that = rData;
+
+			
+			
+			$.each(rData, function(){
+				
+				$("#modalTable").attr("style", "text-align: center");
+				
+				$("#modalTable").append("<tr><td>'" + this.movie_name + "'</td><td><button data-mcode='" + this.movie_code + "'data-iname='" +this.movie_image_name+"'data-mname='"+this.movie_name+"'id='modalChoiceMovie'>선택</button></td></tr>");
+				
+			});
+		});
+		
+	});
+	
+	$("#modalTable").on("click", "#modalChoiceMovie", function(){
+		console.log("클릭");
+		var movie_code = $(this).attr("data-mcode");
+		var movie_image_name = $(this).attr("data-iname");
+		var movie_name = $(this).attr("data-mname");
+		console.log("movie_code:", movie_code);
+		console.log("movie_image_name:", movie_image_name);
+		console.log("movie_name:", movie_name);
+		$("input[name=movie_code]").attr("value", movie_code);
+		$("input[name=movie_image_name]").attr("value", movie_image_name);
+		$("input[name=movie_name]").attr("value", movie_name);
+		$('#modal-container-670703').modal('hide');
+		
+	});
+	
 });
 
-var insert_result = "${insert_result}";
-
-if (insert_result == "true"){
-	alert("리뷰 작성 완료");
-}
 
 </script>
 
@@ -65,20 +113,112 @@ if (insert_result == "true"){
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
 </head>
-<body>
-<div class="container" style="background-color: white">
+<body style="background-color: #0b0c2a;">
+<div class="row">
+		<div class="col-md-12">
+			 
+			
+			<div class="modal fade" id="modal-container-670703" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">영화 검색</h5> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<select id="searchType">
+								<option value="movie_name">영화제목
+							</select>
+							<input type="text" name="skeyword" id="sKeyword"> <a type="button" class="btn btn-primary" id="btndbSearch">검색</a>
+						</div>
+						
+						<div id="modalDiv" style="margin: auto;">
+						<table border="1"  style="text-align: center; display: none;" id="modalTable">
+						<thead>
+						<tr>
+							<th style="width: 300px;">영화 제목</th>
+							<th style="width: 100px;">선택</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+						</tbody>
+						</table>
+						</div>
+						
+						<div class="row">
+		
+		<div class="col-md-12">
+		<br>
+				<table class="table" style="display: none;" >
+					<thead>
+						<tr>
+							<th>no</th>
+							<th>영화제목</th>
+							<th>선택</th> 
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${movieList}" var="movieVo" varStatus="status">
+							<tr>
+								<td>${status.count}</td>
+								<td>${movieVo.movie_name}</td>
+								<td><button class="btn btn-sm btn-info">선택</button></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		
+</div>
+						<div class="modal-footer">
+							 
+							<button type="button" class="btn btn-primary">
+								닫기
+							</button> 
+							
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+
+
+
+<div class="container" style="background-color:rgba(255, 255, 255, 0.5); border-radius:10px; padding: 30px;">
 
 <form role="writeForm" action="/review/review_writeRun" method="post" id="frmCreate" enctype="multipart/form-data">
 	<input type="hidden" name="review_star" id="review_star" value="0"/>
 	<input type="hidden" name="userno" value="${loginUserVo.userno}"/>
+	<input type="hidden" name="movie_code"  data-mcode="" value=""/>
+	<input type="hidden" name="movie_image_name" data-iname="" value=""/>
+	
+	
+
 	
 	<label for="review_writer"> 작성자 </label> 
 	<input type="text" class="form-control" id="review_writer" name="review_writer" 
 		value="${loginUserVo.userid}" readonly/>
-	
+	<hr>
 	<label for="review_title"> 제목 </label> 
 	<input type="text" class="form-control" id="review_title" name="review_title"/>
+	<hr>
+	<label> 영화 찾기 </label><br>
+	<input type="text" name="movie_name" data-mname="" value="" readonly/>
+	<a id="modal-670703" href="#modal-container-670703" role="button" class="btn btn btn-info" data-toggle="modal">검색</a>
 	
+	<hr>
 	<label>별점</label>
 		<div class="make_star">
 			<div class="rating" data-rate="">
@@ -89,8 +229,8 @@ if (insert_result == "true"){
 				<i class="fa fa-star"></i>
 			</div>
 		</div>
-
-	<br><label>내용</label>
+	<hr>
+	<label>내용</label>
 	<textarea class="summernote" id="review_content" name="review_content"></textarea>
 	<button type="submit" class="btn btn-primary">작성완료</button>
 </form>

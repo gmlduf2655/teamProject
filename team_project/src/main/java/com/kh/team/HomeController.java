@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.dao.TicketDao;
 import com.kh.team.service.MovieService;
-import com.kh.team.service.MovieStillcutService;
+import com.kh.team.service.ReviewService;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.MovieVo;
+import com.kh.team.vo.PagingDto;
+import com.kh.team.vo.ReviewPagingDto;
+import com.kh.team.vo.ReviewVo;
 
 @Controller
 public class HomeController {
@@ -40,6 +43,8 @@ public class HomeController {
 	// 이정민 : 홈 화면에 띄울 영화 리스트
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private ReviewService reviewService;
 
 	// 메인페이지로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -59,8 +64,16 @@ public class HomeController {
 //			session.setAttribute("loginUserVo", loginUserVo);
 //		}
 		
+		// 영화 리스트
 		List<MovieVo> movieList = movieService.movieListIng();
+		List<MovieVo> movieList2 = movieService.movieList();
 		model.addAttribute("movieList", movieList);
+		model.addAttribute("movieList2", movieList2);
+		// 리뷰 리스트
+		ReviewPagingDto pagingDto = new ReviewPagingDto();
+		pagingDto.setPage(1);
+		List<ReviewVo> reviewList = reviewService.list(pagingDto);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "home";
 	}
