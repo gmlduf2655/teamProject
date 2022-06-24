@@ -8,7 +8,7 @@
 /* section calendar */
 
 .sec_cal {
-    width: 360px;
+    width: 450px;
     margin: 0 auto;
     font-family: "NotoSansR";
 }

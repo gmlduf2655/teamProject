@@ -14,7 +14,8 @@
 	width: 700px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+	white-space: nowrap;
+	margin-bottom: 20px;
 }
 
 
@@ -46,25 +47,26 @@
     <section class="hero">
         <div class="container">
             <div class="hero__slider owl-carousel">
-            
-            <c:forEach items="${movieList}" var="movieVo" varStatus="status">
-            	<c:if test="${status.index < 3}">
-                <div class="hero__items set-bg" data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
-                	style="background-position: center center;">
-                    
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="hero__text">
-                                <div class="label">Adventure</div>
-                                <h2 style="color: black;">${movieVo.movie_name}</h2>
-                                <p class="synopsis" style="color: black;">${movieVo.movie_synopsis}</p>
-                                <a href="#"><span>예매하기</span> <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </c:if>
-               </c:forEach>
+	            <c:forEach items="${movieList}" var="movieVo" varStatus="status">
+	            	<c:if test="${status.index < 3}">
+		                <div class="hero__items set-bg" data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
+		                	style="background-position: center center; ">
+		                    
+		                    <div class="row">
+		                        <div class="col-lg-6">
+		                            <div class="hero__text" >
+		                                <div class="label">Adventure</div>
+		                                <h2 style="color: black;">${movieVo.movie_name}</h2>
+		                                <p class="synopsis" style="color: black;">${movieVo.movie_synopsis}</p>
+		                                <a href="#" style="opacity:1;">
+		                                	<span style="">예매하기</span> <i class="fa fa-angle-right"></i>
+		                                </a>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+	                </c:if>
+	            </c:forEach>
                 
             </div>
         </div>
@@ -72,7 +74,7 @@
     <!-- Hero Section End -->
     
 	
-	
+	<br><br>
 	<main class="col-lg-8">
 			<%@ include file="/WEB-INF/views/include/main.jsp" %>
 		</main>

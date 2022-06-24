@@ -55,6 +55,8 @@
 	<!-- 조재호 : dropdown안먹어서 추가했습니다. -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="/resources/css/mkcinema.css" type="text/css">
+	<!-- 티켓 예매 페이지 뷰 -->
+	<link rel="stylesheet" href="/resources/css/ticketing.css" type="text/css">
 	
 	<!-- 임희열 : 우측 상단부분 css 조금 바꿨습니다 -->    
 	<!-- 임희열 : 헤더부분 메뉴 가져다 대면 색상 변할 수 있게 바꿨습니다 -->
@@ -71,6 +73,15 @@
 		}
 		.header__right>a {
 			margin-right: 10px;
+		}
+		.hero__text{
+			background-color: rgba(255,255,255, 0.5);
+			width:1000px;
+			padding-left:150px;
+			backdrop-filter: blur(2px);
+		    border-radius:10px;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
 		}
     </style>
 </head>

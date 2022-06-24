@@ -24,16 +24,24 @@
 		li>a{
 			color:white;
 		}
-		#pagination a{
-			background-color:#e53637;
-			border-color:#e53637;
+		.page-item.active .page-link{
+		    z-index: 3;
 			color:white;
+			border-color:#e53637;
+			background-color:#e53637;
+		}
+		.page-link {
+		    position: relative;
+		    display: block;
+		    padding: 0.5rem 0.75rem;
+		    margin-left: -1px;
+		    line-height: 1.25;
+		    color: #e53637;
+		    background-color: #fff;
+		    border: 1px solid #dee2e6;
 		}
 		.move_page{
-			color:white;
-		}
-		.move_page:hover{
-			color:white;
+			color:#e53637;
 		}
 		.checked {
 		  color: orange;

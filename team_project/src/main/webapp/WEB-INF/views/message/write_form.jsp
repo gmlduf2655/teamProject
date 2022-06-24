@@ -158,6 +158,7 @@
 			<div class="col-md-8">
 				<form id="message_form" role="form" method="post" action="/message/write_run" >
 					<input type="hidden" name="message_content" id="message_content" >
+					<input type="hidden" name="sender" id="sender" value="${loginUserVo.userid}">
 <!-- 					<div class="form-group"> -->
 <!-- 						<label for="sender"> 보내는 이 </label>  -->
 <%-- 						<input type="text" class="form-control" name="sender" id="sender" value="${loginUserVo.userid}" readonly> --%>

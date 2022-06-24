@@ -456,7 +456,7 @@
 								<c:when test ="${eventVo.userno == userVo.userno}">
 									<c:if test="${status.index < 5}">
 										<tr>
-											<td><a href="/event/event_read?event_no=${eventVo.event_no}">${eventVo.event_title}</a></td>
+											<td><a href="/event/event_read?event_no=${eventVo.event_no}" style="color:white;">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
 											

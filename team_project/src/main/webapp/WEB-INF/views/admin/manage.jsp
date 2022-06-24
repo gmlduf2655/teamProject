@@ -60,14 +60,14 @@ section.product {
 		var barChart = document.getElementById('barChart').getContext('2d');
 		var movie_genre = [];
 		var movie_genre_count = [];
-		console.log("1");
 		$.ajax({
 			type : "get",
 			async : "true",
 			url : "/admin/get_movie_genre_count",
 			success : function(rData){
+				console.log(rData);
 				var movieGenreCount = JSON.parse(rData);
-				console.log("3");
+				console.log(movieGenreCount);
 				$.each(movieGenreCount, function(i, v){
 					movie_genre_count.push(v.count);
 					movie_genre.push(v.movie_genre);
@@ -77,7 +77,6 @@ section.product {
 				openBarChart(movie_genre, movie_genre_count)
 			}
 		});
-		console.log("2");
 
 		function openBarChart(movie_genre, movie_genre_count){
 			var myBarChart = new Chart(barChart, {

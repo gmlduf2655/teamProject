@@ -1,5 +1,6 @@
 package com.kh.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -205,5 +206,23 @@ public class UserServiceTest {
 	public void testUpdateUserpwToTempPwd() {
 		boolean result = userService.updateUserpwToTempPwd("user01@naver.com", "user01","1234");
 		System.out.println("UserServiceTest, testUpdateUserpwToTempPwd, result : " + result);
+	}
+	
+	// 다중 유저 정지 테스트
+	@Test
+	public void testMultiUserSuspend() {
+		List<Integer> list = new ArrayList<>();
+		list.add(1);
+		boolean result = userService.multiUserSuspend(list);
+		System.out.println("UserServiceTest, testMultiUserSuspend, result : " + result);
+	}
+	
+	// 다중 유저 복구 테스트
+	@Test
+	public void testMultiUserRecover() {
+		List<Integer> list = new ArrayList<>();
+		list.add(1);
+		boolean result = userService.multiUserRecover(list);
+		System.out.println("UserServiceTest, testMultiUserRecover, result : " + result);
 	}
 }

@@ -14,6 +14,7 @@ public class TicketUserVo {
 	private int seat_x; // 상영 좌석 x축
 	private String seat_y; // 상영 좌석 y축
 	private String room_type_name; // 상영 방식 
+	private int room_price; // 예매 가격
 	private String room_name; // 상영관 이름
 	private String room_floor; // 영화 상영 층
 	private String movie_name; // 영화 제목
@@ -27,7 +28,8 @@ public class TicketUserVo {
 	// 필드 생성자
 	public TicketUserVo(String ticket_no, int user_no, String ticket_regdate, String movie_begin_date,
 			String movie_finish_date, String movie_code, String cinema_name, int seat_x, String seat_y,
-			String room_type_name, String room_name, String room_floor, String movie_name, String movie_image_name) {
+			String room_type_name, int room_price, String room_name, String room_floor, String movie_name,
+			String movie_image_name) {
 		super();
 		this.ticket_no = ticket_no;
 		this.user_no = user_no;
@@ -39,17 +41,14 @@ public class TicketUserVo {
 		this.seat_x = seat_x;
 		this.seat_y = seat_y;
 		this.room_type_name = room_type_name;
+		this.room_price = room_price;
 		this.room_name = room_name;
 		this.room_floor = room_floor;
 		this.movie_name = movie_name;
 		this.movie_image_name = movie_image_name;
 	}
 
-	
-
 	// Getter & Setter (Accessor)
-	
-
 	public int getUser_no() {
 		return user_no;
 	}
@@ -162,6 +161,14 @@ public class TicketUserVo {
 	public void setMovie_image_name(String movie_image_name) {
 		this.movie_image_name = movie_image_name;
 	}
+	
+	public int getRoom_price() {
+		return room_price;
+	}
+
+	public void setRoom_price(int room_price) {
+		this.room_price = room_price;
+	}
 
 	// toString()
 	@Override
@@ -169,8 +176,11 @@ public class TicketUserVo {
 		return "TicketUserVo [ticket_no=" + ticket_no + ", user_no=" + user_no + ", ticket_regdate=" + ticket_regdate
 				+ ", movie_begin_date=" + movie_begin_date + ", movie_finish_date=" + movie_finish_date
 				+ ", movie_code=" + movie_code + ", cinema_name=" + cinema_name + ", seat_x=" + seat_x + ", seat_y="
-				+ seat_y + ", room_type_name=" + room_type_name + ", room_name=" + room_name + ", room_floor="
-				+ room_floor + ", movie_name=" + movie_name + ", movie_image_name=" + movie_image_name + "]";
+				+ seat_y + ", room_type_name=" + room_type_name + ", room_price=" + room_price + ", room_name="
+				+ room_name + ", room_floor=" + room_floor + ", movie_name=" + movie_name + ", movie_image_name="
+				+ movie_image_name + "]";
 	}
+
+	
 	
 }

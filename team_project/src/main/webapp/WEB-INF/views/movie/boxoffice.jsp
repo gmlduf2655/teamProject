@@ -17,11 +17,14 @@
 	color : white;
 }
 .aclass:hover{
-	font-weight : bold;
 	text-decoration: underline;
 }
 
+
 </style>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 
@@ -29,10 +32,10 @@
 		
 		<div class="col-md-12">
 
-			<div id="releaseCont" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
-				<br><table style="color: white;">
+			<div id="releaseCont"  style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
+				<br><table style="color: white;"class="slider">
 					<c:forEach begin="0" end="9" var="i">
-					<tr style="padding-bottom: 10px;">
+					<tr style="padding-bottom: 10px;"  >
 						<td style="text-align: right;">&nbsp;${i+1}.</td>
 						<td id="rank${i}">&nbsp;</td> 
 					</tr>

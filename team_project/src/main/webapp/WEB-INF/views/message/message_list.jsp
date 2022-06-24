@@ -162,6 +162,13 @@
 			});
 
 		});
+		
+		// 신고 버튼 클릭했을 때
+		$(".report_btn").click(function(){
+			var reported_user = $(this).parents("div").prev().eq(0).text().trim();
+			console.log("reported_user" + reported_user);
+			var open = window.open("/report/report_user_form?reported_user=" + reported_user, "신고 하기", "width=600, height=800");
+		});
 	});
 </script>
 
@@ -304,7 +311,7 @@
 														</c:when>
 													</c:choose>
 													<a class="dropdown-item" href="#">팔로우하기</a> 
-													<a class="dropdown-item" class="report_btn">신고하기</a> 
+													<a class="dropdown-item report_btn" >신고하기</a> 
 												</div>
 											</div>
 										</td>										

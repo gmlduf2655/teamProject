@@ -24,6 +24,19 @@
 		li>a{
 			color:white;
 		}
+		.page-link {
+		    position: relative;
+		    display: block;
+		    padding: 0.5rem 0.75rem;
+		    margin-left: -1px;
+		    line-height: 1.25;
+		    color: #e53637;
+		    background-color: #fff;
+		    border: 1px solid #dee2e6;
+		}
+		.move_page{
+			color:#e53637;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -108,7 +121,7 @@
 					<input type="hidden" name="page" value="${pagingDto.page}">
 					<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 					<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-						<button type="submit" class="btn btn-primary" id="btnSearch">검색</button>
+						<button type="submit" class="btn btn-primary" id="btnSearch" style="background-color:#e53637;border-color:#e53637;">검색</button>
 					</form>
 					</div>
 				</nav>
@@ -133,7 +146,7 @@
 								<c:when test ="${eventVo.userno == param.userno}">
 									<tr>
 											<td><input type="hidden" id="participate_no" value="${eventVo.participate_no}"></td>
-											<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}">${eventVo.event_title}</a></td>
+											<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}" style="color:white;">${eventVo.event_title}</a></td>
 											<td>${eventVo.event_start_date}</td>
 											<td>${eventVo.event_end_date}</td>
 											<c:choose>

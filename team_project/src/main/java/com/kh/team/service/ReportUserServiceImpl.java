@@ -57,4 +57,11 @@ public class ReportUserServiceImpl implements ReportUserService {
 		return result;
 	}
 
+	// 유저 신고 해결여부 다중 수정
+	@Override
+	public boolean modifyMultiReportResolve(List<Integer> list) {
+		boolean result = reportUserDao.updateMultiReportResolve(list);
+		return result;
+	}
+
 }

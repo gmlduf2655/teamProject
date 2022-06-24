@@ -38,6 +38,21 @@
 		input::-webkit-inner-spin-button{
 			-webkit-appearance:none;
 		}
+		.nice-select{
+			float:none;
+		}
+		.btn-custom{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
+		.btn-custom:hover{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
+		.btn-custom:focus{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -51,6 +66,35 @@
 				console.log(point_code);
 				$("#point_code").val(point_code);
 			});
+			
+			$("#select_charge").change(function(){
+				var charge = $(this).val();
+				if(charge != 0){
+					console.log(charge);
+					put_input(charge)
+					var point_code = get_point_code(charge);
+					console.log(point_code);
+					$("#point_code").val(point_code);					
+				}else{
+					$("#modal-180340").trigger("click");
+				}
+			});
+			
+			function get_point_code(charge){
+				switch(parseInt(charge)){
+				case 1000:
+					return 1003;
+				case 5000:
+					return 1004;
+				case 10000:
+					return 1005;
+				case 20000:
+					return 1006;
+				case 50000:
+					return 1007;
+				}
+			}
+				
 			
 			// 직접 입력 버튼 클릭시 모달창이 나오게 함
 			$(".charge_self").click(function(){
@@ -159,22 +203,22 @@
 						<h3 class="mb-4">결재 금액 선택</h3>
 						<div class="row mb-4">
 							<div class="col-md-4 mb-4">
-								<a class="btn btn-primary charge" style="color:white;" data-point_code="1003">1000원<br>(1000p)</a>
+								<a class="btn btn-custom charge" style="color:white;" data-point_code="1003">1000원<br>(1000p)</a>
 							</div>
 							<div class="col-md-4 mb-4">
-								<a class="btn btn-primary charge" style="color:white;" data-point_code="1004">5000원<br>(5000p)</a>
+								<a class="btn btn-custom charge" style="color:white;" data-point_code="1004">5000원<br>(5000p)</a>
 							</div>
 							<div class="col-md-4 mb-4">
-								<a class="btn btn-primary charge" style="color:white;" data-point_code="1005">10000원<br>(10000p)</a>
+								<a class="btn btn-custom charge" style="color:white;" data-point_code="1005">10000원<br>(10000p)</a>
 							</div>
 							<div class="col-md-4 mb-4">
-								<a class="btn btn-primary charge" style="color:white;" data-point_code="1006">20000원<br>(20000p)</a>
+								<a class="btn btn-custom charge" style="color:white;" data-point_code="1006">20000원<br>(20000p)</a>
 							</div>
 							<div class="col-md-4 mb-4">
-								<a class="btn btn-primary charge" style="color:white;" data-point_code="1007">50000원<br>(50000p)</a>
+								<a class="btn btn-custom charge" style="color:white;" data-point_code="1007">50000원<br>(50000p)</a>
 							</div>
 							<div class="col-md-4 mb-4">
-								<a class="btn btn-primary charge_self" style="color:white;">직접입력</a>
+								<a class="btn btn-custom charge_self" style="color:white;">직접입력</a>
 							</div>
 						</div>
 					</div>
@@ -184,6 +228,23 @@
 				<form method="post" action="/point/charge_point_run">
 					<input type="hidden" name="userno" value="${loginUserVo.userno}">
 					<input type="hidden" name="point_code" id="point_code">
+<!-- 					<div class="row mb-4"> -->
+<!-- 						<div class="col-md-3 mb-4"></div> -->
+<!-- 						<div class="col-md-5 mb-4"> -->
+<!-- 							<label style="font-size:16px;padding-top:6px;color:white">결재 금액 선택: </label> -->
+<!-- <!-- 							<input type="text" class="form-control" style="width:100%;" name="money" id="money" readonly> --> -->
+<!-- 							<select name="select_charge" id="select_charge"> -->
+<!-- 								<option value="1000">1000원 (1000P)</option> -->
+<!-- 								<option value="5000">5000원 (5000P)</option> -->
+<!-- 								<option value="10000">10000원 (10000P)</option> -->
+<!-- 								<option value="20000">20000원 (20000P)</option> -->
+<!-- 								<option value="50000">50000원 (50000P)</option> -->
+<!-- 								<option value="0">직접 입력</option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-md-2 mb-4"></div> -->
+<!-- 						<div class="col-md-2 mb-4"></div> -->
+<!-- 					</div> -->
 					<div class="row mb-4" style="color:white;">
 						<div class="col-md-3 mb-4"></div>
 						<div class="col-md-1 mb-4">

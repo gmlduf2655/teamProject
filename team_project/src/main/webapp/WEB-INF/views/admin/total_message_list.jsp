@@ -14,6 +14,9 @@
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
+	div{
+		-webkit-overflow-scrolling:touch;	
+	}
 </style>
 <script>
 	$(document).ready(function(){
@@ -106,9 +109,10 @@
 						</nav>
 						<!-- nav 부분 끝-->
 						<!-- 모든 유저 포인트 내역 테이블 부분 -->
-			    		<div class="row">
-			               	<div class="col-lg-12 ">
-						    	<table class="table" >
+			    		<div class="row" >
+			               	<div class="col-lg-12">
+			               		<div style="overflow-x:scroll;">
+						    	<table class="table" style="width:1600px;">
 						    		<thead>
 						    			<tr>
 											<th><input type="checkbox" id="select_all"></th>
@@ -117,7 +121,9 @@
 											<th>보낸이</th>
 											<th>받는이</th>
 											<th>작성일</th>
-											<th>읽은 날짜</th>			
+											<th>읽은 날짜</th>	
+											<th>보낸이 삭제</th>		
+											<th>받는이 삭제 </th>		
 						    			</tr>
 						    		</thead>
 						    		<tbody>
@@ -137,10 +143,23 @@
 														<td>${messageVo.read_date}</td>
 													</c:otherwise>
 												</c:choose>
+												<td>
+													<c:choose>
+														<c:when test="${messageVo.sender_delete == 'T'}">삭제됨</c:when>
+														<c:otherwise>삭제 안됨</c:otherwise>
+													</c:choose>
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${messageVo.receiver_delete == 'T'}">삭제됨</c:when>
+														<c:otherwise>삭제 안됨</c:otherwise>
+													</c:choose>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 						    	</table>
+						    	</div>
 			    	    	</div>
 			            </div>
 			            <!-- 모든 유저 포인트 내역 테이블 부분 끝-->
