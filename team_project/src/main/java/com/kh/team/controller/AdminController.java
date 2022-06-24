@@ -1,8 +1,11 @@
 package com.kh.team.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.EventService;
 import com.kh.team.service.MessageService;
@@ -131,6 +135,32 @@ public class AdminController {
 		return "admin/user_list";
 	}
 	
+	// 다중 유저 정지
+	@RequestMapping(value="/multi_user_suspend", method=RequestMethod.POST)
+	public String multiUserSuspend(String uri, int page, String[] sData, RedirectAttributes redirectAttributes) {
+		List<Integer> list = new ArrayList<Integer>();
+		for(String usernoStr : sData) {
+			System.out.println(usernoStr);
+			list.add(Integer.parseInt(usernoStr));
+		}
+		boolean result = userService.multiUserSuspend(list);
+		redirectAttributes.addFlashAttribute("suspend_result", result);
+		return "redirect:"+ uri +"?page=" + page;
+	}
+	
+	// 다중 유저 복구
+	@RequestMapping(value="/multi_user_recover", method=RequestMethod.POST)
+	public String multiUserRecover(String uri, int page, String[] sData, RedirectAttributes redirectAttributes) {
+		List<Integer> list = new ArrayList<Integer>();
+		for(String usernoStr : sData) {
+			System.out.println(usernoStr);
+			list.add(Integer.parseInt(usernoStr));
+		}
+		boolean result = userService.multiUserRecover(list);
+		redirectAttributes.addFlashAttribute("recover_result", result);
+		return "redirect:"+ uri +"?page=" + page;
+	}	
+	
 	// 기존 유저 목록
 	@RequestMapping(value="/origin_user_list", method=RequestMethod.GET)
 	public String originUserList(Model model, PagingDto pagingDto){
@@ -156,9 +186,37 @@ public class AdminController {
 	// 유저 신고 관리 페이지 이동
 	@RequestMapping(value="/report_user_list", method=RequestMethod.GET)
 	public String reportUserList(Model model, PagingDto pagingDto) {
+		int count = reportUserService.getCountReportUser(pagingDto);
+		pagingDto.setCount(count);
+		pagingDto.setPage(pagingDto.getPage());
 		List<ReportUserVo> reportUserList = reportUserService.getReportUserList(pagingDto);
 		model.addAttribute("reportUserList", reportUserList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "admin/report_user_list";
+	}
+	
+	// 유저 신고 내역 확인 
+	@RequestMapping(value="/read_report", method=RequestMethod.GET)
+	public String readReport(Model model, int reportno) {
+		System.out.println("reportno : " + reportno);
+		ReportUserVo reportUserVo = reportUserService.readReport(reportno);
+		if(reportUserVo.getReport_accept_date() == null) {
+			reportUserService.modifyReportAcceptDate(reportno);
+		}
+		model.addAttribute("reportUserVo", reportUserVo);
+		return "admin/read_report";
+	}
+	
+	// 유저 신고 다중 처리
+	@RequestMapping(value="/multi_report_resolve", method=RequestMethod.POST)
+	public String multiReportResolve(int page, String[] sData, RedirectAttributes redirectAttributes) {
+		List<Integer> reportnoList = new ArrayList<>();
+		for(String reportnoStr : sData) {
+			reportnoList.add(Integer.parseInt(reportnoStr));
+		}
+		boolean result = reportUserService.modifyMultiReportResolve(reportnoList);
+		redirectAttributes.addFlashAttribute("resolve_result", result);
+		return "redirect:/admin/report_user_list?page=" + page;
 	}
 	
 	// 전체 유저 포인트 내역

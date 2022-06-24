@@ -19,16 +19,72 @@
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
+	.tr_link:hover{
+		background: lightgray;
+	}
+	.td_link{
+		cursor : pointer;
+	}
 </style>
 <!-- 샘플 레이아웃 데이터 -->
 <script>
 	$(document).ready(function(){
+		// 유저 신고 다중처리 확인 
+		var resolve_result = "${resolve_result}";
+		if(resolve_result == "true"){
+			alert("신고 처리 성공");
+		}else if(resolve_result == "false"){
+			alert("신고 처리 실패");
+		}else {}
+		
+		// 한 페이지에 있는 모든 메세지를 선택할 때 사용
+		$("#select_all").click(function() {
+			if ($(this).is(":checked")) {
+				$(".usernos").prop("checked", true);
+			} else {
+				$(".usernos").prop("checked", false);
+			}
+		});		
+		
+		// 한 페이지에 있는 모든 메세지를 선택할 때 사용
+		$("#select_all").click(function() {
+			if ($(this).is(":checked")) {
+				$(".usernos").prop("checked", true);
+			} else {
+				$(".usernos").prop("checked", false);
+			}
+		});
+
+		// 다중 신고 처리
+		$("#multi_resolve_btn").click(function(){
+			var reportnos = $(".reportnos");
+			var reportno_arr = [];
+			// 삭제할 메세지를 messagenos변수에 담음
+			$.each(reportnos , function(i,v){
+				if($(this).is(":checked")){
+					reportno_arr.push($(this).val());
+					$("#multi_resolve_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>");
+				}
+			});
+			if(reportno_arr.length > 0){
+				console.log(reportno_arr);
+				$("#multi_resolve_form").submit();
+			}
+		});
 		
 		// 검색 버튼 눌렀을 떄
 		$("#search_btn").click(function(){
 			var keyword = $("#keyword").val();
 			var searchType = $("#searchType").val();
 			location.href = "/admin/report_user_list?page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
+		});
+		
+		// 신고 부분을 클릭했을 때 신고 상세 정보 확인
+		$(".td_link").click(function() {
+			var reportno = $(this).attr("data-reportno");
+			console.log(reportno);
+			//location.href = "/admin/read_report?reportno="+ reportno;
+			var open = window.open("/admin/read_report?reportno=" + reportno, "신고내역", "width=600, height=800");
 		});
 	});
 </script>
@@ -49,10 +105,15 @@
 		        <div class="container">
 		        	<!-- nav 부분 -->
 					<nav class="row mb-4" >
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<h3>신고 관리</h3>
 						</div>
-						<div class="col-md-2"></div>
+						<div class="col-md-4">
+							<form class="mr-4" method="post" action="/admin/multi_report_resolve" id="multi_resolve_form">
+								<input type="hidden" name="page" value="${param.page}">
+								<button type="button" class="btn btn-primary" id="multi_resolve_btn">신고 처리</button>
+							</form>							
+						</div>
 						<div class="col-md-1" style="display:flex;justify-content: flex-end;">
 							<select name="searchType" id="searchType" style="color:black;">
 								<option value="r" 
@@ -72,7 +133,7 @@
 						<div class="col-md-3">
 							<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 						</div>
-						<div class="col-md-2" style="padding-left:0px;">
+						<div class="col-md-1" style="padding-left:0px;">
 							<button type="button" class="btn btn-primary" id="search_btn">검색</button>
 						</div>
 					</nav>
@@ -84,6 +145,7 @@
 						    	<table class="table" style="width:1600px;">
 						    		<thead>
 						    			<tr>
+						    				<th><input type="checkbox" id="select_all"></th>
 											<th>#</th>    				
 											<th>신고자</th>    				
 											<th>신고대상</th>    				
@@ -95,11 +157,12 @@
 						    		</thead>
 						    		<tbody>
 										<c:forEach var="reportUserVo" items="${reportUserList}">
-											<tr>
+											<tr class="tr_link">
+												<td><input type="checkbox" class="reportnos" name="reportnos" value="${reportUserVo.reportno}"></td>
 												<td>${reportUserVo.reportno}</td>
 												<td>${reportUserVo.reporter}</td>
 												<td>${reportUserVo.reported_user}</td>
-												<td>${reportUserVo.report_type}</td>
+												<td class="td_link" data-reportno="${reportUserVo.reportno}">${reportUserVo.report_type}</td>
 												<td>
 													<fmt:formatDate value="${reportUserVo.report_date}" pattern="yyyy.MM.dd HH:mm:ss" />
 												</td>

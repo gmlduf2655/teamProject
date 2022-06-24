@@ -39,6 +39,8 @@ alter table tbl_user drop constraint SYS_C008496;
 alter table tbl_user drop constraint SYS_C008500;
 -- userpw 컬럼 not null 제약조건 삭제
 -- nickname 컬럼 not null 제약조건 삭제
+-- user_status 컬럼 check 제약조건 삭제
+alter table tbl_user drop constraint SYS_C008511;
 
 --컬럼이름변경--------------------------------------------
 -- 삭제 유무 컬럼 이름 변경
@@ -55,6 +57,9 @@ alter table tbl_user modify (nickname varchar2(20) unique);
 alter table tbl_user modify (userid varchar2(20) unique);
 -- 프로필 이미지 컬럼 unique 제약조건 추가
 alter table tbl_user modify (profile_image varchar2(100) unique);
+-- user_status 컬럼 check 제약 조건 추가
+alter table tbl_user modify (user_status check (user_status in (0,1,2) ));
+
 
 --컬럼추가-------------------------------------------
 -- 회원정보 수정일 컬럼 추가

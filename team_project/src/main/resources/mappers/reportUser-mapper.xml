@@ -79,4 +79,14 @@
 		where reportno = #{reportno}
 	</update>
 	
+	<!-- 유저 신고 해결여부 다중 수정 -->
+	<update id="updateMultiReportResolve">
+		update tbl_report_user set
+			report_resolved = 'T'
+		where reportno in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+	
 </mapper>

@@ -18,4 +18,6 @@ public interface ReportUserDao {
 	public boolean updateReportAcceptDate(int reportno);
 	// 유저 신고 해결여부 수정 
 	public boolean updateReportResolved(int reportno);
+	// 유저 신고 해결여부 다중 수정
+	public boolean updateMultiReportResolve(List<Integer> list);
 }

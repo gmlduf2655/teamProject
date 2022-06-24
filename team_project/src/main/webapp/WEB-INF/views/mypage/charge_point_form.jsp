@@ -38,6 +38,21 @@
 		input::-webkit-inner-spin-button{
 			-webkit-appearance:none;
 		}
+		.nice-select{
+			float:none;
+		}
+		.btn-primary{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
+		.btn-primary:hover{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
+		.btn-primary:active{
+			background-color:#e53637;
+			border-color:#e53637;
+		}
 	</style>
     <script>
 		$(document).ready(function(){
@@ -51,6 +66,35 @@
 				console.log(point_code);
 				$("#point_code").val(point_code);
 			});
+			
+			$("#select_charge").change(function(){
+				var charge = $(this).val();
+				if(charge != 0){
+					console.log(charge);
+					put_input(charge)
+					var point_code = get_point_code(charge);
+					console.log(point_code);
+					$("#point_code").val(point_code);					
+				}else{
+					$("#modal-180340").trigger("click");
+				}
+			});
+			
+			function get_point_code(charge){
+				switch(parseInt(charge)){
+				case 1000:
+					return 1003;
+				case 5000:
+					return 1004;
+				case 10000:
+					return 1005;
+				case 20000:
+					return 1006;
+				case 50000:
+					return 1007;
+				}
+			}
+				
 			
 			// 직접 입력 버튼 클릭시 모달창이 나오게 함
 			$(".charge_self").click(function(){
@@ -184,6 +228,25 @@
 				<form method="post" action="/point/charge_point_run">
 					<input type="hidden" name="userno" value="${loginUserVo.userno}">
 					<input type="hidden" name="point_code" id="point_code">
+					<div class="row mb-4">
+						<div class="col-md-3 mb-4"></div>
+						<div class="col-md-5 mb-4">
+							<label style="font-size:16px;padding-top:6px;color:white">결재 금액 선택: </label>
+<!-- 							<input type="text" class="form-control" style="width:100%;" name="money" id="money" readonly> -->
+							<select name="select_charge" id="select_charge">
+								<option value="1000">1000원 (1000P)</option>
+								<option value="5000">5000원 (5000P)</option>
+								<option value="10000">10000원 (10000P)</option>
+								<option value="20000">20000원 (20000P)</option>
+								<option value="50000">50000원 (50000P)</option>
+								<option value="0">직접 입력</option>
+							</select>
+						</div>
+						
+						<div class="col-md-2 mb-4"></div>
+						<div class="col-md-2 mb-4"></div>
+						
+					</div>
 					<div class="row mb-4" style="color:white;">
 						<div class="col-md-3 mb-4"></div>
 						<div class="col-md-1 mb-4">

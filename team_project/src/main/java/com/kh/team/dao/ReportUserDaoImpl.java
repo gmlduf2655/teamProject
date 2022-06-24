@@ -67,4 +67,14 @@ public class ReportUserDaoImpl implements ReportUserDao {
 		return false;
 	}
 
+	// 유저 신고 해결여부 다중 수정
+	@Override
+	public boolean updateMultiReportResolve(List<Integer> list) {
+		int count = sqlSession.update(NAMESPACE + "updateMultiReportResolve", list);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }
