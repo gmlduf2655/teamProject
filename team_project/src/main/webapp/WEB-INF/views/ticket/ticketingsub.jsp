@@ -8,14 +8,30 @@
 <link rel="stylesheet" href="/resources/css/ticketing.css" type="text/css">
 
 <script type="text/javascript" src="/resources/js/ticketing.js"></script>
-
 <style>
 .viewCount{
 	float: left;
 	margin-top: 30px;
 	margin-left: 20px;
 }
+#seatTable td{
+	width: 24px;
+	text-align: center;
+}
 </style>
+<script>
+$(function(){
+	//유수연 - 영화 좌석 열 알파벳 넘버링
+	var seatLength = $(".tdseat").length;
+	var j = 64;
+	console.log("seatLength" , seatLength);
+	for(var i=1; i < seatLength+1; i++){
+		j += 1;
+		var tdseat = String.fromCharCode([j]);
+		$("#tdseat" + i).text(tdseat);
+	} 
+});
+</script>
 <div class="ticketing">
 	<div class="container">
 		<div class="row justify-content-md-center">
@@ -112,6 +128,32 @@
 								</div>
 								<div>
 									<!-- 좌석 안내도 -->
+									<table border="1" id="seatTable" style="margin: 50px;">
+										<tbody>
+											<c:forEach begin="1" end="10" var="seat" varStatus="status">
+												<tr>
+													<td class="tdseat" id="tdseat${status.count}">
+														
+													</td>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+													<td>9</td>
+													<td>11</td>
+													<td>12</td>
+													<td>13</td>
+													<td>14</td>
+													<td>15</td>
+													<td>16</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						

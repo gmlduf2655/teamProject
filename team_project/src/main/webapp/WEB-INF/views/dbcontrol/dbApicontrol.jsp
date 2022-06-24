@@ -7,9 +7,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <script src="/resources/js/stillcut.js"></script> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-	
 <script type="text/javascript">
-
 //db 저장 알림창
 var db_update_result = "${db_update_result}";
 var db_save_result = "${db_save_result}";
@@ -72,23 +70,8 @@ $(document).ready(function(){
 			console.log("data" , data);
 			var rdata = data.movieInfoResult.movieInfo;
 			console.log(rdata.movieCd);
-			$("#movieprevget").attr("href","https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=영화+예고+"+rdata.movieNm);
+			$("#movieprevget").attr("href","https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=영화+"+rdata.movieNm);
 			$("#movieprevget").removeAttr("style");
-			/* $('#list').append("<hr><span>영화코드:</span><input type='text' class='form-control movieList' style='width:500px; display:inline-block; ' name='movie_code' value='" + rdata.movieCd +"'><br>");
-			$('#list').append("<span>영화제목:</span><input type='text' class=\'form-control movieList\' style='width:500px; display:inline-block; ' name='movie_name' value='" + rdata.movieNm +"'><br>");
-			$('#list').append("<span>영화원제:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_name_en' value='" + rdata.movieNmEn +"'><br>");
-			$('#list').append("<span>제작연도:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='make_year' value='" + rdata.prdtYear +"'><br>");
-			$('#list').append("<span>러닝타임:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='runningtime' value='" + rdata.showTm +"'><br>");
-			$('#list').append("<span>개봉날짜:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='opening_date' value='" + rdata.openDt +"'><br>");
-			$('#list').append("<span>제작회사:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='made_company' value='" + rdata.companys[0].companyNm +"'><br>");
-			$('#list').append("<span>제작국가:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='made_country' value='" + rdata.nations[0].nationNm +"'><br>");
-			$('#list').append("<span>영화감독:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_director' value='" + rdata.directors[0].peopleNm +"'><br>");
-			$('#list').append("<span>영화장르:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_genre' value='" + rdata.genres[0].genreNm +"'><br>");
-			$('#list').append("<span>영화배우:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_actors' value='" + rdata.actors[0].peopleNm +"'><br>");
-			$('#list').append("<span>영화등급:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_audits' value='" + rdata.audits[0].watchGradeNm +"'><br>");
-			$('#list').append("<span>메인예고:</span><input type='text' class=\'form-control movieList\' style='width:500px;display:inline-block; ' name='movie_video_add' placeholder='v/ 이후 주소를 넣어주세요'><br>");
-			$('#list').append("<span>영화시놉:</span><textarea class=\'form-control movieList\' style='width:500px; height:200px; display:inline-block; ' name='movie_synopsis'></textarea><br>");
-			$('#list').append("<span><label for='file'> 포스터  :</label><input type='file' id='file' name='file' /></span><hr>"); /* class='form-control-file'  */
 			var apilist = `
 				<hr><span>영화코드:</span><input type='text' class='form-control movieList' style='width:500px; display:inline-block; ' name='movie_code' value='` + rdata.movieCd +`'><br>
 				<span>영화제목:</span><input type='text' class='form-control movieList' style='width:500px; display:inline-block; ' name='movie_name' value='` + rdata.movieNm +`'><br>
@@ -108,10 +91,9 @@ $(document).ready(function(){
 			var stillcut = `
 					<style>
 					#fileDrop{
-						width: 50%;
+						width: 53%;
 						height: 100px;
 						background-color: lightgray;
-						margin-left: 80px;
 						border: 1px dashed blue;
 					}
 					.divUploaded{
@@ -135,7 +117,7 @@ $("#fileDrop").on("dragenter dragover", function(e){
 $("#fileDrop").on("drop", function(e){
 	e.preventDefault();
 	var file = e.originalEvent.dataTransfer.files[0]; //콘솔에서 확인가능
-	console.log(file);
+	//console.log(file);
 	//post multipart/form-data
 	var formData = new FormData(); //<form>
 	var movie_code = $(this).parent().parent().find("input[name=movie_code]").val();
@@ -181,11 +163,8 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 });
  
 });
-
-
 </script>
 <style>
-	
 	body {
 		background-color: #eeeeee; 
 	}
@@ -199,7 +178,6 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 	}
 	
 </style>
-
 <!-- 샘플 레이아웃 데이터 -->
 <div class="ma">
 	<div class="row" style="background-color: #eeeeee">
@@ -219,17 +197,15 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<div class="container-fluid">
 				<div class="row">
-				<div class="col-md-1"></div>
-					<div class="col-md-10">
-						<br>
-						<br>
+					<div class="col-md-12">
 						<br>
 						<!-- 영화코드, 시놉시스, 포스터 다운위한 이동 새창 -->
 						<a target="_blank"
 							href="https://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do"
 							class="btn btn-primary" style="margin-bottom: 20px;">영화코드
 							가져오기</a><br> 
-						<br> <input type="text" name="moviecode" id="moviecode">
+						<br> <input type="text" name="moviecode" id="moviecode" class="form-control" 
+								style="width: 230px;display:inline-block;">
 						<button type="submit" class="btn btn-sm btn-outline btn-success"
 							id="dbSearch">진흥원DB검색</button>
 					</div>
@@ -238,8 +214,7 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 				</div>
 				<!-- 진흥원 DB검색 내용 -->
 				<div class="row">
-					<div class="col-md-1"></div>
-					<div class="col-md-10">
+					<div class="col-md-12">
 						<form action="" enctype="multipart/form-data" accept-charset="UTF-8">
 							<div id="releaseCont">
 								<div class="active" id="list">
@@ -249,9 +224,9 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 								<br>
 								<a target="_blank" id="movieprevget" style="display: none;"
 								href='' class="btn btn-warning">네이버예고편가져오기</a>
-								<div align="left" id="fileinfo" style="display: none;">
-									<label>첨부할 파일을 드래그 &amp; 드롭하세요</label>
-									<div id="fileDrop"  align="left"></div>
+								<div id="fileinfo" style="display: none;">
+									<label>첨부할 파일을 드래그 &amp; 드롭하세요</label><br>
+									<div id="fileDrop"></div>
 									</div>
 								
 								<div class="divUploaded" style="display: none">
@@ -263,7 +238,7 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 								</div>
 								<div style="clear: both;"></div><br>
 							</div>
-							<div align="center">
+							<div align="left" style="margin-left: 150px;">
 							<button type="submit" class="btn btn-primary btndbRelation"
 								id="dbSave" style="display: none;">db저장</button>
 							<button type="submit" class="btn btn-warning btndbRelation"
@@ -273,7 +248,6 @@ $("#uploadedList").on("click" , ".a_delete", function(e){
 							</div>	
 						</form><br>
 					</div>
-					<div class="col-md-1"></div>
 				</div>
 			</div>
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
