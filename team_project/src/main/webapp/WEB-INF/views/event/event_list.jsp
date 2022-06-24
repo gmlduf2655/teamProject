@@ -34,17 +34,17 @@ $(document).ready(function(){
 
 
     <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text">
-                        <h2>전체 이벤트</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
+<!--         <div class="container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-12 text-center"> -->
+<!--                     <div class="normal__breadcrumb__text"> -->
+<!--                         <h2>전체 이벤트</h2> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </section> -->
     <!-- Normal Breadcrumb End -->
 
 <div class="container-fluid" style="padding: 50px">

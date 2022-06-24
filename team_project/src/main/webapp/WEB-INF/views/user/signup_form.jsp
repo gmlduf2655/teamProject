@@ -361,22 +361,22 @@
 </script>
 
     <!-- 제목 -->
-    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text">
-                        <h2>회원가입</h2>
-<!--                         <p>Welcome to the official Anime blog.</p> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
+<!--         <div class="container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-12 text-center"> -->
+<!--                     <div class="normal__breadcrumb__text"> -->
+<!--                         <h2>회원가입</h2> -->
+<!-- <!--                         <p>Welcome to the official Anime blog.</p> --> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </section> -->
     <!-- 제목 끝 -->
 
     <!-- 회원가입 -->
-    <section class="signup spad">
+    <section >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -461,7 +461,6 @@
 
                             <button type="button" class="site-btn" id="signup_btn">회원가입</button>
                         </form>
-                        <h5>이미 계정이 있으신가요? <a href="/user/login_form">로그인하기</a></h5>
                     </div>
                 </div>
             </div>
