@@ -136,6 +136,7 @@ $(document).ready(function(){
 					<tr>
 						<th>번호</th>
 						<th>작성자</th>
+						<th>영화</th>
 						<th>제목</th>
 						<th>평점</th>
 						<th>작성일</th>
@@ -160,6 +161,7 @@ $(document).ready(function(){
 					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
+							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}">${reviewVo.movie_name}</a></td>
 							<td><a
 								href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
 							<th>
