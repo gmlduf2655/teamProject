@@ -72,6 +72,15 @@
 		.header__right>a {
 			margin-right: 10px;
 		}
+		.hero__text{
+			background-color: rgba(255,255,255, 0.5);
+			width:1000px;
+			padding-left:150px;
+			backdrop-filter: blur(2px);
+		    border-radius:10px;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		}
     </style>
 </head>
 

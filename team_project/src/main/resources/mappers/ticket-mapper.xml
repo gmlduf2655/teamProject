@@ -107,7 +107,7 @@
 			b.movie_begin_date, b.movie_finish_date, b.movie_code,
 			c.cinema_name, 
 			d.seat_x, d.seat_y,
-			e.room_type_name,
+			e.room_type_name, e.room_price,
 			f.room_name, f.room_floor,
 			g.movie_name, g.movie_image_name
 		from 

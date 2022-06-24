@@ -92,6 +92,7 @@
 								<h4>상영 장소 : ${ticketUserVo.cinema_name}  ${ticketUserVo.room_floor}  ${ticketUserVo.room_name} 
 								${ticketUserVo.seat_x}${ticketUserVo.seat_y} ${ticketUserVo.room_type_name}</h4>
 								<h4>상영 시간 : ${ticketUserVo.movie_begin_date} ~ ${ticketUserVo.movie_finish_date}</h4>
+								<h4>사용 포인트 : ${ticketUserVo.room_price}</h4>
 							</div>
 						</div>
 	            	</div>
