@@ -21,7 +21,7 @@
 <script>
 $(document).ready(function(){
 	var frmSearch = $("#frmSearch");
-	
+	// 검색
 	$("#btnSearch").on("click", function(){
 		var searchType = $("#searchType").val();
 		var keyword = $("#keyword").val();
@@ -41,6 +41,11 @@ $(document).ready(function(){
 	    frmSearch.find("input[name=searchType]").val(searchType);
 	    frmSearch.find("input[name=keyword]").val(keyword);
 	    frmSearch.submit();
+	});
+	
+	// 삭제
+	$(".table").on("click", "#btnDelete", function(){
+		console.log("삭제버튼 클릭");
 	});
 });
 </script>
@@ -135,7 +140,11 @@ $(document).ready(function(){
 								href="/admin/admin_winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
 							<td>${winnerVo.winner_sysdate}</td>
 							<td>${winnerVo.winner_count}</td>
-							<td><button class="btn btn-sm btn-danger">삭제</button></td>
+							<td>
+							<form action="/admin/winner_delete" method="get">
+								<input type="hidden" name="winner_no" value="${winnerVo.winner_no}">
+								<button type="submit" id="btnDelete" class="btn btn-sm btn-danger btnDelete">삭제</button>
+							</form>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -90,7 +90,7 @@ $(document).ready(function(){
 				style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="site-btn" style="border-radius: 5px;" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			<br>
 			<br>
 			</form>

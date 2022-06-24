@@ -134,7 +134,7 @@ $(document).ready(function(){
 				<input type="hidden" name="page" value="${pagingDto.page}">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="site-btn" style="border-radius: 5px;" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
 			<br>
 			<br>
@@ -155,7 +155,8 @@ $(document).ready(function(){
 						<tr class="tr_list">
 							<td>${winnerVo.winner_no}</td>
 							<td class="td_list" data-wno="${winnerVo.winner_no}"><a
-								href="/event/winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
+								href="/event/winner_read?winner_no=${winnerVo.winner_no}"
+								style="color: white;">${winnerVo.winner_title}</a></td>
 							<td>${winnerVo.winner_sysdate}</td>
 							<td>${winnerVo.winner_count}</td>
 						</tr>

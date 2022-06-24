@@ -33,6 +33,19 @@
  .review_content {
  	display: none;
  }
+/* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
 </style>
 <script>
 
@@ -266,7 +279,7 @@ $(document).ready(function(){
 				<c:if test="${pagingDto.startPage!=1}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="/review/review_list?page=${pagingDto.startPage-1}">이전</a>
+							href="/admin/event_admin_reviewList?page=${pagingDto.startPage-1}">이전</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
@@ -280,13 +293,13 @@ $(document).ready(function(){
 						</c:otherwise>
 					</c:choose>
 					>
-						<a class="page-link" href="/review/review_list?page=${i}">${i}</a>
+						<a class="page-link" href="/admin/event_admin_reviewList?page=${i}">${i}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pagingDto.endPage!=pagingDto.totalPage}">
 					<li class="page-item">
 						<a class="page-link" 
-							href="/review/review_list?page=${pagingDto.endPage + 1}">다음</a>
+							href="/admin/event_admin_reviewList?page=${pagingDto.endPage + 1}">다음</a>
 					</li>
 				</c:if>
 				</ul>
