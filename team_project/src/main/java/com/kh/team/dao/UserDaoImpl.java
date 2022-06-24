@@ -214,5 +214,24 @@ public class UserDaoImpl implements UserDao {
 		}
 		return false;
 	}
-
+	
+	// 다중 유저 정지
+	@Override
+	public boolean multiUserSuspend(List<Integer> list) {
+		int count = sqlSession.update(NAMESPACE + "multiUserSuspend", list);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 다중 유저 복구
+	public boolean multiUserRecover(List<Integer> list) {
+		int count = sqlSession.update(NAMESPACE + "multiUserRecover", list);
+		if(count > 0) {
+			return true;
+		}
+		return false;		
+	}
 }
+

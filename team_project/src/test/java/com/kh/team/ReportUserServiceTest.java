@@ -1,6 +1,7 @@
 
 package com.kh.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -59,10 +60,20 @@ public class ReportUserServiceTest {
 		System.out.println("ReportUserServiceTest, testModifyReportAcceptDate, result : " + result);
 	}
 	
-	// 유저 신고 해결여부 수정
+	// 유저 신고 해결여부 수정 테스트
 	@Test
 	public void testModifyReportResolved() {
 		boolean result = reportUserService.modifyReportResolved(2);
 		System.out.println("ReportUserServiceTest, testModifyReportResolved, result : " + result);
 	}
+	
+	// 유저 신고 해결여부 다중 수정 테스트
+	@Test
+	public void testUpdateMultiReportResolve() {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(3);		
+		boolean result = reportUserService.modifyMultiReportResolve(list);
+		System.out.println("ReportUserServiceTest, testUpdateMultiReportResolve, result : " + result);
+		
+	}	
 }

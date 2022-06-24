@@ -1,6 +1,7 @@
 
 package com.kh.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -58,10 +59,19 @@ public class ReportUserDaoTest {
 		System.out.println("ReportUserDaoTest, testUpdateReportAcceptDate, result : " + result);
 	}
 	
-	// 유저 신고 해결여부 수정
+	// 유저 신고 해결여부 수정 테스트
 	@Test
 	public void testUpdateReportResolved() {
 		boolean result = reportUserDao.updateReportResolved(1);
 		System.out.println("ReportUserDaoTest, testUpdateReportResolved, result : " + result);
+	}
+	
+	// 유저 신고 해결여부 다중 수정 테스트
+	@Test
+	public void testUpdateMultiReportResolve() {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(3);
+		boolean result = reportUserDao.updateMultiReportResolve(list);
+		System.out.println("ReportUserDaoTest, testUpdateMultiReportResolve, result : " + result);
 	}
 }

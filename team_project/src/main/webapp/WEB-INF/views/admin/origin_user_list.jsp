@@ -7,9 +7,6 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <style>
-	input::-webkit-inner-spin-button{
-		-webkit-appearance:none;
-	}
 	body {
 		background-color: #eeeeee;
 	}section.product {
@@ -23,12 +20,74 @@
 <!-- 샘플 레이아웃 데이터 -->
 <script>
 	$(document).ready(function(){
+		// 테스트 유저 생성 여부 확인
 		var create_result = "${create_result}";
 		if(create_result == "true"){
 			alert("테스트 유저 생성 성공");
 		}else if(create_result == "false"){
 			alert("테스트 유저 생성 실패");
 		}else {}
+		
+		// 유저 다중 정지 확인
+		var suspend_result = "${suspend_result}";
+		if(suspend_result == "true"){
+			alert("유저 정지 완료");
+		}else if(suspend_result == "false"){
+			alert("유저 정지 실패");
+		}else {}
+		
+		// 유저 다중 복구 확인
+		var recover_result = "${recover_result}";
+		if(recover_result == "true"){
+			alert("유저 복구 완료");
+		}else if(recover_result == "false"){
+			alert("유저 복구 실패");
+		}else {}
+		
+		// 한 페이지에 있는 모든 메세지를 선택할 때 사용
+		$("#select_all").click(function() {
+			if ($(this).is(":checked")) {
+				$(".usernos").prop("checked", true);
+			} else {
+				$(".usernos").prop("checked", false);
+			}
+		});
+		
+		// 다중 회원 정지시킬 때 사용
+		$("#multi_delete_btn").click(function(){
+			var usernos = $(".usernos");
+			var userno_arr = [];
+			// 삭제할 메세지를 messagenos변수에 담음
+			$.each(usernos , function(i,v){
+				if($(this).is(":checked")){
+					userno_arr.push($(this).val());
+					$("#multi_delete_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>");
+				}
+			});
+			if(userno_arr.length > 0){
+				console.log(userno_arr);
+				$("#multi_delete_form").append("<input type='hidden' name='uri' value='/admin/origin_user_list'>");
+				$("#multi_delete_form").submit();
+			}
+		});
+		
+		// 다중 회원 복구시킬 때 사용
+		$("#multi_recover_btn").click(function(){
+			var usernos = $(".usernos");
+			var userno_arr = [];
+			// 삭제할 메세지를 messagenos변수에 담음
+			$.each(usernos , function(i,v){
+				if($(this).is(":checked")){
+					userno_arr.push($(this).val());
+					$("#multi_recover_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>");
+				}
+			});
+			if(userno_arr.length > 0){
+				console.log(userno_arr);
+				$("#multi_recover_form").append("<input type='hidden' name='uri' value='/admin/origin_user_list'>");
+				$("#multi_recover_form").submit();
+			}
+		});
 		
 		// 검색 버튼 눌렀을 떄
 		$("#search_btn").click(function(){
@@ -81,10 +140,21 @@
 		        <div class="container">
 		        	<!-- nav 부분 -->
 					<nav class="row mb-4" >
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<h3>기존회원</h3>
 						</div>
-						<div class="col-md-2"></div>
+						<div class="col-md-5">
+							<div class="row">
+							<form class="mr-4" method="post" action="/admin/multi_user_suspend" id="multi_delete_form">
+								<input type="hidden" name="page" value="${param.page}">
+								<button type="button" class="btn btn-primary" id="multi_delete_btn">선택 유저 정지</button>
+							</form>						
+							<form method="post" action="/admin/multi_user_recover" id="multi_recover_form">
+								<input type="hidden" name="page" value="${param.page}">
+								<button type="button" class="btn btn-primary" id="multi_recover_btn">선택 유저 복구</button>
+							</form>						
+							</div>
+						</div>
 						<div class="col-md-1" style="display:flex;justify-content: flex-end;">
 							<select name="searchType" id="searchType" style="color:black;">
 								<option value="i" 
@@ -104,18 +174,19 @@
 						<div class="col-md-3">
 							<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 						</div>
-						<div class="col-md-2" style="padding-left:0px;">
+						<div class="col-md-1" style="padding-left:0px;">
 							<button type="button" class="btn btn-primary" id="search_btn">검색</button>
 						</div>
 					</nav>
 					<!-- nav 부분 끝-->
 		            <div class="row">
 		                <div class="col-lg-12 ">
-		                	<div class="mb-3" style="overflow-x:scroll">
+		                	<div class="mb-4" style="overflow-x:scroll">
 		                		<!-- 기존 회원 테이블 부분 -->
 						    	<table class="table" style="width:1600px;">
 						    		<thead>
 						    			<tr>
+						    				<th><input type="checkbox" id="select_all"></th>
 											<th>#</th>    				
 											<th>아이디</th>    				
 											<th>비밀번호</th>    				
@@ -125,22 +196,58 @@
 											<th>주소</th>    				
 											<th>휴대폰번호</th>    				
 											<th>포인트</th>    				
-											<th>생성일</th>    				
+											<th>생성일</th>    	
+											<th>유저 상태</th>			
 						    			</tr>
 						    		</thead>
 						    		<tbody>
 										<c:forEach var="originUserVo" items="${originUserList}">
 											<tr>
+												<td><input type="checkbox" class="usernos" name="usernos" value="${originUserVo.userno}"></td>
 												<td>${originUserVo.userno}</td>
 												<td>${originUserVo.userid}</td>
 												<td>${originUserVo.userpw}</td>
 												<td>${originUserVo.username}</td>
 												<td>${originUserVo.nickname}</td>
-												<td>${originUserVo.email}</td>
-												<td>${originUserVo.address}</td>
-												<td>${originUserVo.cellphone}</td>
+												<td>
+													<c:choose>
+														<c:when test="${empty originUserVo.email}">
+															없음
+														</c:when>
+														<c:otherwise>
+															${originUserVo.email}
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${empty originUserVo.address}">
+															없음
+														</c:when>
+														<c:otherwise>
+															${originUserVo.address}
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${empty originUserVo.cellphone}">
+															없음
+														</c:when>
+														<c:otherwise>
+															${originUserVo.cellphone}
+														</c:otherwise>
+													</c:choose>
+												</td>
 												<td>${originUserVo.point}</td>
 												<td>${originUserVo.reg_date}</td>
+												<td>
+													<c:choose>
+														<c:when test="${originUserVo.user_status == 2}">정지</c:when>
+														<c:when test="${originUserVo.user_status == 1}">활동중</c:when>
+														<c:otherwise>삭제</c:otherwise>
+													</c:choose>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>

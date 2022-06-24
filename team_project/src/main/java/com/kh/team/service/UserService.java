@@ -66,4 +66,8 @@ public interface UserService {
 	public boolean modifyProfileImage(String profile_image, int userno);
 	// 임시 비밀번호로 비밀번호 변경
 	public boolean updateUserpwToTempPwd(String email, String userid, String tempPwd);
+	// 다중 유저 정지
+	public boolean multiUserSuspend(List<Integer> list);
+	// 다중 유저 복구
+	public boolean multiUserRecover(List<Integer> list);
 }
