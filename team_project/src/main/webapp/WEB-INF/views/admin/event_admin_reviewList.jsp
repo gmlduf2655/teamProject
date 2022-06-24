@@ -28,7 +28,7 @@
  }
  
  tr.tr_list:hover {
- 	background-color: #FFCCCB;
+ 	background-color: aliceblue;
  }
  .review_content {
  	display: none;
@@ -109,12 +109,13 @@ $(document).ready(function(){
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<br><h2>평점/리뷰 목록</h2>
-			
+			<br>
+			<br>
 			
 			<div class="container-fluid">
 	<div class="row">
 		
-
+<div class="col-md-12">
 
 <!-- 검색 -->
 			<div>
@@ -148,13 +149,15 @@ $(document).ready(function(){
 				>제목 + 내용 + 작성자</option>
 			</select>
 			<form id="frmPaging" action="/admin/event_admin_reviewList" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control"
+			style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="review_no" value="">
 				<input type="hidden" name="page" value="${pagingDto.page}">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			<br>
 			</div> 
 
 
@@ -190,7 +193,8 @@ $(document).ready(function(){
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
 							<td><a
-								href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
+								href="/review/review_read?review_no=${reviewVo.review_no}"
+								style="color: black;">${reviewVo.review_title}</a></td>
 							<th>
 							<c:choose>
 							<c:when test="${reviewVo.review_star == 5}">
@@ -266,7 +270,7 @@ $(document).ready(function(){
 					</c:forEach>
 				</tbody>
 			</table>
-		
+		</div>
 	</div>
 	
 	

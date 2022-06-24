@@ -158,14 +158,15 @@ var frmSearch = $("#frmSearch");
 								
 									<tr>
 										<th>${eventVo.event_no}</th>
-										<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}">${eventVo.event_title}</a></td>
+										<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}"
+											style="color: black;">${eventVo.event_title}</a></td>
 										<td>${eventVo.userid}</td>
 										<td>${eventVo.event_start_date}</td>
 										<td>${eventVo.event_end_date}</td>
 										
 										<c:choose>
 										<c:when test = "${eventVo.event_win == 'y'}">
-										<td>당첨</td>
+										<td style="color: #e53637;"><b>당첨</b></td>
 										</c:when>
 										<c:otherwise>
 										<td>미당첨</td>

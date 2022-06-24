@@ -2,6 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+/* 평점 별 시작*/
+.checked {
+  color: orange;
+}
+ tr.tr_list {
+ 	cursor: pointer;
+ }
+.fa fa-star {
+	color: white;
+}
+/* 평점 별 끝*/
+</style>
+
 <!-- 영화 정보 시작 -->
 <div class="popular__product" style="margin-top: 50px;">
 	<div class="row">
@@ -78,9 +92,57 @@
 							</div>
 						</div>
 						<div class="product__item__text">
+							<div style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; width: 125px; text-align:center;">
+							
+							<c:choose>
+							<c:when test="${reviewVo.review_star == 5}">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star	checked"></span>
+							<span class="fa fa-star checked"></span>
+							</c:when>
+							<c:when test="${reviewVo.review_star == 4}">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star	checked"></span>
+							<span class="fa fa-star"></span>
+							</c:when>
+							<c:when test="${reviewVo.review_star == 3}">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							</c:when>
+							<c:when test="${reviewVo.review_star == 2}">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							</c:when>
+							<c:when test="${reviewVo.review_star == 1}">
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							</c:when>
+							<c:when test="${reviewVo.review_star == 0}">
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							</c:when>
+							</c:choose>
+							</div>
 							<h5>
 								<a href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a>
 							</h5>
+							
 						</div>
 					</div>
 				</div>

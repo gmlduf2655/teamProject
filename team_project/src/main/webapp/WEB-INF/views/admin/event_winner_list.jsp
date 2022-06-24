@@ -16,6 +16,19 @@
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
+/* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
 </style>
 
 <script>
@@ -68,8 +81,8 @@ $(document).ready(function(){
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<br><h2>이벤트 당첨자 목록</h2>
-			
-			
+			<br>
+			<br>
 			
 			
 			<div class="container-fluid">
@@ -80,7 +93,7 @@ $(document).ready(function(){
 		<div class="col-md-12">
 
 
-<!-- 검색 -->
+<!-- 검색 시작 -->
 			<div>
 			<select id="searchType">
 				<option value="">선택</option>
@@ -112,16 +125,19 @@ $(document).ready(function(){
 				>제목 + 내용 + 작성자</option>
 			</select>
 			<form id="frmPaging" action="/event/winner_info" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control" 
+				style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="winner_no" value="">
 				<input type="hidden" name="page" value="${pagingDto.page}">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			<br>
 			</div> 
+<!-- 검색 끝 -->
 
-
+<!-- 테이블 시작 -->
 			<table class="table">
 				<thead>
 					<tr>
@@ -143,12 +159,16 @@ $(document).ready(function(){
 							<td>
 							<form action="/admin/winner_delete" method="get">
 								<input type="hidden" name="winner_no" value="${winnerVo.winner_no}">
-								<button type="submit" id="btnDelete" class="btn btn-sm btn-danger btnDelete">삭제</button>
+								<button type="submit" id="btnDelete" class="site-btn"
+								style="padding-top: 7px; padding-left: 14px; padding-bottom: 7px; padding-right: 14px; border-radius: 5px;">
+								삭제</button>
 							</form>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			<!-- 테이블 끝 -->
+			<br>
 		</div>
 	</div>
 	
