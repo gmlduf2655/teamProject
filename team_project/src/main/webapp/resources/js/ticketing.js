@@ -1,5 +1,7 @@
 $(function(){ /* 준비 핸들러 */
 	
+	var changeFullDate = "";
+	
 	/* 상영 스케줄 검색 시 년,월, 일 변경 시 */
 	$(".dateYYYY, .dateMM, .dateDD").change(function(){
 		var changeTarget = $(".ticketTable").find(".sectionTitle").eq(2);
@@ -7,6 +9,7 @@ $(function(){ /* 준비 핸들러 */
 		var inputDateY = $(".dateYYYY").val();
 		var inputDateM = $(".dateMM").val();
 		var inputDateD = $(".dateDD").val();
+		
 		var mLastdate = new Date(inputDateY, inputDateM, 0).getDate();
 		
 		// 일자 입력란에 해당 년, 월 마지막일  max값 지정 
@@ -19,7 +22,7 @@ $(function(){ /* 준비 핸들러 */
 		}
 		
 		// 상영 스케줄 제목 란에 값이 변경될때마다 자동 입력
-		var changeFullDate = inputDateY + "-" + inputDateM + "-" + inputDateD;
+		changeFullDate = inputDateY + "-" + inputDateM + "-" + inputDateD;
 		console.log(changeFullDate);
 		changeTarget.text(changeFullDate);
 		
@@ -71,9 +74,11 @@ $(function(){ /* 준비 핸들러 */
 		$.get(url, sData, function(rData){
 			var insertHtml = "";
 			$.each(rData, function(){
-				insertHtml += `
-					<li data-cinema_no="` + this.cinema_no + `">` + this.cinema_name + `<i class="bi bi-check-lg choise"></i></li>
-				`;
+				if (this.cinema_status == 1){
+					insertHtml += `
+						<li data-cinema_no="` + this.cinema_no + `">` + this.cinema_name + `<i class="bi bi-check-lg choise"></i></li>
+						`;
+				}
 			});
 			$(".cinemaList").html(insertHtml);
 		});
@@ -84,6 +89,7 @@ $(function(){ /* 준비 핸들러 */
 		var cinema_name = $(this).text();
 		// 클릭한 영화관 이름을 영화관 섹션 제목에 넣기
 		$(this).parents(".choiseCinemaContainer").children(".sectionTitle").text(cinema_name);
+		// 영화관 번호 얻어내기
 		var cinema_no = $(this).attr("data-cinema_no");
 		var url = "/ticket/getMovieAndTimelineList";
 		var sData = {
@@ -91,23 +97,109 @@ $(function(){ /* 준비 핸들러 */
 		}
 		$.get(url, sData, function(rData){
 			console.log(rData);
-			$(".ticketTable li[data-movie_code]").hide();
-			$.each(rData, function(){
-				console.log(this.movie_code);
-				$(".ticketTable li[data-movie_code=" +  this.movie_code + "]").show();
-				$(".")
-			});
 			
+			// 클릭한 영화관에서 상영중인 영화 보여주기(이미 조회된 목록에서 상영중 영화가 아닌 것 숨김처리)
+			var target = $(".movieList");
+			target.find("li[data-movie_code]").hide().removeClass("choise");
 			$.each(rData, function(){
+				target.find("li[data-movie_code=" + this.movie_code + "]").show();
+			});
+			// 클릭한 영화관에서 상영중인 영화 보여주기(이미 조회된 목록에서 상영중 영화가 아닌 것 숨김처리) 끝
+			
+			/* 상영 스케줄 상영관 조회 */
+			var insertHtml = "";
+			$(".timelineList > ul").hide();
+			$(".notListInfo").show();
+			if(rData.length > 0) {
+				$(".notListInfo").hide();
+				$(".timelineList > ul").show();
+				var prevTypeNMovieName = "";
+				$.each(rData, function(i, v){
+					if (i == 0) { /* 처음에 한번만 */
+						prevTypeNMovieName = this.room_type_name + this.movie_name;
+						insertHtml += ` 
+								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `">
+									<ul class="typeList">
+										<li class="typeContainer">
+											<h6 class="room_type_name"><strong>[` + this.room_type_name + "]</strong> " + this.movie_name + `</h6>
+											<ul class="cinemaRoomList">
+												<li class="roomInfo" data-begin_date="` + this.movie_begin_date + `">
+													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
+													<div>73/100</div>
+													<div class="room_name">` + this.room_name + `</div>
+												<li>
+						`;
+					} else { /* 두번째부터 여기만 실행 */
+						nowTypeNMovieName = this.room_type_name + this.movie_name;
+						/* 이전 영화종류, 영화제목이 같으면 */
+						if (prevTypeNMovieName == nowTypeNMovieName){
+							insertHtml += ` 
+												<li class="roomInfo">
+													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
+													<div>73/100</div>
+													<div class="room_name">` + this.room_name + `</div>
+												<li>
+							`;
+						} else { /* 영화종류, 영화제목이 다르면 */
+							insertHtml += ` 
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `">
+									<ul class="typeList">
+										<li class="typeContainer">
+											<h6 class="room_type_name"><strong>[` + this.room_type_name + "]</strong> " + this.movie_name + `</h6>
+											<ul class="cinemaRoomList">
+												<li class="roomInfo">
+													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
+													<div>73/100</div>
+													<div class="room_name">` + this.room_name + `</div>
+												<li>
+							`;
+						} // inner if else end
+						if (i == (rData.length - 1)){
+							insertHtml += `
+											</ul>
+										</li>
+									</ul>
+								</li>
+							`;
+						}
+					} // outer if else end
+					prevTypeNMovieName = this.room_type_name + this.movie_name;
+				});
 				
-			});
+			} // if (rData > 0)
+			console.log(insertHtml);
+			$(".ticketTable .timelineList > ul").html(insertHtml);
 			
-		});
+			
+		}); // $.get();
 		
 	}); /* 조회된 영화관 목록 클릭 시 끝*/
 	
-	/* 영화 포스터 클릭시 */
+	/* 영화 포스터 클릭시 영화 정보 페이지로 이동 (선택된 상태에서 포스터를 클릭해야 작동) */
+	$(".ticketTable").on("click", ".choise .moviePoster", function() {
+		var movieName = $(this).attr("alt");
+		var movieCode = $(this).attr("data-movie_code");
+		var userResult = confirm(movieName + "\"에 대한 영화정보 페이지로 이동하시겠습니까?");
+		if (userResult) {
+			location.href="http://localhost/movie/movieInfo?movie_code=" + movieCode;
+		}
+	});
+	/* 영화 포스터 클릭시 영화 정보 페이지로 이동 끝 (선택된 상태에서 포스터를 클릭해야 작동) */
 	
-	/* 영화 포스터 클릭시 끝 */
+	/* 영화목록 리스트 클릭 시 */
+	$(".ticketTable").on("click", "li[data-movie_code]", function(){
+		// 클릭한 영화에 대한 스케줄만 보이게
+		var thisCode = $(this).attr("data-movie_code");
+		$(".timelineList").children("ul").children("li").hide();
+		$(".timelineList").children("ul").children("li[data-movie_code=" + thisCode + "]").show();
+		
+	});
+	/* 영화목록 리스트 클릭 시 끝 */
+
+	
 	
 }); /* 준비 핸들러 끝 */
