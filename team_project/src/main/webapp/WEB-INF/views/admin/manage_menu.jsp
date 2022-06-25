@@ -14,9 +14,10 @@
 				<h5 style="color : black;">회원 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="/admin/origin_user_list?page=1">기존 회원 관리</a></h6>
-				<h6><a id="" href="/admin/sns_user_list?page=1">간편로그인 회원 관리</a></h6>
-				<h6><a id="" href="/admin/report_user_list?page=1">회원 신고 관리</a></h6>
+				<h6><a href="/admin/origin_user_list?page=1">기존 회원 관리</a></h6>
+				<h6><a href="/admin/sns_user_list?page=1">간편로그인 회원 관리</a></h6>
+				<h6><a href="/admin/report_user_list?page=1">회원 신고 관리</a></h6>
+				<h6><a href="/admin/manage_faq?page=1">FAQ 관리</a></h6>
 			</div>
 		</div>
 		
@@ -26,8 +27,8 @@
 				<h5 style="color : black;">포인트 관리</h5>
 			</div>
 			<div class="h6li">
-				<h6><a id="" href="/admin/total_point_list?page=1">회원 포인트 내역</a></h6>
-				<h6><a id="" href="/admin/manage_point_code?page=1">포인트 코드 관리</a></h6>
+				<h6><a href="/admin/total_point_list?page=1">회원 포인트 내역</a></h6>
+				<h6><a href="/admin/manage_point_code?page=1">포인트 코드 관리</a></h6>
 			</div>
 		</div>
 		

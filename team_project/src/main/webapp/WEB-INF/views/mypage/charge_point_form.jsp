@@ -67,33 +67,35 @@
 				$("#point_code").val(point_code);
 			});
 			
-			$("#select_charge").change(function(){
-				var charge = $(this).val();
-				if(charge != 0){
-					console.log(charge);
-					put_input(charge)
-					var point_code = get_point_code(charge);
-					console.log(point_code);
-					$("#point_code").val(point_code);					
-				}else{
-					$("#modal-180340").trigger("click");
-				}
-			});
+			// 결제 금액을 select태그로 표현했을 때 사용한 함수
+// 			$("#select_charge").change(function(){
+// 				var charge = $(this).val();
+// 				if(charge != 0){
+// 					console.log(charge);
+// 					put_input(charge)
+// 					var point_code = get_point_code(charge);
+// 					console.log(point_code);
+// 					$("#point_code").val(point_code);					
+// 				}else{
+// 					$("#modal-180340").trigger("click");
+// 				}
+// 			});
 			
-			function get_point_code(charge){
-				switch(parseInt(charge)){
-				case 1000:
-					return 1003;
-				case 5000:
-					return 1004;
-				case 10000:
-					return 1005;
-				case 20000:
-					return 1006;
-				case 50000:
-					return 1007;
-				}
-			}
+// 			// 결제 가격
+// 			function get_point_code(charge){
+// 				switch(parseInt(charge)){
+// 				case 1000:
+// 					return 1003;
+// 				case 5000:
+// 					return 1004;
+// 				case 10000:
+// 					return 1005;
+// 				case 20000:
+// 					return 1006;
+// 				case 50000:
+// 					return 1007;
+// 				}
+// 			}
 				
 			
 			// 직접 입력 버튼 클릭시 모달창이 나오게 함
@@ -122,10 +124,12 @@
 			
 			// 카카오페이 충전버튼
 			$("#kakao_charge").click(function(){
-				var item_name = "포인트 충전 (" + $("#money").val() + ")";
-				var total_amount = $("#point").val();
-				var point_code = $("#point_code").val();
+				var item_name = "포인트 충전 (" + $("#money").val() + ")"; // 상품명
+				var total_amount = $("#point").val(); // 충전 포인트
+				var point_code = $("#point_code").val(); // 포인트 코드
+				// 충전 금액이 0포인트 초과일때 카카오 페이 결제가 실행되도록 함
 				if(total_amount > 0){
+					// 카카오 페이에 인증 정보를 넣고 인증 성공시 결제 팝업창을 보여줌
 					$.ajax({
 						type : "post",
 						async : "true",
@@ -137,10 +141,8 @@
 							point_code : point_code
 						},
 						success : function(data){
-							//alert(data.next_redirect_pc_url);
 							// 성공시 카카오 페이 결제 팝업창을 띄어줌
 							var open = window.open(data.next_redirect_pc_url, "카카오 페이 결제", "width=800, height=600");
-							console.log(open.closed);
 						}
 					});
 				}
@@ -172,7 +174,7 @@
 			</div>
 		</div>
 	</div>
-    
+    <!-- 모달창 화면 끝 -->
     
     <!-- 제목 부분 -->
 <!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
@@ -188,17 +190,18 @@
 <!--     </section> -->
     <!-- 제목 부분 끝 -->
 
-    <!-- 포인트 충전 -->
     <section>
     	<div class="row">
+    		<!-- 메뉴 -->
         	<div class="col-md-2" style="color:white;margin-left: 80px;">
         		<jsp:include page="/WEB-INF/views/mypage/mypage_menu.jsp" />
         	</div>
+        	<!-- 메뉴 끝 -->
         	<div class="col-md-8">
 				<h3 class="mb-4" style="text-align:center;">포인트 충전</h3>
+				<!-- 결제 금액 선택 -->
 				<div class="row">
 					<div class="col-md-3"></div>
-					<!-- 결제 금액 선택 -->
 					<div class="col-md-6">
 						<h3 class="mb-4">결재 금액 선택</h3>
 						<div class="row mb-4">
@@ -224,6 +227,8 @@
 					</div>
 					<div class="col-md-3"></div>
 				</div>
+				<!-- 결제 금액 선택 끝 -->
+				
 				<!-- 포인트 충전 -->
 				<form method="post" action="/point/charge_point_run">
 					<input type="hidden" name="userno" value="${loginUserVo.userno}">
@@ -246,6 +251,7 @@
 <!-- 						<div class="col-md-2 mb-4"></div> -->
 <!-- 					</div> -->
 					<div class="row mb-4" style="color:white;">
+						<!-- 결제 금액 -->
 						<div class="col-md-3 mb-4"></div>
 						<div class="col-md-1 mb-4">
 							<label style="font-size:16px;padding-top:6px;">결재 금액 : </label>
@@ -256,7 +262,9 @@
 						<div class="col-md-2 mb-4">
 						</div>
 						<div class="col-md-3 mb-4"></div>
+						<!-- 결제 금액 끝 -->
 						
+						<!-- 충전 포인트 -->
 						<div class="col-md-3 mb-4"></div>
 						<div class="col-md-1 mb-4" style="padding-right:0px;">
 							<label style="font-size:16px;padding-top:6px;">충전 포인트 : </label>
@@ -265,7 +273,9 @@
 							<input type="text" class="form-control" style="width:100%;" id="point_text" readonly>
 							<input type="hidden" name="point" id="point">
 						</div>
+						<!-- 충전 포인트 끝 -->
 					</div>
+					<!-- 충전 버튼 -->
 					<div class="row mb-4" style="color:white;">
 						<div class="col-md-3 mb-4"></div>
 						<div class="col-md-5 mb-4">
@@ -275,17 +285,19 @@
 							>카카오페이로 충전하기</button>
 						</div>
 					</div>
+					<!-- 충전 버튼 끝 -->
 				</form>
+				<!-- 포인트 충전 끝 -->
 
 				<!-- 마이 페이지 이동 버튼 -->
 		        <div style="text-align:center;">
 			        <a href="/mypage/main?userno=${param.userno}" class="site-btn">마이페이지로</a>
 		        </div>
+		        <!-- 마이 페이지 이동 버튼 끝 -->
         	</div>
         	<div class="col-md-2"></div>
         </div>
     </section>
-    <!-- 포인트 충전 끝 -->
 	
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

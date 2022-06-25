@@ -30,8 +30,8 @@
 				</div>
 				<div class="product__item__text">
 					<ul>
-						<li>Active</li>
-						<li>Movie</li>
+						<li>${movieVo.movie_genre}</li>
+						<li>${movieVo.movie_audits}</li>
 					</ul>
 					<h5>
 						<a href="#">${movieVo.movie_name}</a>

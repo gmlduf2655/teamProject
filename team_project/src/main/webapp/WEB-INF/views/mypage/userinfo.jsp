@@ -39,10 +39,10 @@
 	</style>
     <script>
 		$(document).ready(function(){
-			var nickname_dupl = false;
-			var email_auth = false;
-			var checked_nickname = "";
-			var checked_email = "";
+			var nickname_dupl = false; // 닉네임 중복 체크 여부
+			var email_auth = false; // 이메일 인증 여부
+			var checked_nickname = ""; // 중복 체크한 닉네임
+			var checked_email = ""; // 인증한 이메일
 
 			// 유저 정보 수정 확인
 			var modify_result = "${modify_result}";
@@ -83,18 +83,15 @@
 			
 			// 수정 완료 버튼을 눌렀을 때
 			$("#user_modify_complete_btn").click(function(){
-				var result = true;
-				var nickname = $("#nickname").val();
-				var email = $("#email").val();
-				var nickname_changed = (nickname != "${loginUserVo.nickname}");
-				var email_changed = (email != "${loginUserVo.email}");
+				var result = true; // 유저 정보 수정가능 여부
+				var nickname = $("#nickname").val(); // 닉네임
+				var email = $("#email").val(); // 이메일
+				var nickname_changed = (nickname != "${loginUserVo.nickname}"); // 중복 체크한 닉네임과 입력한 닉네임이 다른지 여부
+				var email_changed = (email != "${loginUserVo.email}"); // 인증한 이메일과 입력한 이메일이 다른지 여부
 				
-				console.log(nickname);
-				console.log(email);
-				console.log(nickname_changed);
-				console.log(email_changed);
-				
+				// 닉네임이 변경되었고
 				if(nickname_changed){
+					// 닉네임이 중복되었거나 인증한 닉네임과 다를 경우 경고 메세지 출력
 					if(nickname != checked_nickname){
 						result = false;
 						alert("중복 체크한 닉네임과 입력한 닉네임이 다릅니다 다시 한번 닉네임 중복체크 해주세요");
@@ -104,7 +101,10 @@
 					}else {}
 				}
 				
+				// 이메일이 변경되었고
 				if(email_changed){
+					
+					// 인증한 이메일과 입력한 이메일이 다르거나 입력한 이메일이 인증이 되지 않았을 때 경고 메세지 출력
 					if(email != checked_email){
 						result = false;
 						alert("인증한 이메일과 입력한 이메일이 다릅니다 다시 한번 이메일 인증 해주세요");
@@ -114,9 +114,12 @@
 					}else {}					
 				}
 				
+				// 유저 정보가 수정 가능하면
 				if(result) {
+					// 주소 정보를 저장하고
 					var address = $("#addr2").val() + $("#addr3").val();
 					$("#address").val(address);
+					// 유저 정보 변경
 					$("#modify_user_form").submit();
 				}
 			});
@@ -334,6 +337,7 @@
 		                <div class="col-lg-6" style="text-align:center;">
 		                    <div>
 		                        <h3 class="mb-4">프로필 사진</h3>
+		                        <!-- 프로필 사진 부분 -->
 			                    <!-- 프로필 사진이 없다면 기본이미지 있다면 프로필 사진이미지를 보여줌 -->
 			                    <c:choose>
 			                        <c:when test="${empty loginUserVo.profile_image}">
@@ -358,17 +362,21 @@
 	                            <label class="site-btn" id="profile_image_label" for="profile_image" style="color:white;display:none;">파일 선택</label>
 	                            <input class="mb-4" type="file" placeholder="프로필이미지" name="file" id="profile_image" 
 	                            value="${loginUserVo.profile_image}" style="display:none;cursor:pointer;"><br>
+	                            <!-- 프로필 사진 부분 끝 -->
 		                    	<br>
+		                    	<!-- 팔로우 부분 -->
 		                    	<span style="color:white;font-size:30px">${userVo.nickname}(${userVo.username})님</span><br>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로워</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follower">${follower}</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;">팔로우</span>
 		                    	<span style="color:white;font-size:30px;margin-right:15px;" id="follow">${follow}</span><br>
 		                    	<span style="color:white;font-size:30px">포인트 : ${userVo.point}P</span><br>
+		                    	<!-- 팔로우 부분 끝 -->
 		                    </div>
 		                </div>
 		                <div class="col-lg-3"></div>
 	            	</div>
+	            	<!-- 유저 정보 -->
 		            <div class="row">
 		            	<div class="col-md-2"></div>
 		                <div class="col-md-8">
@@ -446,6 +454,8 @@
 		            	</div>     
 		            	<div class="col-md-2"></div>	            
 		            </div>
+		            <!-- 유저 정보 부분 -->
+		            <!-- 유저 수정 버튼 -->
 		            <div class="row">
 		            	<div class="col-lg-12" style="text-align:center;">
 		            		<c:if test="${empty loginUserVo.sns_type and loginUserVo.userid == userVo.userid}">
@@ -455,6 +465,7 @@
 		            		</c:if>
 		            	</div>
 		            </div>
+		            <!-- 유저 수정 버튼 끝 -->
 	            </form>
 	    	<!-- 유저 프로필 부분 끝 -->
     		</div>

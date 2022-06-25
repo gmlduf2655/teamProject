@@ -42,12 +42,12 @@
                     </c:choose>
 				</div>
 				<div class="product__sidebar__comment__item__text">
-					<c:if test="${not empty loginUserVo}">
-						<ul>
-							<li>Active</li>
-							<li>Movie</li>
-						</ul>
-					</c:if>
+<%-- 					<c:if test="${not empty loginUserVo}"> --%>
+<!-- 						<ul> -->
+<!-- 							<li>Active</li> -->
+<!-- 							<li>Movie</li> -->
+<!-- 						</ul> -->
+<%-- 					</c:if> --%>
 					<h5>
 						<!-- 임희열 : 로그인 했을 때와 로그인 하지 않았을 떄의 메세지를 다르게 표시하였음 -->
 						<!-- 임희열 : 마이페이지 부분에서 로그인 하지 않았을 때는 마이페이지에서 로그인을 하거나 회원 가입 페이지로 갈 수 있게 변경하였습니다 -->

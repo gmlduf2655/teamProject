@@ -60,13 +60,14 @@
     		<!-- 마이페이지 메뉴 부분 끝 -->
 	    	<!-- 유저 프로필 부분 -->
     		<div class="col-md-8" >
-	            <!-- 유저 영화 예매 내역 부분 -->
+	            <!-- 유저 영화 예매 정보 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
 						<h3 class="mb-4" style="padding-left:30px;">예매한 영화 정보</h3>
 						<div class="row">
 							<div class="col-md-3">
 								<div class="product__item">
+									<!-- 영화 포스터 -->
 									<div class="product__item__pic set-bg" 
 										<c:choose>
 											<c:when test="${empty ticketUserVo.movie_image_name}">
@@ -78,14 +79,18 @@
 										</c:choose>
 										style="cursor: pointer;">									
 									</div>
+									<!-- 영화 포스터 끝 -->
+									<!-- 영화 키워드 -->
 									<div class="product__item__text">
 										<ul>
 											<li>액션이 죽이는</li>
 											<li>영화</li>
 										</ul>
 									</div>
+									<!-- 영화 키워드 끝 -->
 								</div>
 							</div>
+							<!-- 영화 예매 정보 -->
 							<div class="col-md-9">
 								<h4>영화 코드 번호 : ${ticketUserVo.ticket_no}</h4>
 								<h4>영화 이름 : ${ticketUserVo.movie_name}</h4>
@@ -94,10 +99,11 @@
 								<h4>상영 시간 : ${ticketUserVo.movie_begin_date} ~ ${ticketUserVo.movie_finish_date}</h4>
 								<h4>사용 포인트 : ${ticketUserVo.room_price}</h4>
 							</div>
+							<!-- 영화 예매 정보 끝 -->
 						</div>
 	            	</div>
 	            </div>
-	            <!-- 유저 영화 예매 내역 부분 끝-->
+	            <!-- 유저 영화 예매 정보 부분 끝-->
 	            <div style="text-align:center;">
 	        		<a href="/mypage/main?userno=${param.userno}" class="site-btn">마이페이지로</a>
         		</div>

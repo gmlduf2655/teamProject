@@ -13,9 +13,6 @@
 	}
 </style>
 
-<script>
-</script>
-
     <!-- 제목 -->
 <!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
 <!--         <div class="container"> -->
@@ -50,5 +47,6 @@
         </div>
     </section>
     <!-- 아이디 찾기 결과 끝 -->
+    
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

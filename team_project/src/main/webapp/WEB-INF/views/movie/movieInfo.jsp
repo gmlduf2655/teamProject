@@ -160,8 +160,11 @@ $(function(){
 			}
 		});
 	}
+	
+	
 $("#comment_list").children().remove();	
 });
+
 </script>
 <!-- 나중에 지우기 -->
 ${loginUserVo.userid}
@@ -300,7 +303,7 @@ ${loginUserVo.userid}
 										<img src="/resources/images/usernoimage.JPG" id="userprofile">
 									</div>
 									<div class="anime__review__item__text">
-										<h6 id="usercom" ></h6>
+										<h6 id="usercom"></h6>
 										<span id="userreg" style="float: right;"></span>
 										<textarea disabled style="background-color: rgba(255,255,255,0); 
 																	color: white; border: none; width:100%; resize: none;"></textarea> 

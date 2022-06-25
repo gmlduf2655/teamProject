@@ -10,15 +10,22 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <style>
-.synopsis{
-	width: 700px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-	white-space: nowrap;
-	margin-bottom: 20px;
-}
-
-
+	.synopsis{
+		width: 700px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+		white-space: nowrap;
+		margin-bottom: 20px;
+	}
+	#top_button {
+		position: fixed; 
+		right: 2%; 
+		bottom: 50px; 
+		z-index: 999;
+		background-color:transparent;
+		width : 100px;
+		height : 100px;
+	}
 
 </style>
 
@@ -42,7 +49,6 @@
 
 <div class="container">
 	<div class="row">
-	
 	<!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -76,8 +82,8 @@
 	
 	<br><br>
 	<main class="col-lg-8">
-			<%@ include file="/WEB-INF/views/include/main.jsp" %>
-		</main>
+		<%@ include file="/WEB-INF/views/include/main.jsp" %>
+	</main>
 		<%@ include file="/WEB-INF/views/include/aside.jsp" %>
 	</div>
 </div>
