@@ -10,5 +10,6 @@ public interface ReviewCommentService {
 	public List<ReviewCommentVo> commentList(int review_no);
 	public boolean updateComment(ReviewCommentVo reviewCommentVo);
 	public boolean deleteComment(int comment_no);
+	public int getCommentCount(int review_no); // 갯수 구하기
 
 }

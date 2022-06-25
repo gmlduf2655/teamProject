@@ -120,7 +120,7 @@
                                 	</c:if>
                                 ><a href="/">홈</a></li>
                                 <li
-                                	<c:if test="${path}">
+                                	<c:if test="${path == '/ticket'}">
                                 		class="active"
                                 	</c:if>
                                 >

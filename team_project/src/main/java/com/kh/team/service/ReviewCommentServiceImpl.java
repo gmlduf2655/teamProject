@@ -34,4 +34,9 @@ public class ReviewCommentServiceImpl implements ReviewCommentService {
 		return commentDao.deleteComment(comment_no);
 	}
 
+	@Override
+	public int getCommentCount(int review_no) {
+		return commentDao.getCommentCount(review_no);
+	}
+
 }

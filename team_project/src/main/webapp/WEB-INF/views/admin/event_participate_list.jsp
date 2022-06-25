@@ -16,6 +16,20 @@
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
+	
+/* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
 </style>
 
 <script>
@@ -88,8 +102,8 @@ var frmSearch = $("#frmSearch");
 		<div class="col-md-7">
 			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
 			<br><h2>이벤트 참가자 리스트</h2>
-			
-			
+			<br>
+			<br>
 			<!-- 검색 -->
 			<div>
 			<select id="searchType">
@@ -112,11 +126,13 @@ var frmSearch = $("#frmSearch");
 				>제목 + 참여자</option>
 			</select>
 			<form id="frmSearch" action="/admin//event_participate_list" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control"
+			style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			<br>
 			</div> 
 			
 			<br>
@@ -125,12 +141,14 @@ var frmSearch = $("#frmSearch");
 				    		<thead>
 				    			<tr>		
 				    						
+									<th>no</th>    	
 									<th>이벤트 제목</th>    	
 									<th>이벤트 참여자</th>			
 									<th>이벤트 시작일</th>    				
 									<th>이벤트 종료일</th>
 									<th>당첨여부</th>
-									<th><button class="btn btn-info" id="btnWinning">이벤트 당첨</button></th>	
+									<th><button class="site-btn" style="border-radius: 5px;padding-bottom: 
+										7px;padding-top: 7px;padding-right: 15px;padding-left: 15px;" id="btnWinning">이벤트 당첨</button></th>	
 				    			</tr>
 				    		</thead>
 				    		<tbody>
@@ -139,14 +157,16 @@ var frmSearch = $("#frmSearch");
 										
 								
 									<tr>
-										<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}">${eventVo.event_title}</a></td>
+										<th>${eventVo.event_no}</th>
+										<td><a href="/event/event_read?event_no=${eventVo.event_no}" data-pno="${eventVo.participate_no}"
+											style="color: black;">${eventVo.event_title}</a></td>
 										<td>${eventVo.userid}</td>
 										<td>${eventVo.event_start_date}</td>
 										<td>${eventVo.event_end_date}</td>
 										
 										<c:choose>
 										<c:when test = "${eventVo.event_win == 'y'}">
-										<td>당첨</td>
+										<td style="color: #e53637;"><b>당첨</b></td>
 										</c:when>
 										<c:otherwise>
 										<td>미당첨</td>

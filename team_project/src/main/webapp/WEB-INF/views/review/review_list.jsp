@@ -5,17 +5,20 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
- <!-- 별 아이콘 -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- 별 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
+/* 평점 별 시작*/
 .checked {
   color: orange;
 }
  tr.tr_list {
  	cursor: pointer;
  }
- 
+/* 평점 별 끝*/
+
+/* 게시글 테이블 시작*/
  tr.tr_list:hover {
  	background-color: rgba(255, 255, 255, 0.1);
  }
@@ -27,10 +30,24 @@
  .table {
  color: white;
  }
+ /* 게시글 테이블 끝*/
+ 
+ /* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
 </style>  
 
 <script>
-
 $(document).ready(function(){
 	var frmPaging = $("#frmPaging");
 	
@@ -65,21 +82,19 @@ $(document).ready(function(){
 	
 });
 </script>
-
-
-<!-- Normal Breadcrumb Begin -->
-<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
-<!--         <div class="container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-12 text-center"> -->
-<!--                     <div class="normal__breadcrumb__text"> -->
-<!--                         <h2>영화 평점/리뷰</h2> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </section> -->
-    <!-- Normal Breadcrumb End -->
+<!-- 상단 타이틀 -->
+    <section class="normal-breadcrumb set-bg" style="height: 100px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>평점/리뷰</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 상단 타이틀 끝 -->
     
     
     <div class="container-fluid">
@@ -120,22 +135,35 @@ $(document).ready(function(){
 				>제목 + 내용 + 작성자</option>
 			</select>
 			<form id="frmPaging" action="/review/review_list" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control" 
+				style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="review_no" value="">
 				<input type="hidden" name="page" value="${pagingDto.page}">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			
+			<!-- 글 쓰기 버튼 -->
+			<c:if test="${not empty loginUserVo.userid}"> <!-- 로그인 안했으면 게시글 쓰기 버튼 안보이게 하기 -->
+			<div class="float-right">
+			<p>
+				<a class="site-btn fa fa-pencil" style="border-radius: 5px;" href="/review/review_form">게시글 쓰기</a>
+			</p>
+				</div>
+			</c:if>
+			<br>
+			<br>
 			</div> 
 
 
 
 			<table class="table">
 				<thead>
-					<tr>
+					<tr style="background-color: rgba(255, 255, 255, 0.4);">
 						<th>번호</th>
 						<th>작성자</th>
+						<th>영화</th>
 						<th>제목</th>
 						<th>평점</th>
 						<th>작성일</th>
@@ -150,8 +178,8 @@ $(document).ready(function(){
 					
 					<c:when test="${reviewVo.admin_delete == 'y'}">
 						<tr>
-						<td>${reviewVo.review_no}</td>
-						<td colspan="6" align="center">관리자가 삭제한 게시글 입니다.</td>
+						<td style="background-color: rgba(255, 255, 255, 0.1);">${reviewVo.review_no}</td>
+						<td colspan="6" align="center" style="background-color: rgba(255, 255, 255, 0.1);">관리자가 삭제한 게시글 입니다.</td>
 						</tr>
 					</c:when>
 					
@@ -160,8 +188,11 @@ $(document).ready(function(){
 					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
+							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}"
+								style="color: white;">${reviewVo.movie_name}</a></td>
 							<td><a
-								href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
+								href="/review/review_read?review_no=${reviewVo.review_no}"
+								style="color: white;" >${reviewVo.review_title}</a></td>
 							<th>
 							<c:choose>
 							<c:when test="${reviewVo.review_star == 5}">
@@ -229,14 +260,7 @@ $(document).ready(function(){
 	</div>
 	
 	
-	<!-- 글 쓰기 버튼 -->
-	<c:if test="${not empty loginUserVo.userid}"> <!-- 로그인 안했으면 게시글 쓰기 버튼 안보이게 하기 -->
-	<div class="float-right">
-	<p>
-		<a class="btn btn-primary btn-large" href="/review/review_form">게시글 쓰기</a>
-	</p>
-</div>
-	</c:if>
+	
 	<!-- 페이지 -->
 	
 	<div class="row">

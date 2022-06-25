@@ -6,34 +6,18 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 <%@ include file="/WEB-INF/views/include/daycount.jsp"%>
 <script>
-var db_update_result = "${db_update_result}";
-var db_save_result = "${db_save_result}";
-var db_delete_result = "${db_delete_result}";
-if(db_update_result == "true"){
-	alert("db 수정 완료");
-} else if (db_update_result == "false"){
-	alert("db 수정 실패");
-}
-if(db_save_result == "true"){
-	alert("db 저장 완료");
-} else if (db_save_result == "false"){
-	alert("db 저장 실패");
-}if(db_delete_result == "true"){
-	alert("db 삭제 완료");
-} else if (db_delete_result == "false"){
-	alert("db 삭제 실패");
-}
 $(function(){
 	//무한 스크롤
 	var page = 1;
 	$(window).scroll(function() {
 	    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-	      console.log(++page);
-	      getMovieList();
+	    	//페이지 로딩 아이콘
+			$("#page-loading").show();
+	     	//console.log(++page);
+	      	getMovieList();
 	    }
 	});
 });
-
 
 //영화불러오기
 function getMovieList(){
@@ -69,6 +53,14 @@ function getMovieList(){
 							</div>
 							
 							<div class="product__item__text">
+								<ul>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=`+this.movie_genre+`">#`+this.movie_genre+`</a>
+									</li>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=`+this.movie_actors+`">#`+this.movie_actors+`</a>
+									</li>
+								</ul>
 								<h5>
 									<a href="/movie/movieInfo?movie_code=`+this.movie_code+`">`+this.movie_name+`</a>
 								</h5>
@@ -78,6 +70,8 @@ function getMovieList(){
 					`;
 					$("#movieList").append(div); 
 				});//each
+				//페이지 로딩 아이콘 숨기기
+				$("#page-loading").hide();
 		}//function
 	});//ajax
 	
@@ -109,6 +103,14 @@ function getMovieList(){
 							</div>
 							
 							<div class="product__item__text">
+								<ul>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=${movieVo.movie_genre}">#${movieVo.movie_genre}</a>
+									</li>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${movieVo.movie_actors}">#${movieVo.movie_actors}</a>
+									</li>
+								</ul>
 								<h5>
 									<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
 								</h5>
@@ -123,7 +125,9 @@ function getMovieList(){
 	</div>
 		
 </div>
-
-
+<!-- 페이지 로딩 아이콘 -->
+<div id="page-loading" align="center" style="display: none;">
+	<i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom" style="color: white;"></i>	
+</div>
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
