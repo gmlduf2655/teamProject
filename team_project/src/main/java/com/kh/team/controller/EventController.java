@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.util.EventFileUploader;
 import com.kh.team.service.AttendanceService;
@@ -167,10 +166,10 @@ public class EventController {
 	// 현재 상영중 이벤트 리스트
 	@RequestMapping(value = "/nowEvent_list", method = RequestMethod.GET)
 	public String nowEventList(Model model, EventPagingDto pagingDto) {
-		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		List<EventVo> nowEventList = eventService.nowEventlist(pagingDto);
-		pagingDto.setCount(eventService.getEventCount(pagingDto));
-		pagingDto.setPage(1);
+		pagingDto.setCount(eventService.getCountNow(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		System.out.println("EventController, nowEventList, pagingDto:" + pagingDto);
 		model.addAttribute("nowEventList", nowEventList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/nowEvent_list";
@@ -179,10 +178,10 @@ public class EventController {
 	// 지난 이벤트 리스트
 	@RequestMapping(value = "/lastEvent_list", method = RequestMethod.GET)
 	public String  lastEventlist(Model model, EventPagingDto pagingDto) {
-		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		List<EventVo> lastEventlist = eventService.lastEventlist(pagingDto);
-		pagingDto.setCount(eventService.getEventCount(pagingDto));
+		pagingDto.setCount(eventService.getCountLast(pagingDto));
 		pagingDto.setPage(1);
+		System.out.println("EventController, lastEventlist, pagingDto:" + pagingDto);
 		model.addAttribute("lastEventlist", lastEventlist);
 		model.addAttribute("pagingDto", pagingDto);
 		return "event/lastEvent_list";
@@ -208,19 +207,13 @@ public class EventController {
 		return "event/winner_read";
 	}
 	
-	// 당첨자 게시판 글쓰기 폼 
-	@RequestMapping(value = "/winner_writeForm", method = RequestMethod.GET)
-	public String winnerWrite() {
-		return "event/winner_writeForm";
-	}
-	
 	// 당첨자 게시판 글쓰기
 	@RequestMapping(value = "/winner_writeRun", method = RequestMethod.POST)
 	public String winnerWriteRun(WinnerVo winnerVo) {
 //		System.out.println("EventController, winner_writeRun, winnerVo:"+ winnerVo);
 		boolean result = winnerService.insert(winnerVo);
 //		System.out.println("EventController, winner_writeRun, result:"+ result);
-		return "redirect:/event/winner_info";
+		return "redirect:/admin/event_winner_list?page=1";
 	}
 	
 	// 당첨자 게시글 삭제 

@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
+
 <style>
 	body {
 		background-color: #eeeeee;
@@ -16,7 +18,21 @@
 		border-top: 50px solid #eeeeee;
 	}
 	
+/* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
 </style>
+
 <script>
 $(document).ready(function(){
 	var frmSearch = $("#frmSearch");
@@ -60,10 +76,12 @@ $(document).ready(function(){
 		</div>
 		<!-- 유수연 상세내용  -->
 		<div class="col-md-7">
-			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+			<!-- 이벤트 목록 내용 시작 -->
 			<br><h2>이벤트 목록</h2>
-			
-			<!-- 검색 -->
+			<br>
+			<br>
+	
+			<!-- 검색 시작 -->
 			<div>
 			<select id="searchType">
 				<option value="">선택</option>
@@ -85,16 +103,16 @@ $(document).ready(function(){
 				>제목 + 내용</option>
 			</select>
 			<form id="frmSearch" action="/admin/event_admin_list" method="get">
-			<input type="text" id="keyword">
+			<input type="text" id="keyword"  class="form-control" 
+				style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-			<button type="button" class="btn btn-sm btn-success" id="btnSearch">검색</button>
+			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
+			<br>
+			<br>
 			</div> 
-		
-		
-		
-		
+		<!-- 검색 끝 -->
 			<div class="row">
 
 				<c:forEach items="${eventList}" var="eventVo">
@@ -129,7 +147,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 		
-		<!-- 페이지 -->
+		<!-- 페이지네이션 시작 -->
 	
 	<div class="container-fluid">
 		<div class="col-md-12">
@@ -164,15 +182,14 @@ $(document).ready(function(){
 				</ul>
 			</nav>
 		</div>
-	</div>
-	<!-- 페이징 끝 -->
+	</div> <br><br>
+	<!-- 페이지네이션 끝 -->
 			
-			<!-- 유수연 각 페이지의 내용이 여기 뜨도록 해주세요 -->
+			<!-- 이벤트 목록 내용 끝 -->
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-1"></div>
 	</div>
-</div>
 
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

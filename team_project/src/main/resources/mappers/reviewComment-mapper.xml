@@ -35,5 +35,11 @@
 		delete from tbl_review_comment
 		where comment_no = #{comment_no}
 	</delete>
+	
+	<!-- 게시글 댓글 개수  -->
+	<select id="getCommentCount" resultType="int">
+		select count(*) from tbl_review_comment
+		where review_no = #{review_no};
+	</select>
 
 </mapper>

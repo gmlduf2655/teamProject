@@ -18,5 +18,7 @@ public interface EventDao {
 	public List<EventVo> lastEventlist(EventPagingDto pagingDto); // 지난 이벤트 리스트 
 	public int getEventCount(EventPagingDto pagingDto); //게시글 갯수
 	public int getCount(PagingDto pagingDto); //게시글 갯수
+	public int getCountNow(EventPagingDto pagingDto); // 현재 게시글 갯수
+	public int getCountLast(EventPagingDto pagingDto); // 지난 게시글 글 갯수
 
 }

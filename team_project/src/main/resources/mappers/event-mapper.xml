@@ -120,5 +120,19 @@
     			</choose>
     		</if> 
 		</sql>
-
+		
+		<!-- 현재 진행중 글 갯수 -->
+	<select id="getCountNow" resultType="int">
+		select count(*) from tbl_event
+		where event_start_date <![CDATA[<=]]> sysdate
+		and event_end_date <![CDATA[>=]]> sysdate
+		<include refid="search2"></include>
+	</select>
+	
+	<!-- 지난 이벤트 글 갯수 -->
+	<select id="getCountLast" resultType="int">
+		select count(*) from tbl_event
+		where event_end_date <![CDATA[<]]> sysdate
+		<include refid="search2"></include>
+	</select>
 </mapper>

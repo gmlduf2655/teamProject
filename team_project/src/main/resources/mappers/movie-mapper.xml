@@ -71,4 +71,11 @@
 		from tbl_movie 
 		group by movie_genre
 	</select>
+	
+	<!-- 유수연 해시태그별 검색 영화 리스트  -->
+	<select id="movieListHashTag" resultType="MovieVo">
+		select * from tbl_movie
+		where ${sType} = #{keyword}
+		order by opening_date desc
+	</select>
 </mapper>

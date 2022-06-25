@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.dao.TicketDao;
 import com.kh.team.service.MovieService;
+import com.kh.team.service.ReviewCommentService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.MovieVo;
@@ -35,17 +36,16 @@ public class HomeController {
 	@Autowired
 	TicketDao ticketDao;
 	
-	
 	// 조재호 : 서버 시간 가져오기 위해 사용
 	@Autowired
 	private GetServerTimeDao getServerTimeDao;
 	
-	// 이정민 : 홈 화면에 띄울 영화 리스트
+	// 이정민 : 홈 화면에 띄울 영화 리스트/리뷰 리스트
 	@Autowired
 	private MovieService movieService;
 	@Autowired
 	private ReviewService reviewService;
-
+	
 	// 메인페이지로 이동
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
