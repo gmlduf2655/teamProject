@@ -7,17 +7,13 @@
 	 path라는 변수로 잘라와서 path으로 현재 있는 메뉴를 알 수 있게함 -->
 <%
 	String uri = request.getRequestURI();
-	System.out.println(uri);
 	int index1 = uri.indexOf("/", "/WEB-INF/views/".length()-1);
-	System.out.println(index1);
 	int index2 = uri.indexOf("/", "/WEB-INF/views/".length());
-	System.out.println(index2);
 	if(index2 == -1){
 		index2 = index1 + 1;
 	}
 	if(index1 != -1){
 		String path = uri.substring(index1, index2);
-		System.out.println(path);
 		request.setAttribute("path", path);
 	}
  %>
@@ -161,8 +157,16 @@
 								>
 									<a href="/review/review_list?page=1">평점/리뷰</a>
 								</li>
-								<li>
-									<a href="/user/faq_list?page=1">FAQ</a>
+								<li
+                                	<c:if test="${path == '/customer'}">
+                                		class="active"
+                                	</c:if>								
+								>
+									<a href="/customer/faq_list?page=1">고객센터</a>
+									<ul class="dropdown">
+										<li><a href="/customer/faq_list?page=1">FAQ</a></li>
+										<li><a href="/customer/admin_inquiry_form">1:1 문의</a></li>
+									</ul>
 								</li>
                             </ul>
                         </nav>

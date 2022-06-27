@@ -7,10 +7,11 @@ import com.kh.team.vo.MovieVo;
 
 public interface MovieDao {
 	public List<MovieVo> movieList();
-	public List<MovieVo> movieListsetion(int startRow, int endRow);
 	public List<MovieVo> movieListIng();
-	public List<MovieVo> movieListIngsetion(int startRow, int endRow);
 	public List<MovieVo> movieListSoon();
+	public List<MovieVo> movieListsetion(int startRow, int endRow);
+	public List<MovieVo> movieListIngsetion(int startRow, int endRow);
+	public List<MovieVo> movieListSoonsetion(int startRow, int endRow);
 	public MovieVo movieInfoByMovieCode(String movie_code);
 	public List<MovieVo> movieListHashTag(String sType, String keyword);
 	public int movieInfoByMovieCodeExist(String movie_code);

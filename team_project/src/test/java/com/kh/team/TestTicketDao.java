@@ -75,4 +75,11 @@ public class TestTicketDao {
 		boolean result = ticketDao.updateTicketStatus(ticket_no, ticket_status);
 		System.out.println(result);
 	}
+	
+	// 임희열 : 총 예매 비용 조회 테스트
+	@Test
+	public void getTotalTicketPriceTest() {
+		int count = ticketDao.getTotalTicketPrice();
+		System.out.println("TestTicketDao, getTotalTicketPriceTest, count : " + count);
+	}
 }
