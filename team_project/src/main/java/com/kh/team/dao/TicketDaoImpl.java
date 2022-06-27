@@ -93,6 +93,17 @@ public class TicketDaoImpl implements TicketDao {
 		}
 		return false;
 	}
+	
+	// 임희열 : 총 예매 비용 조회
+	@Override
+	public int getTotalTicketPrice() {
+		String moneyStr = sqlSession.selectOne(NAMESPACE + "getTotalTicketPrice");
+		int money = 0;
+		if(moneyStr != null) {
+			money = Integer.parseInt(moneyStr);
+		}
+		return money;
+	}
 
 	// 임희열 : 유저 영화 예매 정보 목록 조회
 	@Override

@@ -30,6 +30,7 @@ import com.kh.team.service.UserService;
 import com.kh.team.service.VisitNumberService;
 import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
+import com.kh.team.service.TicketService;
 import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
 import com.kh.team.vo.FaqVo;
@@ -73,6 +74,8 @@ public class AdminController {
 	private ReportUserService reportUserService;
 	@Autowired
 	private FaqService faqService;
+	@Autowired
+	private TicketService ticketService;
 	
 	
 	// 임희열 : 관리자 메인 페이지
@@ -96,6 +99,8 @@ public class AdminController {
 		int monthVisitorCount = visitNumberService.getMonthVisitNumber(year, month); // 이번 달 방문자 수
 		int dailyVisitorCount = visitNumberService.getTodayVisitNumber(year, month, day); // 오늘 방문자 수
 		
+		int totalTicketPrice = ticketService.getTotalTicketPrice(); // 영화 총 매출
+		
 		model.addAttribute("totalUserCount", totalUserCount);
 		model.addAttribute("originUserCount", originUserCount);
 		model.addAttribute("snsUserCount", snsUserCount);
@@ -104,7 +109,7 @@ public class AdminController {
 		model.addAttribute("totalMovieCount", totalMovieCount);
 		model.addAttribute("monthVisitorCount", monthVisitorCount);
 		model.addAttribute("dailyVisitorCount", dailyVisitorCount);
-		
+		model.addAttribute("totalTicketPrice", totalTicketPrice);		
 		return "admin/manage";
 	}
 	
@@ -128,17 +133,6 @@ public class AdminController {
 			model.addAttribute("pagingDto", pagingDto);
 			return "admin/event_admin_list";
 		}
-		
-	// 유저 관리 (삭제 예정)
-	@RequestMapping(value="/user_list", method=RequestMethod.GET)
-	public String userList(Model model) {
-//		List<UserVo> originUserList = userService.getOriginUserList();
-//		List<UserVo> snsUserList = userService.getSnsUserList();
-//		String str = snsUserList.toString();
-//		model.addAttribute("originUserList", originUserList);
-//		model.addAttribute("snsUserList", snsUserList);
-		return "admin/user_list";
-	}
 	
 	// 다중 유저 정지
 	@RequestMapping(value="/multi_user_suspend", method=RequestMethod.POST)
@@ -264,6 +258,18 @@ public class AdminController {
 		boolean result = faqService.deleteFAQ(faqno);
 		redirectAttributes.addFlashAttribute("modify_result", result);		
 		return "redirect:/admin/manage_faq?page=" + page;		
+	}
+	
+	// 관리자(1:1) 문의 관리
+	@RequestMapping(value="/manage_admin_inquiry", method=RequestMethod.GET)
+	public String manageAdminInquiry(Model model, PagingDto pagingDto) {
+		int count = messageService.getReceiverMessageCount("admin", pagingDto);
+		pagingDto.setCount(count);
+		pagingDto.setPage(pagingDto.getPage());
+		List<MessageVo> adminInquiryMessageList = messageService.getReceiverMessageList("admin", pagingDto);
+		
+		model.addAttribute("adminInquiryMessageList", adminInquiryMessageList);
+		return "admin/manage_admin_inquiry";
 	}
 	
 	// 전체 유저 포인트 내역

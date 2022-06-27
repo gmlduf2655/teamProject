@@ -23,6 +23,9 @@ public interface TicketDao {
 	// 티켓 예약 수정
 	public boolean updateTicketStatus(String ticket_no, boolean ticket_status);
 	
+	// 임희열 : 총 예매 비용 조회
+	public int getTotalTicketPrice();
+	
 	// 임희열 : 유저 영화 예매 정보 목록 조회
 	public List<TicketUserVo> selectTicketUserList(int userno);
 	

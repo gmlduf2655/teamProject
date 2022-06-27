@@ -187,26 +187,6 @@ public class UserController {
 		return result + "";
 	}
 	
-	// 마이페이지 화면이동
-	@RequestMapping(value="/mypage", method=RequestMethod.GET)
-	public String mypage(HttpSession session, Model model, int userno) {
-		PagingDto pagingDto = new PagingDto();
-		pagingDto.setPage(1);
-		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo"); // 로그인 유저 정보
-		UserVo userVo = userService.getUserInfoByUserno(userno); // 유저 정보
-		int follower = followService.selectFollowerNumber(userno); // 유저 팔로워 수
-		int follow = followService.selectFollowNumber(userno); // 유저 팔로우 수
-		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto); // 유저 포인트 목록
-		List<MovieVo> movieList = movieService.movieList(); // 유저 영화 목록
-		
-		model.addAttribute("follower", follower);
-		model.addAttribute("follow", follow);
-		model.addAttribute("pointList", pointList);
-		model.addAttribute("userVo", userVo);
-		model.addAttribute("movieList", movieList);
-		return "user/mypage";
-	}
-	
 	// 아이디 혹은 비밀번호 찾기
 	@RequestMapping(value="/find_user_id_and_pwd", method=RequestMethod.GET)
 	public String findUserIdAndPwd() {
@@ -342,15 +322,4 @@ public class UserController {
 		return userno;
 	}
 	
-	// FAQ 게시판 이동
-	@RequestMapping(value="/faq_list", method=RequestMethod.GET)
-	public String faqList(Model model,PagingDto pagingDto) {
-		int count = faqService.getCountFAQList(pagingDto);
-		pagingDto.setCount(count);
-		pagingDto.setPage(pagingDto.getPage());
-		List<FaqVo> faqList = faqService.getFAQList(pagingDto);
-
-		model.addAttribute("faqList", faqList);
-		return "user/faq_list";
-	}
 }
