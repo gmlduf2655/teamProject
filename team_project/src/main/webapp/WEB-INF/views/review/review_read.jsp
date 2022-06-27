@@ -337,6 +337,7 @@ color: white;
 
 		<div class="col-md-8">
 		<br>
+		<c:if test="${not empty loginUserVo.userid}">
 		<div class="anime__details__form">
 					<div class="section-title">
 						<h5>댓글 달기</h5>
@@ -348,7 +349,7 @@ color: white;
 							<i class="fa fa-location-arrow"></i> 저장 </button><br>
 					</form>
 				</div><br>
-		
+		</c:if>
 		
 			<div class="anime__details__review">
 				<div class="section-title">
@@ -405,6 +406,7 @@ color: white;
 			</div>
 <div class="col-md-2"></div>
 </div>
+
 </body>
 
 
