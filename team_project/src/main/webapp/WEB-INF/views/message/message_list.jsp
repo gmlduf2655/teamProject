@@ -311,7 +311,6 @@
 															<a class="dropdown-item" href="/message/write_form?page=${param.page}&receiver=${messageVo.sender}">글쓰기</a>
 														</c:when>
 													</c:choose>
-<!-- 													<a class="dropdown-item" href="#">팔로우하기</a>  -->
 													<a class="dropdown-item report_btn" >신고하기</a> 
 												</div>
 											</div>
