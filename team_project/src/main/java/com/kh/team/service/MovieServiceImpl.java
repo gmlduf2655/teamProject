@@ -26,6 +26,11 @@ public class MovieServiceImpl implements MovieService {
 		List<MovieVo> list = movieDao.movieListIng();
 		return list;
 	}
+	@Override
+	public List<MovieVo> movieListSoon() {
+		List<MovieVo> list = movieDao.movieListSoon();
+		return list;
+	}
 
 	@Override
 	public List<MovieVo> boxoffice() {
@@ -39,11 +44,7 @@ public class MovieServiceImpl implements MovieService {
 		return movieVo;
 	}
 
-	@Override
-	public List<MovieVo> movieListSoon() {
-		List<MovieVo> list = movieDao.movieListSoon();
-		return list;
-	}
+	
 
 	@Override
 	public int movieInfoByMovieCodeExist(String movie_code) {
@@ -80,6 +81,18 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public List<MovieVo> movieListHashTag(String sType, String keyword) {
 		List<MovieVo> list = movieDao.movieListHashTag(sType, keyword);
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> movieListSoonsetion(int startRow, int endRow) {
+		List<MovieVo> list = movieDao.movieListSoonsetion(startRow, endRow);
+		return list;
+	}
+
+	@Override
+	public List<MovieVo> SearchMoviehome(String keyword) {
+		List<MovieVo> list = movieDao.SearchMoviehome(keyword);
 		return list;
 	}
 	

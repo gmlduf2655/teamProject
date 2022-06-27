@@ -9,16 +9,16 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="footer__logo">
-                    <a href="/"><img src="/resources/images/logo.png" alt="logo image"></a>
+                    <a href="#"><img src="/resources/images/logo.png" alt="logo image"></a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="footer__nav">
                     <ul>
                         <li class="active"><a href="./index.html">팀 소개</a></li>
-                        <li><a href="./categories.html">이용약관</a></li>
-                        <li><a href="./blog.html">개인정보처리방침</a></li>
-                        <li><a href="#">법적고지</a></li>
+                        <li><a href="/include/terms_of_service">이용약관</a></li>
+                        <li><a href="/include/private_policy">개인정보처리방침</a></li>
+                        <li><a href="/include/legal_information">법적고지</a></li>
                     </ul>
                 </div>
             </div>
@@ -37,8 +37,8 @@
   <div class="search-model">
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
+        <form class="search-model-form" action="/movie/SearchMoviehome">
+            <input type="text" name="keyword" placeholder="검색">
         </form>
     </div>
 </div>

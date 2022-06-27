@@ -43,9 +43,9 @@ $(function(){
 		$("input[name=review_star]").val(starNum);
 	});
 	
-	
 	// 영화 db 검색
 	$("#btndbSearch").click(function(){
+		
 		$("#modalTable tbody").empty();
 		var sType = $("#searchType").val();
 		var sKeyword = $("#sKeyword").val();
@@ -65,13 +65,20 @@ $(function(){
 			$.each(rData, function(){
 				
 				$("#modalTable").attr("style", "text-align: center");
-				
-				$("#modalTable").append("<tr><td>'" + this.movie_name + "'</td><td><button data-mcode='" + this.movie_code + "'data-iname='" +this.movie_image_name+"'data-mname='"+this.movie_name+"'id='modalChoiceMovie'>선택</button></td></tr>");
+				$("#modalTable").append("<tr><td>'" + this.movie_name + "'</td><td><button class='btn btn-sm btn-info' data-mcode='" + this.movie_code + "'data-iname='" +this.movie_image_name+"'data-mname='"+this.movie_name+"'id='modalChoiceMovie'>선택</button></td></tr>");
 				
 			});
 		});
 		
 	});
+	
+	// 모달창 닫기 버튼 무르면 모달창 닫게 하기
+	$("#btnClose").click(function(){
+		console.log("클릭");
+		$('#modal-container-670703').modal('hide');
+	});
+	
+	
 	
 	$("#modalTable").on("click", "#modalChoiceMovie", function(){
 		console.log("클릭");
@@ -178,7 +185,7 @@ $(function(){
 </div>
 						<div class="modal-footer">
 							 
-							<button type="button" class="btn btn-primary">
+							<button type="button" id="btnClose" class="btn btn-primary">
 								닫기
 							</button> 
 							

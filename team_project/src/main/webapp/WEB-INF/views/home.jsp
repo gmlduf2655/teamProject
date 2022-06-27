@@ -10,13 +10,22 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <style>
-.synopsis{
-	width: 700px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-	white-space: nowrap;
-	margin-bottom: 20px;
-}
+	.synopsis{
+		width: 700px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+		white-space: nowrap;
+		margin-bottom: 20px;
+	}
+	#top_button {
+		position: fixed; 
+		right: 2%; 
+		bottom: 50px; 
+		z-index: 999;
+		background-color:transparent;
+		width : 100px;
+		height : 100px;
+	}
 
 </style>
 
@@ -40,7 +49,6 @@
 
 <div class="container">
 	<div class="row">
-	
 	<!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -56,7 +64,7 @@
 		                                <div class="label" style="border-radius: 5px;">${movieVo.movie_genre}</div>
 		                                <h2 style="color: black;">${movieVo.movie_name}</h2>
 		                                <p class="synopsis" style="color: black;">${movieVo.movie_synopsis}</p>
-		                                <a href="#" style="opacity:1;">
+		                                <a href="/ticket/ticketing" style="opacity:1;">
 		                                	<span style="">예매하기</span> <i class="fa fa-angle-right"></i>
 		                                </a>
 		                            </div>
@@ -74,8 +82,8 @@
 	
 	<br><br>
 	<main class="col-lg-8">
-			<%@ include file="/WEB-INF/views/include/main.jsp" %>
-		</main>
+		<%@ include file="/WEB-INF/views/include/main.jsp" %>
+	</main>
 		<%@ include file="/WEB-INF/views/include/aside.jsp" %>
 	</div>
 </div>

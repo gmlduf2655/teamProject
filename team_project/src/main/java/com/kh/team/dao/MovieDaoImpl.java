@@ -29,18 +29,19 @@ public class MovieDaoImpl implements MovieDao {
 		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListIng");
 		return list;
 	}
+	//유수연 상영 예정 영화리스트 
+		@Override
+		public List<MovieVo> movieListSoon() {
+			List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListSoon");
+			return list;
+		}
 	//유수연 영화상세정보보기
 	@Override
 	public MovieVo movieInfoByMovieCode(String movie_code) {
 		MovieVo movieVo = sqlSession.selectOne(NAMESPACE + "movieInfoByMovieCode", movie_code);
 		return movieVo;
 	}
-	//유수연 상영 예정 영화리스트 
-	@Override
-	public List<MovieVo> movieListSoon() {
-		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListSoon");
-		return list;
-	}
+	
 	//유수연 영화 우리서버 존재여부
 	@Override
 	public int movieInfoByMovieCodeExist(String movie_code) {
@@ -86,6 +87,21 @@ public class MovieDaoImpl implements MovieDao {
 		parameter.put("sType", sType);
 		parameter.put("keyword", keyword);
 		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListHashTag",parameter);
+		return list;
+	}
+	//유수연 초기 영화리스트 8개 후 append 할 영화정보
+	@Override
+	public List<MovieVo> movieListSoonsetion(int startRow, int endRow) {
+		Map<Object, Object> parameter = new HashMap<>();
+		parameter.put("startRow", startRow);
+		parameter.put("endRow", endRow);
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListSoonsetion", parameter);
+		return list;
+	}
+	//홈 화면 전체 검색
+	@Override
+	public List<MovieVo> SearchMoviehome(String keyword) {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "SearchMoviehome",keyword);
 		return list;
 	}
 }

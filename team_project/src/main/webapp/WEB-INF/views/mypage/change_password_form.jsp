@@ -50,6 +50,7 @@
 			$("#check_pw_btn").click(function(){
 				var userno = "${loginUserVo.userno}";
 				var userpw = $("#userpw").val();
+				// 입력한 비밀번호가 로그인한 계정 비밀번호와 같을 때와 다를 때 각각 다른 메세지를 보여줌
 				$.ajax({
 					type : "post",
 					async : "true",
@@ -118,20 +119,6 @@
 			}
 		});
     </script>
-    
-    <!-- 제목 부분 -->
-<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
-<!--         <div class="container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-12 text-center"> -->
-<!--                     <div class="normal__breadcrumb__text"> -->
-<!--                         <h2>비밀번호 변경</h2> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </section> -->
-    <!-- 제목 부분 -->
 
     <!-- 마이페이지 부분 -->
     <section>

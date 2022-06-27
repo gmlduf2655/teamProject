@@ -30,11 +30,6 @@
 		    padding-right: 30px;
 		}
 	</style>
-    <script>
-		$(document).ready(function(){
-			
-		});
-    </script>
     
     <!-- 제목 부분 -->
 <!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
@@ -51,7 +46,7 @@
     <!-- 제목 부분 -->
 
     <!-- 마이페이지 부분 -->
-    <section class="login spad">
+    <section>
     	<div class="row">
 	    	<!-- 마이페이지 메뉴 부분 -->
     		<div class="col-md-2" style="color:white;margin-left: 80px;">
@@ -97,9 +92,11 @@
 	            	</div>
 	            </div>
 	            <!-- 유저 영화 예매 내역 부분 끝-->
+	            <!-- 마이페이지 이동 -->
 	            <div style="text-align:center;">
 	        		<a href="/mypage/main?userno=${param.userno}" class="site-btn">마이페이지로</a>
         		</div>
+        		<!-- 마이페이지 이동 끝 -->
     		</div>
     		<div class="col-md-2"></div>
     	</div>

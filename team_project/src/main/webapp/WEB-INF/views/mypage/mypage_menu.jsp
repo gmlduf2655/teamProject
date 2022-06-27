@@ -17,6 +17,7 @@
 <div style= "padding:15px 0px" class="menubar">
 	<h3 style="color:white;" class="mb-4"><a href="/mypage/main?userno=${param.userno}" style="color:white;">메뉴</a></h3>
 	<hr align="left" width="80%">
+	<!-- 내 정보 -->
 	<div class="mb-4">
 		<h4 class="mb-3"><a class="mypage_menu">내 정보</a></h4>
 		<ul style="padding-left:50px;">
@@ -25,7 +26,9 @@
 		    <li><a href="/mypage/unregister_form?userno=${loginUserVo.userno}">회원 탈퇴</a></li>
 		</ul>
 	</div>
+	<!-- 내 정보 끝 -->
 	<hr align="left" width="80%">
+	<!-- 영화 예매 -->
 	<div class="mb-4">
 		<h4 class="mb-3"><a class="mypage_menu">영화 예매</a></h4>
 		<ul style="padding-left:50px;">
@@ -33,7 +36,9 @@
 			<li><a href="/mypage/like_movie_list?userno=${loginUserVo.userno}">좋아요 누른 영화</a></li>
 		</ul>
 	</div>
+	<!-- 영화 예매 끝 -->
 	<hr align="left" width="80%">
+	<!-- 포인트 -->
 	<div class="mb-4">
 		<h4 class="mb-3"><a class="mypage_menu">포인트</a></h4>
 		<ul style="padding-left:50px;">
@@ -41,7 +46,9 @@
 		    <li><a href="/point/charge_point_form?userno=${loginUserVo.userno}">포인트 충전</a></li>
 		</ul>
 	</div>
+	<!-- 포인트 끝 -->
 	<hr align="left" width="80%">
+	<!-- 내 활동 -->
 	<div class="mb-2">
 		<h4 class="mb-3"><a class="mypage_menu">내 활동</a></h4>
 		<ul style="padding-left:50px;">
@@ -49,4 +56,5 @@
 		    <li><a href="/mypage/participate_event_list?userno=${loginUserVo.userno}&page=1">참여 이벤트</a></li>
 		</ul>
 	</div>
+	<!-- 내 활동 끝 -->
 </div>

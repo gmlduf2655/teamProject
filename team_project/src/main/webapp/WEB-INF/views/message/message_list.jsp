@@ -129,6 +129,7 @@
 					$("#multi_delete_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>");
 				}
 			});
+			// 삭제할 메세지가 있으면 삭제함
 			if(messagenos.length > 0){
 				$("#multi_delete_form").submit();
 			}
@@ -145,9 +146,9 @@
 		$(".move_mypage").click(function(e){
 			e.preventDefault();
 			var userid = $(this).parents("div").prev().eq(0).text();
-			//var userid = $("#dropdownMenuButton").text();
 			userid = userid.trim();
 			console.log(userid);
+			// 새로운 탭으로 다른 유저 마이페이지로 이동함
 			$.ajax({
 				type : "post",
 				async : "true",
@@ -310,7 +311,6 @@
 															<a class="dropdown-item" href="/message/write_form?page=${param.page}&receiver=${messageVo.sender}">글쓰기</a>
 														</c:when>
 													</c:choose>
-													<a class="dropdown-item" href="#">팔로우하기</a> 
 													<a class="dropdown-item report_btn" >신고하기</a> 
 												</div>
 											</div>
@@ -372,12 +372,6 @@
 			</div>
 		</div>
 		<!-- 글 목록 페이징 부분 끝 -->
-		<!-- 메세지 다중 삭제 버튼 -->
-		<div style="text-align: center">
-<%-- 			<a class="site-btn" href="/message/write_form?page=${param.page}&receiver=">쪽지 보내기</a> --%>
-<!-- 			<button type="button" class="site-btn" id="form_btn">삭제하기</button> -->
-		</div>
-		<!-- 메세지 다중 삭제 버튼 끝-->
     </section>
     <!-- 아이디 찾기 결과 끝 -->
 <%-- footer --%>

@@ -51,7 +51,7 @@
 			    select * from tbl_message
 			    where sender = #{sender}
 			    and sender_delete = 'F'
-			    <if test='true'>
+			    <if test='pagingDto.searchType != null and pagingDto.searchType != "" and pagingDto.keyword != null and pagingDto.keyword != ""'>
 			    	<choose>
 			    		<when test='pagingDto.searchType == "t"'>
 			    			and message_title like '%' || #{pagingDto.keyword, jdbcType =VARCHAR} || '%' 

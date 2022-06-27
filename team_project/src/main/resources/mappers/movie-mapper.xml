@@ -21,7 +21,7 @@
 		
 	</select>
 	
-	<!-- 유수연 현재 상영중 영화 -->
+	<!-- 유수연 현재 상영중 영화-->
 	<select id="movieListIng" resultType="MovieVo">
 		select * from tbl_movie
 		where opening_date <![CDATA[<=]]> sysdate and endding_date > sysdate 
@@ -40,14 +40,24 @@
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	
-	<!-- 유수연 현재 상영예정 영화 -->
+	<!-- 유수연  상영예정 영화 -->
 	<select id="movieListSoon" resultType="MovieVo">
 		select * from tbl_movie
 		where opening_date <![CDATA[>]]> sysdate and endding_date > sysdate 
             or  opening_date <![CDATA[>]]> sysdate and endding_date is null
-		order by opening_date desc
+		order by opening_date asc
 	</select>
 	
+	<!-- 유수연 상영예정 영화 -->
+	<select id="movieListSoonsetion" resultType="MovieVo">
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_movie
+				where opening_date <![CDATA[>]]> sysdate and endding_date > sysdate 
+           		or  opening_date <![CDATA[>]]> sysdate and endding_date is null
+				order by opening_date asc) a)
+		where rnum between #{startRow} and #{endRow}
+	</select>
 	<!-- 유수연 영화 상세보기  -->
 	<select id="movieInfoByMovieCode" resultType="MovieVo">
 		select * from tbl_movie
@@ -78,4 +88,15 @@
 		where ${sType} = #{keyword}
 		order by opening_date desc
 	</select>
+	
+	<!-- 유수연 영화 전체 검색  -->
+	<select id="SearchMoviehome" resultType="MovieVo">
+		select * from tbl_movie
+		where movie_name like  '%'||#{keyword}||'%'
+            or movie_name_en like  '%'||#{keyword}||'%'
+             or movie_genre like  '%'||#{keyword}||'%'
+              or movie_director like  '%'||#{keyword}||'%'
+               or movie_actors like  '%'||#{keyword}||'%'
+	</select>
+	
 </mapper>
