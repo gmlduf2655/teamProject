@@ -50,6 +50,7 @@
 			$("#check_pw_btn").click(function(){
 				var userno = "${loginUserVo.userno}";
 				var userpw = $("#userpw").val();
+				// 입력한 비밀번호가 로그인한 계정 비밀번호와 같을 때와 다를 때 각각 다른 메세지를 보여줌
 				$.ajax({
 					type : "post",
 					async : "true",

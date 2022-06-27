@@ -37,24 +37,28 @@
 	<select id="selectRoomTimelineList" resultType="map">
 		select * from tbl_room_timeline line left outer join tbl_movie movie
 		on line.movie_code = movie.movie_code left outer join tbl_room_type type
-		on line.room_type_code = type.room_type_code
+		on line.room_type_code = type.room_type_code left outer join tbl_cinema_room room
+		on line.room_no = room.room_no
 		<choose>
 			<when test="search_column == null">
-				where room_no = #{room_no}
+				where line.cinema_no = #{room_no}
+				order by line.room_type_code asc, ${order_column} ${order_type}
 			</when>
 			<when test="search_column == 'movie_begin_date'">
-				where room_no = #{room_no}
+				where line.room_no = #{room_no}
 				<![CDATA[
 				and movie_begin_date <= to_timestamp(#{search_data},'YYYY-MM-DD HH24:MI:SS')
 				and movie_finish_date >= to_timestamp(#{search_data},'YYYY-MM-DD HH24:MI:SS')
 				]]>
 			</when>
 			<otherwise>
-				where room_no = #{room_no}
+				where line.room_no = #{room_no}
 				and ${search_column} = #{search_data}
 			</otherwise>
 		</choose>
-		order by ${order_column} ${order_type}
+		<if test="search_column != null">
+			order by ${order_column} ${order_type} 
+		</if>
 	</select>
 	
 	<!-- 스케줄 정보 조회 -->

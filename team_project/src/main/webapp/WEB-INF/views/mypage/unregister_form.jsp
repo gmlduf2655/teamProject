@@ -35,8 +35,9 @@
 		$(document).ready(function(){
 			// 기존 비밀번호 확인 버튼
 			$("#check_pw_btn").click(function(){
-				var userno = "${loginUserVo.userno}";
-				var userpw = $("#userpw").val();
+				var userno = "${loginUserVo.userno}"; // 유저 번호
+				var userpw = $("#userpw").val(); // 유저 비밀번호
+				// 로그인한 유저의 비밀번호와 입력한 비밀번호가 같음과 같이 않음에 따라 출력되는 메세지가 다름
 				$.ajax({
 					type : "post",
 					async : "true",
@@ -86,7 +87,7 @@
     			</div>    	
     		</div>
     		<!-- 마이페이지 메뉴 부분 끝 -->
-	    	<!-- 유저 프로필 부분 -->
+	    	<!-- 유저 회원 탈퇴 부분 -->
     		<div class="col-md-7" >
 				<div class="row">
 					<div class="col-md-3"></div>
@@ -112,6 +113,7 @@
 					<div class="col-md-3"></div>
 				</div>	            
     		</div>
+    		<!-- 유저 회원 탈퇴 부분 끝 -->
     		<div class="col-md-2"></div>
     	</div>
         <div class="container">

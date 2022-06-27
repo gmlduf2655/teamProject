@@ -15,31 +15,33 @@
 			<div class="col-lg-12">
 				<div class="row no-gutters ticketTable">
 					<div class="col-1 stepGuideContainer">
-						<div class="closeStep">
+						<div id="roomChoiseStep" class="nowStep">
 							<div>
 								01<br>
 								상영시간
 							</div>
 						</div>
-						<div class="closeStep">  <!-- 테스트용 (선택이 완료된 스탭은 .closeStep 클래스 넣어줘서 표시하는 용) -->
+						<div id="roomSeatChoiseStep">  <!-- 테스트용 (선택이 완료된 스탭은 .closeStep 클래스 넣어줘서 표시하는 용) -->
 							<div>
 								02<br>
 								인원/좌석
 							</div>
 						</div>
-						<div class="nowStep">
+						<div id="paymentStep">
 							<div>
 								03<br>
 								결제
 							</div>
 						</div>
-						<div>
+						<div id="pamentSeccessStep">
 							<div>
 								04<br>
 								결제완료
 							</div>
 						</div>
 					</div>
+					
+					<!-- 상영시간 step -->
 					<div class="col choiseCinemaContainer">
 						<div class="sectionTitle">영화관</div>
 						<div class="row no-gutters cinemaSection">
@@ -82,24 +84,22 @@
 							<ul class="stackViewer"> <!-- 클래스명을 stackViewer / gridViewer 로 바꾸면 리스트 형태 변경 -->
 								<c:forEach items="${movieList}" var="movieVo">
 									<li data-movie_code="${movieVo.movie_code}">
-										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'" onclick="location.href='http://localhost/movie/movieInfo?movie_code=${movieVo.movie_code}'">
+										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'" data-movie_code="${movieVo.movie_code}">
 										<h5>
-											<strong class="yearUseMark 
 											<c:choose>
 												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '전체'}">
-													ym00
+													<strong class="yearUseMark ym00"></strong>
 												</c:when>
 												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '12'}">
-													ym12
+													<strong class="yearUseMark ym12"></strong>
 												</c:when>
 												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '15'}">
-													ym15
+													<strong class="yearUseMark ym15"></strong>
 												</c:when>
 												<c:when test="${movieVo.movie_audits == '청소년관람불가'}">
-													ym19
+													<strong class="yearUseMark ym19"></strong>
 												</c:when>
 											</c:choose>
-											"></strong>
 											<span class="movieName">${movieVo.movie_name}</span>
 											<i class="bi bi-check-lg choise"></i>
 										</h5>
@@ -134,17 +134,22 @@
 							</div>
 						</div>
 						<div class="timelineList">
-							<div class="notListInfo" style="display: none;">
+							<div class="notListInfo">
 								<div class="display-4 text-center"><i class="bi bi-film"></i></div>
 								<div class="text-center">조회 가능한 상영시간이 없습니다.<br>조건을 변경해주세요.</div>
 							</div>
 							<ul>
+							
+							
 								<c:forEach begin="0" step="1" end="10">
 									<li class="roomListWrapper">
 										<ul class="typeList">
 											<li class="typeContainer">
-												<h6 class="room_type_name">상영관 타입</h6>
+												<h6 class="room_type_name">[상영관 타입] 영화 제목</h6>
 												<ul class="cinemaRoomList">
+												
+												
+												
 													<c:forEach begin="0" step="1" end="6">
 														<li class="roomInfo">
 															<strong class="movie_begin_date">00:00</strong>
@@ -152,14 +157,23 @@
 															<div class="room_name">현대 1관</div>
 														<li>
 													</c:forEach>
+													
+													
+													
 												</ul>
 											</li>
 										</ul>
 									</li>
 								</c:forEach>
+								
+								
+								
+								
 							</ul>
 						</div>	
 					</div>
+					<!-- 상영시간 step 끝 -->
+					
 				</div>
 			</div>
 		</div>

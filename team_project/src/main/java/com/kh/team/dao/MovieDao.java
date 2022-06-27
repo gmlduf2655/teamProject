@@ -12,6 +12,7 @@ public interface MovieDao {
 	public List<MovieVo> movieListIngsetion(int startRow, int endRow);
 	public List<MovieVo> movieListSoon();
 	public MovieVo movieInfoByMovieCode(String movie_code);
+	public List<MovieVo> movieListHashTag(String sType, String keyword);
 	public int movieInfoByMovieCodeExist(String movie_code);
 	// 임희열 : 전체 영화 수
 	public int getCountTotalMovie();

@@ -40,22 +40,22 @@
 	</style>
     <script>
 		$(document).ready(function(){
-			
+			// 검색 버튼 눌렀을 때
 			$("#btnSearch").on("click", function(){
-				var searchType = $("#searchType").val();
-				var keyword = $("#keyword").val();
-				var frmSearch = $("#frmSearch");
+				var searchType = $("#searchType").val(); // 검색 유형
+				var keyword = $("#keyword").val(); // 검색어
+				var frmSearch = $("#frmSearch"); // 검색 버튼
 				
-				 if(!keyword){
+				// 검색어가 없으면 경고창을 보여줌
+				if(!keyword){
 				        alert("검색어를 입력하세요.");
 				        return false;
-				    }   
+				}   
 				 
-				 frmSearch.find("input[name=searchType]").val(searchType);
-				 frmSearch.find("input[name=keyword]").val(keyword);
-				 frmSearch.find("input[name=page]").val(1);
-				 frmSearch.submit();
-				
+				frmSearch.find("input[name=searchType]").val(searchType);
+				frmSearch.find("input[name=keyword]").val(keyword);
+				frmSearch.find("input[name=page]").val(1);
+				frmSearch.submit();
 			});
 			
 			// 새로고침

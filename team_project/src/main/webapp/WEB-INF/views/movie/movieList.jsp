@@ -53,6 +53,14 @@ function getMovieList(){
 							</div>
 							
 							<div class="product__item__text">
+								<ul>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=`+this.movie_genre+`">#`+this.movie_genre+`</a>
+									</li>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=`+this.movie_actors+`">#`+this.movie_actors+`</a>
+									</li>
+								</ul>
 								<h5>
 									<a href="/movie/movieInfo?movie_code=`+this.movie_code+`">`+this.movie_name+`</a>
 								</h5>
@@ -95,6 +103,14 @@ function getMovieList(){
 							</div>
 							
 							<div class="product__item__text">
+								<ul>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=${movieVo.movie_genre}">#${movieVo.movie_genre}</a>
+									</li>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${movieVo.movie_actors}">#${movieVo.movie_actors}</a>
+									</li>
+								</ul>
 								<h5>
 									<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
 								</h5>

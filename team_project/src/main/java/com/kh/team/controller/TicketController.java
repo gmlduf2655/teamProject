@@ -74,13 +74,18 @@ public class TicketController {
 	@ResponseBody
 	@RequestMapping(value = "/getMovieAndTimelineList", method = RequestMethod.GET)
 	public List<Map<String, Object>> getMovieAndTimelineList(int cinema_no) {
-		List<Map<String, Object>> cinemaRoomList = cinemaService.getCinemaRoomList(cinema_no, "room_name", "asc");
-		List<Map<String, Object>> timelineList = new ArrayList<>();
-		for (int i = 0; i < cinemaRoomList.size(); i++) {
-			int room_no = Integer.parseInt(String.valueOf(cinemaRoomList.get(i).get("room_no")));
-			List<Map<String, Object>> tempTimelineList = cinemaService.getRoomTimelineList(room_no, "movie_begin_date", "asc");
-			timelineList = MapAJaxAdaper.returnAdapter(tempTimelineList);
-		}
+//		List<Map<String, Object>> cinemaRoomList = cinemaService.getCinemaRoomList(cinema_no, "room_name", "asc");
+//		List<Map<String, Object>> timelineList = new ArrayList<>();
+//		for (int i = 0; i < cinemaRoomList.size(); i++) {
+//			int room_no = Integer.parseInt(String.valueOf(cinemaRoomList.get(i).get("room_no")));
+//			List<Map<String, Object>> tempTimelineList = cinemaService.getRoomTimelineList(room_no, "movie_begin_date", "asc");
+//			timelineList = MapAJaxAdaper.returnAdapter(tempTimelineList);
+//			
+//		}
+		
+		
+		List<Map<String, Object>> timelineList = cinemaService.getRoomTimelineList(cinema_no, "movie_name", "asc");
+		timelineList = MapAJaxAdaper.returnAdapter(timelineList);
 		
 		return timelineList;
 	}

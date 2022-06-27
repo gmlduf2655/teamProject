@@ -118,5 +118,14 @@ public class MovieController {
 		model.addAttribute("image_name", filename);
 		return "movie/poster";
 	}
-	
+	//해시태그별 영화 검색
+	@RequestMapping(value="/movieListHashTag", method = RequestMethod.GET)
+	public String movieListHashTag(String sType, String keyword, Model model) {
+		System.out.println("sType" + sType);
+		System.out.println("keyword" + keyword);
+		List<MovieVo> list = movieService.movieListHashTag(sType, keyword);
+		System.out.println("movieList : " + list);
+		model.addAttribute("list", list);
+		return "movie/movieListSearch";
+	}
 }

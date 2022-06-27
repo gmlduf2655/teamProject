@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.EventService;
+import com.kh.team.service.FaqService;
 import com.kh.team.service.MessageService;
 import com.kh.team.service.ParticipateEventService;
 import com.kh.team.service.MovieCommentService;
@@ -31,6 +32,7 @@ import com.kh.team.service.WinnerService;
 import com.kh.team.service.ReviewService;
 import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.FaqVo;
 import com.kh.team.vo.MessageVo;
 import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.PagingDto;
@@ -69,6 +71,9 @@ public class AdminController {
 	private MessageService messageService;
 	@Autowired
 	private ReportUserService reportUserService;
+	@Autowired
+	private FaqService faqService;
+	
 	
 	// 임희열 : 관리자 메인 페이지
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
@@ -217,6 +222,48 @@ public class AdminController {
 		boolean result = reportUserService.modifyMultiReportResolve(reportnoList);
 		redirectAttributes.addFlashAttribute("resolve_result", result);
 		return "redirect:/admin/report_user_list?page=" + page;
+	}
+	
+	// FAQ 관리 페이지 이동
+	@RequestMapping(value="/manage_faq", method=RequestMethod.GET)
+	public String manageFaq(Model model, PagingDto pagingDto) {
+		int count = faqService.getCountAllFAQList(pagingDto);
+		pagingDto.setCount(count);
+		pagingDto.setPage(pagingDto.getPage());
+		List<FaqVo> faqList = faqService.getAllFAQList(pagingDto);
+		
+		model.addAttribute("faqList", faqList);
+		return "admin/manage_faq";
+	}
+	
+	// FAQ 생성
+	@RequestMapping(value="/add_faq", method=RequestMethod.POST)
+	public String addFaq(int page, FaqVo faqVo, RedirectAttributes redirectAttributes) {
+		int faqno = 0;
+		do {
+			faqno = (int)(Math.random()*(900000)) + 100000;
+		} while(faqService.isFaqnoExist(faqno));
+		
+		faqVo.setFaqno(faqno);
+		boolean result = faqService.addFAQ(faqVo);
+		redirectAttributes.addFlashAttribute("add_result", result);
+		return "redirect:/admin/manage_faq?page=" + page;
+	}
+	
+	// FAQ 수정
+	@RequestMapping(value="/modify_faq", method=RequestMethod.POST)
+	public String modifyFaq(int page, FaqVo faqVo, RedirectAttributes redirectAttributes) {
+		boolean result = faqService.modifyFAQ(faqVo);
+		redirectAttributes.addFlashAttribute("modify_result", result);		
+		return "redirect:/admin/manage_faq?page=" + page;
+	}
+	
+	// FAQ 삭제
+	@RequestMapping(value="/delete_faq", method=RequestMethod.POST)
+	public String deleteFaq(int page, int faqno, RedirectAttributes redirectAttributes) {
+		boolean result = faqService.deleteFAQ(faqno);
+		redirectAttributes.addFlashAttribute("modify_result", result);		
+		return "redirect:/admin/manage_faq?page=" + page;		
 	}
 	
 	// 전체 유저 포인트 내역

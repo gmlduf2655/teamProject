@@ -13,6 +13,7 @@
 	
 	<script>
 		$(document).ready(function(){
+			// 신고 접수 여부 확인
 			var report_result = "${report_result}";
 			if(report_result == "true"){
 				alert("신고가 접수되었습니다");
@@ -28,9 +29,12 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
+				<!-- 제목 -->
 				<div class="jumbotron" style="padding-left:5px;">
 					<h2>신고하기</h2>
 				</div>
+				<!-- 제목 끝 -->
+				<!-- 신고 양식 -->
 				<form role="form" method="post" action="/report/report_user_run">
 					<input type="hidden" name="reporter" value="${loginUserVo.userid}">
 					<div class="form-group">
@@ -48,6 +52,7 @@
 					</div>
 					<button type="submit" class="btn btn-primary">전송</button>
 				</form>
+				<!-- 신고 양식 끝 -->
 			</div>
 		</div>
 	</div>

@@ -123,10 +123,10 @@
 					</div>
 					<div class="col-md-1" style="padding-left:0px;">
 					<form id="frmSearch" action="/mypage/write_review_list" method="get">
-					<input type="hidden" name="userno" value="${param.userno}">
-					<input type="hidden" name="page" value="${pagingDto.page}">
-					<input type="hidden" name="searchType" value="${pagingDto.searchType}">
-					<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+						<input type="hidden" name="userno" value="${param.userno}">
+						<input type="hidden" name="page" value="${pagingDto.page}">
+						<input type="hidden" name="searchType" value="${pagingDto.searchType}">
+						<input type="hidden" name="keyword" value="${pagingDto.keyword}">
 						<button type="submit" class="btn btn-primary" id="btnSearch">검색</button>
 					</form>
 					</div>

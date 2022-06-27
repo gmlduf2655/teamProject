@@ -40,17 +40,6 @@
 			});
 		});
 		
-		// 회원 가입 버튼 클릭
-		$("#signup_btn").click(function(){
-			if(userid_dupl){
-				alert("아이디를 다시한번 확인해 주세요");
-			}else if(nickname_dupl){
-				alert("닉네임을 다시한번 확인해 주세요");
-			}else{
-				$("#signup_form").submit();
-			}
-		});
-		
 	});
 </script>
 

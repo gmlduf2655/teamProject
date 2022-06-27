@@ -44,9 +44,11 @@
 	</style>
     <script>
 		$(document).ready(function(){
+			// 검색 버튼을 눌렀을 때
 			$("#search_btn").click(function(){
-				var keyword = $("#keyword").val();
-				var searchType = $("#searchType").val();
+				var keyword = $("#keyword").val(); // 검색어
+				var searchType = $("#searchType").val(); // 검색유형
+				// 검색 버튼을 눌렀을 때 검색 유형과 검색어에 따른 포인트 목록을 다시보여줌
 				location.href = "/point/point_list?userno=${param.userno}&page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
 			});
 		});
