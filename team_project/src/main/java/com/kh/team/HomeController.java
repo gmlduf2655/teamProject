@@ -112,4 +112,9 @@ public class HomeController {
 		return "include/private_policy";
 	}
 	
+	// 법적 고지
+	@RequestMapping(value="/include/legal_information", method = RequestMethod.GET)
+	public String legalInformation() {
+		return "include/legal_information";
+	}
 }
