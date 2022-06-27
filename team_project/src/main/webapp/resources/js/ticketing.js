@@ -118,12 +118,12 @@ $(function(){ /* 준비 핸들러 */
 					if (i == 0) { /* 처음에 한번만 */
 						prevTypeNMovieName = this.room_type_name + this.movie_name;
 						insertHtml += ` 
-								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `">
+								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `" data-room_type_code="` + this.room_type_code + `">
 									<ul class="typeList">
 										<li class="typeContainer">
 											<h6 class="room_type_name"><strong>[` + this.room_type_name + "]</strong> " + this.movie_name + `</h6>
 											<ul class="cinemaRoomList">
-												<li class="roomInfo" data-begin_date="` + this.movie_begin_date + `">
+												<li class="roomInfo" data-begin_date="` + this.movie_begin_date.substring(0, 16) + `" data-room_type_code="` + this.room_type_code + `">
 													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
 													<div>73/100</div>
 													<div class="room_name">` + this.room_name + `</div>
@@ -134,7 +134,7 @@ $(function(){ /* 준비 핸들러 */
 						/* 이전 영화종류, 영화제목이 같으면 */
 						if (prevTypeNMovieName == nowTypeNMovieName){
 							insertHtml += ` 
-												<li class="roomInfo">
+												<li class="roomInfo" data-begin_date="` + this.movie_begin_date.substring(0, 16) + `" data-room_type_code="` + this.room_type_code + `">
 													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
 													<div>73/100</div>
 													<div class="room_name">` + this.room_name + `</div>
@@ -146,12 +146,12 @@ $(function(){ /* 준비 핸들러 */
 										</li>
 									</ul>
 								</li>
-								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `">
+								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `" data-room_type_code="` + this.room_type_code + `">
 									<ul class="typeList">
 										<li class="typeContainer">
 											<h6 class="room_type_name"><strong>[` + this.room_type_name + "]</strong> " + this.movie_name + `</h6>
 											<ul class="cinemaRoomList">
-												<li class="roomInfo">
+												<li class="roomInfo" data-begin_date="` + this.movie_begin_date.substring(0, 16) + `" data-room_type_code="` + this.room_type_code + `">
 													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
 													<div>73/100</div>
 													<div class="room_name">` + this.room_name + `</div>
@@ -181,9 +181,10 @@ $(function(){ /* 준비 핸들러 */
 	
 	/* 영화 포스터 클릭시 영화 정보 페이지로 이동 (선택된 상태에서 포스터를 클릭해야 작동) */
 	$(".ticketTable").on("click", ".choise .moviePoster", function() {
-		var movieName = $(this).attr("alt");
-		var movieCode = $(this).attr("data-movie_code");
-		var userResult = confirm(movieName + "\"에 대한 영화정보 페이지로 이동하시겠습니까?");
+		var movieName = $(this).children("img").attr("alt");
+		console.log(movieName);
+		var movieCode = $(this).children("img").attr("data-movie_code");
+		var userResult = confirm(movieName + "에 대한 영화정보 페이지로 이동하시겠습니까?");
 		if (userResult) {
 			location.href="http://localhost/movie/movieInfo?movie_code=" + movieCode;
 		}
@@ -199,7 +200,30 @@ $(function(){ /* 준비 핸들러 */
 		
 	});
 	/* 영화목록 리스트 클릭 시 끝 */
-
 	
+	/* 상영스케줄 전체 ~ IMax3D까지 탭 클릭시 */
+	$(".roomTypeNav").on("click", "li[data-room_type_code]", function(){
+		var typeCode = $(this).attr("data-room_type_code");
+		if (typeCode == 00){
+			$(".timelineList li[data-room_type_code]").show();
+		} else {
+			$(".timelineList li[data-room_type_code]").hide();
+			$(".timelineList li[data-room_type_code=" + typeCode + "]").show();
+		}
+	});
+	/* 상영스케줄 전체 ~ IMax3D까지 탭 클릭시 끝 */
+
+	/* 스케줄 클릭 시 좌석 선택으로 넘어가기 */
+	$(".timelineList").on("click", ".roomInfo", function(){
+		var movieName = $(this).parent("ul").prev("h6").text().substring($(this).parent("ul").prev("h6").text().indexOf("]") + 1).trim();
+		console.log(movieName);
+		var roomTypeCode = $(this).data("room_type_code");
+		console.log(roomTypeCode);
+		var beginDate = $(this).find(".movie_begin_date").text();
+		var userConfirm = confirm("선택하신 영화는 " + movieName + "이며, \n" + beginDate + "에 시작하는 영화 입니다. \n예매를 계속 진행하시겠습니까?");
+		if (userConfirm) {
+			location.href = "/ticket/ticketingSeat?room_type_code=" + roomTypeCode + "&room_name=" + movieName + "&movie_begin_date=" + beginDate;
+		}
+	}); /* 스케줄 클릭 시 좌석 선택으로 넘어가기 끝 */
 	
 }); /* 준비 핸들러 끝 */
