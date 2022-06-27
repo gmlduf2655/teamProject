@@ -91,6 +91,14 @@ public class MovieController {
 		List<MovieVo> appendlist = movieService.movieListSoonsetion(startRow, endRow);
 		return appendlist;
 	}
+	//전체 검색
+	@RequestMapping(value="/SearchMoviehome", method = RequestMethod.GET)
+	public String SearchMoviehome(Model model, String keyword) {
+		List<MovieVo> list = movieService.SearchMoviehome(keyword);
+	//	System.out.println("SearchMoviehome : " + list);
+		model.addAttribute("list", list);
+		return "movie/movieListSearch";
+	}
 	
 	//영화 상세정보보기
 	@RequestMapping(value="/movieInfo", method = RequestMethod.GET)

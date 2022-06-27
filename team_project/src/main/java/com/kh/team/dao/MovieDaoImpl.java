@@ -98,4 +98,10 @@ public class MovieDaoImpl implements MovieDao {
 		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "movieListSoonsetion", parameter);
 		return list;
 	}
+	//홈 화면 전체 검색
+	@Override
+	public List<MovieVo> SearchMoviehome(String keyword) {
+		List<MovieVo> list = sqlSession.selectList(NAMESPACE + "SearchMoviehome",keyword);
+		return list;
+	}
 }

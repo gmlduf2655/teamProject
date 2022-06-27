@@ -89,5 +89,11 @@ public class MovieServiceImpl implements MovieService {
 		List<MovieVo> list = movieDao.movieListSoonsetion(startRow, endRow);
 		return list;
 	}
+
+	@Override
+	public List<MovieVo> SearchMoviehome(String keyword) {
+		List<MovieVo> list = movieDao.SearchMoviehome(keyword);
+		return list;
+	}
 	
 }
