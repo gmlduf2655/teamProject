@@ -30,14 +30,24 @@ $(document).ready(function(){
 <form id="frmPaging">
 	<input type="hidden" name="winner_no" value="">
 </form>
+
 <div class="container">
+<br><div class="anime__details__review">
+				<div class="section-title">
+					<h5>게시글</h5>
+				</div>
+			</div>
+
+</div>
+
+<div class="container" style="background-color:rgba(255, 255, 255, 0.4); border-radius:10px;">
 
 
 
 		<input type="hidden" name="winner_no" value="${winnerVo.winner_no}">
 		
 			
-					<div class="col-md-12" style="background-color:rgba(255, 255, 255, 0.1); border-radius:10px;">
+					<div class="col-md-12" >
 						<div class="form-group">
 							<label for="winner_title"> 제목 </label> 
 							<input type="text" class="form-control" id="winner_title" name="winner_title"

@@ -44,8 +44,11 @@ $(function(){
 		$.post(url, sData, function(rData){
 			console.log(rData);
 			if(rData == "true"){
-				getCommentList();
+				$("#comment_list").children().remove();	
 				$("#movie_comment").val("");
+				setTimeout(function() {   
+					getCommentList();
+		          }, 100);
 			}
 		});
 	});
@@ -73,7 +76,10 @@ $(function(){
 			};
 			$.post(url, sData, function(rData){
 				if(rData == "true"){
-					getCommentList();
+					$("#comment_list").children().remove();	
+					setTimeout(function() {   
+						getCommentList();
+			          }, 100);
 				}
 			});
 		} else {
@@ -93,7 +99,11 @@ $(function(){
 			};
 			$.get(url, sData, function(rData){
 				if(rData == "true"){
-					getCommentList();
+					$("#comment_list").children().remove();	
+					setTimeout(function() {   
+						getCommentList();
+			          }, 100);
+					
 				}
 			});
 		} else {
@@ -105,7 +115,9 @@ $(function(){
     $(window).scroll(function() {
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
           console.log(++page);
-          getCommentList();
+          setTimeout(function() {   
+				getCommentList();
+	          }, 100);
         }
     });
 	
@@ -216,7 +228,7 @@ ${loginUserVo.userid}
                             </div>
                             <div class="anime__details__btn">
                             	<a href="#" id="btnlikecount" class="follow-btn"><i id="faclass" class="fa fa-thumbs-o-up"></i> 좋아요</a>
-                                <a href="#" class="follow-btn"><span>예매하기</span></a>
+                                <a href="/ticket/ticketing" class="follow-btn"><span>예매하기</span></a>
                                 
                                 </div>
                             </div>

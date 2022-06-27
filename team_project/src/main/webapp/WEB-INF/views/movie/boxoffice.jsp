@@ -19,7 +19,7 @@
 .aclass:hover{
 	text-decoration: underline;
 }
-.slider{
+/* .slider{
 	position: relative;
 	font-family: tahoma;
 	opacity:0;
@@ -28,7 +28,7 @@
 @keyframes slideUp {
   0% {transform: translateY(0);}
   100% {transform: translateY(-5px);opacity:1;}
-}
+} */
 </style>
 </head>
 <body>
