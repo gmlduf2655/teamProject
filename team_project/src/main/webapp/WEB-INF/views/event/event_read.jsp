@@ -5,7 +5,11 @@
 <!-- header -->
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
-
+<style>
+label {
+	color: white;
+}
+</style>
 
 <script>
 $(document).ready(function(){
@@ -60,14 +64,18 @@ $(document).ready(function(){
 	<input type="hidden" name="event_no" value="">
 </form>
 
+<div class="container">
+<br><div class="anime__details__review">
+				<div class="section-title">
+					<h5>게시글</h5>
+				</div>
+			</div>
 
-<div class="container-fluid" style="background-color: white">
+</div>
+<div class="container" style="background-color:rgba(255, 255, 255, 0.4); border-radius:10px;">
+		
 		<input type="hidden" name="event_no" value="${eventVo.event_no}">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="col-md-2"></div>
-					<div class="col-md-8">
+	
 						<div class="form-group">
 							<label for="event_title"> 제목 </label> 
 							<input type="text" class="form-control" id="event_title" name="event_title"
@@ -90,7 +98,7 @@ $(document).ready(function(){
 						<hr>
 						<div>
 						<label>메인 이미지</label><br>
-						 <img src="/event/displayImage?filename=${eventVo.event_image}">
+						 <img style="width: 100px;" src="/event/displayImage?filename=${eventVo.event_image}">
 						</div>
 						<hr>
 						<div class="form-group">
@@ -125,11 +133,5 @@ $(document).ready(function(){
 						
 						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a>
 					</div>
-					<div class="col-md-2"></div>
-				</div>
-			</div>
-		</div>
-</div>
-
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
