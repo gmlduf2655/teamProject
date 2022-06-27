@@ -228,7 +228,7 @@ ${loginUserVo.userid}
                             </div>
                             <div class="anime__details__btn">
                             	<a href="#" id="btnlikecount" class="follow-btn"><i id="faclass" class="fa fa-thumbs-o-up"></i> 좋아요</a>
-                                <a href="#" class="follow-btn"><span>예매하기</span></a>
+                                <a href="/ticket/ticketing" class="follow-btn"><span>예매하기</span></a>
                                 
                                 </div>
                             </div>
