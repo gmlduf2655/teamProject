@@ -100,4 +100,10 @@ public class HomeController {
 		return time;
 	}
 	
+	// 이용약관
+	@RequestMapping(value="/include/terms_of_service", method = RequestMethod.GET)
+	public String termsOfService() {
+		return "/include/terms_of_service";
+	}
+	
 }
