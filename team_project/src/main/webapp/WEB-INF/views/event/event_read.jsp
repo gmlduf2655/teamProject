@@ -72,7 +72,7 @@ $(document).ready(function(){
 			</div>
 
 </div>
-<div class="container" style="background-color:rgba(255, 255, 255, 0.4); border-radius:10px;">
+<div class="container" style="background-color:rgba(255, 255, 255, 0.3); border-radius:10px;">
 		
 		<input type="hidden" name="event_no" value="${eventVo.event_no}">
 	
@@ -103,7 +103,7 @@ $(document).ready(function(){
 						<hr>
 						<div class="form-group">
 							<label for="event_content"> 내용 </label>
-							${eventVo.event_content}
+							<div style="background-color:white; border-radius:10px;">${eventVo.event_content}</div>
 						</div>
 						<!-- 이벤트 참가 버튼 -->
 					<!-- 오늘 날짜 구하기-->
