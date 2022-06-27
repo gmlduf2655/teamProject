@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="footer__logo">
-                    <a href="/"><img src="/resources/images/logo.png" alt="logo image"></a>
+                    <a href="#"><img src="/resources/images/logo.png" alt="logo image"></a>
                 </div>
             </div>
             <div class="col-lg-6">
