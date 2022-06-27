@@ -64,7 +64,7 @@
 		                                <div class="label" style="border-radius: 5px;">${movieVo.movie_genre}</div>
 		                                <h2 style="color: black;">${movieVo.movie_name}</h2>
 		                                <p class="synopsis" style="color: black;">${movieVo.movie_synopsis}</p>
-		                                <a href="#" style="opacity:1;">
+		                                <a href="/ticket/ticketing" style="opacity:1;">
 		                                	<span style="">예매하기</span> <i class="fa fa-angle-right"></i>
 		                                </a>
 		                            </div>
