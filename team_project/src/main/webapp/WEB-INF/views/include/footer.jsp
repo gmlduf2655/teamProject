@@ -17,7 +17,7 @@
                     <ul>
                         <li class="active"><a href="./index.html">팀 소개</a></li>
                         <li><a href="/include/terms_of_service">이용약관</a></li>
-                        <li><a href="./blog.html">개인정보처리방침</a></li>
+                        <li><a href="/include/private_policy">개인정보처리방침</a></li>
                         <li><a href="#">법적고지</a></li>
                     </ul>
                 </div>
