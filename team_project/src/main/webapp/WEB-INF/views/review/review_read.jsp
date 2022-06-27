@@ -132,30 +132,32 @@ color: white;
 	var review_no = "${reviewVo.review_no}";
 	var url = "/reviewComment/commentList/" + review_no;
 	$.get(url, function(rData) {
-	console.log("rData:", rData);
-	$("#comment_list").children().remove();
-	$.each(rData, function() {
-	var clone = $("#clone").children().clone();
-	var name = clone.find("h6");
-	var regDate = clone.find("span");
-	var content = clone.find("p");
-	name.text(this.userid);
-	regDate.text(this.comment_reg_date);
-	content.text(this.comment_content);
-	if (this.profile_image != null) {
-		clone.find("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
-	} else if (this.profile_image == null) {
-		clone.find("#userprofile").attr("src", "/resources/images/usernoimage.JPG");
-	}
-	clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
-	clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
-	clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
-		if ("${loginUserVo.userid}" == this.userid) {
-			clone.find(".btnCommentModify").show();
-			clone.find(".btnCommentDelete").show();
-		} else {
-			clone.find(".btnCommentModify").hide();
-			clone.find(".btnCommentDelete").hide();
+		console.log("rData:", rData);
+		$("#comment_list").children().remove();
+		$.each(rData, function() {
+			var clone = $("#clone").children().clone();
+			var name = clone.find("h6");
+			var dropdownMenuButton = clone.find("#dropdownMenuButton");
+			var regDate = clone.find("span");
+			var content = clone.find("p");
+			name.text(this.userid);
+			dropdownMenuButton.text(this.userid);
+			regDate.text(this.comment_reg_date);
+			content.text(this.comment_content);
+			if (this.profile_image != null) {
+				clone.find("#userprofile").attr("src", "/user/get_profile_image?filename=" + this.profile_image);
+			} else if (this.profile_image == null) {
+				clone.find("#userprofile").attr("src", "/resources/images/usernoimage.JPG");
+			}
+			clone.find(".btnCommentDelete").attr("data-cno", this.comment_no);
+			clone.find(".btnCommentModify").attr("data-cno", this.comment_no);
+			clone.find(".btnCommentModifyRun").attr("data-cno", this.comment_no);
+			if ("${loginUserVo.userid}" == this.userid) {
+				clone.find(".btnCommentModify").show();
+				clone.find(".btnCommentDelete").show();
+			} else {
+				clone.find(".btnCommentModify").hide();
+				clone.find(".btnCommentDelete").hide();
 		}
 
 		$("#comment_list").append(clone);
@@ -191,24 +193,61 @@ color: white;
 
 // 댓글 수정 저장 버튼
 	$("#comment_list").on("click", ".btnCommentModifyRun", function() {
-	var comment_content = $(".contentModify").val();
-	var comment_no = $(this).attr("data-cno");
-//	console.log("comment_no:"+comment_no);
-//	console.log("comment_content:"+comment_content);
-	var sData = {
-		"comment_content" : comment_content,
-		"comment_no" : comment_no
-	}
-	var url = "/reviewComment/updateComment";
-	$.post(url, sData, function(rData) {
-		console.log("rData:", rData);
-		if (rData == "true") {
-		getCommentList();
+		var comment_content = $(".contentModify").val();
+		var comment_no = $(this).attr("data-cno");
+	//	console.log("comment_no:"+comment_no);
+	//	console.log("comment_content:"+comment_content);
+		var sData = {
+			"comment_content" : comment_content,
+			"comment_no" : comment_no
 		}
+		var url = "/reviewComment/updateComment";
+		$.post(url, sData, function(rData) {
+			console.log("rData:", rData);
+			if (rData == "true") {
+				getCommentList();
+			}
+		});
 	});
-});
 
 	getCommentList();
+	
+	// 유저 정보 보기
+	$(document).on("click", ".move_mypage", function(e){
+		e.preventDefault();
+		var userid = $(this).parents("div").prev().eq(0).text();
+		userid = userid.trim();
+		// 새로운 탭으로 다른 유저 마이페이지로 이동함
+		$.ajax({
+			type : "post",
+			async : "true",
+			url : "/user/get_userno_by_userid",
+			data : {
+				userid : userid
+			},
+			success : function(rData){
+				var openNewWindow = window.open("about:blank");
+				openNewWindow.location.href = "/mypage/main?userno=" + rData;
+			}
+		});
+	});
+
+	// 유저에게 글쓰기
+	$(document).on("click", ".write_msg", function(e){
+		e.preventDefault();
+		var userid = $(this).parents("div").prev().eq(0).text();
+		userid = userid.trim();
+		var openNewWindow = window.open("about:blank");
+		openNewWindow.location.href = "/message/write_form?page=1&receiver=" + userid;
+	});
+
+	// 유저 신고
+	$(document).on("click", ".report_btn", function(e){
+		e.preventDefault();
+		var userid = $(this).parents("div").prev().eq(0).text();
+		userid = userid.trim();
+		var open = window.open("/report/report_user_form?reported_user=" + userid, "신고 하기", "width=600, height=800");
+	});
 });
 </script>
 
@@ -322,17 +361,26 @@ color: white;
 						<img src="" id="userprofile">
 					</div>
 					<div class="anime__review__item__text">
-						<h6> </h6>
-						<span style="color: white;"> </span>
-							<p></p>
-							
-							
-							<button type="button"
-							class="btn btn-sm btn-warning btnCommentModify">수정</button>
-							<button type="button" class="btn btn-sm btn-success btnCommentModifyRun" 
-							style="display:none">수정완료</button>
-							<button type="button"
-							class="btn btn-sm btn-danger btnCommentDelete">삭제</button>
+<!-- 						<h6></h6> -->
+						<!-- 임희열 : 댓글에 dropdown 기능 추가했습니다.. -->
+						<div class="dropdown" style="color:white">
+							<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" 
+							data-toggle="dropdown" style="color:white;padding-left:3px;">
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index:10">
+								<a class="dropdown-item move_mypage" href="#" >정보보기</a> 
+								<a class="dropdown-item write_msg" href="/message/write_form?page=${param.page}&receiver=${messageVo.receiver}">글쓰기</a>
+								<a class="dropdown-item report_btn" href="#">신고하기</a> 
+							</div>
+						</div>
+						<span style="color: white;"></span>
+						<p class="mb-4 mt-4"></p>
+						<button type="button"
+						class="btn btn-sm btn-warning btnCommentModify">수정</button>
+						<button type="button" class="btn btn-sm btn-success btnCommentModifyRun" 
+						style="display:none">수정완료</button>
+						<button type="button"
+						class="btn btn-sm btn-danger btnCommentDelete">삭제</button>
 					</div>
 					<br>
 				</div>

@@ -315,9 +315,20 @@ ${loginUserVo.userid}
 										<img src="/resources/images/usernoimage.JPG" id="userprofile">
 									</div>
 									<div class="anime__review__item__text">
-										<h6 id="usercom"></h6>
+<!-- 										<h6 id="usercom"></h6> -->
+										<!-- 임희열 : 댓글에 dropdown 기능 추가했습니다.. -->
+										<div class="dropdown" style="color:white">
+											<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" 
+											data-toggle="dropdown" style="color:white;padding-left:3px;">
+											</button>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index:10">
+												<a class="dropdown-item move_mypage" href="#" >정보보기</a> 
+												<a class="dropdown-item write_msg" href="/message/write_form?page=${param.page}&receiver=${messageVo.receiver}">글쓰기</a>
+												<a class="dropdown-item report_btn" href="#">신고하기</a> 
+											</div>
+										</div>
 										<span id="userreg" style="float: right;"></span>
-										<textarea disabled style="background-color: rgba(255,255,255,0); 
+										<textarea disabled rows="2" style="background-color: rgba(255,255,255,0); 
 																	color: white; border: none; width:100%; resize: none;"></textarea> 
 										<button type="button" class="btn btn-sm btn-danger commentUpdate"
 												style="margin-bottom: 10px; ">수정</button>
@@ -370,6 +381,7 @@ function getCommentList(){
 						var div = $("#clone").children().clone();
 						var img = div.find("img");
 						var h6 = div.find("h6");
+						var dropdownMenuButton = div.find("#dropdownMenuButton");
 						var textarea = div.find("textarea");
 						var span = div.find("span");
 						var admin_delete = this.admin_delete;
@@ -378,6 +390,7 @@ function getCommentList(){
 							img.attr("src" , "/user/get_profile_image?filename=" + this.profile_image);
 						}
 						h6.text(this.userid);
+						dropdownMenuButton.text(this.userid);
 						span.text(this.regdate).css("color", "white");
 						textarea.val(this.movie_comment);
 						div.find(".commentDelete").attr("data-cno",this.cno);
@@ -402,6 +415,44 @@ function getCommentList(){
 	});
 	
 }; //getCommentList
+
+// 유저 정보 보기
+$(document).on("click", ".move_mypage", function(e){
+	e.preventDefault();
+	var userid = $(this).parents("div").prev().eq(0).text();
+	userid = userid.trim();
+	// 새로운 탭으로 다른 유저 마이페이지로 이동함
+	$.ajax({
+		type : "post",
+		async : "true",
+		url : "/user/get_userno_by_userid",
+		data : {
+			userid : userid
+		},
+		success : function(rData){
+			var openNewWindow = window.open("about:blank");
+			openNewWindow.location.href = "/mypage/main?userno=" + rData;
+		}
+	});
+});
+
+// 유저에게 글쓰기
+$(document).on("click", ".write_msg", function(e){
+	e.preventDefault();
+	var userid = $(this).parents("div").prev().eq(0).text();
+	userid = userid.trim();
+	var openNewWindow = window.open("about:blank");
+	openNewWindow.location.href = "/message/write_form?page=1&receiver=" + userid;
+});
+
+// 유저 신고
+$(document).on("click", ".report_btn", function(e){
+	e.preventDefault();
+	var userid = $(this).parents("div").prev().eq(0).text();
+	userid = userid.trim();
+	var open = window.open("/report/report_user_form?reported_user=" + userid, "신고 하기", "width=600, height=800");
+});
+
 </script>
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
