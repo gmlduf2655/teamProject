@@ -283,16 +283,14 @@ color: white;
 	<a href="/review/review_modifyForm?review_no=${reviewVo.review_no}" class="btn btn-sm btn-warning">수정</a>
 	<a href="${reviewVo.review_no}" class="btn btn-sm btn-danger" id="btnDelete">삭제</a>
 	</c:if>
-	
+	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
 </form>
 
 
 
 
 	</div>
-	<div class="container">
-	<a href="/review/review_list" class="btn btn-sm btn-success">목록</a>
-	</div>
+	
 <!-- 댓글 -->	
 	
 <div class="row">

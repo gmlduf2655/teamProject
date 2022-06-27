@@ -142,7 +142,7 @@ $(document).ready(function(){
 <!-- 검색 끝 -->
 
 			<table class="table">
-				<thead>
+				<thead style="background-color: rgba(255, 255, 255, 0.4);">
 					<tr>
 						<th>글 번호</th>
 						<th>제목</th>

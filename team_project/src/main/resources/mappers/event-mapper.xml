@@ -30,12 +30,13 @@
 		where event_no = #{event_no}
 	</delete>
 	
-	<!-- 글 전체 목록 -->
+	<!-- 이벤트 전체 목록 -->
 	<select id="list" resultType="EventVo">
 		select * from 
 			(select rownum rnum, a.* from
 				(select * from tbl_event
-				<include refid="search"></include>) a)
+				<include refid="search"></include>
+				order by event_start_date asc) a)
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	
@@ -46,7 +47,8 @@
 				(select * from tbl_event
 					where event_start_date <![CDATA[<=]]> sysdate
 					and event_end_date <![CDATA[>=]]> sysdate
-					<include refid="search2"></include>) a)
+					<include refid="search2"></include>
+					order by event_start_date desc) a)
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	
@@ -56,7 +58,8 @@
 	    	(select rownum rnum, a.* from
 				(select * from tbl_event
 					where event_end_date <![CDATA[<]]> sysdate
-					<include refid="search2"></include>) a)
+					<include refid="search2"></include>
+					order by event_end_date asc) a)
 	where rnum between #{startRow} and #{endRow}
 	</select>
 	

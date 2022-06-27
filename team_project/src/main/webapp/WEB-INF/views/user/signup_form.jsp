@@ -70,11 +70,13 @@
 		
 		// 아이디 중복 여부 체크
 		$("#userid_dupl_check").click(function(){
-			var userid = $("#userid").val();
-			console.log(userid == "");
+			var userid = $("#userid").val(); // 유저 아이디
+			
+			// 아이디를 입력하지 않았으면 "아이디를 입력해주세요" 라는 메세지를 보여줌 
 			if(userid == ""){
 				$("#userid_dupl_check_result").text("아이디를 입력해주세요");
 			}else{
+				// 아이디를 중복확인하여 중복되는 아이디가 있을 때와 없을 때 각각 다른 메세지를 보여줌
 				$.ajax({
 					type : "post",
 					async : "true",
@@ -102,6 +104,7 @@
 			var contain_EnLetter = false; // 문자열에 영문자가 포함되는지 확인
 			var contain_number = false; // 문자열에 숫자가 포함되는지 확인
 			var contain_others = false; // 문자열에 영문자,숫자외 다른 문자가 포함되는지 확인
+			
 			for(var i=0 ; i<str.length ; i++){
 				// 각 자리에 있는 문자 ascii코드를 가져옴
 				var str_char = str.charCodeAt(i);
@@ -125,6 +128,7 @@
 			var contain_number = false; // 문자열에 숫자가 포함되는지 확인
 			var containt_specialChar = false; // 문자열에 특수문자가 포함되는지 확인
 			var contain_others = false; // 문자열에 영문자,숫자외 다른 문자가 포함되는지 확인
+			
 			for(var i=0 ; i<str.length ; i++){
 				// 각 자리에 있는 문자 ascii코드를 가져옴
 				var str_char = str.charCodeAt(i);
@@ -152,11 +156,13 @@
 		
 		// 닉네임 중복 여부 체크
 		$("#nickname_dupl_check").click(function(){
-			var nickname = $("#nickname").val();
-			console.log(nickname == "");
+			var nickname = $("#nickname").val(); // 유저 닉네임
+			
+			// 닉네임을 입력하지 않았으면 "닉네임을 입력해주세요" 라는 메세지를 보여줌 
 			if(nickname == ""){
 				$("#nickname_dupl_check_result").text("닉네임을 입력해주세요");
 			}else{
+				// 닉네임을 중복 체크하여 닉네임이 중복 되었을 떄와 중복되지 않았을 때 각각 다른 메세지를 보여줌
 				$.ajax({
 					type : "post",
 					async : "true",
@@ -181,8 +187,7 @@
 		
 		// 프로필 사진 미리보기
 		$("#profile_image").change(function(e){
-			console.log(e.target.files[0]);
-			var file = e.target.files[0];
+			var file = e.target.files[0]; // 올린 파일
 			// 프로필 사진을 올렸을 때 사진 이미지와 파일 이름을 보여줌
 			// 프로필 사진을 올리지 않았을 때는 사진 이미지를 기본이미지로하고 파일 이름을 지움
  			if(file != null && file != ""){
@@ -200,8 +205,8 @@
 		
 		// 이메일 인증 버튼
 		$("#email_auth_btn").click(function(){
-			var email = $("#email").val();
-			console.log(email);
+			var email = $("#email").val(); // 이메일
+			// 입력한 이메일로 인증 번호를 전송하고 인증 번호에 맞는 번호를 입력할 수 있는 양식을 보여줌
 			$.ajax({
 				type : "post",
 				async : "true",
@@ -236,7 +241,7 @@
 		
 		// 프로필 이미지 삭제
 		$("#image_delete").click(function(){
-			console.log($("#profile_image").val());
+			// 프로필 이미지를 기본 이미지로 바꾸고 올린 파일을 삭제함
 			$("#profile_image").val("");
 			$("#preview").attr("src", "/resources/images/default_image.jpg");
 			$("#file_name").val("")
@@ -296,7 +301,7 @@
 	                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
 	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 	                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-	                var sido = data.sido;
+	                var sido = data.sido; // 도로명 주소의 시/도(ex. 울산 광역시, 경기도 등등)
 	                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 	                
 	                // 시/도명 풀네임으로 변경 (ex. 울산 -> 울산 광역시, 경남 -> 경상남도, 경기-> 경기도)
@@ -345,13 +350,11 @@
 	                console.log(data.zonecode);
 	                console.log(fullRoadAddr);
 	                
-	                
+	                // 우편 번호 추가
 	                $("[name=addr1]").val(data.zonecode);
+	                // 도로명 주소 추가
 	                $("[name=addr2]").val(fullRoadAddr);
 	                
-	                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-	                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-	                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
 	            }
 	         }).open();
 	         
@@ -375,13 +378,15 @@
 <!--     </section> -->
     <!-- 제목 끝 -->
 
-    <!-- 회원가입 -->
     <section >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="login__form">
-                        <h3 class="text-white">회원가입(*는 필수 입력사항)</h3>
+                    	<!-- 제목 -->
+                        <h3 class="text-white">회원가입 (*는 필수 입력사항)</h3>
+                    	<!-- 제목 끝 -->
+                        <!-- 회원가입 양식 -->
                         <form action="/user/signup_run" method="post" id="signup_form" enctype="multipart/form-data">
 <!--                         	<h4 class="mb-4" style="color:white;">*는 필수 입력사항</h4> -->
 							<h4 class="mb-4" style="color:white;">* 아이디</h4>
@@ -461,6 +466,7 @@
 
                             <button type="button" class="site-btn" id="signup_btn">회원가입</button>
                         </form>
+                        <!-- 회원가입 양식 끝 -->
                     </div>
                 </div>
             </div>

@@ -42,6 +42,12 @@ public class TicketServiceImpl implements TicketService {
 		boolean result = ticketDao.updateTicketStatus(ticket_no, ticket_status);
 		return result;
 	}
+	
+	// 임희열 : 총 예매 비용 조회
+	public int getTotalTicketPrice() {
+		int money = ticketDao.getTotalTicketPrice();
+		return money;
+	}
 
 	// 임희열 : 유저 영화 예매 정보 조회
 	@Override

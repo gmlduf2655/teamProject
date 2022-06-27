@@ -69,6 +69,7 @@
 							<c:if test="true">
 							<div class="col-md-3">
 								<div class="product__item">
+									<!-- 영화 포스터 -->
 									<div class="product__item__pic set-bg" 
 										<c:choose>
 											<c:when test="${empty ticketUserVo.movie_image_name}">
@@ -84,6 +85,8 @@
 										</c:if>
 									>							
 									</div>
+									<!-- 영화 포스터 끝 -->
+									<!-- 영화 키워드 -->
 									<div class="product__item__text">
 										<ul>
 											<li>액션이 죽이는</li>
@@ -97,6 +100,7 @@
 											>${ticketUserVo.movie_name}</a>
 										</h5>
 									</div>
+									<!-- 영화 키워드 끝 -->
 								</div>
 							</div>
 							</c:if>
@@ -105,9 +109,11 @@
 	            	</div>
 	            </div>
 	            <!-- 유저 영화 예매 내역 부분 끝-->
+	            <!-- 마이페이지 이동 -->
 	            <div style="text-align:center;">
 	        		<a href="/mypage/main?userno=${param.userno}" class="site-btn">마이페이지로</a>
         		</div>
+        		<!-- 마이페이지 이동 끝 -->
     		</div>
     		<div class="col-md-2"></div>
     	</div>

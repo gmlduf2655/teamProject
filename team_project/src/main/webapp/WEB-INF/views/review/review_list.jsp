@@ -45,6 +45,14 @@
   	border: 1px solid #white !important;
 } 
 /* 페이지네이션 색깔 바꾸기 끝*/
+
+/*영화 제목 말줄임표 시작*/
+.movieName{
+	
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*영화 제목 말줄임표 끝*/
 </style>  
 
 <script>
@@ -163,7 +171,7 @@ $(document).ready(function(){
 					<tr style="background-color: rgba(255, 255, 255, 0.4);">
 						<th>번호</th>
 						<th>작성자</th>
-						<th>영화</th>
+<!-- 						<th>영화</th> -->
 						<th>제목</th>
 						<th>평점</th>
 						<th>작성일</th>
@@ -188,8 +196,8 @@ $(document).ready(function(){
 					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
 							<th>${reviewVo.review_writer}</th>
-							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}"
-								style="color: white;">${reviewVo.movie_name}</a></td>
+<%-- 							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}" class="movieName" --%>
+<%-- 								style="color: white;">${reviewVo.movie_name}</a></td> --%>
 							<td><a
 								href="/review/review_read?review_no=${reviewVo.review_no}"
 								style="color: white;" >${reviewVo.review_title}</a></td>

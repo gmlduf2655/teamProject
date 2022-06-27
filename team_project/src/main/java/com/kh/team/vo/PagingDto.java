@@ -9,8 +9,8 @@ public class PagingDto {
 	private int perPage = 10; // 각 페이지당 글 수
 	private int totalPage; // 전체 페이지
 	private int count; // 전체 글 수
-	private int startPage; // 시작 페이지
-	private int endPage; // 끝 페이지
+	private int startPage = 1; // 시작 페이지
+	private int endPage = 1; // 끝 페이지
 	
 	// 기본 생성자
 	public PagingDto() {
@@ -45,6 +45,9 @@ public class PagingDto {
 		setStartPage( ((page-1)/10)*10 + 1 ); // 시작 페이지 설정
 		setEndPage( ((page-1)/10 + 1)*10); // 종료 페이지 설정
 		setTotalPage((int)Math.ceil((double)count/perPage)); // 전체 페이지 결정
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
 		// 전체 페이지가 종료 페이지보다 작다면 종료 페이지를 전체 페이지로 변경
 		endPage = (totalPage < endPage)? totalPage : endPage;
 	}

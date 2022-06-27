@@ -64,6 +64,8 @@
 			
 			// 팔로우 체크 여부 확인
 			if("${loginUserVo}" != ""){
+				// 팔로우 체크가 되어있으면 팔로우 하기 버튼을 
+				// 팔로우 체크가 되어있지않으면 팔로우 헤제 버튼을 보이도록함
 				$.ajax({
 					type : "post",
 					async : "true",
@@ -101,6 +103,7 @@
 				$("#user_modify_complete_btn").show();
 				$("#cancel_btn").show();
 			});
+			
 			// 수정 취소 버튼을 눌렀을 때
 			$("#cancel_btn").click(function(){
 				$("#nickname_label").hide();
@@ -121,22 +124,24 @@
 			
 			// 수정할 프로필 이미지 미리보기
 			$("#profile_image").change(function(e){
-				console.log(e.target.files[0]);
-				var file = e.target.files[0];
+				var file = e.target.files[0]; // 파일
+				// 파일이 있으면 프로필 사진을 보여주도록하고
 				if(file != null && file != ""){
 					var fileReader = new FileReader();
 					fileReader.onload = function(e){
-						console.log(e.target.result);
 						$("#profile_image_view").attr("src", e.target.result);
 					}	
 				}else{
+					// 파일이 없고 유저의 프로필 사진이 있으면
 					if("${loginUserVo.profile_image}" != null){
+						// 간편로그인 회원일떄는 url에서 프로필 사진을 가져와서 보여주고
+						// 기존 회원일떄는 공유 폴더에서 프로필 사진을 가져와서 보여주도록함
 						if("${loginUserVo.sns_type}" != null){
 							$("#profile_image_view").attr("src", "${loginUserVo.profile_image}");
 						}else{
 							$("#profile_image_view").attr("src", "/user/get_profile_image?filename=${loginUserVo.profile_image}");
 						}
-					}else{
+					}else{ // 파일도 없고 유저의 프로필 사진이 없으면
 						$("#profile_image_view").attr("src", "/resources/images/no_image.jpg");
 					}
 				}
@@ -174,13 +179,14 @@
 			
 			// 이벤트 참가 취소
 			$(".table").on("click", ".btnEventCancel", function(){
-				var url = "/mypage/participate_event_cancel";
-				var participate_no = $(this).attr("value");
+				var url = "/mypage/participate_event_cancel"; // 이벤트 참가 취소 url
+				var participate_no = $(this).attr("value"); // 이벤트 참가 번호
 				var sData = {
 						"participate_no" : participate_no
 				}
 				console.log("participate_no:", participate_no); 
-				$.get(url, sData, function(rData){
+				// 이벤트 참가 취소 버튼을 누르고 새로고침함
+				$.get(url, sData, function(rData){ 
 					console.log("rData", rData);
 					refreshMemList();
 				});
@@ -301,8 +307,8 @@
 									</div>
 									<div class="product__item__text">
 										<ul>
-											<li>액션이 죽이는</li>
-											<li>영화</li>
+											<li>${movieVo.movie_genre}</li>
+											<li>${movieVo.movie_audits}</li>
 										</ul>
 										<h5>
 											<a class="text-white"
@@ -336,20 +342,20 @@
 							<div class="col-lg-3 col-md-6 col-sm-6">
 								<div class="product__item">
 									<div class="product__item__pic set-bg" 
-											<c:choose>
+										<c:choose>
 											<c:when test="${empty movieVo.movie_image_name}">
 												data-setbg="/resources/images/no_image.jpg" 
 											</c:when>
 											<c:otherwise>
 												data-setbg="/movie/displayImage?filename=${movieVo.movie_image_name}"
 											</c:otherwise>
-											</c:choose>
+										</c:choose>
 											style="cursor: pointer;" onclick="location.href='/movie/movieInfo?movie_code=${movieVo.movie_code}';">								
 									</div>
 									<div class="product__item__text">
 										<ul>
-											<li>액션이 죽이는</li>
-											<li>영화</li>
+											<li>${movieVo.movie_genre}</li>
+											<li>${movieVo.movie_audits}</li>
 										</ul>
 										<h5>
 											<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
@@ -451,48 +457,45 @@
 				    			</tr>
 				    		</thead>
 				    		<tbody>
-				    		
 				    			<c:forEach var="eventVo" items="${eventList}" varStatus="status">
-				    			<c:choose>
-								<c:when test ="${eventVo.userno == userVo.userno}">
-									<c:if test="${status.index < 5}">
-										<tr>
-											<td><a href="/event/event_read?event_no=${eventVo.event_no}" style="color:white;">${eventVo.event_title}</a></td>
-											<td>${eventVo.event_start_date}</td>
-											<td>${eventVo.event_end_date}</td>
-											
-											<c:choose>
-											<c:when test="${eventVo.event_win == 'y'}">
-											<td>당첨</td>
-											</c:when>
-											<c:otherwise>
-											<td>미당첨</td>
-											</c:otherwise>
-											</c:choose>
-											
-											<td>
-											<!-- 오늘 날짜 구하기-->
-											<c:set var="date" value="<%=new java.util.Date()%>" />
-											<c:set var="today">
-												<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
-											</c:set> 
-											<c:choose>
-												<c:when test="${eventVo.event_end_date < today}">
-												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}" disabled="disabled">이벤트 참여 취소</button>
-												</c:when>
-												<c:otherwise>
-												<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button>
-												</c:otherwise>
-											</c:choose>
-											</td>
-											
-										</tr>
-									</c:if>
-									
-								</c:when>
-								<c:otherwise>
-								</c:otherwise>
-								</c:choose>
+					    			<c:choose>
+										<c:when test ="${eventVo.userno == userVo.userno}">
+											<c:if test="${status.index < 5}">
+												<tr>
+													<td><a href="/event/event_read?event_no=${eventVo.event_no}" style="color:white;">${eventVo.event_title}</a></td>
+													<td>${eventVo.event_start_date}</td>
+													<td>${eventVo.event_end_date}</td>
+													
+													<c:choose>
+													<c:when test="${eventVo.event_win == 'y'}">
+														<td>당첨</td>
+													</c:when>
+													<c:otherwise>
+														<td>미당첨</td>
+													</c:otherwise>
+													</c:choose>
+													
+													<td>
+													<!-- 오늘 날짜 구하기-->
+													<c:set var="date" value="<%=new java.util.Date()%>" />
+													<c:set var="today">
+														<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+													</c:set> 
+													<c:choose>
+														<c:when test="${eventVo.event_end_date < today}">
+															<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}" disabled="disabled">이벤트 참여 취소</button>
+														</c:when>
+														<c:otherwise>
+															<button id="btnEventCancel" class="btn btn-sm btn-danger btnEventCancel" value="${eventVo.participate_no}">이벤트 참여 취소</button>
+														</c:otherwise>
+													</c:choose>
+													</td>
+												</tr>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+										</c:otherwise>
+									</c:choose>
 								
 								</c:forEach>
 								

@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.PropertyNamingStrategyBase;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.kh.team.service.FaqService;
 import com.kh.team.service.FollowService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.NaverLoginService;
@@ -44,6 +45,7 @@ import com.kh.team.service.UserService;
 import com.kh.team.util.GoogleOAuthRequest;
 import com.kh.team.util.GoogleOAuthResponse;
 import com.kh.team.util.MyFileUploader;
+import com.kh.team.vo.FaqVo;
 import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.PointVo;
@@ -54,15 +56,17 @@ import com.kh.team.vo.UserVo;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	NaverLoginService naverLoginService;
+	private NaverLoginService naverLoginService;
 	@Autowired
-	FollowService followService;
+	private FollowService followService;
 	@Autowired
-	PointService pointService;
+	private PointService pointService;
 	@Autowired
-	MovieService movieService;
+	private MovieService movieService;
+	@Autowired
+	private FaqService faqService;
 	
 	// 로그인 페이지 이동
 	@RequestMapping(value="/login_form", method=RequestMethod.GET)
@@ -131,28 +135,36 @@ public class UserController {
 	// 네이버 로그인 성공시 콜백 페이지
 	@RequestMapping(value="/naver_login_callback", method=RequestMethod.GET)
 	public String naverLogin(HttpSession session, String code, String state) throws IOException, ParseException {
+		// 네이버 로그인을 성공했을 때 accessToken을 얻어옴
 		OAuth2AccessToken accessToken = naverLoginService.getAccessToken(session, code, state);
+		
+		// accessToken을 통해 네이버 유저 정보를 받아오고 이를 JSONObject로 변환시킴
 		String apiResult = naverLoginService.getUserProfile(accessToken);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject)jsonParser.parse(apiResult);
 		JSONObject result = (JSONObject)jsonObject.get("response");
 		
-		System.out.println(result);
-		String email = (String)result.get("email");
+		// JSONObject로 얻어온 정보를 통해 이메일, 닉네임, 휴대폰 번호, 프로필 이미지등을 얻어옴
+		String email = (String)result.get("email"); // 이메일
 		int index = email.indexOf("@");
-		String sns_id = email.substring(0, index);
+		// 이메일을 통해 아이디를 얻어옴
+		String sns_id = email.substring(0, index); // 간편로그인 아이디
 		String cellphone = (String)result.get("mobile_e164");
-		cellphone = "0" + cellphone.substring(3);
-		String profile_image = (String)result.get("profile_image");
-		String sns_type = "naver";
-		String username = (String)result.get("name");
-		String nickname = (String)result.get("nickname");
+		cellphone = "0" + cellphone.substring(3); // 휴대폰 번호
+		String profile_image = (String)result.get("profile_image"); // 프로필 이미지
+		String sns_type = "naver"; // 간편로그인 연동 타입
+		String username = (String)result.get("name"); // 이름
+		String nickname = (String)result.get("nickname"); // 닉네임
+		// userVo에 아이디, 이름, 닉네임, 휴대폰 번호, 프로필 이미지, 간편로그인 아이디, 간편로그인 연동 타입을 넣음
 		UserVo userVo = new UserVo(nickname, username, cellphone, profile_image, sns_id, sns_type);
 		userVo.setUserid(email);
 		
+		// 간편 로그인 유저정보가 DB에 없으면 추가함
 		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
 			userService.addSnsUser(userVo);
 		}
+		
+		// 간편 로그인 유저로 로그인함 
 		UserVo loginUserVo = userService.getUserBySnsIdAndType(sns_id, sns_type);
 		session.setAttribute("loginUserVo", loginUserVo);
 		
@@ -173,26 +185,6 @@ public class UserController {
 	public String nicknameDuplCheck(String nickname){
 		boolean result = userService.nicknameDuplCheck(nickname);
 		return result + "";
-	}
-	
-	// 마이페이지 화면이동
-	// 한 메소드에 3개의 서비스가.. + 1 개더 추가요 
-	@RequestMapping(value="/mypage", method=RequestMethod.GET)
-	public String mypage(HttpSession session, Model model, int userno) {
-		PagingDto pagingDto = new PagingDto();
-		pagingDto.setPage(1);
-		UserVo loginUserVo = (UserVo)session.getAttribute("loginUserVo");
-		UserVo userVo = userService.getUserInfoByUserno(userno);
-		int follower = followService.selectFollowerNumber(userno);
-		int follow = followService.selectFollowNumber(userno);
-		List<PointVo> pointList = pointService.getPointListByUserno(userno, pagingDto);
-		List<MovieVo> movieList = movieService.movieList();
-		model.addAttribute("follower", follower);
-		model.addAttribute("follow", follow);
-		model.addAttribute("pointList", pointList);
-		model.addAttribute("userVo", userVo);
-		model.addAttribute("movieList", movieList);
-		return "user/mypage";
 	}
 	
 	// 아이디 혹은 비밀번호 찾기
@@ -222,13 +214,16 @@ public class UserController {
 	// 회원정보 수정
 	@RequestMapping(value="/modify_user", method=RequestMethod.POST)
 	public String modifyUserInfo(UserVo userVo, RedirectAttributes redirectAttributes, MultipartFile file, HttpSession session) throws IOException {
-		String filename = file.getOriginalFilename();
-		byte[] fileData = file.getBytes();
+		String filename = file.getOriginalFilename(); // 프로필 사진 이름
+		byte[] fileData = file.getBytes(); // 프로필 사진 데이터
+		
+		// 업로드 할 프로필 사진이 있으면 업로드함
 		if(filename != null && !filename.equals("")) {
 			String profile_image = MyFileUploader.fileUpload("moverattach", filename, fileData);
 			userVo.setProfile_image(profile_image);
 		}
-		boolean result = userService.modifyUser(userVo);
+		boolean result = userService.modifyUser(userVo); // 유저 정보 변경 여부
+		// 유저 정보가 변경되었으면 변경된 유저 정보로 다시 로그인
 		if(result) {
 			UserVo loginVo = (UserVo)session.getAttribute("loginUserVo");
 			UserVo loginUserVo = userService.login(loginVo.getUserid(), loginVo.getUserpw());
@@ -242,13 +237,15 @@ public class UserController {
 	// 유저 프로필 사진 수정
 	@RequestMapping(value="/modify_user_profile_image", method=RequestMethod.POST)
 	public String modifyUserProfileImage(UserVo userVo, RedirectAttributes redirectAttributes, MultipartFile file, HttpSession session) throws IOException {
-		String filename = file.getOriginalFilename();
-		byte[] fileData = file.getBytes();
+		String filename = file.getOriginalFilename(); // 프로필 사진 이름
+		byte[] fileData = file.getBytes(); // 프로필 사진 데이터
+		// 업로드 할 프로필 사진이 있으면 업로드함
 		if(filename != null && !filename.equals("")) {
 			String profile_image = MyFileUploader.fileUpload("moverattach", filename, fileData);
 			userVo.setProfile_image(profile_image);
 		}
-		boolean result = userService.modifyProfileImage(userVo.getProfile_image(), userVo.getUserno());
+		boolean result = userService.modifyProfileImage(userVo.getProfile_image(), userVo.getUserno()); // 유저 프로필 사진 변경 여부
+		// 유저 정보가 변경되었으면 변경된 유저 정보로 다시 로그인
 		if(result) {
 			UserVo loginVo = (UserVo)session.getAttribute("loginUserVo");
 			UserVo loginUserVo = userService.login(loginVo.getUserid(), loginVo.getUserpw());
@@ -264,6 +261,7 @@ public class UserController {
 	public String googleAuth(Model model, String code, HttpServletRequest request, HttpSession session) throws JsonParseException, JsonMappingException, IOException {
 		RestTemplate restTemplate = new RestTemplate();
 		
+		// 구글에 로그인 인증 페이지에 로그인 요청을 보냄
 		GoogleOAuthRequest googleRequestParam = new GoogleOAuthRequest();
 		googleRequestParam.setClientId("914062629252-76nqhv6vvk62khoee53f23kngfm9ec9u.apps.googleusercontent.com");
 		googleRequestParam.setClientSecret("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");
@@ -271,39 +269,46 @@ public class UserController {
 		googleRequestParam.setRedirectUri("http://localhost:80/user/google_auth");
 		googleRequestParam.setGrantType("authorization_code");
 
+		// 구글 로그인 요청 응답 데이터를 읽을 ObjectMapper 객체 생성
 		ObjectMapper objectMapper = new ObjectMapper();
+		// 데이터를 스네이크 표기법 (변수_명)으로 받도록함
 		objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 		objectMapper.setSerializationInclusion(Include.NON_NULL);
 		
-		ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token", 
-																		googleRequestParam, String.class);
+		// 구글 로그인 요청 응답 데이터를 받아옴
+		ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token", googleRequestParam, String.class);
+		// ObjectMapper 객체로 구글 로그인 요청 응답 데이터를 읽음
 		GoogleOAuthResponse result = objectMapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {
 		});
-		String jwtToken = result.getIdToken();
+		String jwtToken = result.getIdToken(); // 구글 아이디 토큰
+		// 구글 아이디 토큰으로 요청 url을 읽어옴
 		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
 							.queryParam("id_token", jwtToken).toUriString();
+		// 요청 url 결과를 JSON타입으로 받아옴
 		String resultJson = restTemplate.getForObject(requestUrl, String.class);
 		
+		// ObjectMapper로 JSON데이터를 Map으로 형변환함
 		Map<String, String> userInfo = objectMapper.readValue(resultJson, new TypeReference<Map<String,String>>() {
 		});
-		System.out.println(userInfo);
-		System.out.println(userInfo.get("email"));
-		System.out.println(userInfo.get("name"));
-		System.out.println(userInfo.get("picture"));
-		String email = userInfo.get("email");
+		
+		String email = userInfo.get("email"); // 이메일
 		int index = email.indexOf("@");
-		String sns_id = email.substring(0,index);
-		String sns_type = "google";
-		String username = userInfo.get("name");
-		String profile_image = userInfo.get("picture");
+		String sns_id = email.substring(0,index); // 간편로그인 아이디
+		String sns_type = "google"; // 간편 로그인 타입
+		String username = userInfo.get("name"); // 이름
+		String profile_image = userInfo.get("picture"); // 프로필 사진
+		// UserVo에 이메일, 이름, 닉네임, 프로필 사진, 간편로그인 아이디, 간편로그인 타입 저장
 		UserVo userVo = new UserVo(username, username, null, profile_image, sns_id, sns_type);
 		userVo.setUserid(email);
+		
+		// 간편로그인 계정이 DB에 없으면 DB에 계정 생성
 		if(!userService.snsUserDuplCheck(sns_id, sns_type)) {
 			boolean addResult = userService.addSnsUser(userVo);
 		}
 		
 //		model.addAllAttributes(userInfo);
 //		model.addAttribute("token", result.getAccessToken());
+		// 간편로그인 계정으로 로그인 함
 		UserVo loginUserVo = userService.getUserBySnsIdAndType(sns_id, sns_type);
 		session.setAttribute("loginUserVo", loginUserVo);		
 		return "redirect:/";
@@ -317,13 +322,4 @@ public class UserController {
 		return userno;
 	}
 	
-	// 유저 목록 페이지 이동 (관리자용)
-	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String userList(HttpSession session) {
-//		List<UserVo> originUserList = userService.getOriginUserList();
-//		List<UserVo> snsUserList = userService.getSnsUserList();
-//		session.setAttribute("originUserList", originUserList);
-//		session.setAttribute("snsUserList", snsUserList);
-		return "user/list";
-	}
 }

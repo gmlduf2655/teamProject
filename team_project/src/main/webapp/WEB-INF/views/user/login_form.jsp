@@ -44,22 +44,17 @@
     		}else if(update_userpw_result == "false"){
     			alert("비밀번호 변경 실패");
     		}
-    	$("#google_login").click(function(){
-    		location.href="https://accounts.google.com/o/oauth2/v2/auth?" + 
-    			"client_id=914062629252-76nqhv6vvk62khoee53f23kngfm9ec9u.apps.googleusercontent.com&" +
-    			"redirect_uri=http://localhost:80/user/google_auth&" +
-    			"response_type=code&" +
-    			"scope=email%20profile%20openid&" +
-    			"access_type=offline";
-    	});
     		
-//     		// 네이버 간편 로그인 버튼을 눌렀을때 필요한 clientId, callbackUrl 설정
-// 			var naverLogin = new naver.LoginWithNaverId({
-// 				clientId: "VjgDvLJM29qpp3O__mxp",
-// 				callbackUrl: "http://localhost:80/user/naver_login"
-// 			});
-//     		// 네이버 간편 로그인 버튼을 누르면 네이버 로그인 페이지로 이동하게함
-// 			naverLogin.init();
+    		// 구글 로그인 버튼 눌렀을 때
+	    	$("#google_login").click(function(){
+	    		location.href="https://accounts.google.com/o/oauth2/v2/auth?" + 
+	    			"client_id=914062629252-76nqhv6vvk62khoee53f23kngfm9ec9u.apps.googleusercontent.com&" +
+	    			"redirect_uri=http://localhost:80/user/google_auth&" +
+	    			"response_type=code&" +
+	    			"scope=email%20profile%20openid&" +
+	    			"access_type=offline";
+	    	});
+    		
     	});
     </script> 
     
@@ -78,9 +73,9 @@
 <!--     </section> -->
     <!-- 제목 끝 -->
 
-    <!-- 로그인 -->
     <section class="login spad">
         <div class="container">
+		    <!-- 로그인 부분 -->
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
@@ -107,23 +102,17 @@
                     </div>
                 </div>
             </div>
+            <!-- 로그인 부분 끝-->
+            
+            <!-- 간편 로그인 부분 -->
             <div class="login__social">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6">
                         <div class="login__social__links">
                             <ul>
-<!--                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li> -->
-<!--                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li> -->
-<!--                                 <li><a href="#" class="google"><i class="fa fa-google"></i> 구글로 로그인 하기</a></li> -->
-<!--                                 <li> -->
-<%--                                 	<a id="naverIdLogin_loginButton" href="${naverLoginUrl}" class="twitter" style="background:#03C75A;"> <!-- #2DB400 --> --%>
-<!--                                 			<img src="/resources/images/naver_logo.png" style="width:20px;position:absolute;left:32px;"> -->
-<!--                                 			네이버로 로그인하기 -->
-<!--                                 	</a> -->
-<!--                                 </li> -->
                                 <li class="row" style="justify-content:center;">
                                 	<h3 style="color:white;margin-top:14px;line-height:50px;margin-left:120px;">간편로그인</h3>
-                                	<div id="google_login" style="width:50px;height:50px;background:#ff4343;color:white;font-size:25px;line-height:50px;border-radius:5px;margin-top:14px;margin-left:20px;"><i class="fa fa-google"></i></div>
+                                	<div id="google_login"><i class="fa fa-google"></i></div>
                                 	<a href="${naverLoginUrl}" style="width:50px;margin-left:20px;">
                                 		<img src="/resources/images/naver_logo.png" style="width:50px">
                                 	</a>
@@ -135,9 +124,9 @@
                     </div>
                 </div>
             </div>
+            <!-- 간편 로그인 부분 끝 -->
         </div>
     </section>
-    <!-- 로그인 끝 -->
 
 <%-- footer --%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

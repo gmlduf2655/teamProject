@@ -147,7 +147,7 @@
 
     <!-- 메세지 답장 작성 -->
     <section>
-				<div class="row">
+		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<form id="message_form" role="form" method="post" action="/message/reply_run">

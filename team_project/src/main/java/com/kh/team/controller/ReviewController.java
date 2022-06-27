@@ -61,7 +61,7 @@ public class ReviewController {
 			System.out.println("reviewVo:"+reviewVo);
 			boolean result = reviewService.insert(reviewVo);
 			System.out.println("ReviewController, writeRun, result:"+ result);
-			return "redirect:/review/review_list";
+			return "redirect:/review/review_list?page=1";
 		}
 		
 	// 게시글 읽기

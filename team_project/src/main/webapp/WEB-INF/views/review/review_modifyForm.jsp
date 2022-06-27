@@ -65,8 +65,8 @@ if (insert_result == "true"){
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
 </head>
-<body>
-<div class="container" style="background-color: white">
+<body style="background-color: #0b0c2a;">
+<div class="container" style="background-color:rgba(255, 255, 255, 0.5); border-radius:10px; padding: 30px;">
 
 <form role="writeForm" action="/review/review_modifyRun" method="post" id="frmCreate" enctype="multipart/form-data">
 	<input type="hidden" name="review_star" id="review_star" value="0"/>

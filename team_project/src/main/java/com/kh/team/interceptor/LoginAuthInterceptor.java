@@ -16,12 +16,18 @@ public class LoginAuthInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		UserVo loginUserVo = (UserVo) session.getAttribute("loginUserVo");
+		UserVo loginUserVo = (UserVo) session.getAttribute("loginUserVo"); // 로그인 유저 정보
 		if(loginUserVo == null) {
 			System.out.println("로그인이 되지 않았거나 끊김");
-			String uri = request.getRequestURI();
-			String queryString = request.getQueryString();
-			String locationTarget = uri + "?" + queryString;
+			String uri = request.getRequestURI(); // 요청 Uri
+			String method = request.getMethod();
+			System.out.println("method : " + method);
+			String queryString = request.getQueryString(); // 요청 Uri 쿼리문
+			String locationTarget = uri + "?" + queryString; // 로그인 후 다시 복귀할 uri
+			if(method.equals("POST")) {
+				locationTarget = "/";
+			}
+			System.out.println("locationTarget : " + locationTarget);
 			session.setAttribute("locationTarget", locationTarget);
 			response.sendRedirect("/user/login_form");
 			return false;

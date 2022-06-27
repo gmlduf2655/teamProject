@@ -151,6 +151,10 @@ section.product {
 						<i class="bi bi-people br-3 bg-warning" style="font-size:40px;padding:8px 15px;border-radius:10px;"></i>
 						 오늘 방문자 수 : ${dailyVisitorCount}
 					</h3>
+					<h3 class="mb-5">
+						<i class="bi bi-cart br-3 bg-info" style="font-size:40px;padding:8px 15px;border-radius:10px;"></i>
+						총 매출 : ${totalTicketPrice}P
+					</h3>
 				</div>
 				<!-- 방문자 수 부분 끝-->
 			</div>

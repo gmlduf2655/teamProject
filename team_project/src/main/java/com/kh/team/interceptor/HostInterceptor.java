@@ -18,14 +18,13 @@ public class HostInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		UserVo loginUserVo = (UserVo) session.getAttribute("loginUserVo");
-		// 임희열 : 로그인이 되어있지 않을 때
-		// 임희열 : 호스트일 때
+		// 임희열 : 로그인이 끊겼을 때 로그인 화면으로 이동
 		if(loginUserVo == null) {
-			
-		}else if(loginUserVo.getUserid().equals("admin") && loginUserVo.getUserpw().equals("1234")){
+			response.sendRedirect("/user/login_form");
+		}else if(loginUserVo.getUserid().equals("admin") && loginUserVo.getUserpw().equals("1234")){ // 임희열 : 관리자 계정일 때만 관리자 화면으로 이동하도록 함
 			System.out.println("관리자 인증완료");
-		}else {
-			
+		}else { // 관리자 계정이 아닌 다른 계정이 접근 할 시 메인 페이지로 이동
+			response.sendRedirect("/");
 		}
 		return super.preHandle(request, response, handler);
 	}

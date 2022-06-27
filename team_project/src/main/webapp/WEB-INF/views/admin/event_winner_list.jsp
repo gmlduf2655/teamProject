@@ -16,6 +16,11 @@
 	.ma {
 		border-top: 50px solid #eeeeee;
 	}
+	
+tr.tr_list:hover {
+ 	background-color: aliceblue;
+ }
+	
 /* 페이지네이션 색깔 바꾸기 시작*/
 .page-item.active .page-link {
 	background-color: #e53637 !important;
@@ -153,7 +158,8 @@ $(document).ready(function(){
 						<tr class="tr_list">
 							<td>${winnerVo.winner_no}</td>
 							<td class="td_list" data-wno="${winnerVo.winner_no}"><a
-								href="/admin/admin_winner_read?winner_no=${winnerVo.winner_no}">${winnerVo.winner_title}</a></td>
+								href="/admin/admin_winner_read?winner_no=${winnerVo.winner_no}"
+								style="color: black;">${winnerVo.winner_title}</a></td>
 							<td>${winnerVo.winner_sysdate}</td>
 							<td>${winnerVo.winner_count}</td>
 							<td>
