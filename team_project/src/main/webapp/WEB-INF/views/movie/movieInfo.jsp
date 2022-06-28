@@ -280,13 +280,15 @@ ${loginUserVo.userid}
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                      <div class="anime__details__form">
+                     	 <c:if test="${not empty loginUserVo.userid}">
                             <div class="section-title">
                                 <h5>댓글 달기</h5>
                             </div>
                             <form action="#">
                                 <textarea placeholder="댓글을 입력하세요" id="movie_comment"></textarea>
-                                <button type="button" id="commentSubmit"><i class="fa fa-location-arrow"></i> 입력</button>
+                               	<button type="button" id="commentSubmit"><i class="fa fa-location-arrow"></i> 입력</button>
                             </form>
+                            </c:if>
                         </div>
                     
                         <div class="details__review">
