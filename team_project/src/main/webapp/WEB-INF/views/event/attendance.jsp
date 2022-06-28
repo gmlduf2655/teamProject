@@ -279,19 +279,19 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg">
+<!-- 상단 타이틀 -->
+    <section class="normal-breadcrumb set-bg" style="height: 100px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
-                        <h2>출석체크</h2>
+                        <h2>출석 체크</h2>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Normal Breadcrumb End -->
+<!-- 상단 타이틀 끝 -->
 
 <div class="container">
 

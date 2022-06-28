@@ -37,6 +37,20 @@
 		.move_page{
 			color:#e53637;
 		}
+		
+/* 페이지네이션 색깔 바꾸기 시작*/
+.page-item.active .page-link {
+	background-color: #e53637 !important;
+	color: white;
+  	border: 1px solid #e53637 !important;
+} 
+
+.page-item .page-link {
+	background-color: white !important;
+	color: black;
+  	border: 1px solid #white !important;
+} 
+/* 페이지네이션 색깔 바꾸기 끝*/
 	</style>
     <script>
 		$(document).ready(function(){
@@ -79,20 +93,6 @@
 			});
 		});
     </script>
-    
-    <!-- 제목 부분 -->
-<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
-<!--         <div class="container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-12 text-center"> -->
-<!--                     <div class="normal__breadcrumb__text"> -->
-<!--                         <h2>이벤트 참여 내역</h2> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </section> -->
-    <!-- 제목 부분 -->
 
     <!-- 포인트 내역을 보여주는 부분 -->
     <section class="login spad">
@@ -113,7 +113,8 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
+						<input style="margin-left: 8px; margin-top: 2px;"
+							type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 					</div>
 					<div class="col-md-1" style="padding-left:0px;">
 					<form id="frmSearch" action="/mypage/participate_event_list" method="get">
@@ -121,7 +122,8 @@
 					<input type="hidden" name="page" value="${pagingDto.page}">
 					<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 					<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-						<button type="submit" class="btn btn-primary" id="btnSearch" style="background-color:#e53637;border-color:#e53637;">검색</button>
+						<button type="submit" class="btn btn-primary" id="btnSearch" 
+						style="background-color:#e53637;border-color:#e53637;margin-top: 2px;">검색</button>
 					</form>
 					</div>
 				</nav>
