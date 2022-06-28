@@ -15,10 +15,15 @@
 	
 	<!-- 유수연 유저별 영화별 코멘트 리스트  -->
 	<select id="commentListuser" resultType="MovieCommentVo">
-		select * from tbl_movie_comment
-		where userid = #{userid}
-		order by cno desc
+		select * from 
+			(select rownum rnum, a.* from
+				(select * from tbl_movie_comment
+				where userid = #{userid}
+				order by cno desc) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
+	
+	
 	 
 	<!-- 유수연 영화별 코멘트 리스트  -->
 	<select id="commentListsection" resultType="MovieCommentVo">

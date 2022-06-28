@@ -56,9 +56,22 @@ public class MovieCommentController {
 	}
 	
 	@RequestMapping(value= "/commentListuser", method= RequestMethod.GET)
-	public List<MovieCommentVo> commentListuser(String userid) {
-		List<MovieCommentVo> commentlistuser = commentService.commentListuser(userid);
+	public List<MovieCommentVo> commentListuser(String userid, int startRow) {
+		if(startRow == 2) {
+			startRow = 1;
+		}
+		int endRow = startRow + 4;
+		List<MovieCommentVo> commentlistuser = commentService.commentListuser(userid,startRow,endRow);
 		return commentlistuser;
 	}
 	
+	@RequestMapping(value= "/commentListuserappend", method= RequestMethod.GET)
+	@ResponseBody
+	public List<MovieCommentVo> commentListuserappend(String userid, int startRow) {
+		startRow = startRow+1;
+		int endRow = startRow + 4;
+		List<MovieCommentVo> commentlistuser = commentService.commentListuser(userid, startRow, endRow);
+		System.out.println("commentListuserappend. result" + commentlistuser);
+		return commentlistuser;
+	}
 }
