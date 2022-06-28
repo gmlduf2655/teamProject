@@ -24,56 +24,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	var db_updatedetail_result = "${db_updatedetail_result}";
-	if(db_updatedetail_result == "true"){
-		alert("DB 수정 완료");
-	} else if (db_updatedetail_result == "false"){
-		alert("DB 수정 실패");
-	}
-	//db 수정 disabled 해제
-	$("#btnattrAble").click(function(){
-		$(this).hide();
-		$("#btnUpdate").show();
-		$("input[disabled]").removeAttr("disabled");
-		$("#image_delete").removeAttr("style");
-		$("textarea[disabled]").removeAttr("disabled");
-		$(".image_deletestill").removeAttr("style");
-		$("#stillcutadd").show();
-	});
-	//우리서버에 db 일부수정
-	$("#btnUpdate").click(function(){
-		$("form").attr("action", "/dbcontrol/dbUpdatedetail");
-		$("form").attr("method", "post");
-		$("form").submit();
-	});
-
-	//포스터 이미지 미리보기
-	$(function() {
-	    $("#file").on("change", function(){
-	    readURL(this);
-	    });
-	});
-	function readURL(input) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	        $("#preview").attr('src', e.target.result);
-	        }
-	        reader.readAsDataURL(input.files[0]);
-	        $("#preview").show();
-	        $("#image_delete").show();
-	        
-	    }
-	}
-
-	//포스터 이미지 임시 삭제
-	$(document).ready(function(){
-			$("#image_delete").click(function(){
-			$("#preview").hide();
-			$("#image_delete").hide();
-		});
-	});
-
+	
 	//스틸컷 이미지 삭제
 	$(document).ready(function(){
 			$(".image_deletestill").click(function(){

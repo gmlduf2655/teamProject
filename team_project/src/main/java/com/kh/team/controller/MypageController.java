@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.service.EventService;
 import com.kh.team.service.FollowService;
+import com.kh.team.service.MovieCommentService;
 import com.kh.team.service.MovieLikeService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.ParticipateEventService;
@@ -24,6 +25,7 @@ import com.kh.team.service.TicketService;
 import com.kh.team.service.UserService;
 import com.kh.team.vo.EventPagingDto;
 import com.kh.team.vo.EventVo;
+import com.kh.team.vo.MovieCommentVo;
 import com.kh.team.vo.MovieVo;
 import com.kh.team.vo.PagingDto;
 import com.kh.team.vo.ParticipateEventVo;
@@ -36,7 +38,7 @@ import com.kh.team.vo.UserVo;
 @Controller
 @RequestMapping(value="/mypage")
 public class MypageController {
-	// 서비스 8개
+	// 서비스 9개
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -55,7 +57,8 @@ public class MypageController {
 	MovieLikeService movieLikeService;
 	@Autowired
 	TicketService ticketService;
-	
+	@Autowired
+	MovieCommentService moviecommentService;
 	
 	// 마이페이지 이동
 	@RequestMapping(value="/main", method=RequestMethod.GET)
@@ -82,7 +85,8 @@ public class MypageController {
 		List<ReviewVo> reviewList = reviewService.myReviewList(userno, pagingDto);
 		
 		List<TicketUserVo> ticketUserList = ticketService.getTicketUserList(userno);
-		
+		//유저의 영화 코멘트 리스트
+		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userVo.getUserid());
 		
 		
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
@@ -99,6 +103,7 @@ public class MypageController {
 		model.addAttribute("ticketUserList", ticketUserList);
 //		model.addAttribute("participateEventList", participateEventList);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("commentlistuser", commentlistuser);
 		return "mypage/main";
 	}
 	
@@ -214,4 +219,14 @@ public class MypageController {
 		session.removeAttribute("loginUserVo");
 		return "redirect:/";
 	}
+	// 내가 쓴 댓글 내역 페이지 이동
+	@RequestMapping(value="/commentListuser", method=RequestMethod.GET)
+	public String commentListuser(Model model, String userid) {
+		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userid);
+		model.addAttribute("commentlistuser", commentlistuser);
+	//	model.addAttribute("pagingDto", pagingDto);
+		return "mypage/commentListuser";
+	}
+		
+	
 }
