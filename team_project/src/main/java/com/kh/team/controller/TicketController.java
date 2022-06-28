@@ -155,7 +155,7 @@ public class TicketController {
 		}
 		
 		int userPoint = userService.getUserInfoByUserno(user_no).getPoint();
-		PointVo pointVo = new PointVo(user_no, point, point_code);
+		PointVo pointVo = new PointVo(point, user_no, point_code);
 		boolean result = pointService.usingTicketingPoint(pointVo, seat_no_list.size(), userPoint);
 		if (result) {
 			// 좌석 예약
