@@ -8,7 +8,8 @@
 /* section calendar */
 
 .sec_cal {
-    width: 450px;
+    width: 550px;
+    height: 700px;
     margin: 0 auto;
     font-family: "NotoSansR";
 }
@@ -18,7 +19,7 @@
     justify-content: center;
     align-items: center;
     font-weight: 700;
-    font-size: 48px;
+    font-size: 70px;
     line-height: 78px;
 }
 
@@ -70,9 +71,11 @@
 }
 
 .sec_cal .cal_wrap {
-    padding-top: 40px;
+    padding-top: 30px;
     position: relative;
     margin: 0 auto;
+    padding-top: 80px;
+    
 }
 
 .sec_cal .cal_wrap .days {
@@ -93,7 +96,7 @@
     width: calc(100% / 7);
     text-align: left;
     color: #999;
-    font-size: 12px;
+    font-size: 20px;
     text-align: center;
     border-radius: 50%;
 }
@@ -105,7 +108,8 @@
 .sec_cal .cal_wrap .dates {
     display: flex;
     flex-flow: wrap;
-    height: 290px;
+    height: 350px;
+    
 }
 
 .sec_cal .cal_wrap .day:nth-child(7n -1) {
@@ -286,11 +290,13 @@ $(document).ready(function(){
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
                         <h2>출석 체크</h2>
+                        <label style="color: white;">출석체크하면 5포인트 적립!</label>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <br>
 <!-- 상단 타이틀 끝 -->
 
 <div class="container">
