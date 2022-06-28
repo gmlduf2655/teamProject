@@ -46,6 +46,12 @@ public class MovieDBController {
 		
 		return "dbcontrol/serverListDB";
 	}
+	//유수연 - 우리서버 영화 등록 페이지 
+	@RequestMapping(value="/dbmovieinsert", method = RequestMethod.GET)
+	public String dbinsert() {
+		
+		return "dbcontrol/dbmovieinsert";
+	}
 	
 	
 	//유수연 - 진흥원 데이터검색으로 우리 DB 영화 입력
@@ -148,6 +154,22 @@ public class MovieDBController {
 		}
 		return "redirect:/dbcontrol/dbsearchBymoviecode?movie_code=" + movieVo.getMovie_code();
 	}
+	//유수연 - 진흥원 데이터검색 데이터 부족시  우리 DB 직접 영화 입력
+		@RequestMapping(value="/dbmovieinsert", method = RequestMethod.POST)
+		public String dbmovieinsert(MovieVo movieVo, MultipartFile file, RedirectAttributes rttr) {
+			
+			String originalFilename =  file.getOriginalFilename();
+			try {
+				String movie_image_name = MovieFileUploader.fileUpload(ROOTADDRESS, originalFilename, file.getBytes());
+				movieVo.setMovie_image_name(movie_image_name);
+				boolean result = service.insertMovie(movieVo);
+				rttr.addFlashAttribute("db_save_result", result);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			return "redirect:/dbcontrol/dbsearchBymoviecode?movie_code=" + movieVo.getMovie_code();
+		}
 	
 	// 이미지 보여주기
 	@RequestMapping(value = "/displayImage", method = RequestMethod.GET)
