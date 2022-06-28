@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.dao.UserDao;
 import com.kh.team.vo.PagingDto;
@@ -164,6 +165,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String getUseridByUsernameAndEmail(String username, String email) {
 		UserVo userVo = userDao.selectUserByUsernameAndEmail(username, email);
+		if(userVo == null) {
+			return null;
+		}
 		return userVo.getUserid();
 	}
 	// 회원번호로 회원 아이디 조회

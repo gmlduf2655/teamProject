@@ -116,4 +116,13 @@ public class PointDaoTest {
 		boolean result = pointDao.deletePointCode(1001);
 		System.out.println("PointDaoTest, testDeletePointCode, result : " + result);		
 	}
+	
+	// 조재호 : 영화 예매 포인트 사용 테스트
+	@Test
+	public void testusingTicketingPoint() {
+		int userno = 1; 
+		int room_price = 4500;
+		boolean result = pointDao.usingPointTicket(userno, room_price);
+		System.out.println(result);
+	}
 }

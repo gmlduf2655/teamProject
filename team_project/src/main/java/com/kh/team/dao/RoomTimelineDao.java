@@ -15,9 +15,9 @@ public interface RoomTimelineDao {
 				RoomTimelineVo roomTimelineVo
 			);
 	
-	// 상영관별 스케줄 리스트 조회
+	// 영화관별 스케줄 리스트 조회
 	public List<Map<String, Object>> selectRoomTimelineList(
-				int room_no,
+				int cinema_no,
 				String order_column, 
 				String order_type
 			);
@@ -52,5 +52,6 @@ public interface RoomTimelineDao {
 				int timeline_no,
 				boolean movie_status
 			);
+	
 	
 }

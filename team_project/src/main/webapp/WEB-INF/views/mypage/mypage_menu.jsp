@@ -54,6 +54,7 @@
 		<ul style="padding-left:50px;">
 		    <li><a href="/mypage/write_review_list?userno=${loginUserVo.userno}&page=1">내 리뷰</a></li>
 		    <li><a href="/mypage/participate_event_list?userno=${loginUserVo.userno}&page=1">참여 이벤트</a></li>
+			<li><a href="/mypage/commentListuser?userid=${userVo.userid}">내가 단 댓글</a></li>		
 		</ul>
 	</div>
 	<!-- 내 활동 끝 -->

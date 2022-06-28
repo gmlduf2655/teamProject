@@ -41,12 +41,12 @@ public class RoomTimelineDaoImpl implements RoomTimelineDao {
 	// 상영관별 스케줄 리스트 조회
 	@Override
 	public List<Map<String, Object>> selectRoomTimelineList(
-				int room_no, 
+				int cinema_no, 
 				String order_column, 
 				String order_type
 			) {
 		Map<String, Object> parameter = new HashMap<>();
-		parameter.put("room_no", room_no);
+		parameter.put("cinema_no", cinema_no);
 		parameter.put("order_column", order_column);
 		parameter.put("order_type", order_type);
 		List<Map<String, Object>> tempList = sqlSession.selectList(NAMESPACE + "selectRoomTimelineList", parameter);

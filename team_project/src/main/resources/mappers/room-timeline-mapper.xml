@@ -41,7 +41,7 @@
 		on line.room_no = room.room_no
 		<choose>
 			<when test="search_column == null">
-				where line.cinema_no = #{room_no}
+				where line.cinema_no = #{cinema_no}
 				order by line.room_type_code asc, ${order_column} ${order_type}
 			</when>
 			<when test="search_column == 'movie_begin_date'">
@@ -65,7 +65,8 @@
 	<select id="selectRoomTimeline" resultType="map">
 		select * from tbl_room_timeline timeline left outer join tbl_movie movie
 		on timeline.movie_code = movie.movie_code left outer join tbl_cinema_room room
-		on timeline.room_no = room.room_no
+		on timeline.room_no = room.room_no left outer join tbl_room_type type
+		on timeline.room_type_code = type.room_type_code
 		where timeline_no = #{timeline_no}
 	</select>
 	

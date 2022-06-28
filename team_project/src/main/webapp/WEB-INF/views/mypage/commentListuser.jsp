@@ -48,27 +48,42 @@
 		}
 	</style>
     <script>
-    $(document).ready(function(){
-		
-		$("#btnSearch").on("click", function(){
-			var searchType = $("#searchType").val();
-			var keyword = $("#keyword").val();
-			var frmSearch = $("#frmSearch");
-			
-			 if(!keyword){
-			        alert("검색어를 입력하세요.");
-			        return false;
-			    }   
-			 
-			 frmSearch.find("input[name=searchType]").val(searchType);
-			 frmSearch.find("input[name=keyword]").val(keyword);
-			 frmSearch.find("input[name=page]").val(1);
-			 frmSearch.submit();
-			
-		});
-    });
+
+	//댓글 불러오기
+	   function getCommentList(){
+	  		
+	  		var startRow = $(".listtr").length;
+	  		var userid = "${loginUserVo.userid}";
+	  		console.log(startRow);
+	  		$.ajax({
+	  			url :"/moviecomment/commentListuserappend",
+	  			type : "get",
+	  			dataType : "json",
+	  			data : {
+	  				"startRow" : startRow,
+	  				"userid" : userid
+	  			},
+	  			success : function(rData){
+	  				console.log("ajax", rData);
+	  				if(rData.length < 10){
+	  					$("addBtn").remove();
+	  					 $.each(rData, function(){
+	  							var tr = $(".cloneTable tr").clone();
+	  							var tds = tr.find("td");
+	  							tds.eq(0).text(this.cno);
+	  							tds.eq(1).html("<a style='color:white' href='/movie/movieInfo?movie_code=this.movie_code'>" + this.movie_name + "</a>");
+	  							tds.eq(2).text(this.movie_comment);
+	  							tds.eq(3).text(this.regdate);
+	  							$(".table").append(tr);
+	  						});
+	  				}
+	  			}
+	  		});
+	  		
+	  	}; //getCommentList
+
     </script>
- 
+
     <!-- 댓글 내역을 보여주는 부분 -->
     <section>
     	<div class="row">
@@ -82,48 +97,15 @@
 						<h3>댓글 내역</h3>
 					</div>
 					<div class="col-md-3"></div>
-					<div class="col-md-1" style="display:flex;justify-content: flex-end;">
-						<select name="searchType" id="searchType" style="color:black;">
-							<option value="">선택</option>
-							<option value="">--------------------</option>
-							<option value="t"
-								<c:if test="${pagingDto.searchType == 't'}">
-									selected
-								</c:if>
-							>제목</option>
-							<option value="c"
-								<c:if test="${pagingDto.searchType == 'c'}">
-									selected
-								</c:if>
-							>내용</option>
-							<option value="tc"
-								<c:if test="${pagingDto.searchType == 'tc'}">
-									selected
-								</c:if>
-							>제목 + 내용</option>
-						</select>
-					</div>
-					<div class="col-md-3">
-						<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
-					</div>
-					<div class="col-md-1" style="padding-left:0px;">
-					<form id="frmSearch" action="/mypage/write_review_list" method="get">
-						<input type="hidden" name="userno" value="${param.userno}">
-						<input type="hidden" name="page" value="${pagingDto.page}">
-						<input type="hidden" name="searchType" value="${pagingDto.searchType}">
-						<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-						<button type="submit" class="btn btn-primary" id="btnSearch">검색</button>
-					</form>
-					</div>
 				</nav>
 				<!-- nav 부분 끝-->
 				<!-- 댓글 내역 테이블 부분 -->
 	    		<div class="row">
-	               	<div class="col-lg-12 ">
+	               	<div class="col-md-12 ">
 				    	<table class="table" style="color:white;">
 					    	<thead>
 					    		<tr>
-									<th>번호</th>
+									<th>댓글번호</th>
 									<th>영화</th>
 									<th>댓글</th>
 									<th>작성일</th>
@@ -131,9 +113,8 @@
 					   		</thead>
 					   		<tbody>
 								<c:forEach var="commentVo" items="${commentlistuser}" varStatus="status">
-									<c:if test="${status.index < 5}">
-										<tr>
-											<td>${status.count}</td>
+										<tr class="listtr">
+											<td>${commentVo.cno}</td>
 											<td><a style="color:white"
 												href="/movie/movieInfo?movie_code=${commentVo.movie_code}">${commentVo.movie_name}</a></td>
 											<td>
@@ -146,20 +127,30 @@
 											</td>
 											<td>${commentVo.regdate}</td>
 										</tr>
-									</c:if>
 								</c:forEach>
 							</tbody>
 					    </table>
-	    	    	</div>
+	    	    	<button id="addBtn" style="float: right;" class="btn btn-danger" onclick="getCommentList();">더보기</button>
+ 							
+					</div>			
 	            </div>
 	            <!-- 댓글 내역 테이블 부분 끝-->
-	            
-				
+	           
 		        <div style="text-align:center;">
 			        <a onClick="history.go(-1)" style="cursor: pointer; color: white;" class="site-btn">마이페이지로</a>
 		        </div>
         	</div>
-        	<div class="col-md-2"></div>
+        	<div class="col-md-2">
+        			<table class="cloneTable">
+			            <tr class="listtr">
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			            <td></td>
+			            </tr>
+					</table>
+        	
+        	</div>
         </div>
     </section>
     <!-- 포인트 내역을 보여주는 부분 끝 -->

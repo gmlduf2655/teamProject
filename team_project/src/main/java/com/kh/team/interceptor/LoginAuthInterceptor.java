@@ -20,10 +20,11 @@ public class LoginAuthInterceptor extends HandlerInterceptorAdapter {
 		if(loginUserVo == null) {
 			System.out.println("로그인이 되지 않았거나 끊김");
 			String uri = request.getRequestURI(); // 요청 Uri
-			String method = request.getMethod();
+			String method = request.getMethod(); // 요청 메서드 (GET, POST 등)
 			System.out.println("method : " + method);
 			String queryString = request.getQueryString(); // 요청 Uri 쿼리문
 			String locationTarget = uri + "?" + queryString; // 로그인 후 다시 복귀할 uri
+			// 요청 메서드가 POST일 경우 메인 페이지로 리다이렉트함
 			if(method.equals("POST")) {
 				locationTarget = "/";
 			}

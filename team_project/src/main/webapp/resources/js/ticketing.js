@@ -118,12 +118,12 @@ $(function(){ /* 준비 핸들러 */
 					if (i == 0) { /* 처음에 한번만 */
 						prevTypeNMovieName = this.room_type_name + this.movie_name;
 						insertHtml += ` 
-								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `">
+								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `" data-room_type_code="` + this.room_type_code + `">
 									<ul class="typeList">
 										<li class="typeContainer">
 											<h6 class="room_type_name"><strong>[` + this.room_type_name + "]</strong> " + this.movie_name + `</h6>
 											<ul class="cinemaRoomList">
-												<li class="roomInfo" data-begin_date="` + this.movie_begin_date + `">
+												<li class="roomInfo" data-timeline_no="` + this.timeline_no + `" data-begin_date="` + this.movie_begin_date.substring(0, 16) + `" data-room_type_code="` + this.room_type_code + `" data-room_no="` + this.room_no + `">
 													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
 													<div>73/100</div>
 													<div class="room_name">` + this.room_name + `</div>
@@ -134,7 +134,7 @@ $(function(){ /* 준비 핸들러 */
 						/* 이전 영화종류, 영화제목이 같으면 */
 						if (prevTypeNMovieName == nowTypeNMovieName){
 							insertHtml += ` 
-												<li class="roomInfo">
+												<li class="roomInfo" data-timeline_no="` + this.timeline_no + `" data-begin_date="` + this.movie_begin_date.substring(0, 16) + `" data-room_type_code="` + this.room_type_code + `" data-room_no="` + this.room_no + `">
 													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
 													<div>73/100</div>
 													<div class="room_name">` + this.room_name + `</div>
@@ -146,12 +146,12 @@ $(function(){ /* 준비 핸들러 */
 										</li>
 									</ul>
 								</li>
-								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `">
+								<li class="roomListWrapper" data-movie_code="` + this.movie_code + `" data-room_type_code="` + this.room_type_code + `">
 									<ul class="typeList">
 										<li class="typeContainer">
 											<h6 class="room_type_name"><strong>[` + this.room_type_name + "]</strong> " + this.movie_name + `</h6>
 											<ul class="cinemaRoomList">
-												<li class="roomInfo">
+												<li class="roomInfo" data-timeline_no="` + this.timeline_no + `" data-begin_date="` + this.movie_begin_date.substring(0, 16) + `" data-room_type_code="` + this.room_type_code + `" data-room_no="` + this.room_no + `">
 													<strong class="movie_begin_date">` + this.movie_begin_date.substring(11, 16) + `</strong>
 													<div>73/100</div>
 													<div class="room_name">` + this.room_name + `</div>
@@ -181,9 +181,10 @@ $(function(){ /* 준비 핸들러 */
 	
 	/* 영화 포스터 클릭시 영화 정보 페이지로 이동 (선택된 상태에서 포스터를 클릭해야 작동) */
 	$(".ticketTable").on("click", ".choise .moviePoster", function() {
-		var movieName = $(this).attr("alt");
-		var movieCode = $(this).attr("data-movie_code");
-		var userResult = confirm(movieName + "\"에 대한 영화정보 페이지로 이동하시겠습니까?");
+		var movieName = $(this).children("img").attr("alt");
+		console.log(movieName);
+		var movieCode = $(this).children("img").attr("data-movie_code");
+		var userResult = confirm(movieName + "에 대한 영화정보 페이지로 이동하시겠습니까?");
 		if (userResult) {
 			location.href="http://localhost/movie/movieInfo?movie_code=" + movieCode;
 		}
@@ -199,7 +200,133 @@ $(function(){ /* 준비 핸들러 */
 		
 	});
 	/* 영화목록 리스트 클릭 시 끝 */
-
 	
+	/* 상영스케줄 전체 ~ IMax3D까지 탭 클릭시 */
+	$(".roomTypeNav").on("click", "li[data-room_type_code]", function(){
+		var typeCode = $(this).attr("data-room_type_code");
+		if (typeCode == 00){
+			$(".timelineList li[data-room_type_code]").show();
+		} else {
+			$(".timelineList li[data-room_type_code]").hide();
+			$(".timelineList li[data-room_type_code=" + typeCode + "]").show();
+		}
+	});
+	/* 상영스케줄 전체 ~ IMax3D까지 탭 클릭시 끝 */
+
+	/* 스케줄 클릭 시 좌석 선택으로 넘어가기 */
+	$(".timelineList").on("click", ".roomInfo", function(){
+		var timeline_no = $(this).data("timeline_no");
+		var movieName = $(this).parent("ul").prev("h6").text().substring($(this).parent("ul").prev("h6").text().indexOf("]") + 1).trim();
+		console.log(movieName);
+		var roomTypeCode = $(this).data("room_type_code");
+		console.log(roomTypeCode);
+		var roomNo = $(this).data("room_no");
+		var beginDate = $(this).find(".movie_begin_date").text();
+		var userConfirm = confirm("선택하신 영화는 " + movieName + "이며, \n" + beginDate + "에 시작하는 영화 입니다. \n예매를 계속 진행하시겠습니까?");
+		if (userConfirm) {
+			location.href = "/ticket/ticketingSeat?room_type_code=" + roomTypeCode + "&movie_name=" + movieName + "&movie_begin_date=" + beginDate + "&room_no=" + roomNo + "&timeline_no=" + timeline_no;
+		}
+	}); /* 스케줄 클릭 시 좌석 선택으로 넘어가기 끝 */
+	
+	
+//	---------------------------------------
+	
+	/* 인원 늘리기/줄이기 버튼 */
+	$(".chosiePersonCount").on("click", "button", function(e){
+		var pcnt = $("#pcnt");
+		var pmin = pcnt.attr("min");
+		var pmax = pcnt.attr("max");
+		var nextVal = 0;
+		switch (true) {
+		case e.target.classList.contains("btnPCntSub"):
+			if (pcnt.val() > pmin){
+				nextVal = (parseInt(pcnt.val()) - 1);
+				pcnt.val(nextVal);
+			} else {
+				alert("최소 예약인원은 " + pmin + "명 입니다.");
+			}
+			break;
+		case e.target.classList.contains("btnPCntAdd"):
+			if (pcnt.val() < pmax){
+				nextVal = (parseInt(pcnt.val()) + 1);
+				pcnt.val(nextVal);
+			} else {
+				alert("최대 예약인원은 " + pmax + "명 입니다.");
+			}
+			break;
+		}
+	});
+	/* 인원 늘리기/줄이기 버튼 끝 */
+	
+	/* 인원 값 직접 입력 막기 */
+	$(".chosiePersonCount").on("keydown", "#pcnt", function(e){
+		e.preventDefault();
+	});
+	/* 인원 값 직접 입력 막기 끝 */
+	
+	/* 좌석 클릭 (인원수) */
+	$(".seatTable").on("click", "a", function(){
+		$(".seatTable").find("a").removeClass("choise");
+		var pcntNum = $("#pcnt").val();
+		console.log("pcntNum", pcntNum);
+		for(var i = 0; i < parseInt(pcntNum); i++) {
+			if (i == 0) {
+				$(this).addClass("choise");
+			} else {
+				var lastSeatCount = $(this).parent().nextAll().not($("a.none").parent());
+				console.log(lastSeatCount.length, pcntNum);
+				if (lastSeatCount.length <= pcntNum-2) {
+					$(this).parent().prevAll().not($("a.none").parent()).children("a").eq(i - 1).addClass("choise");
+				} else {
+					$(this).parent().nextAll().not($("a.none").parent()).children("a").eq(i - 1).addClass("choise");
+				}
+			}
+		}
+		
+		// 총 결제 금액 표시하기
+		var totalPrice = $(".totalPoint").find("strong");
+		console.log(totalPrice);
+		var price = totalPrice.data("room_price");
+		console.log(price);
+		
+		totalPrice.text((pcntNum * price).toLocaleString());
+	}); 
+	/* 좌석 클릭 (인원수) 끝 */
+	
+	
+	/* 결제 버튼 클릭 시 */
+	$(".pamentContainer").on("click", ".btnPament", function(){
+		var user_no = $(this).data("userno");
+		var userPoint = $(this).find("#userPoint").text();
+		var timeline_no = $(this).data("timeline_no");
+		var seat_no_el = $(".seatTable").find("a[data-seat_no].choise");
+		var seat_no_list = new Array();
+		$.each(seat_no_el, function(){
+			seat_no_list.push($(this).data("seat_no"));
+		});
+		var totalPrice = $(".totalPoint").find("strong").text().replace(",", "");
+		if ($(".btnPament #userPoint").length == 0){
+			var ticketingConfirm = confirm("로그인이 필요한 페이지 입니다.\n로그인하시겠습니까?");
+			if (ticketingConfirm){
+				location.href = "/user/login_form";
+			}
+		} else {
+			if (parseInt(totalPrice) > 0){
+				if (parseInt(userPoint) >= parseInt(totalPrice)){
+					location.href = "/ticket/pamentTicketing?user_no=" + (user_no) + "&timeline_no=" + (timeline_no) + "&seat_no_list=" + (seat_no_list) + "&room_price=" + (totalPrice);
+				} else {
+					var pointAddConfurm = confirm("포인트가 부족합니다. 포인트를 충전하시겠습니까?");
+					if (pointAddConfurm) {
+						location.href = "/point/charge_point_form?userno=" + user_no;
+					}
+					
+				}
+			} else {
+				alert("좌석을 선택 해주세요");
+			}
+			
+		}
+	});
+	/* 결제 버튼 클릭 시 끝 */
 	
 }); /* 준비 핸들러 끝 */
