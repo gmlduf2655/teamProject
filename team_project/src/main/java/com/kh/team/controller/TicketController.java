@@ -23,6 +23,7 @@ import com.kh.team.service.CinemaService;
 import com.kh.team.service.MovieService;
 import com.kh.team.service.PointService;
 import com.kh.team.service.TicketService;
+import com.kh.team.service.UserService;
 import com.kh.team.util.MapAJaxAdaper;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.MovieVo;
@@ -50,6 +51,9 @@ public class TicketController {
 	
 	@Autowired
 	private PointService pointService; // addPoint
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "/ticketing", method = RequestMethod.GET)
 	public String ticketViewer(Model model) {
@@ -121,7 +125,38 @@ public class TicketController {
 		Map<String, Object> ticketInfo = null;
 		System.out.println("seat_no_list : " + seat_no_list);
 		// 포인트 사용이 완료 되면
-		boolean result = pointService.usingTicketingPoint(user_no, room_price);
+		int point_code = 0;
+		int point = 0;
+		switch(-room_price/seat_no_list.size()) {
+			case PointService.TICKET_DIGITAL_POINT:
+				point_code = PointService.TICKET_DIGITAL;
+				point = PointService.TICKET_DIGITAL_POINT;
+				break;
+			case PointService.TICKET_2D_POINT:
+				point_code = PointService.TICKET_2D;
+				point = PointService.TICKET_DIGITAL_POINT;
+				break;
+			case PointService.TICKET_3D_POINT:
+				point_code = PointService.TICKET_3D;
+				point = PointService.TICKET_DIGITAL_POINT;
+				break;
+			case PointService.TICKET_4D_POINT:
+				point_code = PointService.TICKET_4D;
+				point = PointService.TICKET_DIGITAL_POINT;
+				break;
+			case PointService.TICKET_IMAX_POINT:
+				point_code = PointService.TICKET_IMAX;
+				point = PointService.TICKET_DIGITAL_POINT;
+				break;
+			case PointService.TICKET_IMAX3D_POINT:
+				point_code = PointService.TICKET_IMAX3D;
+				point = PointService.TICKET_DIGITAL_POINT;
+				break;
+		}
+		
+		int userPoint = userService.getUserInfoByUserno(user_no).getPoint();
+		PointVo pointVo = new PointVo(user_no, point, point_code);
+		boolean result = pointService.usingTicketingPoint(pointVo, seat_no_list.size(), userPoint);
 		if (result) {
 			// 좌석 예약
 			result = false;
