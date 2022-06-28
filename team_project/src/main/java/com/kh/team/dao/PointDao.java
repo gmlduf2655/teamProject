@@ -41,4 +41,7 @@ public interface PointDao {
 	public boolean multiDeletePointCode(List<Integer> list);
 	// 유저 포인트 수정
 	public boolean updatePoint(PointVo pointVo);
+	
+	// 조재호 : 영화 예매 포인트 사용
+	public boolean usingPointTicket(int userno, int room_price);
 }

@@ -162,7 +162,7 @@ public class PointController {
 	public String createPointCodeRun(PointVo pointVo, RedirectAttributes redirectAttributes) {
 		boolean result = pointService.addPointCode(pointVo);
 		redirectAttributes.addFlashAttribute("add_result", result + "");
-		return "redirect:/admin/create_point_code?page=1";
+		return "redirect:/admin/manage_point_code?page=1";
 	}
 	
 	// 포인트 코드 수정
@@ -170,7 +170,7 @@ public class PointController {
 	public String updatePointCode(PointVo pointVo, RedirectAttributes redirectAttributes) {
 		boolean result = pointService.updatePointCode(pointVo);
 		redirectAttributes.addFlashAttribute("update_result", result + "");
-		return "redirect:/admin/create_point_code?page=1";		
+		return "redirect:/admin/manage_point_code?page=1";		
 	}
 	
 	// 포인트 코드 삭제
@@ -178,7 +178,7 @@ public class PointController {
 	public String deletePointCode(int point_code, RedirectAttributes redirectAttributes) {
 		boolean result = pointService.deletePointCode(point_code);
 		redirectAttributes.addFlashAttribute("delete_result", result + "");
-		return "redirect:/admin/create_point_code?page=1";		
+		return "redirect:/admin/manage_point_code?page=1";		
 	}
 	
 	// 포인트 코드 다수 삭제

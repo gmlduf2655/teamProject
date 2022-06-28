@@ -46,7 +46,6 @@
 					<h2 class="mb-5" style="margin-top:100px;">결제 실패 하였습니다 </h2>
 				</c:otherwise>
 			</c:choose>
-			<h4 class="mb-3">결제 시간 : ${kakaoApproveData.approved_at}</h4>
 			<fmt:parseDate var="approvedDate" value="${approvedAt}" pattern="yyyyMMddHHmmss"/>
 			<h4 class="mb-3">결제 시간 : <fmt:formatDate value="${approvedDate}" pattern="yyyy년 MM월 dd일 HH시 mm분 ss초" /></h4>
 			<h4 class="mb-3">결제 상품 : ${kakaoApproveData.item_name}</h4>

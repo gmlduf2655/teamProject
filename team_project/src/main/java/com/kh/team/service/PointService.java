@@ -35,4 +35,7 @@ public interface PointService {
 	public boolean multiDeletePointCode(List<Integer> pointCodes);	
 	// 포인트코드 내역 삭제
 	public boolean deletePointCode(int point_code);
+	
+	// 조재호 : 영화 예매 포인트 사용
+	public boolean usingTicketingPoint(int userno, int room_price);
 }

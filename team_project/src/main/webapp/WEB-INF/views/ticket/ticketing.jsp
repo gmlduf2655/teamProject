@@ -15,27 +15,21 @@
 			<div class="col-lg-12">
 				<div class="row no-gutters ticketTable">
 					<div class="col-1 stepGuideContainer">
-						<div id="roomChoiseStep" class="nowStep">
+						<div class="nowStep">
 							<div>
 								01<br>
 								상영시간
 							</div>
 						</div>
-						<div id="roomSeatChoiseStep">  <!-- 테스트용 (선택이 완료된 스탭은 .closeStep 클래스 넣어줘서 표시하는 용) -->
+						<div>  <!-- 테스트용 (선택이 완료된 스탭은 .closeStep 클래스 넣어줘서 표시하는 용) -->
 							<div>
 								02<br>
 								인원/좌석
 							</div>
 						</div>
-						<div id="paymentStep">
+						<div>
 							<div>
 								03<br>
-								결제
-							</div>
-						</div>
-						<div id="pamentSeccessStep">
-							<div>
-								04<br>
 								결제완료
 							</div>
 						</div>
@@ -84,7 +78,9 @@
 							<ul class="stackViewer"> <!-- 클래스명을 stackViewer / gridViewer 로 바꾸면 리스트 형태 변경 -->
 								<c:forEach items="${movieList}" var="movieVo">
 									<li data-movie_code="${movieVo.movie_code}">
-										<img class="moviePoster" alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'" data-movie_code="${movieVo.movie_code}">
+										<div class="moviePoster">
+											<img alt="${movieVo.movie_name}" src="/movie/displayImage?filename=${movieVo.movie_image_name}" onerror="this.src='/resources/images/no_image.jpg'" data-movie_code="${movieVo.movie_code}">
+										</div>
 										<h5>
 											<c:choose>
 												<c:when test="${fn:substring(movieVo.movie_audits, 0, 2) == '전체'}">
@@ -126,7 +122,7 @@
 							</div>
 							<div class="roomTypeNav">
 								<ul class="row no-gutters">
-										<li class="col choise">전체</li>
+										<li data-room_type_code="00" class="col choise">전체</li>
 									<c:forEach items="${roomTypeList}" var="roomTypes">
 										<li data-room_type_code="${roomTypes.room_type_code}" class="col">${roomTypes.room_type_name}</li>
 									</c:forEach>
@@ -141,7 +137,8 @@
 							<ul>
 							
 							
-								<c:forEach begin="0" step="1" end="10">
+<%--
+ 								<c:forEach begin="0" step="1" end="10">
 									<li class="roomListWrapper">
 										<ul class="typeList">
 											<li class="typeContainer">
@@ -164,7 +161,8 @@
 											</li>
 										</ul>
 									</li>
-								</c:forEach>
+ 								</c:forEach>
+ --%>
 								
 								
 								
@@ -181,41 +179,7 @@
 	
 	
 	
-	<!-- 모달 -->
-	<div class="row">
-		<div class="col-md-12">
-			<form>
-				<div class="modal fade" id="modal-container-339736" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-xl" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="myModalLabel">
-									모달 제목
-								</h5>
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								모달창 내용
-							</div>
-							<div class="modal-footer">
-								 
-								<button type="button" id="btnModalSuccess" class="btn btn-primary">
-									완료
-								</button> 
-								<button type="button" id="btnModalCancel" class="btn btn-secondary" data-dismiss="modal">
-									취소
-								</button>
-							</div>
-						</div>
-						
-					</div>
-					
-				</div>
-			</form>
-		</div>
-	</div>
+	
 </div>
 
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>

@@ -148,4 +148,17 @@ public class PointDaoImpl implements PointDao {
 		return false;
 	}
 
+	// 조재호 : 영화 예매 포인트 사용
+	@Override
+	public boolean usingPointTicket(int userno, int room_price) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("userno", userno);
+		parameter.put("room_price", room_price);
+		int count = sqlSession.update(NAMESPACE + "usingPointTicket", parameter);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

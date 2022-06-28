@@ -88,6 +88,43 @@ $(document).ready(function(){
 		frmPaging.submit();
 	});
 	
+	// 유저 정보 보기
+	$(document).on("click", ".move_mypage", function(e){
+		e.preventDefault();
+		var userid = $(".move_mypage").attr("data-writer");
+		userid = userid.trim();
+		// 새로운 탭으로 다른 유저 마이페이지로 이동함
+		$.ajax({
+			type : "post",
+			async : "true",
+			url : "/user/get_userno_by_userid",
+			data : {
+				userid : userid
+			},
+			success : function(rData){
+				var openNewWindow = window.open("about:blank");
+				openNewWindow.location.href = "/mypage/main?userno=" + rData;
+			}
+		});
+	});
+
+	// 유저에게 글쓰기
+	$(document).on("click", ".write_msg", function(e){
+		e.preventDefault();
+		var userid = $(".move_mypage").attr("data-writer");
+		userid = userid.trim();
+		var openNewWindow = window.open("about:blank");
+		openNewWindow.location.href = "/message/write_form?page=1&receiver=" + userid;
+	});
+
+	// 유저 신고
+	$(document).on("click", ".report_btn", function(e){
+		e.preventDefault();
+		var userid = $(".move_mypage").attr("data-writer");
+		userid = userid.trim();
+		var open = window.open("/report/report_user_form?reported_user=" + userid, "신고 하기", "width=600, height=800");
+	});
+	
 });
 </script>
 <!-- 상단 타이틀 -->
@@ -195,7 +232,19 @@ $(document).ready(function(){
 					
 					<tr class="tr_list">
 							<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
-							<th>${reviewVo.review_writer}</th>
+							<th>
+							<div class="dropdown" style="color:white"> ${reviewVo.review_writer}
+							<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" 
+							data-toggle="dropdown" style="color:white;padding-left:3px;">
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index:10">
+								<a class="dropdown-item move_mypage" data-writer="${reviewVo.review_writer}" href="#" >정보보기</a> 
+								<a class="dropdown-item write_msg" href="/message/write_form?page=${param.page}&receiver=${messageVo.receiver}">쪽지쓰기</a>
+								<a class="dropdown-item report_btn" href="#">신고하기</a> 
+							</div>
+						</div>
+							</th>
+							
 <%-- 							<td><a href="/movie/movieInfo?movie_code=${reviewVo.movie_code}" class="movieName" --%>
 <%-- 								style="color: white;">${reviewVo.movie_name}</a></td> --%>
 							<td><a

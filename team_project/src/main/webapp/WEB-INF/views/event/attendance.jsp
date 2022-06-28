@@ -240,6 +240,7 @@ $(document).ready(function(){
 			console.log("rData:", rData);
 			$(".current.today").css("background-color", "rgb(242 242 242)");
 			$("#btnAttend").attr("disabled", "disabled");
+			$("#p").html("오늘은 출석 완료!");
 			getAttendList();
 			
 		});
@@ -273,6 +274,7 @@ $(document).ready(function(){
  		           $(".current.chk").css("background-color", "rgb(242 242 242)");
  		          if ( date == today.getDate() ) {
  		        	 $("#btnAttend").attr("disabled", "disabled");
+ 		        	$("#p").html("오늘은 출석 완료!");
  		          }
  		        }
 				
@@ -290,7 +292,7 @@ $(document).ready(function(){
                 <div class="col-lg-12 text-center">
                     <div class="normal__breadcrumb__text">
                         <h2>출석 체크</h2>
-                        <label style="color: white;">출석체크하면 5포인트 적립!</label>
+                        <label p id="p" style="color: white;">출석체크하면 5포인트 적립!</label>
                     </div>
                 </div>
             </div>
