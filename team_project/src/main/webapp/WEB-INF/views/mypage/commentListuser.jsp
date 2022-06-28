@@ -136,7 +136,14 @@
 											<td>${status.count}</td>
 											<td><a style="color:white"
 												href="/movie/movieInfo?movie_code=${commentVo.movie_code}">${commentVo.movie_name}</a></td>
-											<td>${commentVo.movie_comment}</td>
+											<td>
+												<c:if test="${commentVo.admin_delete=='N'}">
+													${commentVo.movie_comment}
+												</c:if>
+												<c:if test="${commentVo.admin_delete=='Y'}">
+													관리자가 삭제한 댓글입니다.
+												</c:if>
+											</td>
 											<td>${commentVo.regdate}</td>
 										</tr>
 									</c:if>
