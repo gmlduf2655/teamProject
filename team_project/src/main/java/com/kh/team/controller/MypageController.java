@@ -162,12 +162,12 @@ public class MypageController {
 	// 참여 이벤트 페이지 이동
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
 	public String participateEventList(Model model, int userno, PagingDto pagingDto) {
-//		System.out.println("participateEventLis, pagingDto:"+pagingDto);
-//		pagingDto.setCount(eventService.getCount(pagingDto));
-//		pagingDto.setPage(pagingDto.getPage());
-//		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
-//		model.addAttribute("eventList", eventList);
-//		model.addAttribute("pagingDto", pagingDto);
+		System.out.println("participateEventLis, pagingDto:"+pagingDto);
+		pagingDto.setCount(eventService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
+		model.addAttribute("eventList", eventList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list" ;
 	}
 	

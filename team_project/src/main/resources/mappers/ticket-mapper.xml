@@ -45,7 +45,13 @@
 		left outer join tbl_room_seat seat
 		on ticket.seat_no = seat.seat_no
 		left outer join tbl_movie movie
-		on ticket.
+		on timeline.movie_code = movie.movie_code
+		left outer join tbl_room_type type
+		on timeline.room_type_code = type.room_type_code
+		left outer join tbl_cinema cinema
+		on timeline.cinema_no = cinema.cinema_no
+		left outer join tbl_cinema_room room
+		on timeline.room_no = room.room_no
 		<choose>
 			<when test="search_column == 'room_no'">
 				where timeline.timeline_no in (
