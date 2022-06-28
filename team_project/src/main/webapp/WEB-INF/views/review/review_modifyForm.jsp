@@ -36,13 +36,6 @@ $(function(){
 		$("input[name=review_star]").val(starNum);
 	});
 });
-
-var insert_result = "${insert_result}";
-
-if (insert_result == "true"){
-	alert("리뷰 작성 완료");
-}
-
 </script>
 
 

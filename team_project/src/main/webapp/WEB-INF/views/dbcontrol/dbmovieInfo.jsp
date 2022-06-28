@@ -25,10 +25,16 @@
 <script type="text/javascript">
 $(function(){
 	var db_updatedetail_result = "${db_updatedetail_result}";
+	var db_insert_result = "${db_insert_result}";
 	if(db_updatedetail_result == "true"){
 		alert("DB 수정 완료");
 	} else if (db_updatedetail_result == "false"){
 		alert("DB 수정 실패");
+	}
+	if(db_insert_result == "true"){
+		alert("DB 저장 완료");
+	} else if (db_insert_result == "false"){
+		alert("DB 저장 실패");
 	}
 	//db 수정 disabled 해제
 	$("#btnattrAble").click(function(){

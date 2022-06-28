@@ -101,6 +101,9 @@ $(function(){
 							style="width: 300px;display:inline-block; margin: 3px;">
 				<a type="button" class="btn btn-outline-primary"
 						id="btndbSearch" style="margin-bottom: 5px;">우리서버 영화 검색</a>
+				<a type="button" class="btn btn-outline-success"
+						id="btndbInsert" onclick="window.open('/dbcontrol/dbmovieinsert','', 'width=800, height=800')"
+						style="margin-bottom: 5px; float: right;">우리서버 영화 등록</a>
 			</div>
 			
 		</div>
