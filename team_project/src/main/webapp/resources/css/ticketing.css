@@ -722,3 +722,49 @@ input.form-control.dateMM, input.form-control.dateDD {
 .ticketing .choiseSeatContainer .form-control {
 	border: 1px solid #6c757d;
 }
+
+
+
+
+
+
+
+
+/*-------------------------------------------------------*/
+
+.ticketing .successContainer {
+	background: #333;
+}
+
+.ticketing .successContainer .ticketCard {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.ticketing .successContainer .ticketCard > div {
+	background: #fff;
+	border-radius: 1em;
+	padding: 1em 2em;
+	overflow: hidden;
+	position: relative;
+}
+
+.ticketing .successContainer .ticketCard .ticketHeader > .movieName {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.ticketing .successContainer .ticketCard .ticketHeader > .ticketAddress {
+	color: #999;
+}
+
+.ticketing .successContainer .ticketCard .ticketHeader > .ticketSeat {
+	display: inline-block;
+	padding: 0.2em 1em;
+	background: cyan;
+	font-weight: bold;
+	margin-top: 1em;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
