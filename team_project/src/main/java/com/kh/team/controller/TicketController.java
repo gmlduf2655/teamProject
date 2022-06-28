@@ -127,6 +127,7 @@ public class TicketController {
 		// 포인트 사용이 완료 되면
 		int point_code = 0;
 		int point = 0;
+		System.out.println(-room_price/seat_no_list.size());
 		switch(-room_price/seat_no_list.size()) {
 			case PointService.TICKET_DIGITAL_POINT:
 				point_code = PointService.TICKET_DIGITAL;

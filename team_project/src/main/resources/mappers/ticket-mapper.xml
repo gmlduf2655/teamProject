@@ -88,6 +88,7 @@
 		    tbl_room_type e, tbl_cinema_room f, tbl_movie g
 		where 
 		    a.timeline_no = b.timeline_no 
+		    and a.seat_no = d.seat_no
 		    and b.cinema_no = c.cinema_no
 		    and b.room_no = d.room_no 
 		    and b.room_type_code = e.room_type_code
@@ -112,6 +113,7 @@
 			tbl_room_type e, tbl_cinema_room f, tbl_movie g
 		where 
 			a.timeline_no = b.timeline_no 
+			and a.seat_no = d.seat_no
 			and b.cinema_no = c.cinema_no
 			and b.room_no = d.room_no 
 			and b.room_type_code = e.room_type_code
@@ -136,6 +138,7 @@
 			tbl_room_type e, tbl_cinema_room f, tbl_movie g
 		where 
 			a.timeline_no = b.timeline_no
+			and a.seat_no = d.seat_no
 			and b.cinema_no = c.cinema_no
 			and b.room_no = d.room_no 
 			and b.room_type_code = e.room_type_code
