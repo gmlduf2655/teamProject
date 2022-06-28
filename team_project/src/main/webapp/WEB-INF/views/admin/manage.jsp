@@ -84,7 +84,7 @@ section.product {
 				data: {
 					labels: movie_genre,
 					datasets : [{
-						label: "Sales",
+						label: "영화 수",
 						backgroundColor: 'rgb(23, 125, 255)',
 						borderColor: 'rgb(23, 125, 255)',
 						data: movie_genre_count,
