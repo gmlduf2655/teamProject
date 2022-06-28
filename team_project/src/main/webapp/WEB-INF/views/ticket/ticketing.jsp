@@ -15,27 +15,21 @@
 			<div class="col-lg-12">
 				<div class="row no-gutters ticketTable">
 					<div class="col-1 stepGuideContainer">
-						<div id="roomChoiseStep" class="nowStep">
+						<div class="nowStep">
 							<div>
 								01<br>
 								상영시간
 							</div>
 						</div>
-						<div id="roomSeatChoiseStep">  <!-- 테스트용 (선택이 완료된 스탭은 .closeStep 클래스 넣어줘서 표시하는 용) -->
+						<div>  <!-- 테스트용 (선택이 완료된 스탭은 .closeStep 클래스 넣어줘서 표시하는 용) -->
 							<div>
 								02<br>
 								인원/좌석
 							</div>
 						</div>
-						<div id="paymentStep">
+						<div>
 							<div>
 								03<br>
-								결제
-							</div>
-						</div>
-						<div id="pamentSeccessStep">
-							<div>
-								04<br>
 								결제완료
 							</div>
 						</div>

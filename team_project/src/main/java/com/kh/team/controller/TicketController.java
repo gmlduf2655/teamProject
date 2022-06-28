@@ -1,29 +1,36 @@
 package com.kh.team.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.dao.GetServerTimeDao;
 import com.kh.team.service.CinemaService;
 import com.kh.team.service.MovieService;
+import com.kh.team.service.PointService;
 import com.kh.team.service.TicketService;
 import com.kh.team.util.MapAJaxAdaper;
 import com.kh.team.vo.CinemaVo;
 import com.kh.team.vo.MovieVo;
+import com.kh.team.vo.PointVo;
+import com.kh.team.vo.RoomSeatVo;
 import com.kh.team.vo.RoomTypeVo;
+import com.kh.team.vo.TicketVo;
+import com.kh.team.vo.UserVo;
 
 @Controller
 @RequestMapping(value = "/ticket")
@@ -40,6 +47,9 @@ public class TicketController {
 	
 	@Autowired
 	private MovieService movieService;
+	
+	@Autowired
+	private PointService pointService; // addPoint
 	
 	@RequestMapping(value = "/ticketing", method = RequestMethod.GET)
 	public String ticketViewer(Model model) {
@@ -65,10 +75,19 @@ public class TicketController {
 	}
 	
 	@RequestMapping(value = "/ticketingSeat", method = RequestMethod.GET)
-	public String ticketingSeat(String room_type_code, String room_name, String movie_begin_date, Model model) {
-		model.addAttribute("room_type_code", room_type_code);
-		model.addAttribute("room_name", room_name);
-		model.addAttribute("movie_begin_date", movie_begin_date);
+	public String ticketingSeat(int room_no, int timeline_no, Model model, HttpSession session, HttpServletRequest request) {
+		UserVo userVo = (UserVo) session.getAttribute("loginUserVo");
+		if (userVo == null) {
+			String uri = request.getRequestURI();
+			String query = request.getQueryString();
+			
+			String locationTarget = uri + "?" + query;
+			session.setAttribute("locationTarget", locationTarget);
+		}
+		Map<String, Object> timelineMap = cinemaService.getRoomTimeline(timeline_no);
+		List<RoomSeatVo> seatList = cinemaService.getRoomSeatList(room_no);
+		model.addAttribute("seatList", seatList);
+		model.addAttribute("timelineMap", timelineMap);
 		return "ticket/ticketingSeat";
 	}
 	
@@ -87,6 +106,40 @@ public class TicketController {
 		timelineList = MapAJaxAdaper.returnAdapter(timelineList);
 		
 		return timelineList;
+	}
+	
+	
+	@Transactional
+	@RequestMapping(value = "/pamentTicketing", method = RequestMethod.GET)
+	public String pamentTicketing(
+			int user_no, 
+			int timeline_no, 
+//			String seat_no_list, 
+			@RequestParam(value = "seat_no_list", required=false, defaultValue="") List<Integer> seat_no_list, 
+			int room_price, 
+			Model model) throws ParseException {
+		Map<String, Object> ticketInfo = null;
+		System.out.println("seat_no_list : " + seat_no_list);
+		// 포인트 사용이 완료 되면
+		boolean result = pointService.usingTicketingPoint(user_no, room_price);
+		if (result) {
+			// 좌석 예약
+			result = false;
+			for (Integer seat_no : seat_no_list) {
+				TicketVo ticketVo = new TicketVo(user_no, timeline_no, seat_no, true);
+				result = ticketService.createTicket(ticketVo);
+			}
+			if (result) {
+				List<Map<String, Object>> ticketList = ticketService.getTicketList("user_no", user_no, "ticket_regdate", "desc");
+				ticketInfo = ticketList.get(ticketList.size() - 1);
+				ticketInfo = MapAJaxAdaper.returnAdapter(ticketInfo);
+			}
+			// 예약 한 뒤 타임 스케줄 좌석 예약 상태 변경
+			
+			model.addAttribute("ticketInfo", ticketInfo);
+		}
+		
+		return "ticket/ticketingSuccess";
 	}
 	
 }

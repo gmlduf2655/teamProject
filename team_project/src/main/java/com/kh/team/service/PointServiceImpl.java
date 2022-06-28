@@ -120,4 +120,11 @@ public class PointServiceImpl implements PointService {
 		return result;
 	}
 
+	// 조재호 : 영화 예매 포인트 사용
+	@Override
+	public boolean usingTicketingPoint(int userno, int room_price) {
+		boolean result = pointDao.usingPointTicket(userno, room_price);
+		return result;
+	}
+
 }

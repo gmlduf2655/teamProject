@@ -71,6 +71,8 @@
 			<mapping path="/mypage/change_password_form"/>
 			<mapping path="/mypage/unregister_form"/>
 			<mapping path="/mypage/userinfo"/>
+			<!-- 조재호 : 예매할때 로그인창으로 이동 -->
+			<mapping path="/ticket/pamentTicketing"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
 		<!-- 방문자수 증가 및 확인을 위한 인터셉터 -->

@@ -203,4 +203,11 @@
 			point = point + #{point}
 		where userno = #{userno}
 	</update>
+	
+	<!-- 조재호 : 영화 예매 포인트 사용 -->
+	<update id="usingPointTicket">
+		update tbl_user set
+			point = point - #{room_price}
+		where userno = ${userno}
+	</update>
 </mapper>

@@ -137,8 +137,8 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getRoomTimelineList(int room_no, String order_column, String order_type) {
-		List<Map<String, Object>> roomTimelineList = roomtimelineDao.selectRoomTimelineList(room_no, order_column, order_type);
+	public List<Map<String, Object>> getRoomTimelineList(int cinema_no, String order_column, String order_type) {
+		List<Map<String, Object>> roomTimelineList = roomtimelineDao.selectRoomTimelineList(cinema_no, order_column, order_type);
 		return roomTimelineList;
 	}
 
