@@ -69,7 +69,8 @@ $(document).ready(function(){
 		success: function(data) {
 			console.log("data" , data);
 			var rdata = data.movieInfoResult.movieInfo;
-			console.log(rdata.movieCd);
+			console.log(rdata.directors.length);
+			console.log(rdata.companys.length);
 			$("#movieprevget").attr("href","https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=영화+"+rdata.movieNm);
 			$("#movieprevget").removeAttr("style");
 			var apilist = `
@@ -81,6 +82,7 @@ $(document).ready(function(){
 				<span>개봉날짜:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='opening_date' value='` + rdata.openDt +`'><br>
 				<span>제작회사:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='made_company' value='` + rdata.companys[0].companyNm +`'><br>
 				<span>제작국가:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='made_country' value='` + rdata.nations[0].nationNm +`'><br>
+				<span>영화감독:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_director' value='` + rdata.directors[0].peopleNm +`'><br>
 				<span>영화감독:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_director' value='` + rdata.directors[0].peopleNm +`'><br>
 				<span>영화장르:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_genre' value='` + rdata.genres[0].genreNm +`'><br>
 				<span>영화배우:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_actors' value='` + rdata.actors[0].peopleNm +`'><br>

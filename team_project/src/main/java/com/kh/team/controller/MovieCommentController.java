@@ -28,8 +28,6 @@ public class MovieCommentController {
 		return String.valueOf(result);
 	}
 	
-	
-	
 	@RequestMapping(value= "/commentList", method= RequestMethod.GET)
 	@ResponseBody
 	public List<MovieCommentVo> commentList(String movie_code, int startRow) {
@@ -55,6 +53,12 @@ public class MovieCommentController {
 	public String commentDelete(int cno) {
 		boolean result = commentService.commentDelete(cno);
 		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value= "/commentListuser", method= RequestMethod.GET)
+	public List<MovieCommentVo> commentListuser(String userid) {
+		List<MovieCommentVo> commentlistuser = commentService.commentListuser(userid);
+		return commentlistuser;
 	}
 	
 }
