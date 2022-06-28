@@ -60,13 +60,10 @@ $(function(){
 		$.get(url, sData, function(rData){
 			var that = rData;
 
-			
-			
 			$.each(rData, function(){
-				
 				$("#modalTable").attr("style", "text-align: center");
 				$("#modalTable").append("<tr><td>'" + this.movie_name + "'</td><td><button class='btn btn-sm btn-info' data-mcode='" + this.movie_code + "'data-iname='" +this.movie_image_name+"'data-mname='"+this.movie_name+"'id='modalChoiceMovie'>선택</button></td></tr>");
-				
+			
 			});
 		});
 		
@@ -150,37 +147,19 @@ $(function(){
 						</tr>
 						</thead>
 						<tbody>
+						
 						<tr>
 							<td></td>
 							<td></td>
 						</tr>
+						
 						</tbody>
 						</table>
 						</div>
 						
 						<div class="row">
 		
-		<div class="col-md-12">
-		<br>
-				<table class="table" style="display: none;" >
-					<thead>
-						<tr>
-							<th>no</th>
-							<th>영화제목</th>
-							<th>선택</th> 
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${movieList}" var="movieVo" varStatus="status">
-							<tr>
-								<td>${status.count}</td>
-								<td>${movieVo.movie_name}</td>
-								<td><button class="btn btn-sm btn-info">선택</button></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+		
 		
 </div>
 						<div class="modal-footer">
