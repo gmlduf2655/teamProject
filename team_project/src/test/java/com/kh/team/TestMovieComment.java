@@ -30,7 +30,7 @@ public class TestMovieComment {
 	@Test
 	public void testcommentListuser() {
 		String userid = "user01";
-		List<MovieCommentVo> movieCommentList = movieCommentDao.commentListuser(userid);
+		List<MovieCommentVo> movieCommentList = movieCommentDao.commentListuser(userid,1,5);
 		System.out.println("commentList, result : " + movieCommentList);
 	}
 	

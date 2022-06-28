@@ -86,7 +86,8 @@ public class MypageController {
 		
 		List<TicketUserVo> ticketUserList = ticketService.getTicketUserList(userno);
 		//유저의 영화 코멘트 리스트
-		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userVo.getUserid());
+		List<MovieCommentVo> commentlistuser = 
+					moviecommentService.commentListuser(userVo.getUserid(),1,5);
 		
 		
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
@@ -222,7 +223,7 @@ public class MypageController {
 	// 내가 쓴 댓글 내역 페이지 이동
 	@RequestMapping(value="/commentListuser", method=RequestMethod.GET)
 	public String commentListuser(Model model, String userid) {
-		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userid);
+		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userid,1,5);
 		model.addAttribute("commentlistuser", commentlistuser);
 	//	model.addAttribute("pagingDto", pagingDto);
 		return "mypage/commentListuser";
