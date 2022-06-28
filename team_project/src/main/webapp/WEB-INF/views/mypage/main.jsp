@@ -479,7 +479,7 @@
 				<!-- 유저 참여 이벤트 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
-						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">이벤트 참여 내역</a></h3>
+						<h3 class="mb-4">이벤트 참여 내역</h3>
 						<table class="table" style="color:white;">
 				    		<thead>
 				    			<tr>
