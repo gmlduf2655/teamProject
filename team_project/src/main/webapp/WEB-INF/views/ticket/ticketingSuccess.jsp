@@ -49,7 +49,7 @@
 									<div class="ticketBody">
 										<div class="ticketDate">${fn:substring(ticketInfo.movie_begin_date, 5, 10)}</div>
 										<div class="ticketTime"><strong id="movieStartTime">${fn:substring(ticketInfo.movie_begin_date, 11, 16)}</strong> ~ ${fn:substring(ticketInfo.movie_finish_date, 11, 16)}</div>
-										<ul>
+										<ul> 
 											<li>
 												극장 이용 시 마스크 착용은 필수입니다. (미착용 시 입장 제한)
 												입장 지연에 따른 관람 불편을 최소화하기 위해 본 영화는 10분 후 상영이 시작됩니다.
