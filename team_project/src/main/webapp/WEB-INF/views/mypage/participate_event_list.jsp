@@ -93,7 +93,7 @@
 			});
 		});
     </script>
-
+    
     <!-- 포인트 내역을 보여주는 부분 -->
     <section class="login spad">
     	<div class="row">

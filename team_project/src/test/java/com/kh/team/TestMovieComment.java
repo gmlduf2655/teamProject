@@ -28,9 +28,9 @@ public class TestMovieComment {
 	}
 	
 	@Test
-	public void testcommentList() {
-		String movie_code = "20204548";
-		List<MovieCommentVo> movieCommentList = movieCommentDao.commentList(movie_code);
+	public void testcommentListuser() {
+		String userid = "user01";
+		List<MovieCommentVo> movieCommentList = movieCommentDao.commentListuser(userid);
 		System.out.println("commentList, result : " + movieCommentList);
 	}
 	

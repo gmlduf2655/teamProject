@@ -68,8 +68,8 @@
 		});
     });
     </script>
-
-    <!-- 리뷰 내역을 보여주는 부분 -->
+ 
+    <!-- 댓글 내역을 보여주는 부분 -->
     <section>
     	<div class="row">
         	<div class="col-md-2" style="color:white;margin-left: 80px;">
@@ -79,7 +79,7 @@
         		<!-- nav 부분 -->
 				<nav class="row mb-4" >
 					<div class="col-md-4">
-						<h3>리뷰 내역</h3>
+						<h3>댓글 내역</h3>
 					</div>
 					<div class="col-md-3"></div>
 					<div class="col-md-1" style="display:flex;justify-content: flex-end;">
@@ -117,93 +117,46 @@
 					</div>
 				</nav>
 				<!-- nav 부분 끝-->
-				<!-- 리뷰 내역 테이블 부분 -->
+				<!-- 댓글 내역 테이블 부분 -->
 	    		<div class="row">
 	               	<div class="col-lg-12 ">
 				    	<table class="table" style="color:white;">
-				    		<thead>
-				    			<tr>
+					    	<thead>
+					    		<tr>
 									<th>번호</th>
-									<th>작성자</th>
-									<th>제목</th>
-									<th>평점</th>
+									<th>영화</th>
+									<th>댓글</th>
 									<th>작성일</th>
-									<th>조회수</th>	   				
-				    			</tr>
-				    		</thead>
-				    		<tbody>
-								<c:forEach var="reviewVo" items="${reviewList}">
-									<tr>
-										<td class="td_list" data-rno="${reviewVo.review_no}">${reviewVo.review_no}</td>
-										<td>${reviewVo.review_writer}</td>
-										<td><a style="color:white"
-											href="/review/review_read?review_no=${reviewVo.review_no}">${reviewVo.review_title}</a></td>
-										<td>
-											<span class="fa fa-star
-												<c:if test="${reviewVo.review_star >= 1}">checked</c:if>
-											"></span>
-											<span class="fa fa-star
-												<c:if test="${reviewVo.review_star >= 2}">checked</c:if>
-											"></span>
-											<span class="fa fa-star
-												<c:if test="${reviewVo.review_star >= 3}">checked</c:if>
-											"></span>
-											<span class="fa fa-star
-												<c:if test="${reviewVo.review_star >= 4}">checked</c:if>
-											"></span>
-											<span class="fa fa-star
-												<c:if test="${reviewVo.review_star >= 5}">checked</c:if>
-											"></span>
-										</td>
-										
-										<td>${reviewVo.review_reg_date}</td>
-										<td>${reviewVo.review_viewcnt}</td>
-									</tr>
+					   			</tr>
+					   		</thead>
+					   		<tbody>
+								<c:forEach var="commentVo" items="${commentlistuser}" varStatus="status">
+									<c:if test="${status.index < 5}">
+										<tr>
+											<td>${status.count}</td>
+											<td><a style="color:white"
+												href="/movie/movieInfo?movie_code=${commentVo.movie_code}">${commentVo.movie_name}</a></td>
+											<td>
+												<c:if test="${commentVo.admin_delete=='N'}">
+													${commentVo.movie_comment}
+												</c:if>
+												<c:if test="${commentVo.admin_delete=='Y'}">
+													관리자가 삭제한 댓글입니다.
+												</c:if>
+											</td>
+											<td>${commentVo.regdate}</td>
+										</tr>
+									</c:if>
 								</c:forEach>
 							</tbody>
-				    	</table>
+					    </table>
 	    	    	</div>
 	            </div>
-	            <!-- 리뷰 내역 테이블 부분 끝-->
+	            <!-- 댓글 내역 테이블 부분 끝-->
 	            
-				<!-- 글 목록 페이징 부분-->
-				<div class="row mb-3">
-					<div class="col-md-12">
-						<nav>
-							<ul class="pagination justify-content-center" id="pagination">
-								<c:if test="${pagingDto.startPage > 1}">
-									<li class="page-item"><a class="page-link move_page"
-										href="/mypage/write_review_list?userno=${param.userno}page=1&searchType=${param.searchType}&keyword=${param.keyword}">처음으로</a></li>
-									<li class="page-item"><a class="page-link move_page"
-										href="/mypage/write_review_list?userno=${param.userno}page=${pagigDto.startPage-1}&searchType=${param.searchType}&keyword=${param.keyword}">이전</a></li>
-								</c:if>
-								<c:forEach var="i" begin="${pagingDto.startPage}"
-									end="${pagingDto.endPage}">
-									<li
-										<c:choose>
-											<c:when test="${i == pagingDto.page}">
-												class="page-item active"
-											</c:when>
-											<c:otherwise>
-												class="page-item"		
-											</c:otherwise>
-										</c:choose>>
-										<a class="page-link move_page" href="/mypage/write_review_list?userno=${param.userno}&page=${i}&searchType=${param.searchType}&keyword=${param.keyword}">${i}</a>
-									</li>
-								</c:forEach>
-								<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
-									<li class="page-item"><a class="page-link move_page"
-										href="/mypage/write_review_list?userno=${param.userno}page=${pagigDto.endPage+1}&searchType=${param.searchType}&keyword=${param.keyword}">다음</a></li>
-									<li class="page-item"><a class="page-link move_page"
-										href="/mypage/write_review_list?userno=${param.userno}page=${pagigDto.totalPage}&searchType=${param.searchType}&keyword=${param.keyword}">마지막으로</a></li>
-								</c:if>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- 글 목록 페이징 부분 끝 -->
+				
 		        <div style="text-align:center;">
-			        <a href="/mypage/main?userno=${param.userno}" class="site-btn">마이페이지로</a>
+			        <a onClick="history.go(-1)" style="cursor: pointer; color: white;" class="site-btn">마이페이지로</a>
 		        </div>
         	</div>
         	<div class="col-md-2"></div>

@@ -163,7 +163,7 @@ public class MovieDBController {
 				String movie_image_name = MovieFileUploader.fileUpload(ROOTADDRESS, originalFilename, file.getBytes());
 				movieVo.setMovie_image_name(movie_image_name);
 				boolean result = service.insertMovie(movieVo);
-				rttr.addFlashAttribute("db_save_result", result);
+				rttr.addFlashAttribute("db_insert_result", result);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -195,20 +195,7 @@
 		}); //$(document).ready
     </script>
     
-    <!-- 제목 부분 -->
-<!--     <section class="normal-breadcrumb set-bg" data-setbg="/resources/images/img/normal-breadcrumb.jpg"> -->
-<!--     <section class="normal-breadcrumb" style="background-color:#0b0c2a;"> -->
-<!--         <div class="container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-12 text-center"> -->
-<!--                     <div class="normal__breadcrumb__text" > -->
-<!--                         <h2>마이페이지</h2> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </section> -->
-    <!-- 제목 부분 -->
+
 
     <!-- 마이페이지 부분 -->
     <section>
@@ -374,6 +361,49 @@
 	            	</div>
 	            </div>
 	            <!-- 유저  좋아요 누른 영화 부분 끝-->
+	            <hr>
+	            <!-- 유저 영화 댓글 부분 -->
+	            <div class="row d-flex justify-content-center">
+	                <div class="col-lg-12">
+						<h3 class="mb-4">내가 작성한 댓글</h3>
+		            	<table class="table" style="color:white;">
+					    	<thead>
+					    		<tr>
+									<th>번호</th>
+									<th>영화</th>
+									<th>댓글</th>
+									<th>작성일</th>
+					   			</tr>
+					   		</thead>
+					   		<tbody>
+								<c:forEach var="commentVo" items="${commentlistuser}" varStatus="status">
+									<c:if test="${status.index < 5}">
+										<tr>
+											<td>${status.count}</td>
+											<td><a style="color:white"
+												href="/movie/movieInfo?movie_code=${commentVo.movie_code}">${commentVo.movie_name}</a></td>
+											<td>
+												<c:if test="${commentVo.admin_delete=='N'}">
+													${commentVo.movie_comment}
+												</c:if>
+												<c:if test="${commentVo.admin_delete=='Y'}">
+													관리자가 삭제한 댓글입니다.
+												</c:if>
+											</td>
+											<td>${commentVo.regdate}</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</tbody>
+					    </table>
+	            	</div>
+					<div class="row">
+			            <div class="col-lg-12" style="text-align:center;">
+				            <a class="site-btn" href="/mypage/commentListuser?userid=${userVo.userid}">더보기</a>
+			            </div>
+		            </div>	            	
+	            </div>
+	            <!-- 유저 영화 댓글 부분 끝 -->
 	            <hr>
 	            <!-- 유저 영화 리뷰 부분 -->
 	            <div class="row d-flex justify-content-center">
