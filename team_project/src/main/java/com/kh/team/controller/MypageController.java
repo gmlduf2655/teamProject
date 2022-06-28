@@ -86,7 +86,8 @@ public class MypageController {
 		
 		List<TicketUserVo> ticketUserList = ticketService.getTicketUserList(userno);
 		//유저의 영화 코멘트 리스트
-		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userVo.getUserid());
+		List<MovieCommentVo> commentlistuser = 
+					moviecommentService.commentListuser(userVo.getUserid(),1,5);
 		
 		
 		// pagingDto로 이벤트 목록 얻어옴 (페이지는 1페이지로 가정)
@@ -161,12 +162,12 @@ public class MypageController {
 	// 참여 이벤트 페이지 이동
 	@RequestMapping(value="/participate_event_list", method=RequestMethod.GET)
 	public String participateEventList(Model model, int userno, PagingDto pagingDto) {
-//		System.out.println("participateEventLis, pagingDto:"+pagingDto);
-//		pagingDto.setCount(eventService.getCount(pagingDto));
-//		pagingDto.setPage(pagingDto.getPage());
-//		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
-//		model.addAttribute("eventList", eventList);
-//		model.addAttribute("pagingDto", pagingDto);
+		System.out.println("participateEventLis, pagingDto:"+pagingDto);
+		pagingDto.setCount(eventService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
+		List<ParticipateEventVo> eventList = participateEventService.myList(userno, pagingDto);
+		model.addAttribute("eventList", eventList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "mypage/participate_event_list" ;
 	}
 	
@@ -222,7 +223,7 @@ public class MypageController {
 	// 내가 쓴 댓글 내역 페이지 이동
 	@RequestMapping(value="/commentListuser", method=RequestMethod.GET)
 	public String commentListuser(Model model, String userid) {
-		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userid);
+		List<MovieCommentVo> commentlistuser = moviecommentService.commentListuser(userid,1,5);
 		model.addAttribute("commentlistuser", commentlistuser);
 	//	model.addAttribute("pagingDto", pagingDto);
 		return "mypage/commentListuser";

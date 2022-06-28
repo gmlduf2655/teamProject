@@ -28,8 +28,12 @@ public class MovieCommentDaoImpl implements MovieCommentDao {
 	}
 
 	@Override
-	public List<MovieCommentVo> commentListuser(String userid) {
-		List<MovieCommentVo> commentlistuser = sqlSession.selectList(NAMESPACE + "commentListuser",userid);
+	public List<MovieCommentVo> commentListuser(String userid,int startRow, int endRow) {
+		Map<String, Object> parameter = new HashMap<>();
+		parameter.put("userid", userid);
+		parameter.put("startRow", startRow);
+		parameter.put("endRow", endRow);
+		List<MovieCommentVo> commentlistuser = sqlSession.selectList(NAMESPACE + "commentListuser",parameter);
 		return commentlistuser;
 	} 
 

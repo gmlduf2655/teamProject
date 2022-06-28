@@ -22,8 +22,8 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 	}
 
 	@Override
-	public List<MovieCommentVo> commentListuser(String userid) {
-		List<MovieCommentVo> commentlistuser = commentDao.commentListuser(userid);
+	public List<MovieCommentVo> commentListuser(String userid,int startRow, int endRow) {
+		List<MovieCommentVo> commentlistuser = commentDao.commentListuser(userid,startRow,endRow);
 		return commentlistuser;
 	}
 

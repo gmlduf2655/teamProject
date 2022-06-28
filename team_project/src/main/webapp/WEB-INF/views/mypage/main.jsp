@@ -341,8 +341,12 @@
 									</div>
 									<div class="product__item__text">
 										<ul>
-											<li>${movieVo.movie_genre}</li>
-											<li>${movieVo.movie_audits}</li>
+											<li>
+												<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=${movieVo.movie_genre}">#${movieVo.movie_genre}</a>
+											</li>
+											<li>
+												<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${movieVo.movie_actors}">#${movieVo.movie_actors}</a>
+											</li>
 										</ul>
 										<h5>
 											<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
@@ -475,7 +479,7 @@
 				<!-- 유저 참여 이벤트 부분 -->
 	            <div class="row d-flex justify-content-center">
 	                <div class="col-lg-12">
-						<h3 class="mb-4" ><a href="/point/point_list?userno=1&userid=user01" style="color:white;">이벤트 참여 내역</a></h3>
+						<h3 class="mb-4">이벤트 참여 내역</h3>
 						<table class="table" style="color:white;">
 				    		<thead>
 				    			<tr>

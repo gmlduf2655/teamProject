@@ -427,7 +427,7 @@
 									<input style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1" type="text" readonly="readonly" >
 								    <i class="bi bi-house-fill input_icon"></i>
 								    <button type="button" class="site-btn ml-4"  id="find_address" style="color:white">
-								    	<i class="fa fa-search" style="position:static"></i> 우편번호 찾기
+								    	<i class="fa fa-search" style="position:static"></i> 주소 찾기
 								    </button>                               
 								</div>
 								<div class="input__item">

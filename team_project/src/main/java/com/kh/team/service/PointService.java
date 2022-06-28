@@ -7,7 +7,20 @@ import com.kh.team.vo.PointVo;
 
 public interface PointService {
 	public final int SEND_MESSAGE = 1001;
+	public final int TICKET_DIGITAL = 1010;
+	public final int TICKET_2D = 1011;
+	public final int TICKET_3D = 1012;
+	public final int TICKET_4D = 1013;
+	public final int TICKET_IMAX = 1014;
+	public final int TICKET_IMAX3D = 1015;
+	
 	public final int SEND_MESSAGE_POINT = 10;
+	public final int TICKET_DIGITAL_POINT = -4500;
+	public final int TICKET_2D_POINT = -5000;
+	public final int TICKET_3D_POINT = -5500;
+	public final int TICKET_4D_POINT = -6000;
+	public final int TICKET_IMAX_POINT = -7000;
+	public final int TICKET_IMAX3D_POINT = -8000;
 	
 	// 포인트 내역 추가
 	public boolean addPoint(PointVo pointVo);
@@ -37,5 +50,5 @@ public interface PointService {
 	public boolean deletePointCode(int point_code);
 	
 	// 조재호 : 영화 예매 포인트 사용
-	public boolean usingTicketingPoint(int userno, int room_price);
+	public boolean usingTicketingPoint(PointVo pointVo, int size, int userPoint);
 }

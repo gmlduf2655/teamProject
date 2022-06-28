@@ -361,7 +361,6 @@ ${loginUserVo.userid}
 //댓글 불러오기
 function getCommentList(){
 	
-	//try
 	var startRow = $(".anime__review__item__text").length;
 	var movie_code = "${movieVo.movie_code}";
 	$.ajax({
