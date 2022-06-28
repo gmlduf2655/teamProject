@@ -42,14 +42,19 @@
 		select * from tbl_ticket ticket
 		left outer join tbl_room_timeline timeline
 		on ticket.timeline_no = timeline.timeline_no
+		
 		left outer join tbl_room_seat seat
 		on ticket.seat_no = seat.seat_no
+		
 		left outer join tbl_movie movie
 		on timeline.movie_code = movie.movie_code
+		
 		left outer join tbl_room_type type
 		on timeline.room_type_code = type.room_type_code
+		
 		left outer join tbl_cinema cinema
 		on timeline.cinema_no = cinema.cinema_no
+		
 		left outer join tbl_cinema_room room
 		on timeline.room_no = room.room_no
 		<choose>
