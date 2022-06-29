@@ -135,8 +135,10 @@
 	    	<!-- 비밀번호 변경 부분 -->
     		<div class="col-md-7" >
     			<div class="row">
-	    			<div class="col-md-3"></div>
+	    			<div class="col-md-3">
+	    			</div>
 	    			<div class="col-md-6">
+			    		<h2 class="text-white mb-5">비밀번호 변경</h2>
 						<div id="check_pw">
 							<h3 class="mb-4">기존 비밀번호 확인</h3>
 		                    <input class="form-control mt-4 mb-3" type="password" placeholder="비밀번호" name="userpw" id="userpw">

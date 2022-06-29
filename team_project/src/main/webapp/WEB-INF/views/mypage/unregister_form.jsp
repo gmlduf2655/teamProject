@@ -78,6 +78,7 @@
 				<div class="row">
 					<div class="col-md-3"></div>
 					<div class="col-md-6">
+			    		<h2 class="text-white mb-5">회원 탈퇴</h2>
 						<div id="check_pw">
 							<h3 class="mb-4">비밀번호 확인</h3>
 		                    <input class="form-control mt-4 mb-3" type="password" placeholder="비밀번호" name="userpw" id="userpw">

@@ -100,8 +100,7 @@
 		    and b.room_type_code = e.room_type_code
 		    and b.cinema_no = f.cinema_no
 		    and b.room_no = f.room_no
-		    and b.movie_code = g.movie_code
-		group by e.room_price
+		    and b.movie_code = g.movie_code;
 	</select>
 	
 	<!-- 임희열 : 유저 영화 예매 정보 목록조회 -->
