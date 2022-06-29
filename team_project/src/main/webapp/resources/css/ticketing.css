@@ -736,9 +736,39 @@ input.form-control.dateMM, input.form-control.dateDD {
 	background: #333;
 }
 
+.ticketing .successContainer .row {
+	overflow: hidden;
+}
+
+.ticketing .successContainer .row .ticketWraper {
+	position: absolute;
+	height: 46.7em;
+	overflow-y: auto;
+}
+
+.ticketing .successContainer .imgbg {
+	width: 100%;
+	position: absolute;
+	-webkit-filter: blur(3px) brightness(50%);
+	filter: blur(7px) brightness(50%);
+/* 	z-index: -99; */
+}
+
+.ticketing .successContainer .ticketWraper {
+/* 	position: relative; */
+	height: 45em;
+}
+
 .ticketing .successContainer .ticketCard {
-	width: 50%;
 	margin: 0 auto;
+	top: 0;
+	width: 50%;
+	margin-top: 3em;
+	z-index: 99;
+}
+
+.ticketing .successContainer .ticketCard:last-of-type {
+	margin-bottom: 3em;
 }
 
 .ticketing .successContainer .ticketCard > div {
@@ -747,6 +777,8 @@ input.form-control.dateMM, input.form-control.dateDD {
 	padding: 1em 2em;
 	overflow: hidden;
 	position: relative;
+	border: 1px solid #fff;
+	margin-bottom: -1px;
 }
 
 .ticketing .successContainer .ticketCard .ticketHeader > .movieName {
@@ -758,13 +790,50 @@ input.form-control.dateMM, input.form-control.dateDD {
 	color: #999;
 }
 
-.ticketing .successContainer .ticketCard .ticketHeader > .ticketSeat {
+.ticketing .successContainer .ticketCard .ticketBody > .ticketSeat {
 	display: inline-block;
-	padding: 0.2em 1em;
+	padding: 0.2em 0.7em;
 	background: cyan;
 	font-weight: bold;
 	margin-top: 1em;
 	position: absolute;
 	top: 0;
 	right: 0;
+}
+
+.ticketing .successContainer .ticketCard .ticketBody .ticketDate {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.ticketing .successContainer .ticketCard .ticketBody .ticketTime {
+	font-size: 1.2em;
+}
+
+.ticketing .successContainer .ticketCard .ticketBody .ticketTime > .movieStartTime {
+	font-size: 2em;
+}
+
+.ticketing .successContainer .ticketCard .ticketFooter {
+	border-top: 1px dashed #ddd;
+	font-size: 0.8em;
+}
+
+.ticketing .successContainer .ticketCard .ticketFooter li {
+	position: relative;
+	display: block;
+	margin-bottom: 0.5em;
+	color: gray;
+	cursor: default;
+	pointer-events: none;
+	padding-left: 1em;
+}
+
+.ticketing .successContainer .ticketCard .ticketFooter li:before {
+	content: "- ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	line-height: 1;
+	margin-right: -1em;
 }

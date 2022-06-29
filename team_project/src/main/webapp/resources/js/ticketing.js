@@ -268,13 +268,12 @@ $(function(){ /* 준비 핸들러 */
 	$(".seatTable").on("click", "a", function(){
 		$(".seatTable").find("a").removeClass("choise");
 		var pcntNum = $("#pcnt").val();
-		console.log("pcntNum", pcntNum);
 		for(var i = 0; i < parseInt(pcntNum); i++) {
 			if (i == 0) {
 				$(this).addClass("choise");
 			} else {
 				var lastSeatCount = $(this).parent().nextAll().not($("a.none").parent());
-				console.log(lastSeatCount.length, pcntNum);
+				console.log("lth : " + lastSeatCount.length, "num : " + pcntNum);
 				if (lastSeatCount.length <= pcntNum-2) {
 					$(this).parent().prevAll().not($("a.none").parent()).children("a").eq(i - 1).addClass("choise");
 				} else {
@@ -285,9 +284,7 @@ $(function(){ /* 준비 핸들러 */
 		
 		// 총 결제 금액 표시하기
 		var totalPrice = $(".totalPoint").find("strong");
-		console.log(totalPrice);
 		var price = totalPrice.data("room_price");
-		console.log(price);
 		
 		totalPrice.text((pcntNum * price).toLocaleString());
 	}); 
@@ -300,6 +297,7 @@ $(function(){ /* 준비 핸들러 */
 		var userPoint = $(this).find("#userPoint").text();
 		var timeline_no = $(this).data("timeline_no");
 		var seat_no_el = $(".seatTable").find("a[data-seat_no].choise");
+		var personCnt = $(".chosiePersonCount").find("#pcnt").val();
 		var seat_no_list = new Array();
 		$.each(seat_no_el, function(){
 			seat_no_list.push($(this).data("seat_no"));
@@ -313,7 +311,10 @@ $(function(){ /* 준비 핸들러 */
 		} else {
 			if (parseInt(totalPrice) > 0){
 				if (parseInt(userPoint) >= parseInt(totalPrice)){
-					location.href = "/ticket/pamentTicketing?user_no=" + (user_no) + "&timeline_no=" + (timeline_no) + "&seat_no_list=" + (seat_no_list) + "&room_price=" + (totalPrice);
+					var pamentConfirm = confirm("결제를 진행하시겠습니까?");
+					if (pamentConfirm) {
+						location.href = "/ticket/pamentTicketing?user_no=" + (user_no) + "&timeline_no=" + (timeline_no) + "&seat_no_list=" + (seat_no_list) + "&room_price=" + (totalPrice) + "&personCnt=" + (personCnt);
+					}
 				} else {
 					var pointAddConfurm = confirm("포인트가 부족합니다. 포인트를 충전하시겠습니까?");
 					if (pointAddConfurm) {
@@ -328,5 +329,11 @@ $(function(){ /* 준비 핸들러 */
 		}
 	});
 	/* 결제 버튼 클릭 시 끝 */
+	
+	
+
+	
+	
+	
 	
 }); /* 준비 핸들러 끝 */

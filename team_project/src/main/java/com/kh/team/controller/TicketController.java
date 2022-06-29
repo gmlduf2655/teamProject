@@ -1,5 +1,7 @@
 package com.kh.team.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -121,8 +123,8 @@ public class TicketController {
 //			String seat_no_list, 
 			@RequestParam(value = "seat_no_list", required=false, defaultValue="") List<Integer> seat_no_list, 
 			int room_price, 
+			int personCnt, 
 			Model model) throws ParseException {
-		Map<String, Object> ticketInfo = null;
 		System.out.println("seat_no_list : " + seat_no_list);
 		// 포인트 사용이 완료 되면
 		int point_code = 0;
@@ -158,6 +160,7 @@ public class TicketController {
 		int userPoint = userService.getUserInfoByUserno(user_no).getPoint();
 		PointVo pointVo = new PointVo(point, user_no, point_code);
 		System.out.println(pointVo);
+		List<Map<String, Object>> ticketList = new ArrayList<Map<String,Object>>();
 		boolean result = pointService.usingTicketingPoint(pointVo, seat_no_list.size(), userPoint);
 		if (result) {
 			// 좌석 예약
@@ -167,13 +170,15 @@ public class TicketController {
 				result = ticketService.createTicket(ticketVo);
 			}
 			if (result) {
-				List<Map<String, Object>> ticketList = ticketService.getTicketList("user_no", user_no, "ticket_regdate", "desc");
-				ticketInfo = ticketList.get(ticketList.size() - 1);
-				ticketInfo = MapAJaxAdaper.returnAdapter(ticketInfo);
+				List<Map<String, Object>> ticketResultList = ticketService.getTicketList("user_no", user_no, "ticket_regdate", "desc");
+				for (int i = 0; i < personCnt; i++) {
+					ticketList.add(ticketResultList.get(i));
+				}
+				ticketList = MapAJaxAdaper.returnAdapter(ticketList);
 			}
 			// 예약 한 뒤 타임 스케줄 좌석 예약 상태 변경
 			
-			model.addAttribute("ticketInfo", ticketInfo);
+			model.addAttribute("ticketList", ticketList);
 		}
 		
 		return "ticket/ticketingSuccess";
