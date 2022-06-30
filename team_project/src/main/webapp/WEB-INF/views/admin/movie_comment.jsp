@@ -154,7 +154,10 @@ var frmPaging = $("#frmPaging");
 							<c:forEach items="${commentlistHole}" var="list" varStatus="status">
 								<tr class="trlist">
 									<td>${status.count}</td>
-									<td>${list.movie_name}</td>
+									<td>
+										<a href="/movie/movieInfo?movie_code=${list.movie_code}"  target='_blank' style="color: black;"
+										>${list.movie_name}</a>
+									</td>
 									<td style="cursor: pointer;" class="tdcomment">
 										<c:set var="comment" value="${list.movie_comment}"/>
 										${fn:substring(comment,0,15)}
