@@ -33,12 +33,6 @@
   	border: 1px solid #white !important;
 } 
 /* 페이지네이션 색깔 바꾸기 끝*/
-
-/* 하이퍼링크 글자색 시작*/
-a:link {
-	color: #e53637;
-}
-/* 하이퍼링크 글자색 끝*/
 </style>
 
 <script>

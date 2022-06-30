@@ -54,6 +54,8 @@ $(document).ready(function(){
 			console.log("rData:", rData);
 			if (rData == "true") {
 				$("#btnEventSubmit").attr("disabled", "disabled");
+				alert("이벤트 신청 완료");
+				location.href = "/event/nowEvent_list?page=1";
 			};
 		});
 	});
