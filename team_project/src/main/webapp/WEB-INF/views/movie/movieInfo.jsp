@@ -42,9 +42,9 @@ $(function(){
 				"profile_image" : profile_image
 		};
 		$.post(url, sData, function(rData){
+			$("#comment_list").children().remove();	
 			console.log(rData);
 			if(rData == "true"){
-				$("#comment_list").children().remove();	
 				$("#movie_comment").val("");
 				setTimeout(function() {   
 					getCommentList();
@@ -63,9 +63,10 @@ $(function(){
 	//수정댓글 저장하기
 	$("#comment_list").on("click", ".commentUpdateSubmit" ,function(){
 		//사용자 아이디 체크 후 수정요청
-		var userid = $(this).parent().find("h6").text();
+		var userid = $(this).parent("div").find("button").eq(0).text();
 		console.log("userid" , userid);
 		if("${loginUserVo.userid}" == userid){
+			$("#comment_list").children().remove();
 			var div = $(this).prev().prev(); //input상자
 			var movie_comment = div.val();
 			var cno = $(this).attr("data-cno");
@@ -76,7 +77,7 @@ $(function(){
 			};
 			$.post(url, sData, function(rData){
 				if(rData == "true"){
-					$("#comment_list").children().remove();	
+						
 					setTimeout(function() {   
 						getCommentList();
 			          }, 100);
@@ -89,9 +90,10 @@ $(function(){
 	//댓글 삭제 
 	$("#comment_list").on("click", ".commentDelete" ,function(){
 		console.log("click, commentDelete");
-		var userid = $(this).parent().find("h6").text();
+		var userid = $(this).parent("div").find("button").eq(0).text();
 		//사용자 아이디 체크 후 삭제요청
 		if("${loginUserVo.userid}" == userid){
+			$("#comment_list").children().remove();	
 			var cno = $(this).attr("data-cno");
 			var url = "/moviecomment/commentDelete";
 			var sData = {
@@ -99,7 +101,7 @@ $(function(){
 			};
 			$.get(url, sData, function(rData){
 				if(rData == "true"){
-					$("#comment_list").children().remove();	
+					
 					setTimeout(function() {   
 						getCommentList();
 			          }, 100);

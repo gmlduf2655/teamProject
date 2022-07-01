@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <style>
 /* 평점 별 시작*/
 .checked {
@@ -48,9 +48,12 @@
 								<li>
 									<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=${movieVo.movie_genre}">#${movieVo.movie_genre}</a>
 								</li>
-								<li>
-									<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${movieVo.movie_actors}">#${movieVo.movie_actors}</a>
-								</li>
+								<c:set var="actorsArr" value="${fn:split(movieVo.movie_actors,',')}"/>
+								<c:forEach var="actors" items="${actorsArr}">
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${actors}">#${actors}</a>
+									</li>
+								</c:forEach>
 							</ul>
 							<h5>
 								<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>

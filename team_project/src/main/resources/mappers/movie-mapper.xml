@@ -85,7 +85,7 @@
 	<!-- 유수연 해시태그별 검색 영화 리스트  -->
 	<select id="movieListHashTag" resultType="MovieVo">
 		select * from tbl_movie
-		where ${sType} = #{keyword}
+		where ${sType} like '%'||#{keyword}||'%'
 		order by opening_date desc
 	</select>
 	

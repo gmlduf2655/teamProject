@@ -83,9 +83,8 @@ $(document).ready(function(){
 				<span>제작회사:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='made_company' value='` + rdata.companys[0].companyNm +`'><br>
 				<span>제작국가:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='made_country' value='` + rdata.nations[0].nationNm +`'><br>
 				<span>영화감독:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_director' value='` + rdata.directors[0].peopleNm +`'><br>
-				<span>영화감독:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_director' value='` + rdata.directors[0].peopleNm +`'><br>
 				<span>영화장르:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_genre' value='` + rdata.genres[0].genreNm +`'><br>
-				<span>영화배우:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_actors' value='` + rdata.actors[0].peopleNm +`'><br>
+				<span>영화배우:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_actors' value='` + rdata.actors[0].peopleNm +`,` + rdata.actors[1].peopleNm +`'><br>
 				<span>영화등급:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_audits' value='` + rdata.audits[0].watchGradeNm +`'><br>
 				<span>영화시놉:</span><textarea class='form-control movieList' style='width:500px; height:200px; display:inline-block; ' name='movie_synopsis'></textarea><br>
 				<span>메인예고:</span><input type='text' class='form-control movieList' style='width:500px;display:inline-block; ' name='movie_video_add' placeholder='v/ 이후 주소를 넣어주세요'><br>

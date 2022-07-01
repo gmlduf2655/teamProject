@@ -52,6 +52,15 @@ $(function(){
 		$("form").attr("method", "post");
 		$("form").submit();
 	});
+	//우리서버 db삭제
+    $("#btnDelete").click( function() {
+    	$("#btnDelete").attr("href", "/dbcontrol/dbDelete?movie_code=${movieVo.movie_code}");
+         $('#btnDelete').submit();
+         setTimeout(function() {   
+             window.close();
+          }, 1000);
+
+      });
 
 	//포스터 이미지 미리보기
 	$(function() {
@@ -295,6 +304,7 @@ $(function(){
 					<button type="button" id="btnattrAble" class="btn btn-warning">수정</button>
 					<button type="button" id="btnUpdate" class="btn btn-success" style="display: none;">수정</button>
 					<input type='button' class="btn btn-primary" value="닫기" onClick='window.close()'>
+					<a type="button" id="btnDelete" class="btn btn-danger">삭제</a>
 				</div>
 			</form>
 		</div>

@@ -171,6 +171,7 @@ public class MovieDBController {
 			return "redirect:/dbcontrol/dbsearchBymoviecode?movie_code=" + movieVo.getMovie_code();
 		}
 	
+	
 	// 이미지 보여주기
 	@RequestMapping(value = "/displayImage", method = RequestMethod.GET)
 	@ResponseBody

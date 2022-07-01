@@ -123,7 +123,6 @@ $(function(){
 							<th>개봉일자</th>
 							<th>종영일자</th>
 							<th>등급</th>
-							<th>스틸샷</th>
 							<th>포스터</th>
 							<th>시놉</th>
 						</tr>
@@ -150,7 +149,6 @@ $(function(){
 									<c:set var="movie_audits" value="${movieVo.movie_audits}"/>
 									${fn:substring(movie_audits,0,3)}
 								</td>
-								<td><c:out value=""/></td>
 								<td>
 									<c:set var="movie_image_name" value="${movieVo.movie_image_name}"/>
 									<c:if test="${not empty fn:substringAfter(movie_image_name,'_')}">
