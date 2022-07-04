@@ -15,7 +15,7 @@
 	});
 </script>
 <div style= "padding:15px 0px" class="menubar">
-	<h3 style="color:white;" class="mb-4"><a href="/mypage/main?userno=${param.userno}" style="color:white;">메뉴</a></h3>
+	<h3 style="color:white;" class="mb-4"><a href="/mypage/main?userno=${loginUserVo.userno}" style="color:white;">메뉴</a></h3>
 	<hr align="left" width="80%">
 	<!-- 내 정보 -->
 	<div class="mb-4">
@@ -54,7 +54,7 @@
 		<ul style="padding-left:50px;">
 		    <li><a href="/mypage/write_review_list?userno=${loginUserVo.userno}&page=1">내 리뷰</a></li>
 		    <li><a href="/mypage/participate_event_list?userno=${loginUserVo.userno}&page=1">참여 이벤트</a></li>
-			<li><a href="/mypage/commentListuser?userid=${userVo.userid}">내가 단 댓글</a></li>		
+			<li><a href="/mypage/commentListuser?userid=${loginUserVo.userid}">내가 단 댓글</a></li>		
 		</ul>
 	</div>
 	<!-- 내 활동 끝 -->

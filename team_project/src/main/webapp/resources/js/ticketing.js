@@ -186,7 +186,7 @@ $(function(){ /* 준비 핸들러 */
 		var movieCode = $(this).children("img").attr("data-movie_code");
 		var userResult = confirm(movieName + "에 대한 영화정보 페이지로 이동하시겠습니까?");
 		if (userResult) {
-			location.href="http://localhost/movie/movieInfo?movie_code=" + movieCode;
+			location.href="/movie/movieInfo?movie_code=" + movieCode;
 		}
 	});
 	/* 영화 포스터 클릭시 영화 정보 페이지로 이동 끝 (선택된 상태에서 포스터를 클릭해야 작동) */

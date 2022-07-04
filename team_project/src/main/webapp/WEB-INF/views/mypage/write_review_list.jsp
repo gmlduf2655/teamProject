@@ -112,7 +112,7 @@
 						<input type="hidden" name="page" value="${pagingDto.page}">
 						<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 						<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-						<button type="submit" class="btn btn-primary" id="btnSearch">검색</button>
+						<button type="submit" class="btn btn-primary" id="btnSearch" style="background-color:#e53637;border-color:#e53637;">검색</button>
 					</form>
 					</div>
 				</nav>

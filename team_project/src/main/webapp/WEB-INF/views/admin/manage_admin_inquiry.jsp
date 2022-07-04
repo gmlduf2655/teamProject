@@ -17,13 +17,16 @@
 	div{
 		-webkit-overflow-scrolling:touch;	
 	}
+	.td_link{
+		cursor:pointer;
+	}
 </style>
 <script>
 	$(document).ready(function(){
 		// 메세지 제목 부분을 클릭했을 때 메세지 상세 정보 확인
 		$(".td_link").click(function() {
 			var messageno = $(this).attr("data-messageno");
-			location.href = "/message/read?page=${param.page}&type=${param.type}&messageno="+ messageno;
+			location.href = "/message/read?page=1&type=${param.type}&messageno="+ messageno;
 		});
 
 		// 한 페이지에 있는 모든 메세지를 선택할 때 사용
@@ -128,7 +131,7 @@
 											<tr>
 												<td><input type="checkbox" class="messages" name="messages" value="${messageVo.messageno}"></td>
 												<td>${messageVo.messageno}</td>
-												<td>${messageVo.message_title}</td>
+												<td class="td_link" data-messageno="${messageVo.messageno}">${messageVo.message_title}</td>
 												<td>${messageVo.sender}</td>
 												<td>${messageVo.message_date}</td>
 												<c:choose>

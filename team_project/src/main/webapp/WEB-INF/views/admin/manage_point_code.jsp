@@ -96,8 +96,9 @@
 			<div class="container-fluid">
 				<div class="row mb-5">
 					<div class="col-md-4">
-						<h2 class="mb-4">포인트 코드 생성기</h2>
+						<h2 class="mb-4">포인트 코드 생성</h2>
 						<form role="form" method="post" action="/point/create_point_code_run">
+							<input type="hidden" name="page" value="${param.page}">
 							<div class="form-group">
 								<input type="number" class="form-control" name="point_code" id="point_code" placeholder="포인트코드" required/>
 							</div>
@@ -114,8 +115,9 @@
 						</form>
 					</div>
 					<div class="col-md-4">
-						<h2 class="mb-4">포인트 코드 수정기</h2>
+						<h2 class="mb-4">포인트 코드 수정</h2>
 						<form role="form" method="post" action="/point/update_point_code">
+							<input type="hidden" name="page" value="${param.page}">
 							<div class="form-group">
 								<input type="number" class="form-control" name="point_code" id="point_code" placeholder="포인트코드" required/>
 							</div>
@@ -132,12 +134,13 @@
 						</form>
 					</div>
 					<div class="col-md-4">
-						<h2 class="mb-4">포인트 코드 제거기</h2>
+						<h2 class="mb-4">포인트 코드 삭제</h2>
 						<form role="form" method="post" action="/point/delete_point_code">
+							<input type="hidden" name="page" value="${param.page}">
 							<div class="form-group">
 								<input type="number" class="form-control" name="point_code" id="point_code" placeholder="포인트코드" required/>
 							</div>
-							<button type="submit" class="btn btn-primary">포인트 코드 제거</button>
+							<button type="submit" class="btn btn-primary">포인트 코드 삭제</button>
 						</form>					
 					</div>
 				</div>				

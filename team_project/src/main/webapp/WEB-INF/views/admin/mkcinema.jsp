@@ -191,7 +191,7 @@ $(function(){
 		var bDate = $(".modal").find("input[name$=begin_date]").val();
 		var fDate = $(this).val();
 		if (bDate > fDate) {
-			alert("종료날짜는 시작날짜보다 클 수 없습니다.");
+			alert("종료날짜는 시작날짜보다 작을 수 없습니다.");
 			$(this).val(bDate);
 		}
 	});

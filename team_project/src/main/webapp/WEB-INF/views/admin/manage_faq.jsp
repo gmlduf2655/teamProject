@@ -22,28 +22,36 @@
 </style>
 <script>
 	$(document).ready(function(){
-		// 포인트 코드 생성 성공 여부 확인 메세지
+		// FAQ 생성 성공 여부 확인 메세지
 		var add_result = "${add_result}";
 		if(add_result == "true"){
-			alert("포인트 코드 생성 성공");
+			alert("FAQ 생성 성공");
 		} else if(add_result == "false"){
-			alert("포인트 코드 생성 실패");
+			alert("FAQ 생성 실패");
 		} else {}
 		
-		// 포인트 코드 수정 성공 여부 확인 메세지
-		var update_result = "${update_result}";
-		if(update_result == "true"){
-			alert("포인트 코드 수정 성공");
-		} else if(update_result == "false"){
-			alert("포인트 코드 수정 실패");
+		// FAQ 수정 성공 여부 확인 메세지
+		var modify_result = "${modify_result}";
+		if(modify_result == "true"){
+			alert("FAQ 수정 성공");
+		} else if(modify_result == "false"){
+			alert("FAQ 수정 실패");
 		} else {}
 		
-		// 포인트 코드 수정 성공 여부 확인 메세지
+		// FAQ 수정 성공 여부 확인 메세지
 		var delete_result = "${delete_result}";
 		if(delete_result == "true"){
-			alert("포인트 코드 삭제 성공");
+			alert("FAQ 삭제 성공");
 		} else if(delete_result == "false"){
-			alert("포인트 코드 삭제 실패");
+			alert("FAQ 삭제 실패");
+		} else {}
+		
+		// FAQ 수정 성공 여부 확인 메세지
+		var close_result = "${close_result}";
+		if(close_result == "true"){
+			alert("FAQ 비공개 성공");
+		} else if(close_result == "false"){
+			alert("FAQ 비공개 실패");
 		} else {}
 		
 		// 전체 선택하는 체크 박스 클릭시
@@ -63,12 +71,28 @@
 			$.each(check_one, function(i,v){
 				if($(this).is(":checked")){
 					sData.push($(this).val());
-					$("#multi_delete_form").append("<input type='hidden' name='sendData' value='"+ $(this).val() +"'>")
+					$("#multi_delete_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>")
 				}
 			});
 			console.log(sData);
 			if(sData.length > 0){
 				$("#multi_delete_form").submit();
+			}
+		});
+		
+		// 메세지 다중 비공개 버튼
+		$("#multi_close_btn").click(function(){
+			var sData = []
+			var check_one = $(".check_one");
+			$.each(check_one, function(i,v){
+				if($(this).is(":checked")){
+					sData.push($(this).val());
+					$("#multi_close_form").append("<input type='hidden' name='sData' value='"+ $(this).val() +"'>")
+				}
+			});
+			console.log(sData);
+			if(sData.length > 0){
+				$("#multi_close_form").submit();
 			}
 		});
 			
@@ -125,13 +149,13 @@
 						</form>
 					</div>
 					<div class="col-md-4">
-						<h2 class="mb-4">FAQ 제거</h2>
+						<h2 class="mb-4">FAQ 삭제</h2>
 						<form role="form" method="post" action="/admin/delete_faq">
 							<input type="hidden" name="page" value="${param.page}">
 							<div class="form-group">
 								<input type="number" class="form-control" name="faqno" id="faqno" placeholder="FAQ번호" required/>
 							</div>
-							<button type="submit" class="btn btn-primary">포인트 코드 제거</button>
+							<button type="submit" class="btn btn-primary">FAQ 삭제</button>
 						</form>					
 					</div>
 				</div>				
@@ -141,11 +165,17 @@
 							<div class="col-md-2">
 								<h3 class="mb-4">FAQ 목록</h3>
 							</div>
-							<div class="col-md-3">
-								<form method="post" action="/point/multi_delete_point_code" id="multi_delete_form">
-									<input type="hidden" name="page" value="${param.page}">
-									<button type="button" class="btn btn-primary" id="multi_delete_btn">선택 내용 삭제</button>
-								</form>
+							<div class="col-md-4">
+								<div class="row">
+									<form class="mr-4" method="post" action="/admin/multi_delete_faq" id="multi_delete_form">
+										<input type="hidden" name="page" value="${param.page}">
+										<button type="button" class="btn btn-primary" id="multi_delete_btn">선택 내용 삭제</button>
+									</form>
+									<form method="post" action="/admin/multi_close_faq" id="multi_close_form">
+										<input type="hidden" name="page" value="${param.page}">
+										<button type="button" class="btn btn-primary" id="multi_close_btn">선택 내용 비공개</button>
+									</form>
+								</div>
 							</div>
 							<div class="col-md-1"></div>
 							<div class="col-md-1" style="display:flex;justify-content: flex-end;padding-right:0px;">
@@ -161,7 +191,7 @@
 							<div class="col-md-3">
 								<input type="text" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
 							</div>
-							<div class="col-md-2" style="padding-left:0px;">
+							<div class="col-md-1" style="padding-left:0px;">
 								<button type="button" class="btn btn-primary" id="search_btn">검색</button>
 							</div>
 						</div>
@@ -172,9 +202,8 @@
 									<th>FAQ 번호</th>
 									<th>질문</th>
 									<th>응답</th>
-									<th>등록일</th>
-									<th>수정일</th>
-									<th>상태</th>
+									<th width="150px;">등록일</th>
+									<th width="80px;">상태</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -185,8 +214,16 @@
 										<td>${faqVo.question}</td>
 										<td>${faqVo.answer}</td>
 										<td>${faqVo.reg_date}</td>
-										<td>${faqVo.mod_date}</td>
-										<td>${faqVo.faq_status}</td>
+										<td>
+											<c:choose>
+												<c:when test="${faqVo.faq_status == 'T'}">
+													공개
+												</c:when>
+												<c:otherwise>
+													비공개
+												</c:otherwise>
+											</c:choose>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

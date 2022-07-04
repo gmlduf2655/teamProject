@@ -34,6 +34,12 @@ function getMovieList(){
 			console.log("ajax", rData);
 				 $.each(rData, function(index,appendlist){
 					   console.log(appendlist.movie_code);
+					var actors = [];
+					var index = this.movie_actors.indexOf(",");
+					if(index != -1){
+						actors.push(this.movie_actors.substring(0,index));
+					}
+					actors.push(this.movie_actors.substring(index+1));
 					var div = `
 						<div class="col-md-3">
 						<div class="product__item">

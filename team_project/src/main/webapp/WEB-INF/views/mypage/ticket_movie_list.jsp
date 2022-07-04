@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -70,9 +71,19 @@
 									<!-- 영화 키워드 -->
 									<div class="product__item__text">
 										<ul>
-											<li>액션이 죽이는</li>
-											<li>영화</li>
-										</ul>
+											<li>
+												<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=${ticketUserVo.movie_genre}">#${ticketUserVo.movie_genre}</a>
+											</li>
+											<c:set var="actorsArr" value="${fn:split(ticketUserVo.movie_actors,',')}"/>
+											<c:forEach var="actors" items="${actorsArr}">
+												<li>
+													<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${actors}">#${actors}</a>
+												</li>
+											</c:forEach>
+										</ul>	
+									</div>				
+									<!-- 영화 키워드 끝 -->				
+									<div class="product__item__text">
 										<h5>
 											<a class="text-white"
 												<c:if test="${loginUserVo.userno == param.userno}">
@@ -81,7 +92,6 @@
 											>${ticketUserVo.movie_name}</a>
 										</h5>
 									</div>
-									<!-- 영화 키워드 끝 -->
 								</div>
 							</div>
 							</c:if>
