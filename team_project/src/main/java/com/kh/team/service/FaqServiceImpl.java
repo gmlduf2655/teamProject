@@ -74,4 +74,18 @@ public class FaqServiceImpl implements FaqService {
 		return result;
 	}
 
+	// FAQ 다중 삭제
+	@Override
+	public boolean multiDeleteFAQ(List<Integer> list) {
+		boolean result = faqDao.multiDeleteFAQ(list);
+		return result;
+	}
+	
+	// FAQ 다중 비공개
+	@Override
+	public boolean multiCloseFAQ(List<Integer> list) {
+		boolean result = faqDao.multiCloseFAQ(list);
+		return result;
+	}
+
 }

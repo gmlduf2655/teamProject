@@ -121,11 +121,11 @@
                                 	</c:if>
                                 >
                                 	<a href="/ticket/ticketing">예매</a>
-                                    <ul class="dropdown">
-                                        <li><a href="/ticket/ticketing">영화별</a></li>
-                                        <li><a href="/ticket/ticketing">지역별</a></li>
-                                        <li><a href="/ticket/ticketing">영화관별</a></li>
-                                    </ul>
+<!--                                     <ul class="dropdown"> -->
+<!--                                         <li><a href="/ticket/ticketing">영화별</a></li> -->
+<!--                                         <li><a href="/ticket/ticketing">지역별</a></li> -->
+<!--                                         <li><a href="/ticket/ticketing">영화관별</a></li> -->
+<!--                                     </ul> -->
                                 </li>
                                 <li
                                 	<c:if test="${path == '/movie'}">

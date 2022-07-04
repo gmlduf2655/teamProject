@@ -22,4 +22,8 @@ public interface FaqService {
 	public boolean modifyFAQ(FaqVo faqVo);
 	// FAQ 삭제
 	public boolean deleteFAQ(int faqno);
+	// FAQ 다중 삭제
+	public boolean multiDeleteFAQ(List<Integer> list);
+	// FAQ 다중 비공개
+	public boolean multiCloseFAQ(List<Integer> list);
 }

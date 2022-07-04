@@ -63,7 +63,7 @@
 			    		</when>
 			    	</choose>
 			    </if>
-				order by reg_date asc
+				order by reg_date desc
 			) a
 		) where rnum between #{startRow} and #{endRow}
 	</select>
@@ -87,6 +87,7 @@
 	<select id="selectFAQListByFaqno" resultType="FaqVo">
 		select * from tbl_faq
 		where faqno = #{faqno}
+		order by reg_date desc
 	</select>
 	
 	<!-- FAQ 수정 -->
@@ -98,10 +99,28 @@
 	</update>
 	
 	<!-- FAQ 삭제 -->
-	<update id="deleteFAQ">
+	<delete id="deleteFAQ">
+		delete from tbl_faq
+		where faqno = #{faqno}
+	</delete>
+	
+	<!-- FAQ 다중 삭제 -->
+	<delete id="multiDeleteFAQ">
+		delete from tbl_faq
+		where faqno in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- FAQ 다중 비공개 -->
+	<update id="multiCloseFAQ">
 		update tbl_faq set
 			faq_status = 'F'
-		where faqno = #{faqno}
+		where faqno in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>		
 	</update>
 	
 </mapper>

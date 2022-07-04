@@ -152,7 +152,7 @@
 					</div>
 					<div class="form-group">
 						<label style="color:white;">첨부파일</label><br>
-						<label class="btn btn-primary" for="message_file"> 첨부파일 </label> 
+						<label class="site-btn" for="message_file"> 첨부파일 </label> 
 						<input type="file" class="form-control-file" id="message_file" style="display:none;"/>
 						<div class="help-block form-control" style="height:100px;" id="attach_files">
 							<span>여기에 파일이 들어갑니다</span>
@@ -166,7 +166,7 @@
 						----------------------------------------------
 						</textarea>
 					</div>
-					<button type="button" class="btn btn-primary" id="form_btn">전송</button>
+					<button type="button" class="site-btn" id="form_btn">전송</button>
 				</form>
 			</div>
 			<div class="col-md-2"></div>

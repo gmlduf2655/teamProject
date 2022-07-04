@@ -256,9 +256,35 @@ public class AdminController {
 	@RequestMapping(value="/delete_faq", method=RequestMethod.POST)
 	public String deleteFaq(int page, int faqno, RedirectAttributes redirectAttributes) {
 		boolean result = faqService.deleteFAQ(faqno);
-		redirectAttributes.addFlashAttribute("modify_result", result);		
+		redirectAttributes.addFlashAttribute("delete_result", result);		
 		return "redirect:/admin/manage_faq?page=" + page;		
 	}
+	
+	// FAQ 다중 삭제
+	@RequestMapping(value="/multi_delete_faq", method=RequestMethod.POST)
+	public String multiDeleteFaq(int page, String[] sData, RedirectAttributes redirectAttributes) {
+		List<Integer> faqnoList = new ArrayList<>();
+		for(String faqnoStr : sData) {
+			faqnoList.add(Integer.parseInt(faqnoStr));
+		}		
+		
+		boolean result = faqService.multiDeleteFAQ(faqnoList);
+		redirectAttributes.addFlashAttribute("delete_result", result);		
+		return "redirect:/admin/manage_faq?page=" + page;		
+	}
+	
+	// FAQ 다중 비공개
+	@RequestMapping(value="/multi_close_faq", method=RequestMethod.POST)
+	public String multiCloseFaq(int page, String[] sData, RedirectAttributes redirectAttributes) {
+		List<Integer> faqnoList = new ArrayList<>();
+		for(String faqnoStr : sData) {
+			faqnoList.add(Integer.parseInt(faqnoStr));
+		}		
+		
+		boolean result = faqService.multiCloseFAQ(faqnoList);
+		redirectAttributes.addFlashAttribute("close_result", result);		
+		return "redirect:/admin/manage_faq?page=" + page;		
+	}	
 	
 	// 관리자(1:1) 문의 관리
 	@RequestMapping(value="/manage_admin_inquiry", method=RequestMethod.GET)

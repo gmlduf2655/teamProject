@@ -53,9 +53,9 @@
 					</div>
 					<div style="text-align:center">
 						<c:if test="${loginUserVo.userid == messageVo.receiver}">
-							<button type="submit" class="btn btn-primary" >답장하기</button>
+							<button type="submit" class="site-btn" >답장하기</button>
 						</c:if>
-						<a class="btn btn-primary" id="form_btn" href="/message/delete_run?messageno=${messageVo.messageno}&type=${param.type}">삭제하기</a>
+						<a class="site-btn" id="form_btn" href="/message/delete_run?messageno=${messageVo.messageno}&type=${param.type}">삭제하기</a>
 					</div>
 				</form>
 			</div>

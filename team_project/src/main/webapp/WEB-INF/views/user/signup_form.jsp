@@ -413,7 +413,7 @@
                                 <h4 class="mb-4" id="email_auth_title" style="color:white;display:none;">* 이메일 인증</h4>
                                 <input type="number" placeholder="인증코드 6자리 입력" id="email_auth_code" style="display:none;">
                                 <button type="button" class="site-btn" id="email_auth_code_check_btn" style="display:none;">인증 번호 확인</button>
-								<span class="text-white" id="email_auth_message" style="display:none"></span>
+								<p class="text-white" id="email_auth_message" style="display:none"></p>
                             </div>
                             <h4 class="mb-4" style="color:white;">휴대전화번호</h4>
                             <div class="input__item">
