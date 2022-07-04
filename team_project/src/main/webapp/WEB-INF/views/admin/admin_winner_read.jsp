@@ -78,7 +78,7 @@ $(document).ready(function(){
 								${winnerVo.winner_content}</div>
 						</div>
 						<hr>
-						<a href="/admin/event_winner_list" class="btn btn-primary">게시글 목록으로</a>
+						<a href="/admin/event_winner_list?page=1" class="btn btn-primary">게시글 목록으로</a>
 					</div>
 				</div>
 			

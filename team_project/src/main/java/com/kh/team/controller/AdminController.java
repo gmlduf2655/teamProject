@@ -334,7 +334,7 @@ public class AdminController {
 		@RequestMapping(value = "/event_admin_reviewDelete", method = RequestMethod.POST)
 		public String eventAdminReviewDelete(ReviewVo reviewVo) {
 			boolean result = reviewService.adminDelete(reviewVo);
-			return "redirect:/admin/event_admin_reviewList";
+			return "redirect:/admin/event_admin_reviewList?page=1";
 		
 		}
 	
@@ -376,7 +376,7 @@ public class AdminController {
 		@RequestMapping(value = "/winner_delete", method = RequestMethod.GET)
 		public String winnerDelete(int winner_no) {
 			boolean result = winnerService.delete(winner_no);
-			return "redirect:/admin/event_winner_list";
+			return "redirect:/admin/event_winner_list?page=1";
 		}
 		
 	// 이벤트 신청자 리스트
@@ -390,7 +390,7 @@ public class AdminController {
 			return "admin/event_participate_list";
 		}
 	
-	// 이벤트 당첨자 업데이트 winnerUpdate
+	// 이벤트 당첨자 업데이트
 		@RequestMapping(value = "/winnerUpdate", method = RequestMethod.POST)
 		@ResponseBody
 		public String winnerUpdate(@RequestParam(value = "chBox[]") List<String> chArr,
