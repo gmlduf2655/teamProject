@@ -55,6 +55,7 @@ $(document).ready(function(){
 	   
 	    frmSearch.find("input[name=searchType]").val(searchType);
 	    frmSearch.find("input[name=keyword]").val(keyword);
+	    frmSearch.find("input[name=page]").val(1);
 	    frmSearch.submit();
 	});
 });
@@ -107,6 +108,7 @@ $(document).ready(function(){
 				style="width: 300px;display: inline-block;margin-bottom: 2px;margin-top: 2px;margin-left: 4px;">
 				<input type="hidden" name="searchType" value="${pagingDto.searchType}">
 				<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+				<input type="hidden" name="page" value="${pagingDto.page}">
 			<button type="button" class="site-btn fa fa-search" style="border-radius: 5px;" id="btnSearch">검색</button>
 			</form>
 			<br>

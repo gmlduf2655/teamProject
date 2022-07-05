@@ -55,7 +55,6 @@ $(document).ready(function(){
 			if (rData == "true") {
 				$("#btnEventSubmit").attr("disabled", "disabled");
 				alert("이벤트 신청 완료");
-				location.href = "/event/nowEvent_list?page=1";
 			};
 		});
 	});
@@ -133,7 +132,7 @@ $(document).ready(function(){
 						<!-- 이벤트 참가 버튼 끝 -->
 						<hr>
 						
-						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a>
+<!-- 						<a href="/event/event_list" class="btn btn-primary">이벤트 목록으로</a> -->
 					</div>
 <!-- footer -->
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>

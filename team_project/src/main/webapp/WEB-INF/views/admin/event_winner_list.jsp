@@ -58,6 +58,7 @@ $(document).ready(function(){
 	   
 	    frmSearch.find("input[name=searchType]").val(searchType);
 	    frmSearch.find("input[name=keyword]").val(keyword);
+	    frmSearch.find("input[name=page]").val(1);
 	    frmSearch.submit();
 	});
 	

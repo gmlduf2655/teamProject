@@ -81,7 +81,7 @@ public class EventController {
 		
 		boolean result = eventService.insert(eventVo);
 //		System.out.println("result:"+result);
-		return "redirect:/admin/event_admin_list";
+		return "redirect:/admin/event_admin_list?page=1";
 	}
 	
 	// 썸머노트 이미지 업로드
@@ -141,7 +141,7 @@ public class EventController {
 	@RequestMapping(value = "/event_delete", method = RequestMethod.GET)
 	public String delete(int event_no) {
 		boolean result = eventService.delete(event_no);
-		return "redirect:/admin/event_admin_list";
+		return "redirect:/admin/event_admin_list?page=1";
 	}
 	
 	// 이미지 보여주기
