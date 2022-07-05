@@ -105,12 +105,9 @@ function getMovieList(){
 									<li>
 										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=${movieVo.movie_genre}">#${movieVo.movie_genre}</a>
 									</li>
-									<c:set var="actorsArr" value="${fn:split(movieVo.movie_actors,',')}"/>
-									<c:forEach var="actors" items="${actorsArr}">
-										<li>
-											<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${actors}">#${actors}</a>
-										</li>
-									</c:forEach>
+									<li>
+										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=${movieVo.movie_actors}">#${movieVo.movie_actors}</a>
+									</li>
 								</ul>
 								<h5>
 									<a href="/movie/movieInfo?movie_code=${movieVo.movie_code}">${movieVo.movie_name}</a>
