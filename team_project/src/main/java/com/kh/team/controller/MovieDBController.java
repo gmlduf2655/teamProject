@@ -26,7 +26,7 @@ import com.kh.team.vo.MovieVo;
 @Controller
 @RequestMapping("/dbcontrol")
 public class MovieDBController {
-	private final String ROOTADDRESS = "//192.168.0.67/moverattach";
+	private final String ROOTADDRESS = "//192.168.0.73/moverattach";
 	
 	@Autowired
 	private MovieDBService service;
