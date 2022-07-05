@@ -2,8 +2,8 @@ Movier
 =============
 개발기간 : 2022.06.20 ~ 2022.07.08
 
-![movier_erdiagram](https://user-images.githubusercontent.com/106262783/177227425-7eb50079-28bf-4d5a-acac-16f1a56258e5.png)
-
+<!-- ![movier_erdiagram](https://user-images.githubusercontent.com/106262783/177227425-7eb50079-28bf-4d5a-acac-16f1a56258e5.png) -->
+<img alt="movier_erdiagram" src="https://user-images.githubusercontent.com/106262783/177227425-7eb50079-28bf-4d5a-acac-16f1a56258e5.png"/>
 
 <h5>기획의도</h5>
 <p>
