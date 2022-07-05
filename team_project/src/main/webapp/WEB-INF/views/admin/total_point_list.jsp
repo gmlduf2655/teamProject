@@ -93,7 +93,9 @@
 												<td>${pointVo.userid}</td>
 												<td>${pointVo.point}</td>
 												<td>${pointVo.point_name}</td>
-												<td>${pointVo.point_date}</td>
+												<td>
+													<fmt:formatDate value="${pointVo.point_date}" pattern="yyyy/MM/dd"/>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>

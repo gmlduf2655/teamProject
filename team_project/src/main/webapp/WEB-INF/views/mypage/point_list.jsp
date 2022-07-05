@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- header --%>
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
@@ -105,7 +106,9 @@
 										<td>${pointVo.pointno}</td>
 										<td>${pointVo.point}</td>
 										<td>${pointVo.point_name}</td>
-										<td>${pointVo.point_date}</td>
+										<td>
+											<fmt:formatDate value="${pointVo.point_date}" pattern="yyyy/MM/dd"/>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
