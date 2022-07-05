@@ -128,7 +128,7 @@ public class UserController {
 		System.out.println("userVo : " + userVo);
 		boolean result = userService.signUp(userVo);
 		redirectAttributes.addFlashAttribute("create_result", result + "");
-		return "redirect:/admin/origin_user_list";
+		return "redirect:/admin/origin_user_list?page=1";
 	}
 	
 	

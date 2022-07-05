@@ -75,13 +75,13 @@ public class EventController {
 		
 		byte[] fileData = file.getBytes();
 		
-			String event_image = EventFileUploader.uploadFile("//192.168.0.67/boardattach", file.getOriginalFilename(), fileData);
+			String event_image = EventFileUploader.uploadFile("//192.168.0.73/boardattach", file.getOriginalFilename(), fileData);
 			eventVo.setEvent_image(event_image);
 		}
 		
 		boolean result = eventService.insert(eventVo);
 //		System.out.println("result:"+result);
-		return "redirect:/admin/event_admin_list";
+		return "redirect:/admin/event_admin_list?page=1";
 	}
 	
 	// 썸머노트 이미지 업로드
@@ -89,7 +89,7 @@ public class EventController {
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 		
-		String uploadPath = "//192.168.0.67/boardattach";
+		String uploadPath = "//192.168.0.73/boardattach";
 		String originalFilename = multipartFile.getOriginalFilename();
 		
 		String file = EventFileUploader.uploadFile(uploadPath, originalFilename, multipartFile.getBytes());
@@ -128,7 +128,7 @@ public class EventController {
 		} else {
 			String originalFilename = file.getOriginalFilename();
 			byte[] fileData = file.getBytes();
-				String event_image = EventFileUploader.uploadFile("//192.168.0.67/boardattach", file.getOriginalFilename(), fileData);
+				String event_image = EventFileUploader.uploadFile("//192.168.0.73/boardattach", file.getOriginalFilename(), fileData);
 				eventVo.setEvent_image(event_image);
 			boolean result2 = eventService.modify(eventVo);
 			System.out.println("result2:"+result2);
@@ -141,7 +141,7 @@ public class EventController {
 	@RequestMapping(value = "/event_delete", method = RequestMethod.GET)
 	public String delete(int event_no) {
 		boolean result = eventService.delete(event_no);
-		return "redirect:/admin/event_admin_list";
+		return "redirect:/admin/event_admin_list?page=1";
 	}
 	
 	// 이미지 보여주기

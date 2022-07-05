@@ -19,6 +19,8 @@ public class TicketUserVo {
 	private String room_floor; // 영화 상영 층
 	private String movie_name; // 영화 제목
 	private String movie_image_name; // 영화 이미지 
+	private String movie_genre; // 영화 장르
+	private String movie_actors; // 출연 영화 배우
 	
 	// 기본 생성자
 	public TicketUserVo() {
@@ -29,7 +31,7 @@ public class TicketUserVo {
 	public TicketUserVo(String ticket_no, int user_no, String ticket_regdate, String movie_begin_date,
 			String movie_finish_date, String movie_code, String cinema_name, int seat_x, String seat_y,
 			String room_type_name, int room_price, String room_name, String room_floor, String movie_name,
-			String movie_image_name) {
+			String movie_image_name, String movie_genre, String movie_actors) {
 		super();
 		this.ticket_no = ticket_no;
 		this.user_no = user_no;
@@ -46,6 +48,8 @@ public class TicketUserVo {
 		this.room_floor = room_floor;
 		this.movie_name = movie_name;
 		this.movie_image_name = movie_image_name;
+		this.movie_genre = movie_genre;
+		this.movie_actors = movie_actors;
 	}
 
 	// Getter & Setter (Accessor)
@@ -170,6 +174,22 @@ public class TicketUserVo {
 		this.room_price = room_price;
 	}
 
+	public String getMovie_genre() {
+		return movie_genre;
+	}
+
+	public void setMovie_genre(String movie_genre) {
+		this.movie_genre = movie_genre;
+	}
+
+	public String getMovie_actors() {
+		return movie_actors;
+	}
+
+	public void setMovie_actors(String movie_actors) {
+		this.movie_actors = movie_actors;
+	}
+
 	// toString()
 	@Override
 	public String toString() {
@@ -178,9 +198,8 @@ public class TicketUserVo {
 				+ ", movie_code=" + movie_code + ", cinema_name=" + cinema_name + ", seat_x=" + seat_x + ", seat_y="
 				+ seat_y + ", room_type_name=" + room_type_name + ", room_price=" + room_price + ", room_name="
 				+ room_name + ", room_floor=" + room_floor + ", movie_name=" + movie_name + ", movie_image_name="
-				+ movie_image_name + "]";
+				+ movie_image_name + ", movie_genre=" + movie_genre + ", movie_actors=" + movie_actors + "]";
 	}
 
-	
 	
 }

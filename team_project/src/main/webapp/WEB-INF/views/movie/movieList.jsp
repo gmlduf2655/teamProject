@@ -34,6 +34,15 @@ function getMovieList(){
 			console.log("ajax", rData);
 				 $.each(rData, function(index,appendlist){
 					   console.log(appendlist.movie_code);
+					var actors = [];
+					var index = this.movie_actors.indexOf(",");
+					if(index != -1){
+						actors.push(this.movie_actors.substring(0,index));
+					}
+					actors.push(this.movie_actors.substring(index+1));
+					var actors2 = this.movie_actors + '';
+					var setVal = "${fn:split('`+ this.movie_actors +`' , ',')}";
+					console.log(actors2);
 					var div = `
 						<div class="col-md-3">
 						<div class="product__item">
@@ -51,16 +60,18 @@ function getMovieList(){
 								style="cursor: pointer; width: 80%; background-image: url('/movie/displayImage?filename=`+this.movie_image_name+`');" onclick="location.href='/movie/movieInfo?movie_code=`+this.movie_code+`';">
 								
 							</div>
-							
 							<div class="product__item__text">
 								<ul>
 									<li>
 										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_genre&keyword=`+this.movie_genre+`">#`+this.movie_genre+`</a>
-									</li>
-									<li>
-										<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=`+this.movie_actors+`">#`+this.movie_actors+`</a>
-									</li>
-								</ul>
+									</li>`;
+									
+									for(var i=0 ; i<actors.length ; i++){
+										div += `<li>
+											<a style="color: white;" href="/movie/movieListHashTag?sType=movie_actors&keyword=`+actors[i]+`">#`+actors[i]+`</a>
+										</li>`;
+									}
+								div += `</ul>
 								<h5>
 									<a href="/movie/movieInfo?movie_code=`+this.movie_code+`">`+this.movie_name+`</a>
 								</h5>

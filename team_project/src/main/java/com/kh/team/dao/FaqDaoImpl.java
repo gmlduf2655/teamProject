@@ -81,4 +81,24 @@ public class FaqDaoImpl implements FaqDao {
 		return false;
 	}
 
+	// FAQ 다중 삭제
+	@Override
+	public boolean multiDeleteFAQ(List<Integer> list) {
+		int count = sqlSession.update(NAMESPACE + "multiDeleteFAQ", list);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// FAQ 다중 비공개
+	@Override
+	public boolean multiCloseFAQ(List<Integer> list) {
+		int count = sqlSession.update(NAMESPACE + "multiCloseFAQ", list);
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

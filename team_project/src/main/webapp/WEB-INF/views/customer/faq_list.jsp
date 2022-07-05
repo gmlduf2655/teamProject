@@ -22,7 +22,7 @@
 			var keyword = $("#keyword").val(); // 검색어
 			var searchType = $("#searchType").val(); // 검색유형
 			// 검색 버튼을 눌렀을 때 검색 유형과 검색어에 따른 포인트 목록을 다시보여줌
-			location.href = "/user/faq_list?&page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
+			location.href = "/customer/faq_list?&page=${param.page}&searchType=" + searchType + "&keyword=" + keyword;
 		});		
 	});
 </script>

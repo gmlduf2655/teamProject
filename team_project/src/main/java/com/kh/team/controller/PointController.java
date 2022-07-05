@@ -45,6 +45,7 @@ public class PointController {
 	// 포인트 목록 내역
 	@RequestMapping (value="/point_list", method=RequestMethod.GET)
 	public String pointList(Model model, int userno, int page, PagingDto pagingDto) {
+		System.out.println(pagingDto);
 		int count = pointService.getCountPointListByUserno(userno, pagingDto);
 		pagingDto.setCount(count);
 		pagingDto.setPage(page);
@@ -159,26 +160,26 @@ public class PointController {
 	
 	// 포인트 코드 생성
 	@RequestMapping(value="/create_point_code_run", method=RequestMethod.POST)
-	public String createPointCodeRun(PointVo pointVo, RedirectAttributes redirectAttributes) {
+	public String createPointCodeRun(int page, PointVo pointVo, RedirectAttributes redirectAttributes) {
 		boolean result = pointService.addPointCode(pointVo);
 		redirectAttributes.addFlashAttribute("add_result", result + "");
-		return "redirect:/admin/manage_point_code?page=1";
+		return "redirect:/admin/manage_point_code?page=" + page;
 	}
 	
 	// 포인트 코드 수정
 	@RequestMapping(value="/update_point_code", method=RequestMethod.POST)
-	public String updatePointCode(PointVo pointVo, RedirectAttributes redirectAttributes) {
+	public String updatePointCode(int page, PointVo pointVo, RedirectAttributes redirectAttributes) {
 		boolean result = pointService.updatePointCode(pointVo);
 		redirectAttributes.addFlashAttribute("update_result", result + "");
-		return "redirect:/admin/manage_point_code?page=1";		
+		return "redirect:/admin/manage_point_code?page=" + page;		
 	}
 	
 	// 포인트 코드 삭제
 	@RequestMapping(value="/delete_point_code", method=RequestMethod.POST)
-	public String deletePointCode(int point_code, RedirectAttributes redirectAttributes) {
+	public String deletePointCode(int page, int point_code, RedirectAttributes redirectAttributes) {
 		boolean result = pointService.deletePointCode(point_code);
 		redirectAttributes.addFlashAttribute("delete_result", result + "");
-		return "redirect:/admin/manage_point_code?page=1";		
+		return "redirect:/admin/manage_point_code?page=" + page;		
 	}
 	
 	// 포인트 코드 다수 삭제
@@ -190,7 +191,7 @@ public class PointController {
 		}
 		boolean result = pointService.multiDeletePointCode(pointCodes);
 		redirectAttributes.addFlashAttribute("delete_result", result + "");
-		return "redirect:/admin/create_point_code?page=" + page;
+		return "redirect:/admin/manage_point_code?page=" + page;
 	}
 	
 	// 임희열 : 카카오페이 결제 준비화면 이동

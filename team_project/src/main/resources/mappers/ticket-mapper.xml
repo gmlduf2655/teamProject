@@ -117,7 +117,7 @@
 			d.seat_x, d.seat_y,
 			e.room_type_name, e.room_price,
 			f.room_name, f.room_floor,
-			g.movie_name, g.movie_image_name
+			g.movie_name, g.movie_image_name, g.movie_genre, g.movie_actors
 		from 
 			tbl_ticket a, tbl_room_timeline b, tbl_cinema c, tbl_room_seat d, 
 			tbl_room_type e, tbl_cinema_room f, tbl_movie g
@@ -142,7 +142,7 @@
 			d.seat_x, d.seat_y,
 			e.room_type_name, e.room_price,
 			f.room_name, f.room_floor,
-			g.movie_name, g.movie_image_name
+			g.movie_name, g.movie_image_name, g.movie_genre, g.movie_actors
 		from 
 			tbl_ticket a, tbl_room_timeline b, tbl_cinema c, tbl_room_seat d, 
 			tbl_room_type e, tbl_cinema_room f, tbl_movie g

@@ -200,9 +200,10 @@ public class MypageController {
 	
 	// 비밀번호 변경
 	@RequestMapping(value="/change_password_run", method=RequestMethod.POST)
-	public String changePasswordRun(String userid,String newUserpw, RedirectAttributes redirectAttributes) {
+	public String changePasswordRun(String userid,String newUserpw, RedirectAttributes redirectAttributes, HttpSession session) {
 		boolean result = userService.modifyUserpw(userid, newUserpw);
 		redirectAttributes.addFlashAttribute("update_userpw_result", result + "");
+		session.removeAttribute("loginUserVo");
 		return "redirect:/user/login_form";
 	}
 	
