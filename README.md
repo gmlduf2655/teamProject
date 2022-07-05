@@ -1,8 +1,11 @@
-Movier
-=============
-개발기간 : 2022.06.20 ~ 2022.07.08
+<style>
+	h4 {
+		color: red;
+	}
+</style>
+<h4>Movier</h4>
+<time>개발기간 : 2022.06.20 ~ 2022.07.08</time>
 
-<!-- ![movier_erdiagram](https://user-images.githubusercontent.com/106262783/177227425-7eb50079-28bf-4d5a-acac-16f1a56258e5.png) -->
 <img alt="movier_erdiagram" src="https://user-images.githubusercontent.com/106262783/177227425-7eb50079-28bf-4d5a-acac-16f1a56258e5.png"/>
 
 <h5>기획의도</h5>
@@ -26,7 +29,7 @@ Movier
 	<li>Bootstrap</li>
 	<li>Git</li>
 	<li>
-		<h4>API</h4>
+		<h6>API</h6>
 		<ul>
 			<li>카카오 결제</li>
 			<li>카카오 주소</li>
