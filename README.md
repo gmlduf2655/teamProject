@@ -1,7 +1,7 @@
 <h6>Movier</h6>
 <time>2022.06.20 ~ 2022.07.08</time>
 
-<img alt="movier_erdiagram" src="https://user-images.githubusercontent.com/106262783/177227425-7eb50079-28bf-4d5a-acac-16f1a56258e5.png"/>
+<img alt="movier_erdiagram" src="https://user-images.githubusercontent.com/106262783/177231469-790183b5-c79b-497d-8e46-00f98c2c256d.png"/>
 
 <h6>기획의도</h6>
 <p>
