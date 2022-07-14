@@ -58,12 +58,12 @@
 	</li>
 	<li>
 		<h6>회원가입페이지</h6>
-		<img src="https://user-images.githubusercontent.com/78259452/178886874-47a04e9a-d504-4bb9-9678-d1142813aabf.png">
-		<img src="https://user-images.githubusercontent.com/78259452/178887394-e8d2d234-b726-4ec6-a121-82a9df444e50.png">
+		<img width="370px" src="https://user-images.githubusercontent.com/78259452/178886874-47a04e9a-d504-4bb9-9678-d1142813aabf.png">
+		<img width="370px" src="https://user-images.githubusercontent.com/78259452/178887394-e8d2d234-b726-4ec6-a121-82a9df444e50.png">
 	</li>
 	<li>
 		<h6>마이 페이지</h6>
-		<img srd="https://user-images.githubusercontent.com/78259452/178887006-a51bed9c-43d6-4793-bc01-6d4e4c45c950.jpeg">
+		<img src="https://user-images.githubusercontent.com/78259452/178887006-a51bed9c-43d6-4793-bc01-6d4e4c45c950.jpeg">
 	</li>
 	<li>
 		<h6>영화 예매 페이지</h6>
