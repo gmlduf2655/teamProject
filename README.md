@@ -46,6 +46,13 @@
 </ul>
 
 <hr>
+
+<h5>유튜브 시연영상</h5>
+<ul>
+	<li><a href="https://youtu.be/gLmQgFBsQ1o">https://youtu.be/gLmQgFBsQ1o</a></li>
+</ul>
+
+<hr>
 <h5>페이지 화면</h5>
 <ul>
 	<li>
