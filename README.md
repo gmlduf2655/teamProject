@@ -54,7 +54,6 @@
 	</li>
 	<li>
 		<h6>로그인 페이지</h6>
-	
-		<img alt="로그인 페이지" src="https://user-images.githubusercontent.com/78259452/178885811-22dee0f0-1008-48e7-a01c-be28db89ce9e.jpeg">
+		<img src="https://user-images.githubusercontent.com/78259452/178886693-902eb691-77a5-48e7-91bf-b4352c81f06d.png">		
 	</li>
 </ul>
