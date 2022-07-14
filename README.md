@@ -22,7 +22,7 @@
 	<li>Bootstrap</li>
 	<li>Git</li>
 	<li>
-		<h6>API</h6>
+		API
 		<ul>
 			<li>카카오 결제</li>
 			<li>카카오 주소</li>
@@ -34,4 +34,4 @@
 </ul>
 
 <hr>
-<h5></h5>
+<h5>페이지 </h5>
