@@ -50,6 +50,6 @@
 <ul>
 	<li>
 		<h6>메인페이지</h6>
-		![메인페이지](https://user-images.githubusercontent.com/78259452/178885811-22dee0f0-1008-48e7-a01c-be28db89ce9e.jpeg)
+		<img alt="" src="https://user-images.githubusercontent.com/78259452/178885811-22dee0f0-1008-48e7-a01c-be28db89ce9e.jpeg">
 	</li>
 </ul>
