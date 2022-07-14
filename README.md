@@ -56,4 +56,33 @@
 		<h6>로그인 페이지</h6>
 		<img src="https://user-images.githubusercontent.com/78259452/178886693-902eb691-77a5-48e7-91bf-b4352c81f06d.png">		
 	</li>
+	<li>
+		<h6>회원가입페이지</h6>
+		<img src="https://user-images.githubusercontent.com/78259452/178886874-47a04e9a-d504-4bb9-9678-d1142813aabf.png">
+		<img src="https://user-images.githubusercontent.com/78259452/178887394-e8d2d234-b726-4ec6-a121-82a9df444e50.png">
+	</li>
+	<li>
+		<h6>마이 페이지</h6>
+		<img srd="https://user-images.githubusercontent.com/78259452/178887006-a51bed9c-43d6-4793-bc01-6d4e4c45c950.jpeg">
+	</li>
+	<li>
+		<h6>영화 예매 페이지</h6>
+		<img src="https://user-images.githubusercontent.com/78259452/178887128-96756ed2-afff-4faf-b991-42661b4cdb50.jpeg">
+	</li>
+	<li>
+		<h6>영화 정보 페이지</h6>
+		<img src="https://user-images.githubusercontent.com/78259452/178887225-9b1fe1e5-3c21-4a44-bc9d-e371a47bbb9e.jpeg">
+	</li>
+	<li>
+		<h6>이벤트 페이지</h6>
+		<img src="https://user-images.githubusercontent.com/78259452/178887474-d76dc741-0d21-4e37-a081-ca05da15b09c.jpeg">
+	</li>
+	<li>
+		<h6>리뷰 페이지</h6>
+		<img src="https://user-images.githubusercontent.com/78259452/178887589-e025b226-0728-40fe-94f4-00a295269175.jpeg">		
+	</li>
+	<li>
+		<h6>FAQ 페이지</h6>
+		<img src="https://user-images.githubusercontent.com/78259452/178887710-4003cb87-c287-4b1d-9200-fb255479e1a5.jpeg">
+	</li>
 </ul>
