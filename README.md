@@ -54,8 +54,7 @@
 	</li>
 	<li>
 		<h6>로그인 페이지</h6>
-		![로그인 화면](https://user-images.githubusercontent.com/78259452/178886347-9470bc7d-e2fc-4607-b378-320365ed14bc.png)
-
+	
 		<img alt="로그인 페이지" src="https://user-images.githubusercontent.com/78259452/178885811-22dee0f0-1008-48e7-a01c-be28db89ce9e.jpeg">
 	</li>
 </ul>
